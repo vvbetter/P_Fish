@@ -1472,3 +1472,13 @@ public:
 private:
 	std::vector<tagTimerEvent>		m_TimerEventVec;
 };
+
+template<class T>
+std::string Format2String(const T &t)
+{
+	stringstream ss;
+	ss << t;
+	string ret = "";
+	ss >> ret;
+	return ret;
+}

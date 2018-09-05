@@ -13,7 +13,7 @@ struct DelClient
 	DWORD		LogTime;
 	DWORD		SocketID;
 };
-typedef HashMap<INT64, tagClientUserData*> HallDataCatch;
+typedef HashMap<INT64, tagClientUserData*> HallDataCache;
 class FishServer : public INetHandler
 {
 public:
@@ -45,6 +45,7 @@ public:
 	TableManager*	GetTableManager(){ return &m_TableManager; }
 	FishConfig&		GetFishConfig(){ return m_FishConfig; }
 	GameRobotManager& GetRobotManager(){ return m_RobotManager; }
+	tagClientUserData* GetHallDataCache(const int64 uid);
 	void UpdateByMin(DWORD dwTimer);
 	void OnSaveInfoToDB(DWORD dwTimer);
 	void CloseClientSocket(DWORD SocketID);

@@ -53,7 +53,7 @@ public:
 	void SetLauncher(BYTE LauncherType);
 	void ResetData();
 
-	void OnCatchFish(CatchType catchType, byte subType,WORD FishType, BYTE byPackageType, int nScore, int nExp);
+	void OnCatchFish(CatchType catchType, byte subType,WORD FishType, int nScore);
 	bool CheckFire(BYTE byLauncher);
 	bool IsFullEnergy();
 	SkillFailedType UseSkill(SkillType skill);

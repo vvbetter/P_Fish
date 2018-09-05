@@ -40,7 +40,7 @@ public:
 	void	SendDataToTable(NetCmd* pCmd);
 	void    SendUserLeaveToCenter();
 
-	bool	ChangeRoleGlobe(int64 AddGlobe, const BYTE TableTypeID);
+	bool	ChangeRoleGlobe(int64 AddGlobe, const BYTE TableTypeID, const USHORT FishType = -1);
 
 
 	bool	ChangeRoleProduction(DWORD dwProduction);

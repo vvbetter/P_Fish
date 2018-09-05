@@ -318,7 +318,9 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 	case GetMsgType(70, 24):
 	{
 		GL_QuitSubGame* pmsg = (GL_QuitSubGame*)pCmd;
-		GLQuitSubFishGameMessage msg;
+		GLQuitSubGameMessage msg;
+		msg.set_rpcid(0);
+		msg.set_quitsubgame(true);
 		msg.set_money1(pmsg->money1);
 		msg.set_money2(pmsg->money2);
 		msg.set_offline(pmsg->quitSubGame);
@@ -326,15 +328,42 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		msg.set_daylosenum(pmsg->loseNum);
 		msg.set_winmoney2(pmsg->winMoney);
 		msg.set_losemoney2(pmsg->loseMoney);
-		msg.set_achdatamap("");
-		Log("玩家%lld退出游戏,赢的次数:%d,输的次数:%d, 总赢的钱%lf,总输的钱%lf", pmsg->uid, pmsg->winNum, pmsg->loseNum, pmsg->winMoney, pmsg->loseMoney);
+		msg.set_continuewinnum(0);
+		msg.set_gamemaxwinmoney(0);
+		msg.set_charmvalue(pmsg->charmValue);
+		msg.set_others(Format2String(pmsg->catchBossFishCount));
+		//解析成就信息
+		Json::Value achValue;
+		Json::StreamWriterBuilder jw;
+		for (int i = 0; i < pmsg->achSize; ++i)
+		{
+			Json::Value value_i;
+			value_i["achtype"] = pmsg->achData[i].achtype;
+			value_i["finishtime"] = pmsg->achData[i].finishtime;
+			value_i["gameid"] = pmsg->achData[i].gameid;
+			value_i["liansheng"] = pmsg->achData[i].liansheng;
+			value_i["lianshu"] = pmsg->achData[i].lianshu;
+			value_i["qId"] = pmsg->achData[i].qId;
+			value_i["qachNum"] = pmsg->achData[i].qachNum;
+			value_i["qachfinishnum"] = pmsg->achData[i].qachfinishnum;
+			value_i["receivetime"] = pmsg->achData[i].receivetime;
+			value_i["rewardMoney"] = pmsg->achData[i].rewardMoney;
+			value_i["titleID"] = pmsg->achData[i].titleID;
+			value_i["titlemoney"] = pmsg->achData[i].titlemoney;
+			achValue[Format2String(pmsg->achData[i].qId)] = value_i;
+		}
+		unique_ptr<Json::StreamWriter> writer(jw.newStreamWriter());
+		ostringstream os;
+		writer->write(achValue, &os);
+		msg.set_achdatamap(os.str());
+		//Log("玩家%lld退出游戏,赢的次数:%d,输的次数:%d, 总赢的钱%lf,总输的钱%lf", pmsg->uid, pmsg->winNum, pmsg->loseNum, pmsg->winMoney, pmsg->loseMoney);
 		dataLenth = msg.ByteSize() + sizeof(NetCmd);
 		ret = (char*)malloc(dataLenth);
 		USHORT pbcLen = htons(msg.ByteSize() + 10);
 		memcpy_s(ret, 2, &pbcLen, 2);
 		int64 uid = htonll(pmsg->uid);
 		memcpy_s(ret + 2, 8, &uid, 8);
-		USHORT id = htons(com::game::proto::Protos_Rpc::GLQuitSubFishGame);
+		USHORT id = htons(com::game::proto::Protos_Rpc::GLQuitSubGame);
 		memcpy_s(ret + 10, 2, &id, 2);
 		msg.SerializeToArray(ret + 12, msg.ByteSize());
 		break;

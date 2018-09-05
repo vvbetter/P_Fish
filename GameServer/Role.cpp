@@ -219,7 +219,7 @@ LaunchFailedType CRole::UseLaser(byte launcherType)
 	return LFT_OK;
 }
 
-void CRole::OnCatchFish(CatchType catchType, byte subType,WORD FishType, BYTE byPackageType, int nScore, int nExp)
+void CRole::OnCatchFish(CatchType catchType, byte subType,WORD FishType, int nScore)
 {
 	if (!m_pRoleEx)
 	{
@@ -234,7 +234,7 @@ void CRole::OnCatchFish(CatchType catchType, byte subType,WORD FishType, BYTE by
 	}
 	int64 catchScore = nScore*static_cast<int64>(MONEY_RATIO*g_FishServer.GetRatioValue()*tableBasicRate);
 	
-	m_pRoleEx->ChangeRoleGlobe(catchScore, m_TableType);
+	m_pRoleEx->ChangeRoleGlobe(catchScore, m_TableType, FishType);
 
 	if (!m_pRoleEx->IsRobot())
 	{

@@ -34,7 +34,6 @@ void  protobuf_AddDesc_RpcMessage_2eproto();
 void protobuf_AssignDesc_RpcMessage_2eproto();
 void protobuf_ShutdownFile_RpcMessage_2eproto();
 
-class GLQuitSubFishGameMessage;
 class GLSendMailMessage;
 class LGLoginSubGameMessage;
 class GLLoginSubGameMessage;
@@ -95,280 +94,6 @@ inline bool Protos_Rpc_Parse(
     Protos_Rpc_descriptor(), name, value);
 }
 // ===================================================================
-
-class GLQuitSubFishGameMessage : public ::google::protobuf::Message {
- public:
-  GLQuitSubFishGameMessage();
-  virtual ~GLQuitSubFishGameMessage();
-  
-  GLQuitSubFishGameMessage(const GLQuitSubFishGameMessage& from);
-  
-  inline GLQuitSubFishGameMessage& operator=(const GLQuitSubFishGameMessage& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
-    return _unknown_fields_;
-  }
-  
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
-    return &_unknown_fields_;
-  }
-  
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const GLQuitSubFishGameMessage& default_instance();
-  
-  void Swap(GLQuitSubFishGameMessage* other);
-  
-  // implements Message ----------------------------------------------
-  
-  GLQuitSubFishGameMessage* New() const;
-  void CopyFrom(const ::google::protobuf::Message& from);
-  void MergeFrom(const ::google::protobuf::Message& from);
-  void CopyFrom(const GLQuitSubFishGameMessage& from);
-  void MergeFrom(const GLQuitSubFishGameMessage& from);
-  void Clear();
-  bool IsInitialized() const;
-  
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  public:
-  
-  ::google::protobuf::Metadata GetMetadata() const;
-  
-  // nested types ----------------------------------------------------
-  
-  // accessors -------------------------------------------------------
-  
-  // optional .com.game.proto.Protos_Rpc msgID = 1 [default = GLQuitSubFishGame];
-  inline bool has_msgid() const;
-  inline void clear_msgid();
-  static const int kMsgIDFieldNumber = 1;
-  inline com::game::proto::Protos_Rpc msgid() const;
-  inline void set_msgid(com::game::proto::Protos_Rpc value);
-  
-  // required double money1 = 2;
-  inline bool has_money1() const;
-  inline void clear_money1();
-  static const int kMoney1FieldNumber = 2;
-  inline double money1() const;
-  inline void set_money1(double value);
-  
-  // required double money2 = 3;
-  inline bool has_money2() const;
-  inline void clear_money2();
-  static const int kMoney2FieldNumber = 3;
-  inline double money2() const;
-  inline void set_money2(double value);
-  
-  // optional bool offLine = 4;
-  inline bool has_offline() const;
-  inline void clear_offline();
-  static const int kOffLineFieldNumber = 4;
-  inline bool offline() const;
-  inline void set_offline(bool value);
-  
-  // optional double winMoney1 = 6;
-  inline bool has_winmoney1() const;
-  inline void clear_winmoney1();
-  static const int kWinMoney1FieldNumber = 6;
-  inline double winmoney1() const;
-  inline void set_winmoney1(double value);
-  
-  // optional double winMoney2 = 7;
-  inline bool has_winmoney2() const;
-  inline void clear_winmoney2();
-  static const int kWinMoney2FieldNumber = 7;
-  inline double winmoney2() const;
-  inline void set_winmoney2(double value);
-  
-  // optional double loseMoney1 = 8;
-  inline bool has_losemoney1() const;
-  inline void clear_losemoney1();
-  static const int kLoseMoney1FieldNumber = 8;
-  inline double losemoney1() const;
-  inline void set_losemoney1(double value);
-  
-  // optional double loseMoney2 = 9;
-  inline bool has_losemoney2() const;
-  inline void clear_losemoney2();
-  static const int kLoseMoney2FieldNumber = 9;
-  inline double losemoney2() const;
-  inline void set_losemoney2(double value);
-  
-  // optional int32 playround = 10;
-  inline bool has_playround() const;
-  inline void clear_playround();
-  static const int kPlayroundFieldNumber = 10;
-  inline ::google::protobuf::int32 playround() const;
-  inline void set_playround(::google::protobuf::int32 value);
-  
-  // optional int32 dayWinNum = 11;
-  inline bool has_daywinnum() const;
-  inline void clear_daywinnum();
-  static const int kDayWinNumFieldNumber = 11;
-  inline ::google::protobuf::int32 daywinnum() const;
-  inline void set_daywinnum(::google::protobuf::int32 value);
-  
-  // optional int32 dayLoseNum = 12;
-  inline bool has_daylosenum() const;
-  inline void clear_daylosenum();
-  static const int kDayLoseNumFieldNumber = 12;
-  inline ::google::protobuf::int32 daylosenum() const;
-  inline void set_daylosenum(::google::protobuf::int32 value);
-  
-  // optional int32 mapModelId = 13;
-  inline bool has_mapmodelid() const;
-  inline void clear_mapmodelid();
-  static const int kMapModelIdFieldNumber = 13;
-  inline ::google::protobuf::int32 mapmodelid() const;
-  inline void set_mapmodelid(::google::protobuf::int32 value);
-  
-  // optional int32 continueWinNum = 14;
-  inline bool has_continuewinnum() const;
-  inline void clear_continuewinnum();
-  static const int kContinueWinNumFieldNumber = 14;
-  inline ::google::protobuf::int32 continuewinnum() const;
-  inline void set_continuewinnum(::google::protobuf::int32 value);
-  
-  // optional double gameMaxWinMoney = 15;
-  inline bool has_gamemaxwinmoney() const;
-  inline void clear_gamemaxwinmoney();
-  static const int kGameMaxWinMoneyFieldNumber = 15;
-  inline double gamemaxwinmoney() const;
-  inline void set_gamemaxwinmoney(double value);
-  
-  // optional int32 charmValue = 16;
-  inline bool has_charmvalue() const;
-  inline void clear_charmvalue();
-  static const int kCharmValueFieldNumber = 16;
-  inline ::google::protobuf::int32 charmvalue() const;
-  inline void set_charmvalue(::google::protobuf::int32 value);
-  
-  // optional string others = 17;
-  inline bool has_others() const;
-  inline void clear_others();
-  static const int kOthersFieldNumber = 17;
-  inline const ::std::string& others() const;
-  inline void set_others(const ::std::string& value);
-  inline void set_others(const char* value);
-  inline void set_others(const char* value, size_t size);
-  inline ::std::string* mutable_others();
-  inline ::std::string* release_others();
-  
-  // optional string achDataMap = 18;
-  inline bool has_achdatamap() const;
-  inline void clear_achdatamap();
-  static const int kAchDataMapFieldNumber = 18;
-  inline const ::std::string& achdatamap() const;
-  inline void set_achdatamap(const ::std::string& value);
-  inline void set_achdatamap(const char* value);
-  inline void set_achdatamap(const char* value, size_t size);
-  inline ::std::string* mutable_achdatamap();
-  inline ::std::string* release_achdatamap();
-  
-  // optional string sameTableMap = 19;
-  inline bool has_sametablemap() const;
-  inline void clear_sametablemap();
-  static const int kSameTableMapFieldNumber = 19;
-  inline const ::std::string& sametablemap() const;
-  inline void set_sametablemap(const ::std::string& value);
-  inline void set_sametablemap(const char* value);
-  inline void set_sametablemap(const char* value, size_t size);
-  inline ::std::string* mutable_sametablemap();
-  inline ::std::string* release_sametablemap();
-  
-  // optional double taxMoney = 20;
-  inline bool has_taxmoney() const;
-  inline void clear_taxmoney();
-  static const int kTaxMoneyFieldNumber = 20;
-  inline double taxmoney() const;
-  inline void set_taxmoney(double value);
-  
-  // @@protoc_insertion_point(class_scope:com.game.proto.GLQuitSubFishGameMessage)
- private:
-  inline void set_has_msgid();
-  inline void clear_has_msgid();
-  inline void set_has_money1();
-  inline void clear_has_money1();
-  inline void set_has_money2();
-  inline void clear_has_money2();
-  inline void set_has_offline();
-  inline void clear_has_offline();
-  inline void set_has_winmoney1();
-  inline void clear_has_winmoney1();
-  inline void set_has_winmoney2();
-  inline void clear_has_winmoney2();
-  inline void set_has_losemoney1();
-  inline void clear_has_losemoney1();
-  inline void set_has_losemoney2();
-  inline void clear_has_losemoney2();
-  inline void set_has_playround();
-  inline void clear_has_playround();
-  inline void set_has_daywinnum();
-  inline void clear_has_daywinnum();
-  inline void set_has_daylosenum();
-  inline void clear_has_daylosenum();
-  inline void set_has_mapmodelid();
-  inline void clear_has_mapmodelid();
-  inline void set_has_continuewinnum();
-  inline void clear_has_continuewinnum();
-  inline void set_has_gamemaxwinmoney();
-  inline void clear_has_gamemaxwinmoney();
-  inline void set_has_charmvalue();
-  inline void clear_has_charmvalue();
-  inline void set_has_others();
-  inline void clear_has_others();
-  inline void set_has_achdatamap();
-  inline void clear_has_achdatamap();
-  inline void set_has_sametablemap();
-  inline void clear_has_sametablemap();
-  inline void set_has_taxmoney();
-  inline void clear_has_taxmoney();
-  
-  ::google::protobuf::UnknownFieldSet _unknown_fields_;
-  
-  double money1_;
-  int msgid_;
-  bool offline_;
-  double money2_;
-  double winmoney1_;
-  double winmoney2_;
-  double losemoney1_;
-  double losemoney2_;
-  ::google::protobuf::int32 playround_;
-  ::google::protobuf::int32 daywinnum_;
-  ::google::protobuf::int32 daylosenum_;
-  ::google::protobuf::int32 mapmodelid_;
-  double gamemaxwinmoney_;
-  ::google::protobuf::int32 continuewinnum_;
-  ::google::protobuf::int32 charmvalue_;
-  ::std::string* others_;
-  ::std::string* achdatamap_;
-  ::std::string* sametablemap_;
-  double taxmoney_;
-  
-  mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(19 + 31) / 32];
-  
-  friend void  protobuf_AddDesc_RpcMessage_2eproto();
-  friend void protobuf_AssignDesc_RpcMessage_2eproto();
-  friend void protobuf_ShutdownFile_RpcMessage_2eproto();
-  
-  void InitAsDefaultInstance();
-  static GLQuitSubFishGameMessage* default_instance_;
-};
-// -------------------------------------------------------------------
 
 class GLSendMailMessage : public ::google::protobuf::Message {
  public:
@@ -1554,6 +1279,13 @@ class GLQuitSubGameMessage : public ::google::protobuf::Message {
   inline double taxmoney() const;
   inline void set_taxmoney(double value);
   
+  // optional bool offLine = 21;
+  inline bool has_offline() const;
+  inline void clear_offline();
+  static const int kOffLineFieldNumber = 21;
+  inline bool offline() const;
+  inline void set_offline(bool value);
+  
   // @@protoc_insertion_point(class_scope:com.game.proto.GLQuitSubGameMessage)
  private:
   inline void set_has_msgid();
@@ -1596,6 +1328,8 @@ class GLQuitSubGameMessage : public ::google::protobuf::Message {
   inline void clear_has_sametablemap();
   inline void set_has_taxmoney();
   inline void clear_has_taxmoney();
+  inline void set_has_offline();
+  inline void clear_has_offline();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
@@ -1604,13 +1338,14 @@ class GLQuitSubGameMessage : public ::google::protobuf::Message {
   double money1_;
   double money2_;
   double winmoney1_;
-  bool quitsubgame_;
-  ::google::protobuf::int32 playround_;
   double winmoney2_;
   double losemoney1_;
   double losemoney2_;
+  ::google::protobuf::int32 playround_;
   ::google::protobuf::int32 daywinnum_;
   ::google::protobuf::int32 daylosenum_;
+  bool quitsubgame_;
+  bool offline_;
   ::google::protobuf::int32 mapmodelid_;
   ::google::protobuf::int32 continuewinnum_;
   double gamemaxwinmoney_;
@@ -1621,7 +1356,7 @@ class GLQuitSubGameMessage : public ::google::protobuf::Message {
   ::google::protobuf::int32 charmvalue_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(20 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(21 + 31) / 32];
   
   friend void  protobuf_AddDesc_RpcMessage_2eproto();
   friend void protobuf_AssignDesc_RpcMessage_2eproto();
@@ -3560,17 +3295,91 @@ class GLFilishPresentCharmMessage : public ::google::protobuf::Message {
   inline com::game::proto::Protos_Rpc msgid() const;
   inline void set_msgid(com::game::proto::Protos_Rpc value);
   
+  // required string name = 2;
+  inline bool has_name() const;
+  inline void clear_name();
+  static const int kNameFieldNumber = 2;
+  inline const ::std::string& name() const;
+  inline void set_name(const ::std::string& value);
+  inline void set_name(const char* value);
+  inline void set_name(const char* value, size_t size);
+  inline ::std::string* mutable_name();
+  inline ::std::string* release_name();
+  
+  // optional int64 playerId = 3;
+  inline bool has_playerid() const;
+  inline void clear_playerid();
+  static const int kPlayerIdFieldNumber = 3;
+  inline ::google::protobuf::int64 playerid() const;
+  inline void set_playerid(::google::protobuf::int64 value);
+  
+  // optional int64 toPlayerId = 4;
+  inline bool has_toplayerid() const;
+  inline void clear_toplayerid();
+  static const int kToPlayerIdFieldNumber = 4;
+  inline ::google::protobuf::int64 toplayerid() const;
+  inline void set_toplayerid(::google::protobuf::int64 value);
+  
+  // optional int32 subGameId = 5;
+  inline bool has_subgameid() const;
+  inline void clear_subgameid();
+  static const int kSubGameIdFieldNumber = 5;
+  inline ::google::protobuf::int32 subgameid() const;
+  inline void set_subgameid(::google::protobuf::int32 value);
+  
+  // optional int32 presentType = 6;
+  inline bool has_presenttype() const;
+  inline void clear_presenttype();
+  static const int kPresentTypeFieldNumber = 6;
+  inline ::google::protobuf::int32 presenttype() const;
+  inline void set_presenttype(::google::protobuf::int32 value);
+  
+  // optional int32 presentValue = 7;
+  inline bool has_presentvalue() const;
+  inline void clear_presentvalue();
+  static const int kPresentValueFieldNumber = 7;
+  inline ::google::protobuf::int32 presentvalue() const;
+  inline void set_presentvalue(::google::protobuf::int32 value);
+  
+  // optional int32 num = 8;
+  inline bool has_num() const;
+  inline void clear_num();
+  static const int kNumFieldNumber = 8;
+  inline ::google::protobuf::int32 num() const;
+  inline void set_num(::google::protobuf::int32 value);
+  
   // @@protoc_insertion_point(class_scope:com.game.proto.GLFilishPresentCharmMessage)
  private:
   inline void set_has_msgid();
   inline void clear_has_msgid();
+  inline void set_has_name();
+  inline void clear_has_name();
+  inline void set_has_playerid();
+  inline void clear_has_playerid();
+  inline void set_has_toplayerid();
+  inline void clear_has_toplayerid();
+  inline void set_has_subgameid();
+  inline void clear_has_subgameid();
+  inline void set_has_presenttype();
+  inline void clear_has_presenttype();
+  inline void set_has_presentvalue();
+  inline void clear_has_presentvalue();
+  inline void set_has_num();
+  inline void clear_has_num();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
+  ::std::string* name_;
+  ::google::protobuf::int64 playerid_;
   int msgid_;
+  ::google::protobuf::int32 subgameid_;
+  ::google::protobuf::int64 toplayerid_;
+  ::google::protobuf::int32 presenttype_;
+  ::google::protobuf::int32 presentvalue_;
+  ::google::protobuf::int32 num_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(1 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(8 + 31) / 32];
   
   friend void  protobuf_AddDesc_RpcMessage_2eproto();
   friend void protobuf_AssignDesc_RpcMessage_2eproto();
@@ -3583,537 +3392,6 @@ class GLFilishPresentCharmMessage : public ::google::protobuf::Message {
 
 
 // ===================================================================
-
-// GLQuitSubFishGameMessage
-
-// optional .com.game.proto.Protos_Rpc msgID = 1 [default = GLQuitSubFishGame];
-inline bool GLQuitSubFishGameMessage::has_msgid() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_msgid() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_msgid() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void GLQuitSubFishGameMessage::clear_msgid() {
-  msgid_ = 6214;
-  clear_has_msgid();
-}
-inline com::game::proto::Protos_Rpc GLQuitSubFishGameMessage::msgid() const {
-  return static_cast< com::game::proto::Protos_Rpc >(msgid_);
-}
-inline void GLQuitSubFishGameMessage::set_msgid(com::game::proto::Protos_Rpc value) {
-  GOOGLE_DCHECK(com::game::proto::Protos_Rpc_IsValid(value));
-  set_has_msgid();
-  msgid_ = value;
-}
-
-// required double money1 = 2;
-inline bool GLQuitSubFishGameMessage::has_money1() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_money1() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_money1() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void GLQuitSubFishGameMessage::clear_money1() {
-  money1_ = 0;
-  clear_has_money1();
-}
-inline double GLQuitSubFishGameMessage::money1() const {
-  return money1_;
-}
-inline void GLQuitSubFishGameMessage::set_money1(double value) {
-  set_has_money1();
-  money1_ = value;
-}
-
-// required double money2 = 3;
-inline bool GLQuitSubFishGameMessage::has_money2() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_money2() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_money2() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void GLQuitSubFishGameMessage::clear_money2() {
-  money2_ = 0;
-  clear_has_money2();
-}
-inline double GLQuitSubFishGameMessage::money2() const {
-  return money2_;
-}
-inline void GLQuitSubFishGameMessage::set_money2(double value) {
-  set_has_money2();
-  money2_ = value;
-}
-
-// optional bool offLine = 4;
-inline bool GLQuitSubFishGameMessage::has_offline() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_offline() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_offline() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void GLQuitSubFishGameMessage::clear_offline() {
-  offline_ = false;
-  clear_has_offline();
-}
-inline bool GLQuitSubFishGameMessage::offline() const {
-  return offline_;
-}
-inline void GLQuitSubFishGameMessage::set_offline(bool value) {
-  set_has_offline();
-  offline_ = value;
-}
-
-// optional double winMoney1 = 6;
-inline bool GLQuitSubFishGameMessage::has_winmoney1() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_winmoney1() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_winmoney1() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void GLQuitSubFishGameMessage::clear_winmoney1() {
-  winmoney1_ = 0;
-  clear_has_winmoney1();
-}
-inline double GLQuitSubFishGameMessage::winmoney1() const {
-  return winmoney1_;
-}
-inline void GLQuitSubFishGameMessage::set_winmoney1(double value) {
-  set_has_winmoney1();
-  winmoney1_ = value;
-}
-
-// optional double winMoney2 = 7;
-inline bool GLQuitSubFishGameMessage::has_winmoney2() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_winmoney2() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_winmoney2() {
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline void GLQuitSubFishGameMessage::clear_winmoney2() {
-  winmoney2_ = 0;
-  clear_has_winmoney2();
-}
-inline double GLQuitSubFishGameMessage::winmoney2() const {
-  return winmoney2_;
-}
-inline void GLQuitSubFishGameMessage::set_winmoney2(double value) {
-  set_has_winmoney2();
-  winmoney2_ = value;
-}
-
-// optional double loseMoney1 = 8;
-inline bool GLQuitSubFishGameMessage::has_losemoney1() const {
-  return (_has_bits_[0] & 0x00000040u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_losemoney1() {
-  _has_bits_[0] |= 0x00000040u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_losemoney1() {
-  _has_bits_[0] &= ~0x00000040u;
-}
-inline void GLQuitSubFishGameMessage::clear_losemoney1() {
-  losemoney1_ = 0;
-  clear_has_losemoney1();
-}
-inline double GLQuitSubFishGameMessage::losemoney1() const {
-  return losemoney1_;
-}
-inline void GLQuitSubFishGameMessage::set_losemoney1(double value) {
-  set_has_losemoney1();
-  losemoney1_ = value;
-}
-
-// optional double loseMoney2 = 9;
-inline bool GLQuitSubFishGameMessage::has_losemoney2() const {
-  return (_has_bits_[0] & 0x00000080u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_losemoney2() {
-  _has_bits_[0] |= 0x00000080u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_losemoney2() {
-  _has_bits_[0] &= ~0x00000080u;
-}
-inline void GLQuitSubFishGameMessage::clear_losemoney2() {
-  losemoney2_ = 0;
-  clear_has_losemoney2();
-}
-inline double GLQuitSubFishGameMessage::losemoney2() const {
-  return losemoney2_;
-}
-inline void GLQuitSubFishGameMessage::set_losemoney2(double value) {
-  set_has_losemoney2();
-  losemoney2_ = value;
-}
-
-// optional int32 playround = 10;
-inline bool GLQuitSubFishGameMessage::has_playround() const {
-  return (_has_bits_[0] & 0x00000100u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_playround() {
-  _has_bits_[0] |= 0x00000100u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_playround() {
-  _has_bits_[0] &= ~0x00000100u;
-}
-inline void GLQuitSubFishGameMessage::clear_playround() {
-  playround_ = 0;
-  clear_has_playround();
-}
-inline ::google::protobuf::int32 GLQuitSubFishGameMessage::playround() const {
-  return playround_;
-}
-inline void GLQuitSubFishGameMessage::set_playround(::google::protobuf::int32 value) {
-  set_has_playround();
-  playround_ = value;
-}
-
-// optional int32 dayWinNum = 11;
-inline bool GLQuitSubFishGameMessage::has_daywinnum() const {
-  return (_has_bits_[0] & 0x00000200u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_daywinnum() {
-  _has_bits_[0] |= 0x00000200u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_daywinnum() {
-  _has_bits_[0] &= ~0x00000200u;
-}
-inline void GLQuitSubFishGameMessage::clear_daywinnum() {
-  daywinnum_ = 0;
-  clear_has_daywinnum();
-}
-inline ::google::protobuf::int32 GLQuitSubFishGameMessage::daywinnum() const {
-  return daywinnum_;
-}
-inline void GLQuitSubFishGameMessage::set_daywinnum(::google::protobuf::int32 value) {
-  set_has_daywinnum();
-  daywinnum_ = value;
-}
-
-// optional int32 dayLoseNum = 12;
-inline bool GLQuitSubFishGameMessage::has_daylosenum() const {
-  return (_has_bits_[0] & 0x00000400u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_daylosenum() {
-  _has_bits_[0] |= 0x00000400u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_daylosenum() {
-  _has_bits_[0] &= ~0x00000400u;
-}
-inline void GLQuitSubFishGameMessage::clear_daylosenum() {
-  daylosenum_ = 0;
-  clear_has_daylosenum();
-}
-inline ::google::protobuf::int32 GLQuitSubFishGameMessage::daylosenum() const {
-  return daylosenum_;
-}
-inline void GLQuitSubFishGameMessage::set_daylosenum(::google::protobuf::int32 value) {
-  set_has_daylosenum();
-  daylosenum_ = value;
-}
-
-// optional int32 mapModelId = 13;
-inline bool GLQuitSubFishGameMessage::has_mapmodelid() const {
-  return (_has_bits_[0] & 0x00000800u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_mapmodelid() {
-  _has_bits_[0] |= 0x00000800u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_mapmodelid() {
-  _has_bits_[0] &= ~0x00000800u;
-}
-inline void GLQuitSubFishGameMessage::clear_mapmodelid() {
-  mapmodelid_ = 0;
-  clear_has_mapmodelid();
-}
-inline ::google::protobuf::int32 GLQuitSubFishGameMessage::mapmodelid() const {
-  return mapmodelid_;
-}
-inline void GLQuitSubFishGameMessage::set_mapmodelid(::google::protobuf::int32 value) {
-  set_has_mapmodelid();
-  mapmodelid_ = value;
-}
-
-// optional int32 continueWinNum = 14;
-inline bool GLQuitSubFishGameMessage::has_continuewinnum() const {
-  return (_has_bits_[0] & 0x00001000u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_continuewinnum() {
-  _has_bits_[0] |= 0x00001000u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_continuewinnum() {
-  _has_bits_[0] &= ~0x00001000u;
-}
-inline void GLQuitSubFishGameMessage::clear_continuewinnum() {
-  continuewinnum_ = 0;
-  clear_has_continuewinnum();
-}
-inline ::google::protobuf::int32 GLQuitSubFishGameMessage::continuewinnum() const {
-  return continuewinnum_;
-}
-inline void GLQuitSubFishGameMessage::set_continuewinnum(::google::protobuf::int32 value) {
-  set_has_continuewinnum();
-  continuewinnum_ = value;
-}
-
-// optional double gameMaxWinMoney = 15;
-inline bool GLQuitSubFishGameMessage::has_gamemaxwinmoney() const {
-  return (_has_bits_[0] & 0x00002000u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_gamemaxwinmoney() {
-  _has_bits_[0] |= 0x00002000u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_gamemaxwinmoney() {
-  _has_bits_[0] &= ~0x00002000u;
-}
-inline void GLQuitSubFishGameMessage::clear_gamemaxwinmoney() {
-  gamemaxwinmoney_ = 0;
-  clear_has_gamemaxwinmoney();
-}
-inline double GLQuitSubFishGameMessage::gamemaxwinmoney() const {
-  return gamemaxwinmoney_;
-}
-inline void GLQuitSubFishGameMessage::set_gamemaxwinmoney(double value) {
-  set_has_gamemaxwinmoney();
-  gamemaxwinmoney_ = value;
-}
-
-// optional int32 charmValue = 16;
-inline bool GLQuitSubFishGameMessage::has_charmvalue() const {
-  return (_has_bits_[0] & 0x00004000u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_charmvalue() {
-  _has_bits_[0] |= 0x00004000u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_charmvalue() {
-  _has_bits_[0] &= ~0x00004000u;
-}
-inline void GLQuitSubFishGameMessage::clear_charmvalue() {
-  charmvalue_ = 0;
-  clear_has_charmvalue();
-}
-inline ::google::protobuf::int32 GLQuitSubFishGameMessage::charmvalue() const {
-  return charmvalue_;
-}
-inline void GLQuitSubFishGameMessage::set_charmvalue(::google::protobuf::int32 value) {
-  set_has_charmvalue();
-  charmvalue_ = value;
-}
-
-// optional string others = 17;
-inline bool GLQuitSubFishGameMessage::has_others() const {
-  return (_has_bits_[0] & 0x00008000u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_others() {
-  _has_bits_[0] |= 0x00008000u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_others() {
-  _has_bits_[0] &= ~0x00008000u;
-}
-inline void GLQuitSubFishGameMessage::clear_others() {
-  if (others_ != &::google::protobuf::internal::kEmptyString) {
-    others_->clear();
-  }
-  clear_has_others();
-}
-inline const ::std::string& GLQuitSubFishGameMessage::others() const {
-  return *others_;
-}
-inline void GLQuitSubFishGameMessage::set_others(const ::std::string& value) {
-  set_has_others();
-  if (others_ == &::google::protobuf::internal::kEmptyString) {
-    others_ = new ::std::string;
-  }
-  others_->assign(value);
-}
-inline void GLQuitSubFishGameMessage::set_others(const char* value) {
-  set_has_others();
-  if (others_ == &::google::protobuf::internal::kEmptyString) {
-    others_ = new ::std::string;
-  }
-  others_->assign(value);
-}
-inline void GLQuitSubFishGameMessage::set_others(const char* value, size_t size) {
-  set_has_others();
-  if (others_ == &::google::protobuf::internal::kEmptyString) {
-    others_ = new ::std::string;
-  }
-  others_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* GLQuitSubFishGameMessage::mutable_others() {
-  set_has_others();
-  if (others_ == &::google::protobuf::internal::kEmptyString) {
-    others_ = new ::std::string;
-  }
-  return others_;
-}
-inline ::std::string* GLQuitSubFishGameMessage::release_others() {
-  clear_has_others();
-  if (others_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = others_;
-    others_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-
-// optional string achDataMap = 18;
-inline bool GLQuitSubFishGameMessage::has_achdatamap() const {
-  return (_has_bits_[0] & 0x00010000u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_achdatamap() {
-  _has_bits_[0] |= 0x00010000u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_achdatamap() {
-  _has_bits_[0] &= ~0x00010000u;
-}
-inline void GLQuitSubFishGameMessage::clear_achdatamap() {
-  if (achdatamap_ != &::google::protobuf::internal::kEmptyString) {
-    achdatamap_->clear();
-  }
-  clear_has_achdatamap();
-}
-inline const ::std::string& GLQuitSubFishGameMessage::achdatamap() const {
-  return *achdatamap_;
-}
-inline void GLQuitSubFishGameMessage::set_achdatamap(const ::std::string& value) {
-  set_has_achdatamap();
-  if (achdatamap_ == &::google::protobuf::internal::kEmptyString) {
-    achdatamap_ = new ::std::string;
-  }
-  achdatamap_->assign(value);
-}
-inline void GLQuitSubFishGameMessage::set_achdatamap(const char* value) {
-  set_has_achdatamap();
-  if (achdatamap_ == &::google::protobuf::internal::kEmptyString) {
-    achdatamap_ = new ::std::string;
-  }
-  achdatamap_->assign(value);
-}
-inline void GLQuitSubFishGameMessage::set_achdatamap(const char* value, size_t size) {
-  set_has_achdatamap();
-  if (achdatamap_ == &::google::protobuf::internal::kEmptyString) {
-    achdatamap_ = new ::std::string;
-  }
-  achdatamap_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* GLQuitSubFishGameMessage::mutable_achdatamap() {
-  set_has_achdatamap();
-  if (achdatamap_ == &::google::protobuf::internal::kEmptyString) {
-    achdatamap_ = new ::std::string;
-  }
-  return achdatamap_;
-}
-inline ::std::string* GLQuitSubFishGameMessage::release_achdatamap() {
-  clear_has_achdatamap();
-  if (achdatamap_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = achdatamap_;
-    achdatamap_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-
-// optional string sameTableMap = 19;
-inline bool GLQuitSubFishGameMessage::has_sametablemap() const {
-  return (_has_bits_[0] & 0x00020000u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_sametablemap() {
-  _has_bits_[0] |= 0x00020000u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_sametablemap() {
-  _has_bits_[0] &= ~0x00020000u;
-}
-inline void GLQuitSubFishGameMessage::clear_sametablemap() {
-  if (sametablemap_ != &::google::protobuf::internal::kEmptyString) {
-    sametablemap_->clear();
-  }
-  clear_has_sametablemap();
-}
-inline const ::std::string& GLQuitSubFishGameMessage::sametablemap() const {
-  return *sametablemap_;
-}
-inline void GLQuitSubFishGameMessage::set_sametablemap(const ::std::string& value) {
-  set_has_sametablemap();
-  if (sametablemap_ == &::google::protobuf::internal::kEmptyString) {
-    sametablemap_ = new ::std::string;
-  }
-  sametablemap_->assign(value);
-}
-inline void GLQuitSubFishGameMessage::set_sametablemap(const char* value) {
-  set_has_sametablemap();
-  if (sametablemap_ == &::google::protobuf::internal::kEmptyString) {
-    sametablemap_ = new ::std::string;
-  }
-  sametablemap_->assign(value);
-}
-inline void GLQuitSubFishGameMessage::set_sametablemap(const char* value, size_t size) {
-  set_has_sametablemap();
-  if (sametablemap_ == &::google::protobuf::internal::kEmptyString) {
-    sametablemap_ = new ::std::string;
-  }
-  sametablemap_->assign(reinterpret_cast<const char*>(value), size);
-}
-inline ::std::string* GLQuitSubFishGameMessage::mutable_sametablemap() {
-  set_has_sametablemap();
-  if (sametablemap_ == &::google::protobuf::internal::kEmptyString) {
-    sametablemap_ = new ::std::string;
-  }
-  return sametablemap_;
-}
-inline ::std::string* GLQuitSubFishGameMessage::release_sametablemap() {
-  clear_has_sametablemap();
-  if (sametablemap_ == &::google::protobuf::internal::kEmptyString) {
-    return NULL;
-  } else {
-    ::std::string* temp = sametablemap_;
-    sametablemap_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-    return temp;
-  }
-}
-
-// optional double taxMoney = 20;
-inline bool GLQuitSubFishGameMessage::has_taxmoney() const {
-  return (_has_bits_[0] & 0x00040000u) != 0;
-}
-inline void GLQuitSubFishGameMessage::set_has_taxmoney() {
-  _has_bits_[0] |= 0x00040000u;
-}
-inline void GLQuitSubFishGameMessage::clear_has_taxmoney() {
-  _has_bits_[0] &= ~0x00040000u;
-}
-inline void GLQuitSubFishGameMessage::clear_taxmoney() {
-  taxmoney_ = 0;
-  clear_has_taxmoney();
-}
-inline double GLQuitSubFishGameMessage::taxmoney() const {
-  return taxmoney_;
-}
-inline void GLQuitSubFishGameMessage::set_taxmoney(double value) {
-  set_has_taxmoney();
-  taxmoney_ = value;
-}
-
-// -------------------------------------------------------------------
 
 // GLSendMailMessage
 
@@ -6612,6 +5890,28 @@ inline void GLQuitSubGameMessage::set_taxmoney(double value) {
   taxmoney_ = value;
 }
 
+// optional bool offLine = 21;
+inline bool GLQuitSubGameMessage::has_offline() const {
+  return (_has_bits_[0] & 0x00100000u) != 0;
+}
+inline void GLQuitSubGameMessage::set_has_offline() {
+  _has_bits_[0] |= 0x00100000u;
+}
+inline void GLQuitSubGameMessage::clear_has_offline() {
+  _has_bits_[0] &= ~0x00100000u;
+}
+inline void GLQuitSubGameMessage::clear_offline() {
+  offline_ = false;
+  clear_has_offline();
+}
+inline bool GLQuitSubGameMessage::offline() const {
+  return offline_;
+}
+inline void GLQuitSubGameMessage::set_offline(bool value) {
+  set_has_offline();
+  offline_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // LGUpdateMoney1Message
@@ -8771,6 +8071,196 @@ inline void GLFilishPresentCharmMessage::set_msgid(com::game::proto::Protos_Rpc 
   GOOGLE_DCHECK(com::game::proto::Protos_Rpc_IsValid(value));
   set_has_msgid();
   msgid_ = value;
+}
+
+// required string name = 2;
+inline bool GLFilishPresentCharmMessage::has_name() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void GLFilishPresentCharmMessage::set_has_name() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void GLFilishPresentCharmMessage::clear_has_name() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void GLFilishPresentCharmMessage::clear_name() {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    name_->clear();
+  }
+  clear_has_name();
+}
+inline const ::std::string& GLFilishPresentCharmMessage::name() const {
+  return *name_;
+}
+inline void GLFilishPresentCharmMessage::set_name(const ::std::string& value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void GLFilishPresentCharmMessage::set_name(const char* value) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(value);
+}
+inline void GLFilishPresentCharmMessage::set_name(const char* value, size_t size) {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  name_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* GLFilishPresentCharmMessage::mutable_name() {
+  set_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    name_ = new ::std::string;
+  }
+  return name_;
+}
+inline ::std::string* GLFilishPresentCharmMessage::release_name() {
+  clear_has_name();
+  if (name_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = name_;
+    name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+
+// optional int64 playerId = 3;
+inline bool GLFilishPresentCharmMessage::has_playerid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void GLFilishPresentCharmMessage::set_has_playerid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void GLFilishPresentCharmMessage::clear_has_playerid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void GLFilishPresentCharmMessage::clear_playerid() {
+  playerid_ = GOOGLE_LONGLONG(0);
+  clear_has_playerid();
+}
+inline ::google::protobuf::int64 GLFilishPresentCharmMessage::playerid() const {
+  return playerid_;
+}
+inline void GLFilishPresentCharmMessage::set_playerid(::google::protobuf::int64 value) {
+  set_has_playerid();
+  playerid_ = value;
+}
+
+// optional int64 toPlayerId = 4;
+inline bool GLFilishPresentCharmMessage::has_toplayerid() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void GLFilishPresentCharmMessage::set_has_toplayerid() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void GLFilishPresentCharmMessage::clear_has_toplayerid() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void GLFilishPresentCharmMessage::clear_toplayerid() {
+  toplayerid_ = GOOGLE_LONGLONG(0);
+  clear_has_toplayerid();
+}
+inline ::google::protobuf::int64 GLFilishPresentCharmMessage::toplayerid() const {
+  return toplayerid_;
+}
+inline void GLFilishPresentCharmMessage::set_toplayerid(::google::protobuf::int64 value) {
+  set_has_toplayerid();
+  toplayerid_ = value;
+}
+
+// optional int32 subGameId = 5;
+inline bool GLFilishPresentCharmMessage::has_subgameid() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void GLFilishPresentCharmMessage::set_has_subgameid() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void GLFilishPresentCharmMessage::clear_has_subgameid() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void GLFilishPresentCharmMessage::clear_subgameid() {
+  subgameid_ = 0;
+  clear_has_subgameid();
+}
+inline ::google::protobuf::int32 GLFilishPresentCharmMessage::subgameid() const {
+  return subgameid_;
+}
+inline void GLFilishPresentCharmMessage::set_subgameid(::google::protobuf::int32 value) {
+  set_has_subgameid();
+  subgameid_ = value;
+}
+
+// optional int32 presentType = 6;
+inline bool GLFilishPresentCharmMessage::has_presenttype() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void GLFilishPresentCharmMessage::set_has_presenttype() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void GLFilishPresentCharmMessage::clear_has_presenttype() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void GLFilishPresentCharmMessage::clear_presenttype() {
+  presenttype_ = 0;
+  clear_has_presenttype();
+}
+inline ::google::protobuf::int32 GLFilishPresentCharmMessage::presenttype() const {
+  return presenttype_;
+}
+inline void GLFilishPresentCharmMessage::set_presenttype(::google::protobuf::int32 value) {
+  set_has_presenttype();
+  presenttype_ = value;
+}
+
+// optional int32 presentValue = 7;
+inline bool GLFilishPresentCharmMessage::has_presentvalue() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void GLFilishPresentCharmMessage::set_has_presentvalue() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void GLFilishPresentCharmMessage::clear_has_presentvalue() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void GLFilishPresentCharmMessage::clear_presentvalue() {
+  presentvalue_ = 0;
+  clear_has_presentvalue();
+}
+inline ::google::protobuf::int32 GLFilishPresentCharmMessage::presentvalue() const {
+  return presentvalue_;
+}
+inline void GLFilishPresentCharmMessage::set_presentvalue(::google::protobuf::int32 value) {
+  set_has_presentvalue();
+  presentvalue_ = value;
+}
+
+// optional int32 num = 8;
+inline bool GLFilishPresentCharmMessage::has_num() const {
+  return (_has_bits_[0] & 0x00000080u) != 0;
+}
+inline void GLFilishPresentCharmMessage::set_has_num() {
+  _has_bits_[0] |= 0x00000080u;
+}
+inline void GLFilishPresentCharmMessage::clear_has_num() {
+  _has_bits_[0] &= ~0x00000080u;
+}
+inline void GLFilishPresentCharmMessage::clear_num() {
+  num_ = 0;
+  clear_has_num();
+}
+inline ::google::protobuf::int32 GLFilishPresentCharmMessage::num() const {
+  return num_;
+}
+inline void GLFilishPresentCharmMessage::set_num(::google::protobuf::int32 value) {
+  set_has_num();
+  num_ = value;
 }
 
 

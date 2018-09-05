@@ -19,9 +19,6 @@ namespace proto {
 
 namespace {
 
-const ::google::protobuf::Descriptor* GLQuitSubFishGameMessage_descriptor_ = NULL;
-const ::google::protobuf::internal::GeneratedMessageReflection*
-  GLQuitSubFishGameMessage_reflection_ = NULL;
 const ::google::protobuf::Descriptor* GLSendMailMessage_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   GLSendMailMessage_reflection_ = NULL;
@@ -96,40 +93,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "RpcMessage.proto");
   GOOGLE_CHECK(file != NULL);
-  GLQuitSubFishGameMessage_descriptor_ = file->message_type(0);
-  static const int GLQuitSubFishGameMessage_offsets_[19] = {
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, msgid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, money1_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, money2_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, offline_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, winmoney1_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, winmoney2_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, losemoney1_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, losemoney2_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, playround_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, daywinnum_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, daylosenum_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, mapmodelid_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, continuewinnum_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, gamemaxwinmoney_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, charmvalue_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, others_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, achdatamap_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, sametablemap_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, taxmoney_),
-  };
-  GLQuitSubFishGameMessage_reflection_ =
-    new ::google::protobuf::internal::GeneratedMessageReflection(
-      GLQuitSubFishGameMessage_descriptor_,
-      GLQuitSubFishGameMessage::default_instance_,
-      GLQuitSubFishGameMessage_offsets_,
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, _has_bits_[0]),
-      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubFishGameMessage, _unknown_fields_),
-      -1,
-      ::google::protobuf::DescriptorPool::generated_pool(),
-      ::google::protobuf::MessageFactory::generated_factory(),
-      sizeof(GLQuitSubFishGameMessage));
-  GLSendMailMessage_descriptor_ = file->message_type(1);
+  GLSendMailMessage_descriptor_ = file->message_type(0);
   static const int GLSendMailMessage_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLSendMailMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLSendMailMessage, sendname_),
@@ -151,7 +115,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(GLSendMailMessage));
-  LGLoginSubGameMessage_descriptor_ = file->message_type(2);
+  LGLoginSubGameMessage_descriptor_ = file->message_type(1);
   static const int LGLoginSubGameMessage_offsets_[45] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGLoginSubGameMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGLoginSubGameMessage, rpcid_),
@@ -210,7 +174,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGLoginSubGameMessage));
-  GLLoginSubGameMessage_descriptor_ = file->message_type(3);
+  GLLoginSubGameMessage_descriptor_ = file->message_type(2);
   static const int GLLoginSubGameMessage_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLLoginSubGameMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLLoginSubGameMessage, rpcid_),
@@ -231,7 +195,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(GLLoginSubGameMessage));
-  LGQuitSubGameMessage_descriptor_ = file->message_type(4);
+  LGQuitSubGameMessage_descriptor_ = file->message_type(3);
   static const int LGQuitSubGameMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGQuitSubGameMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGQuitSubGameMessage, rpcid_),
@@ -248,8 +212,8 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGQuitSubGameMessage));
-  GLQuitSubGameMessage_descriptor_ = file->message_type(5);
-  static const int GLQuitSubGameMessage_offsets_[20] = {
+  GLQuitSubGameMessage_descriptor_ = file->message_type(4);
+  static const int GLQuitSubGameMessage_offsets_[21] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubGameMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubGameMessage, rpcid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubGameMessage, quitsubgame_),
@@ -270,6 +234,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubGameMessage, achdatamap_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubGameMessage, sametablemap_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubGameMessage, taxmoney_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLQuitSubGameMessage, offline_),
   };
   GLQuitSubGameMessage_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -282,7 +247,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(GLQuitSubGameMessage));
-  LGUpdateMoney1Message_descriptor_ = file->message_type(6);
+  LGUpdateMoney1Message_descriptor_ = file->message_type(5);
   static const int LGUpdateMoney1Message_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGUpdateMoney1Message, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGUpdateMoney1Message, money1_),
@@ -300,7 +265,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGUpdateMoney1Message));
-  GLUpdateRoundInfoMessage_descriptor_ = file->message_type(7);
+  GLUpdateRoundInfoMessage_descriptor_ = file->message_type(6);
   static const int GLUpdateRoundInfoMessage_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLUpdateRoundInfoMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLUpdateRoundInfoMessage, money1_),
@@ -320,7 +285,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(GLUpdateRoundInfoMessage));
-  GLSystemNoticeMessage_descriptor_ = file->message_type(8);
+  GLSystemNoticeMessage_descriptor_ = file->message_type(7);
   static const int GLSystemNoticeMessage_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLSystemNoticeMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLSystemNoticeMessage, winmoney_),
@@ -341,7 +306,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(GLSystemNoticeMessage));
-  LGPlayerBetZJHMessage_descriptor_ = file->message_type(9);
+  LGPlayerBetZJHMessage_descriptor_ = file->message_type(8);
   static const int LGPlayerBetZJHMessage_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGPlayerBetZJHMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGPlayerBetZJHMessage, rpcid_),
@@ -361,7 +326,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGPlayerBetZJHMessage));
-  GLPlayerBetZJHMessage_descriptor_ = file->message_type(10);
+  GLPlayerBetZJHMessage_descriptor_ = file->message_type(9);
   static const int GLPlayerBetZJHMessage_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLPlayerBetZJHMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLPlayerBetZJHMessage, rpcid_),
@@ -379,7 +344,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(GLPlayerBetZJHMessage));
-  GLSyncSSCZJHMessage_descriptor_ = file->message_type(11);
+  GLSyncSSCZJHMessage_descriptor_ = file->message_type(10);
   static const int GLSyncSSCZJHMessage_offsets_[13] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLSyncSSCZJHMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLSyncSSCZJHMessage, nextopentime_),
@@ -406,7 +371,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(GLSyncSSCZJHMessage));
-  SSC_Winer_descriptor_ = file->message_type(12);
+  SSC_Winer_descriptor_ = file->message_type(11);
   static const int SSC_Winer_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSC_Winer, name_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSC_Winer, icon_),
@@ -425,7 +390,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SSC_Winer));
-  SSC_Bet_descriptor_ = file->message_type(13);
+  SSC_Bet_descriptor_ = file->message_type(12);
   static const int SSC_Bet_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSC_Bet, betindex_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SSC_Bet, betmoney_),
@@ -441,7 +406,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SSC_Bet));
-  LGSyncTableDataMessage_descriptor_ = file->message_type(14);
+  LGSyncTableDataMessage_descriptor_ = file->message_type(13);
   static const int LGSyncTableDataMessage_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGSyncTableDataMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGSyncTableDataMessage, rpcid_),
@@ -459,7 +424,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGSyncTableDataMessage));
-  LGStopFishServerMessage_descriptor_ = file->message_type(15);
+  LGStopFishServerMessage_descriptor_ = file->message_type(14);
   static const int LGStopFishServerMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGStopFishServerMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGStopFishServerMessage, rpcid_),
@@ -476,7 +441,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGStopFishServerMessage));
-  LGReloadFishTableMessage_descriptor_ = file->message_type(16);
+  LGReloadFishTableMessage_descriptor_ = file->message_type(15);
   static const int LGReloadFishTableMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGReloadFishTableMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGReloadFishTableMessage, rpcid_),
@@ -493,7 +458,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGReloadFishTableMessage));
-  LGStartFishServerMessage_descriptor_ = file->message_type(17);
+  LGStartFishServerMessage_descriptor_ = file->message_type(16);
   static const int LGStartFishServerMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGStartFishServerMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGStartFishServerMessage, rpcid_),
@@ -510,7 +475,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGStartFishServerMessage));
-  LGBuyGoodsMessage_descriptor_ = file->message_type(18);
+  LGBuyGoodsMessage_descriptor_ = file->message_type(17);
   static const int LGBuyGoodsMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGBuyGoodsMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGBuyGoodsMessage, itemmodelid_),
@@ -527,7 +492,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGBuyGoodsMessage));
-  LGUseGoodsMessage_descriptor_ = file->message_type(19);
+  LGUseGoodsMessage_descriptor_ = file->message_type(18);
   static const int LGUseGoodsMessage_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGUseGoodsMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGUseGoodsMessage, itemid_),
@@ -546,7 +511,7 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGUseGoodsMessage));
-  LGRemoveGoodsMessage_descriptor_ = file->message_type(20);
+  LGRemoveGoodsMessage_descriptor_ = file->message_type(19);
   static const int LGRemoveGoodsMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGRemoveGoodsMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LGRemoveGoodsMessage, itemid_),
@@ -563,9 +528,16 @@ void protobuf_AssignDesc_RpcMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(LGRemoveGoodsMessage));
-  GLFilishPresentCharmMessage_descriptor_ = file->message_type(21);
-  static const int GLFilishPresentCharmMessage_offsets_[1] = {
+  GLFilishPresentCharmMessage_descriptor_ = file->message_type(20);
+  static const int GLFilishPresentCharmMessage_offsets_[8] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLFilishPresentCharmMessage, msgid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLFilishPresentCharmMessage, name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLFilishPresentCharmMessage, playerid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLFilishPresentCharmMessage, toplayerid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLFilishPresentCharmMessage, subgameid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLFilishPresentCharmMessage, presenttype_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLFilishPresentCharmMessage, presentvalue_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GLFilishPresentCharmMessage, num_),
   };
   GLFilishPresentCharmMessage_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -591,8 +563,6 @@ inline void protobuf_AssignDescriptorsOnce() {
 
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
-    GLQuitSubFishGameMessage_descriptor_, &GLQuitSubFishGameMessage::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     GLSendMailMessage_descriptor_, &GLSendMailMessage::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -640,8 +610,6 @@ void protobuf_RegisterTypes(const ::std::string&) {
 }  // namespace
 
 void protobuf_ShutdownFile_RpcMessage_2eproto() {
-  delete GLQuitSubFishGameMessage::default_instance_;
-  delete GLQuitSubFishGameMessage_reflection_;
   delete GLSendMailMessage::default_instance_;
   delete GLSendMailMessage_reflection_;
   delete LGLoginSubGameMessage::default_instance_;
@@ -693,140 +661,132 @@ void protobuf_AddDesc_RpcMessage_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\020RpcMessage.proto\022\016com.game.proto\"\266\003\n\030G"
-    "LQuitSubFishGameMessage\022<\n\005msgID\030\001 \001(\0162\032"
-    ".com.game.proto.Protos_Rpc:\021GLQuitSubFis"
-    "hGame\022\016\n\006money1\030\002 \002(\001\022\016\n\006money2\030\003 \002(\001\022\017\n"
-    "\007offLine\030\004 \001(\010\022\021\n\twinMoney1\030\006 \001(\001\022\021\n\twin"
-    "Money2\030\007 \001(\001\022\022\n\nloseMoney1\030\010 \001(\001\022\022\n\nlose"
-    "Money2\030\t \001(\001\022\021\n\tplayround\030\n \001(\005\022\021\n\tdayWi"
-    "nNum\030\013 \001(\005\022\022\n\ndayLoseNum\030\014 \001(\005\022\022\n\nmapMod"
-    "elId\030\r \001(\005\022\026\n\016continueWinNum\030\016 \001(\005\022\027\n\017ga"
-    "meMaxWinMoney\030\017 \001(\001\022\022\n\ncharmValue\030\020 \001(\005\022"
-    "\016\n\006others\030\021 \001(\t\022\022\n\nachDataMap\030\022 \001(\t\022\024\n\014s"
-    "ameTableMap\030\023 \001(\t\022\020\n\010taxMoney\030\024 \001(\001\"\275\001\n\021"
-    "GLSendMailMessage\0225\n\005msgID\030\001 \001(\0162\032.com.g"
-    "ame.proto.Protos_Rpc:\nGLSendMail\022\020\n\010send"
-    "Name\030\002 \001(\t\022\022\n\nreceiverId\030\003 \001(\003\022\014\n\004name\030\004"
-    " \001(\t\022\r\n\005title\030\005 \001(\t\022\017\n\007content\030\006 \001(\t\022\r\n\005"
-    "money\030\007 \001(\001\022\016\n\006reason\030\010 \001(\005\"\225\007\n\025LGLoginS"
-    "ubGameMessage\0229\n\005msgID\030\001 \001(\0162\032.com.game."
-    "proto.Protos_Rpc:\016LGLoginSubGame\022\r\n\005rpcI"
-    "d\030\002 \001(\005\022\016\n\006money1\030\003 \002(\001\022\016\n\006money2\030\004 \002(\001\022"
-    "\014\n\004name\030\005 \002(\t\022\017\n\007address\030\006 \002(\t\022\014\n\004icon\030\007"
-    " \002(\t\022\013\n\003sex\030\010 \002(\005\022\n\n\002fr\030\t \002(\t\022\020\n\010platfor"
-    "m\030\n \002(\t\022\017\n\007loginid\030\013 \002(\005\022\017\n\007loginIp\030\014 \002("
-    "\t\022\020\n\010deleteAt\030\r \002(\005\022\017\n\007gmLevel\030\016 \002(\005\022\r\n\005"
-    "robot\030\017 \002(\005\022\016\n\006others\030\020 \001(\t\022\022\n\ntitleInde"
-    "x\030\021 \002(\005\022\027\n\017gameMaxWinMoney\030\022 \002(\001\022\022\n\nchar"
-    "mValue\030\023 \002(\005\022\013\n\003vip\030\024 \002(\005\022\022\n\nbarrageNum\030"
-    "\025 \002(\005\022\020\n\010userName\030\026 \002(\t\022\020\n\010taxRatio\030\027 \002("
-    "\001\022\016\n\006cardBg\030\030 \002(\005\022\020\n\010headIcon\030\031 \002(\005\022\021\n\ts"
-    "ignature\030\032 \002(\t\022\022\n\nachDataMap\030\033 \001(\t\022\032\n\022ta"
-    "xFreeCardEndTime\030\034 \002(\003\022\027\n\017taxFreeCardRat"
-    "e\030\035 \002(\001\022\022\n\nbankMoney1\030\036 \001(\001\022\022\n\nbankMoney"
-    "2\030\037 \001(\001\022\033\n\023agencyRechargeMoney\030  \001(\001\022\035\n\025"
-    "officialRechargeMoney\030! \001(\001\022\025\n\rwithdrawM"
-    "oney\030\" \001(\001\022\024\n\014playGameTime\030# \001(\003\022\022\n\nonli"
-    "neTime\030$ \001(\003\022\025\n\rdayOnlineTime\030% \001(\005\022\022\n\nr"
-    "atioValue\030& \001(\005\022\r\n\005level\030\' \001(\005\022\021\n\twinMon"
-    "ey1\030( \001(\005\022\021\n\twinMoney2\030) \001(\005\022\022\n\nloseMone"
-    "y1\030* \001(\005\022\022\n\nloseMoney2\030+ \001(\005\022\027\n\017jipaiqiL"
-    "oseTime\030, \001(\003\022\014\n\004gold\030- \001(\001\"\302\001\n\025GLLoginS"
-    "ubGameMessage\0229\n\005msgID\030\001 \001(\0162\032.com.game."
-    "proto.Protos_Rpc:\016GLLoginSubGame\022\r\n\005rpcI"
-    "d\030\002 \001(\005\022\023\n\013isReconnect\030\003 \001(\005\022\024\n\014loginSub"
-    "Game\030\004 \001(\010\022\022\n\nmapModelId\030\005 \001(\005\022\016\n\006fishIp"
-    "\030\006 \001(\t\022\020\n\010fishPort\030\007 \001(\005\"p\n\024LGQuitSubGam"
-    "eMessage\0228\n\005msgID\030\001 \001(\0162\032.com.game.proto"
-    ".Protos_Rpc:\rLGQuitSubGame\022\r\n\005rpcId\030\002 \001("
-    "\005\022\017\n\007offLine\030\003 \001(\010\"\301\003\n\024GLQuitSubGameMess"
-    "age\0228\n\005msgID\030\001 \001(\0162\032.com.game.proto.Prot"
-    "os_Rpc:\rGLQuitSubGame\022\r\n\005rpcId\030\002 \001(\005\022\023\n\013"
-    "quitSubGame\030\003 \001(\010\022\016\n\006money1\030\004 \001(\001\022\016\n\006mon"
-    "ey2\030\005 \001(\001\022\021\n\twinMoney1\030\006 \001(\001\022\021\n\twinMoney"
-    "2\030\007 \001(\001\022\022\n\nloseMoney1\030\010 \001(\001\022\022\n\nloseMoney"
-    "2\030\t \001(\001\022\021\n\tplayround\030\n \001(\005\022\021\n\tdayWinNum\030"
-    "\013 \002(\005\022\022\n\ndayLoseNum\030\014 \002(\005\022\022\n\nmapModelId\030"
-    "\r \001(\005\022\026\n\016continueWinNum\030\016 \002(\005\022\027\n\017gameMax"
-    "WinMoney\030\017 \002(\001\022\022\n\ncharmValue\030\020 \002(\005\022\016\n\006ot"
-    "hers\030\021 \001(\t\022\022\n\nachDataMap\030\022 \001(\t\022\024\n\014sameTa"
-    "bleMap\030\023 \001(\t\022\020\n\010taxMoney\030\024 \001(\001\"\202\001\n\025LGUpd"
-    "ateMoney1Message\0229\n\005msgID\030\001 \001(\0162\032.com.ga"
-    "me.proto.Protos_Rpc:\016LGUpdateMoney1\022\016\n\006m"
-    "oney1\030\002 \002(\001\022\016\n\006money2\030\003 \002(\001\022\016\n\006reason\030\004 "
-    "\002(\005\"\262\001\n\030GLUpdateRoundInfoMessage\022<\n\005msgI"
-    "D\030\001 \001(\0162\032.com.game.proto.Protos_Rpc:\021GLU"
-    "pdateRoundInfo\022\016\n\006money1\030\002 \002(\001\022\016\n\006money2"
-    "\030\003 \002(\001\022\021\n\tplayerNum\030\004 \001(\005\022\022\n\ngameRecord\030"
-    "\005 \001(\t\022\021\n\tsubGameId\030\006 \001(\005\"\265\001\n\025GLSystemNot"
-    "iceMessage\0229\n\005msgID\030\001 \001(\0162\032.com.game.pro"
-    "to.Protos_Rpc:\016GLSystemNotice\022\020\n\010winMone"
-    "y\030\002 \001(\001\022\014\n\004name\030\003 \001(\t\022\020\n\010gameName\030\004 \001(\t\022"
-    "\017\n\007mapName\030\005 \001(\t\022\020\n\010cardType\030\006 \001(\t\022\014\n\004ty"
-    "pe\030\007 \001(\005\"\265\001\n\025LGPlayerBetZJHMessage\0229\n\005ms"
-    "gID\030\001 \001(\0162\032.com.game.proto.Protos_Rpc:\016L"
-    "GPlayerBetZJH\022\r\n\005rpcId\030\002 \001(\005\022\014\n\004name\030\003 \002"
-    "(\t\022\014\n\004icon\030\004 \002(\t\022%\n\004bets\030\005 \003(\0132\027.com.gam"
-    "e.proto.SSC_Bet\022\017\n\007isRobot\030\006 \002(\010\"\233\001\n\025GLP"
-    "layerBetZJHMessage\0229\n\005msgID\030\001 \001(\0162\032.com."
-    "game.proto.Protos_Rpc:\016GLPlayerBetZJH\022\r\n"
-    "\005rpcId\030\002 \001(\005\022%\n\004bets\030\003 \003(\0132\027.com.game.pr"
-    "oto.SSC_Bet\022\021\n\tisSucceed\030\004 \001(\010\"\313\003\n\023GLSyn"
-    "cSSCZJHMessage\0227\n\005msgID\030\001 \001(\0162\032.com.game"
-    ".proto.Protos_Rpc:\014GLSyncSSCZJH\022\024\n\014nextO"
-    "penTime\030\002 \002(\005\022\021\n\tcurResult\030\003 \003(\005\022\025\n\rcurR"
-    "esultType\030\004 \001(\005\0222\n\017preSantiaoWiner\030\005 \001(\013"
-    "2\031.com.game.proto.SSC_Winer\022\026\n\016preSantia"
-    "oTime\030\006 \001(\005\022,\n\tpreWiners\030\007 \003(\0132\031.com.gam"
-    "e.proto.SSC_Winer\022,\n\tbigWiners\030\010 \003(\0132\031.c"
-    "om.game.proto.SSC_Winer\022\017\n\007history\030\t \003(\005"
-    "\022*\n\tcurBetALL\030\n \003(\0132\027.com.game.proto.SSC"
-    "_Bet\022\021\n\tsscServer\030\013 \001(\005\022\r\n\005ratio\030\014 \001(\005\0224"
-    "\n\021preBeforeBigWiner\030\r \003(\0132\031.com.game.pro"
-    "to.SSC_Winer\"^\n\tSSC_Winer\022\014\n\004name\030\001 \002(\t\022"
-    "\014\n\004icon\030\002 \002(\t\022\020\n\010winMoney\030\003 \002(\005\022\017\n\007winTi"
-    "me\030\004 \001(\t\022\022\n\nspcialType\030\005 \001(\t\"-\n\007SSC_Bet\022"
-    "\020\n\010betIndex\030\001 \002(\005\022\020\n\010betMoney\030\002 \002(\005\"\207\001\n\026"
-    "LGSyncTableDataMessage\022:\n\005msgID\030\001 \001(\0162\032."
-    "com.game.proto.Protos_Rpc:\017LGSyncTableDa"
-    "ta\022\r\n\005rpcId\030\002 \001(\005\022\017\n\007loginId\030\003 \002(\005\022\021\n\tta"
-    "bleJson\030\004 \001(\t\"x\n\027LGStopFishServerMessage"
-    "\022;\n\005msgID\030\001 \001(\0162\032.com.game.proto.Protos_"
-    "Rpc:\020LGStopFishServer\022\r\n\005rpcId\030\002 \001(\005\022\021\n\t"
-    "closeTime\030\003 \002(\003\"}\n\030LGReloadFishTableMess"
-    "age\022<\n\005msgID\030\001 \001(\0162\032.com.game.proto.Prot"
-    "os_Rpc:\021LGReloadFishTable\022\r\n\005rpcId\030\002 \001(\005"
-    "\022\024\n\014configString\030\003 \001(\t\"z\n\030LGStartFishSer"
-    "verMessage\022<\n\005msgID\030\001 \001(\0162\032.com.game.pro"
-    "to.Protos_Rpc:\021LGStartFishServer\022\r\n\005rpcI"
-    "d\030\002 \001(\005\022\021\n\tstartTime\030\003 \002(\003\"p\n\021LGBuyGoods"
-    "Message\0225\n\005msgID\030\001 \001(\0162\032.com.game.proto."
-    "Protos_Rpc:\nLGBuyGoods\022\023\n\013itemModelId\030\002 "
-    "\002(\005\022\017\n\007itemNum\030\003 \002(\005\"\216\001\n\021LGUseGoodsMessa"
-    "ge\0225\n\005msgID\030\001 \001(\0162\032.com.game.proto.Proto"
-    "s_Rpc:\nLGUseGoods\022\016\n\006itemId\030\002 \002(\003\022\023\n\013ite"
-    "mModelId\030\003 \002(\005\022\017\n\007itemNum\030\004 \002(\005\022\014\n\004time\030"
-    "\005 \002(\003\"u\n\024LGRemoveGoodsMessage\0228\n\005msgID\030\001"
-    " \001(\0162\032.com.game.proto.Protos_Rpc:\rLGRemo"
-    "veGoods\022\016\n\006itemId\030\002 \001(\003\022\023\n\013itemModelId\030\003"
-    " \001(\005\"^\n\033GLFilishPresentCharmMessage\022\?\n\005m"
-    "sgID\030\001 \001(\0162\032.com.game.proto.Protos_Rpc:\024"
-    "GLFilishPresentCharm*\264\003\n\nProtos_Rpc\022\023\n\016L"
-    "GLoginSubGame\020\2770\022\023\n\016GLLoginSubGame\020\3000\022\022\n"
-    "\rLGQuitSubGame\020\3010\022\022\n\rGLQuitSubGame\020\3020\022\023\n"
-    "\016LGUpdateMoney1\020\3030\022\026\n\021GLUpdateRoundInfo\020"
-    "\3040\022\023\n\016GLSystemNotice\020\3050\022\026\n\021GLQuitSubFish"
-    "Game\020\3060\022\025\n\020LGStopFishServer\020\3070\022\026\n\021LGRelo"
-    "adFishTable\020\3100\022\026\n\021LGStartFishServer\020\3110\022\023"
-    "\n\016LGPlayerBetZJH\020\2341\022\023\n\016GLPlayerBetZJH\020\2351"
-    "\022\021\n\014GLSyncSSCZJH\020\2361\022\024\n\017LGSyncTableData\020\237"
-    "1\022\017\n\nGLSendMail\020\2401\022\017\n\nLGBuyGoods\020\2411\022\017\n\nL"
-    "GUseGoods\020\2421\022\022\n\rLGRemoveGoods\020\2431\022\031\n\024GLFi"
-    "lishPresentCharm\020\2441", 5219);
+    "\n\020RpcMessage.proto\022\016com.game.proto\"\275\001\n\021G"
+    "LSendMailMessage\0225\n\005msgID\030\001 \001(\0162\032.com.ga"
+    "me.proto.Protos_Rpc:\nGLSendMail\022\020\n\010sendN"
+    "ame\030\002 \001(\t\022\022\n\nreceiverId\030\003 \001(\003\022\014\n\004name\030\004 "
+    "\001(\t\022\r\n\005title\030\005 \001(\t\022\017\n\007content\030\006 \001(\t\022\r\n\005m"
+    "oney\030\007 \001(\001\022\016\n\006reason\030\010 \001(\005\"\225\007\n\025LGLoginSu"
+    "bGameMessage\0229\n\005msgID\030\001 \001(\0162\032.com.game.p"
+    "roto.Protos_Rpc:\016LGLoginSubGame\022\r\n\005rpcId"
+    "\030\002 \001(\005\022\016\n\006money1\030\003 \002(\001\022\016\n\006money2\030\004 \002(\001\022\014"
+    "\n\004name\030\005 \002(\t\022\017\n\007address\030\006 \002(\t\022\014\n\004icon\030\007 "
+    "\002(\t\022\013\n\003sex\030\010 \002(\005\022\n\n\002fr\030\t \002(\t\022\020\n\010platform"
+    "\030\n \002(\t\022\017\n\007loginid\030\013 \002(\005\022\017\n\007loginIp\030\014 \002(\t"
+    "\022\020\n\010deleteAt\030\r \002(\005\022\017\n\007gmLevel\030\016 \002(\005\022\r\n\005r"
+    "obot\030\017 \002(\005\022\016\n\006others\030\020 \001(\t\022\022\n\ntitleIndex"
+    "\030\021 \002(\005\022\027\n\017gameMaxWinMoney\030\022 \002(\001\022\022\n\ncharm"
+    "Value\030\023 \002(\005\022\013\n\003vip\030\024 \002(\005\022\022\n\nbarrageNum\030\025"
+    " \002(\005\022\020\n\010userName\030\026 \002(\t\022\020\n\010taxRatio\030\027 \002(\001"
+    "\022\016\n\006cardBg\030\030 \002(\005\022\020\n\010headIcon\030\031 \002(\005\022\021\n\tsi"
+    "gnature\030\032 \002(\t\022\022\n\nachDataMap\030\033 \001(\t\022\032\n\022tax"
+    "FreeCardEndTime\030\034 \002(\003\022\027\n\017taxFreeCardRate"
+    "\030\035 \002(\001\022\022\n\nbankMoney1\030\036 \001(\001\022\022\n\nbankMoney2"
+    "\030\037 \001(\001\022\033\n\023agencyRechargeMoney\030  \001(\001\022\035\n\025o"
+    "fficialRechargeMoney\030! \001(\001\022\025\n\rwithdrawMo"
+    "ney\030\" \001(\001\022\024\n\014playGameTime\030# \001(\003\022\022\n\nonlin"
+    "eTime\030$ \001(\003\022\025\n\rdayOnlineTime\030% \001(\005\022\022\n\nra"
+    "tioValue\030& \001(\005\022\r\n\005level\030\' \001(\005\022\021\n\twinMone"
+    "y1\030( \001(\005\022\021\n\twinMoney2\030) \001(\005\022\022\n\nloseMoney"
+    "1\030* \001(\005\022\022\n\nloseMoney2\030+ \001(\005\022\027\n\017jipaiqiLo"
+    "seTime\030, \001(\003\022\014\n\004gold\030- \001(\001\"\302\001\n\025GLLoginSu"
+    "bGameMessage\0229\n\005msgID\030\001 \001(\0162\032.com.game.p"
+    "roto.Protos_Rpc:\016GLLoginSubGame\022\r\n\005rpcId"
+    "\030\002 \001(\005\022\023\n\013isReconnect\030\003 \001(\005\022\024\n\014loginSubG"
+    "ame\030\004 \001(\010\022\022\n\nmapModelId\030\005 \001(\005\022\016\n\006fishIp\030"
+    "\006 \001(\t\022\020\n\010fishPort\030\007 \001(\005\"p\n\024LGQuitSubGame"
+    "Message\0228\n\005msgID\030\001 \001(\0162\032.com.game.proto."
+    "Protos_Rpc:\rLGQuitSubGame\022\r\n\005rpcId\030\002 \001(\005"
+    "\022\017\n\007offLine\030\003 \001(\010\"\322\003\n\024GLQuitSubGameMessa"
+    "ge\0228\n\005msgID\030\001 \001(\0162\032.com.game.proto.Proto"
+    "s_Rpc:\rGLQuitSubGame\022\r\n\005rpcId\030\002 \001(\005\022\023\n\013q"
+    "uitSubGame\030\003 \001(\010\022\016\n\006money1\030\004 \001(\001\022\016\n\006mone"
+    "y2\030\005 \001(\001\022\021\n\twinMoney1\030\006 \001(\001\022\021\n\twinMoney2"
+    "\030\007 \001(\001\022\022\n\nloseMoney1\030\010 \001(\001\022\022\n\nloseMoney2"
+    "\030\t \001(\001\022\021\n\tplayround\030\n \001(\005\022\021\n\tdayWinNum\030\013"
+    " \002(\005\022\022\n\ndayLoseNum\030\014 \002(\005\022\022\n\nmapModelId\030\r"
+    " \001(\005\022\026\n\016continueWinNum\030\016 \002(\005\022\027\n\017gameMaxW"
+    "inMoney\030\017 \002(\001\022\022\n\ncharmValue\030\020 \002(\005\022\016\n\006oth"
+    "ers\030\021 \001(\t\022\022\n\nachDataMap\030\022 \001(\t\022\024\n\014sameTab"
+    "leMap\030\023 \001(\t\022\020\n\010taxMoney\030\024 \001(\001\022\017\n\007offLine"
+    "\030\025 \001(\010\"\202\001\n\025LGUpdateMoney1Message\0229\n\005msgI"
+    "D\030\001 \001(\0162\032.com.game.proto.Protos_Rpc:\016LGU"
+    "pdateMoney1\022\016\n\006money1\030\002 \002(\001\022\016\n\006money2\030\003 "
+    "\002(\001\022\016\n\006reason\030\004 \002(\005\"\262\001\n\030GLUpdateRoundInf"
+    "oMessage\022<\n\005msgID\030\001 \001(\0162\032.com.game.proto"
+    ".Protos_Rpc:\021GLUpdateRoundInfo\022\016\n\006money1"
+    "\030\002 \002(\001\022\016\n\006money2\030\003 \002(\001\022\021\n\tplayerNum\030\004 \001("
+    "\005\022\022\n\ngameRecord\030\005 \001(\t\022\021\n\tsubGameId\030\006 \001(\005"
+    "\"\265\001\n\025GLSystemNoticeMessage\0229\n\005msgID\030\001 \001("
+    "\0162\032.com.game.proto.Protos_Rpc:\016GLSystemN"
+    "otice\022\020\n\010winMoney\030\002 \001(\001\022\014\n\004name\030\003 \001(\t\022\020\n"
+    "\010gameName\030\004 \001(\t\022\017\n\007mapName\030\005 \001(\t\022\020\n\010card"
+    "Type\030\006 \001(\t\022\014\n\004type\030\007 \001(\005\"\265\001\n\025LGPlayerBet"
+    "ZJHMessage\0229\n\005msgID\030\001 \001(\0162\032.com.game.pro"
+    "to.Protos_Rpc:\016LGPlayerBetZJH\022\r\n\005rpcId\030\002"
+    " \001(\005\022\014\n\004name\030\003 \002(\t\022\014\n\004icon\030\004 \002(\t\022%\n\004bets"
+    "\030\005 \003(\0132\027.com.game.proto.SSC_Bet\022\017\n\007isRob"
+    "ot\030\006 \002(\010\"\233\001\n\025GLPlayerBetZJHMessage\0229\n\005ms"
+    "gID\030\001 \001(\0162\032.com.game.proto.Protos_Rpc:\016G"
+    "LPlayerBetZJH\022\r\n\005rpcId\030\002 \001(\005\022%\n\004bets\030\003 \003"
+    "(\0132\027.com.game.proto.SSC_Bet\022\021\n\tisSucceed"
+    "\030\004 \001(\010\"\313\003\n\023GLSyncSSCZJHMessage\0227\n\005msgID\030"
+    "\001 \001(\0162\032.com.game.proto.Protos_Rpc:\014GLSyn"
+    "cSSCZJH\022\024\n\014nextOpenTime\030\002 \002(\005\022\021\n\tcurResu"
+    "lt\030\003 \003(\005\022\025\n\rcurResultType\030\004 \001(\005\0222\n\017preSa"
+    "ntiaoWiner\030\005 \001(\0132\031.com.game.proto.SSC_Wi"
+    "ner\022\026\n\016preSantiaoTime\030\006 \001(\005\022,\n\tpreWiners"
+    "\030\007 \003(\0132\031.com.game.proto.SSC_Winer\022,\n\tbig"
+    "Winers\030\010 \003(\0132\031.com.game.proto.SSC_Winer\022"
+    "\017\n\007history\030\t \003(\005\022*\n\tcurBetALL\030\n \003(\0132\027.co"
+    "m.game.proto.SSC_Bet\022\021\n\tsscServer\030\013 \001(\005\022"
+    "\r\n\005ratio\030\014 \001(\005\0224\n\021preBeforeBigWiner\030\r \003("
+    "\0132\031.com.game.proto.SSC_Winer\"^\n\tSSC_Wine"
+    "r\022\014\n\004name\030\001 \002(\t\022\014\n\004icon\030\002 \002(\t\022\020\n\010winMone"
+    "y\030\003 \002(\005\022\017\n\007winTime\030\004 \001(\t\022\022\n\nspcialType\030\005"
+    " \001(\t\"-\n\007SSC_Bet\022\020\n\010betIndex\030\001 \002(\005\022\020\n\010bet"
+    "Money\030\002 \002(\005\"\207\001\n\026LGSyncTableDataMessage\022:"
+    "\n\005msgID\030\001 \001(\0162\032.com.game.proto.Protos_Rp"
+    "c:\017LGSyncTableData\022\r\n\005rpcId\030\002 \001(\005\022\017\n\007log"
+    "inId\030\003 \002(\005\022\021\n\ttableJson\030\004 \001(\t\"x\n\027LGStopF"
+    "ishServerMessage\022;\n\005msgID\030\001 \001(\0162\032.com.ga"
+    "me.proto.Protos_Rpc:\020LGStopFishServer\022\r\n"
+    "\005rpcId\030\002 \001(\005\022\021\n\tcloseTime\030\003 \002(\003\"}\n\030LGRel"
+    "oadFishTableMessage\022<\n\005msgID\030\001 \001(\0162\032.com"
+    ".game.proto.Protos_Rpc:\021LGReloadFishTabl"
+    "e\022\r\n\005rpcId\030\002 \001(\005\022\024\n\014configString\030\003 \001(\t\"z"
+    "\n\030LGStartFishServerMessage\022<\n\005msgID\030\001 \001("
+    "\0162\032.com.game.proto.Protos_Rpc:\021LGStartFi"
+    "shServer\022\r\n\005rpcId\030\002 \001(\005\022\021\n\tstartTime\030\003 \002"
+    "(\003\"p\n\021LGBuyGoodsMessage\0225\n\005msgID\030\001 \001(\0162\032"
+    ".com.game.proto.Protos_Rpc:\nLGBuyGoods\022\023"
+    "\n\013itemModelId\030\002 \002(\005\022\017\n\007itemNum\030\003 \002(\005\"\216\001\n"
+    "\021LGUseGoodsMessage\0225\n\005msgID\030\001 \001(\0162\032.com."
+    "game.proto.Protos_Rpc:\nLGUseGoods\022\016\n\006ite"
+    "mId\030\002 \002(\003\022\023\n\013itemModelId\030\003 \002(\005\022\017\n\007itemNu"
+    "m\030\004 \002(\005\022\014\n\004time\030\005 \002(\003\"u\n\024LGRemoveGoodsMe"
+    "ssage\0228\n\005msgID\030\001 \001(\0162\032.com.game.proto.Pr"
+    "otos_Rpc:\rLGRemoveGoods\022\016\n\006itemId\030\002 \001(\003\022"
+    "\023\n\013itemModelId\030\003 \001(\005\"\335\001\n\033GLFilishPresent"
+    "CharmMessage\022\?\n\005msgID\030\001 \001(\0162\032.com.game.p"
+    "roto.Protos_Rpc:\024GLFilishPresentCharm\022\014\n"
+    "\004name\030\002 \002(\t\022\020\n\010playerId\030\003 \001(\003\022\022\n\ntoPlaye"
+    "rId\030\004 \001(\003\022\021\n\tsubGameId\030\005 \001(\005\022\023\n\013presentT"
+    "ype\030\006 \001(\005\022\024\n\014presentValue\030\007 \001(\005\022\013\n\003num\030\010"
+    " \001(\005*\264\003\n\nProtos_Rpc\022\023\n\016LGLoginSubGame\020\2770"
+    "\022\023\n\016GLLoginSubGame\020\3000\022\022\n\rLGQuitSubGame\020\301"
+    "0\022\022\n\rGLQuitSubGame\020\3020\022\023\n\016LGUpdateMoney1\020"
+    "\3030\022\026\n\021GLUpdateRoundInfo\020\3040\022\023\n\016GLSystemNo"
+    "tice\020\3050\022\026\n\021GLQuitSubFishGame\020\3060\022\025\n\020LGSto"
+    "pFishServer\020\3070\022\026\n\021LGReloadFishTable\020\3100\022\026"
+    "\n\021LGStartFishServer\020\3110\022\023\n\016LGPlayerBetZJH"
+    "\020\2341\022\023\n\016GLPlayerBetZJH\020\2351\022\021\n\014GLSyncSSCZJH"
+    "\020\2361\022\024\n\017LGSyncTableData\020\2371\022\017\n\nGLSendMail\020"
+    "\2401\022\017\n\nLGBuyGoods\020\2411\022\017\n\nLGUseGoods\020\2421\022\022\n\r"
+    "LGRemoveGoods\020\2431\022\031\n\024GLFilishPresentCharm"
+    "\020\2441", 4923);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "RpcMessage.proto", &protobuf_RegisterTypes);
-  GLQuitSubFishGameMessage::default_instance_ = new GLQuitSubFishGameMessage();
   GLSendMailMessage::default_instance_ = new GLSendMailMessage();
   LGLoginSubGameMessage::default_instance_ = new LGLoginSubGameMessage();
   GLLoginSubGameMessage::default_instance_ = new GLLoginSubGameMessage();
@@ -848,7 +808,6 @@ void protobuf_AddDesc_RpcMessage_2eproto() {
   LGUseGoodsMessage::default_instance_ = new LGUseGoodsMessage();
   LGRemoveGoodsMessage::default_instance_ = new LGRemoveGoodsMessage();
   GLFilishPresentCharmMessage::default_instance_ = new GLFilishPresentCharmMessage();
-  GLQuitSubFishGameMessage::default_instance_->InitAsDefaultInstance();
   GLSendMailMessage::default_instance_->InitAsDefaultInstance();
   LGLoginSubGameMessage::default_instance_->InitAsDefaultInstance();
   GLLoginSubGameMessage::default_instance_->InitAsDefaultInstance();
@@ -910,985 +869,6 @@ bool Protos_Rpc_IsValid(int value) {
     default:
       return false;
   }
-}
-
-
-// ===================================================================
-
-#ifndef _MSC_VER
-const int GLQuitSubFishGameMessage::kMsgIDFieldNumber;
-const int GLQuitSubFishGameMessage::kMoney1FieldNumber;
-const int GLQuitSubFishGameMessage::kMoney2FieldNumber;
-const int GLQuitSubFishGameMessage::kOffLineFieldNumber;
-const int GLQuitSubFishGameMessage::kWinMoney1FieldNumber;
-const int GLQuitSubFishGameMessage::kWinMoney2FieldNumber;
-const int GLQuitSubFishGameMessage::kLoseMoney1FieldNumber;
-const int GLQuitSubFishGameMessage::kLoseMoney2FieldNumber;
-const int GLQuitSubFishGameMessage::kPlayroundFieldNumber;
-const int GLQuitSubFishGameMessage::kDayWinNumFieldNumber;
-const int GLQuitSubFishGameMessage::kDayLoseNumFieldNumber;
-const int GLQuitSubFishGameMessage::kMapModelIdFieldNumber;
-const int GLQuitSubFishGameMessage::kContinueWinNumFieldNumber;
-const int GLQuitSubFishGameMessage::kGameMaxWinMoneyFieldNumber;
-const int GLQuitSubFishGameMessage::kCharmValueFieldNumber;
-const int GLQuitSubFishGameMessage::kOthersFieldNumber;
-const int GLQuitSubFishGameMessage::kAchDataMapFieldNumber;
-const int GLQuitSubFishGameMessage::kSameTableMapFieldNumber;
-const int GLQuitSubFishGameMessage::kTaxMoneyFieldNumber;
-#endif  // !_MSC_VER
-
-GLQuitSubFishGameMessage::GLQuitSubFishGameMessage()
-  : ::google::protobuf::Message() {
-  SharedCtor();
-}
-
-void GLQuitSubFishGameMessage::InitAsDefaultInstance() {
-}
-
-GLQuitSubFishGameMessage::GLQuitSubFishGameMessage(const GLQuitSubFishGameMessage& from)
-  : ::google::protobuf::Message() {
-  SharedCtor();
-  MergeFrom(from);
-}
-
-void GLQuitSubFishGameMessage::SharedCtor() {
-  _cached_size_ = 0;
-  msgid_ = 6214;
-  money1_ = 0;
-  money2_ = 0;
-  offline_ = false;
-  winmoney1_ = 0;
-  winmoney2_ = 0;
-  losemoney1_ = 0;
-  losemoney2_ = 0;
-  playround_ = 0;
-  daywinnum_ = 0;
-  daylosenum_ = 0;
-  mapmodelid_ = 0;
-  continuewinnum_ = 0;
-  gamemaxwinmoney_ = 0;
-  charmvalue_ = 0;
-  others_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  achdatamap_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  sametablemap_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
-  taxmoney_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-GLQuitSubFishGameMessage::~GLQuitSubFishGameMessage() {
-  SharedDtor();
-}
-
-void GLQuitSubFishGameMessage::SharedDtor() {
-  if (others_ != &::google::protobuf::internal::kEmptyString) {
-    delete others_;
-  }
-  if (achdatamap_ != &::google::protobuf::internal::kEmptyString) {
-    delete achdatamap_;
-  }
-  if (sametablemap_ != &::google::protobuf::internal::kEmptyString) {
-    delete sametablemap_;
-  }
-  if (this != default_instance_) {
-  }
-}
-
-void GLQuitSubFishGameMessage::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ::google::protobuf::Descriptor* GLQuitSubFishGameMessage::descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return GLQuitSubFishGameMessage_descriptor_;
-}
-
-const GLQuitSubFishGameMessage& GLQuitSubFishGameMessage::default_instance() {
-  if (default_instance_ == NULL) protobuf_AddDesc_RpcMessage_2eproto();  return *default_instance_;
-}
-
-GLQuitSubFishGameMessage* GLQuitSubFishGameMessage::default_instance_ = NULL;
-
-GLQuitSubFishGameMessage* GLQuitSubFishGameMessage::New() const {
-  return new GLQuitSubFishGameMessage;
-}
-
-void GLQuitSubFishGameMessage::Clear() {
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    msgid_ = 6214;
-    money1_ = 0;
-    money2_ = 0;
-    offline_ = false;
-    winmoney1_ = 0;
-    winmoney2_ = 0;
-    losemoney1_ = 0;
-    losemoney2_ = 0;
-  }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    playround_ = 0;
-    daywinnum_ = 0;
-    daylosenum_ = 0;
-    mapmodelid_ = 0;
-    continuewinnum_ = 0;
-    gamemaxwinmoney_ = 0;
-    charmvalue_ = 0;
-    if (has_others()) {
-      if (others_ != &::google::protobuf::internal::kEmptyString) {
-        others_->clear();
-      }
-    }
-  }
-  if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-    if (has_achdatamap()) {
-      if (achdatamap_ != &::google::protobuf::internal::kEmptyString) {
-        achdatamap_->clear();
-      }
-    }
-    if (has_sametablemap()) {
-      if (sametablemap_ != &::google::protobuf::internal::kEmptyString) {
-        sametablemap_->clear();
-      }
-    }
-    taxmoney_ = 0;
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  mutable_unknown_fields()->Clear();
-}
-
-bool GLQuitSubFishGameMessage::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
-  ::google::protobuf::uint32 tag;
-  while ((tag = input->ReadTag()) != 0) {
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // optional .com.game.proto.Protos_Rpc msgID = 1 [default = GLQuitSubFishGame];
-      case 1: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          if (com::game::proto::Protos_Rpc_IsValid(value)) {
-            set_msgid(static_cast< com::game::proto::Protos_Rpc >(value));
-          } else {
-            mutable_unknown_fields()->AddVarint(1, value);
-          }
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(17)) goto parse_money1;
-        break;
-      }
-      
-      // required double money1 = 2;
-      case 2: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
-         parse_money1:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &money1_)));
-          set_has_money1();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(25)) goto parse_money2;
-        break;
-      }
-      
-      // required double money2 = 3;
-      case 3: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
-         parse_money2:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &money2_)));
-          set_has_money2();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(32)) goto parse_offLine;
-        break;
-      }
-      
-      // optional bool offLine = 4;
-      case 4: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_offLine:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
-                 input, &offline_)));
-          set_has_offline();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(49)) goto parse_winMoney1;
-        break;
-      }
-      
-      // optional double winMoney1 = 6;
-      case 6: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
-         parse_winMoney1:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &winmoney1_)));
-          set_has_winmoney1();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(57)) goto parse_winMoney2;
-        break;
-      }
-      
-      // optional double winMoney2 = 7;
-      case 7: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
-         parse_winMoney2:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &winmoney2_)));
-          set_has_winmoney2();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(65)) goto parse_loseMoney1;
-        break;
-      }
-      
-      // optional double loseMoney1 = 8;
-      case 8: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
-         parse_loseMoney1:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &losemoney1_)));
-          set_has_losemoney1();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(73)) goto parse_loseMoney2;
-        break;
-      }
-      
-      // optional double loseMoney2 = 9;
-      case 9: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
-         parse_loseMoney2:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &losemoney2_)));
-          set_has_losemoney2();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(80)) goto parse_playround;
-        break;
-      }
-      
-      // optional int32 playround = 10;
-      case 10: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_playround:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &playround_)));
-          set_has_playround();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(88)) goto parse_dayWinNum;
-        break;
-      }
-      
-      // optional int32 dayWinNum = 11;
-      case 11: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_dayWinNum:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &daywinnum_)));
-          set_has_daywinnum();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(96)) goto parse_dayLoseNum;
-        break;
-      }
-      
-      // optional int32 dayLoseNum = 12;
-      case 12: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_dayLoseNum:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &daylosenum_)));
-          set_has_daylosenum();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(104)) goto parse_mapModelId;
-        break;
-      }
-      
-      // optional int32 mapModelId = 13;
-      case 13: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_mapModelId:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &mapmodelid_)));
-          set_has_mapmodelid();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(112)) goto parse_continueWinNum;
-        break;
-      }
-      
-      // optional int32 continueWinNum = 14;
-      case 14: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_continueWinNum:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &continuewinnum_)));
-          set_has_continuewinnum();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(121)) goto parse_gameMaxWinMoney;
-        break;
-      }
-      
-      // optional double gameMaxWinMoney = 15;
-      case 15: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
-         parse_gameMaxWinMoney:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &gamemaxwinmoney_)));
-          set_has_gamemaxwinmoney();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(128)) goto parse_charmValue;
-        break;
-      }
-      
-      // optional int32 charmValue = 16;
-      case 16: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
-         parse_charmValue:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &charmvalue_)));
-          set_has_charmvalue();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(138)) goto parse_others;
-        break;
-      }
-      
-      // optional string others = 17;
-      case 17: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_others:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_others()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->others().data(), this->others().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(146)) goto parse_achDataMap;
-        break;
-      }
-      
-      // optional string achDataMap = 18;
-      case 18: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_achDataMap:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_achdatamap()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->achdatamap().data(), this->achdatamap().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(154)) goto parse_sameTableMap;
-        break;
-      }
-      
-      // optional string sameTableMap = 19;
-      case 19: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
-         parse_sameTableMap:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_sametablemap()));
-          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-            this->sametablemap().data(), this->sametablemap().length(),
-            ::google::protobuf::internal::WireFormat::PARSE);
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectTag(161)) goto parse_taxMoney;
-        break;
-      }
-      
-      // optional double taxMoney = 20;
-      case 20: {
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_FIXED64) {
-         parse_taxMoney:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &taxmoney_)));
-          set_has_taxmoney();
-        } else {
-          goto handle_uninterpreted;
-        }
-        if (input->ExpectAtEnd()) return true;
-        break;
-      }
-      
-      default: {
-      handle_uninterpreted:
-        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          return true;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-  return true;
-#undef DO_
-}
-
-void GLQuitSubFishGameMessage::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // optional .com.game.proto.Protos_Rpc msgID = 1 [default = GLQuitSubFishGame];
-  if (has_msgid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      1, this->msgid(), output);
-  }
-  
-  // required double money1 = 2;
-  if (has_money1()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->money1(), output);
-  }
-  
-  // required double money2 = 3;
-  if (has_money2()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->money2(), output);
-  }
-  
-  // optional bool offLine = 4;
-  if (has_offline()) {
-    ::google::protobuf::internal::WireFormatLite::WriteBool(4, this->offline(), output);
-  }
-  
-  // optional double winMoney1 = 6;
-  if (has_winmoney1()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(6, this->winmoney1(), output);
-  }
-  
-  // optional double winMoney2 = 7;
-  if (has_winmoney2()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(7, this->winmoney2(), output);
-  }
-  
-  // optional double loseMoney1 = 8;
-  if (has_losemoney1()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(8, this->losemoney1(), output);
-  }
-  
-  // optional double loseMoney2 = 9;
-  if (has_losemoney2()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(9, this->losemoney2(), output);
-  }
-  
-  // optional int32 playround = 10;
-  if (has_playround()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(10, this->playround(), output);
-  }
-  
-  // optional int32 dayWinNum = 11;
-  if (has_daywinnum()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(11, this->daywinnum(), output);
-  }
-  
-  // optional int32 dayLoseNum = 12;
-  if (has_daylosenum()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(12, this->daylosenum(), output);
-  }
-  
-  // optional int32 mapModelId = 13;
-  if (has_mapmodelid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(13, this->mapmodelid(), output);
-  }
-  
-  // optional int32 continueWinNum = 14;
-  if (has_continuewinnum()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(14, this->continuewinnum(), output);
-  }
-  
-  // optional double gameMaxWinMoney = 15;
-  if (has_gamemaxwinmoney()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(15, this->gamemaxwinmoney(), output);
-  }
-  
-  // optional int32 charmValue = 16;
-  if (has_charmvalue()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(16, this->charmvalue(), output);
-  }
-  
-  // optional string others = 17;
-  if (has_others()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->others().data(), this->others().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      17, this->others(), output);
-  }
-  
-  // optional string achDataMap = 18;
-  if (has_achdatamap()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->achdatamap().data(), this->achdatamap().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      18, this->achdatamap(), output);
-  }
-  
-  // optional string sameTableMap = 19;
-  if (has_sametablemap()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->sametablemap().data(), this->sametablemap().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    ::google::protobuf::internal::WireFormatLite::WriteString(
-      19, this->sametablemap(), output);
-  }
-  
-  // optional double taxMoney = 20;
-  if (has_taxmoney()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(20, this->taxmoney(), output);
-  }
-  
-  if (!unknown_fields().empty()) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        unknown_fields(), output);
-  }
-}
-
-::google::protobuf::uint8* GLQuitSubFishGameMessage::SerializeWithCachedSizesToArray(
-    ::google::protobuf::uint8* target) const {
-  // optional .com.game.proto.Protos_Rpc msgID = 1 [default = GLQuitSubFishGame];
-  if (has_msgid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      1, this->msgid(), target);
-  }
-  
-  // required double money1 = 2;
-  if (has_money1()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->money1(), target);
-  }
-  
-  // required double money2 = 3;
-  if (has_money2()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->money2(), target);
-  }
-  
-  // optional bool offLine = 4;
-  if (has_offline()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(4, this->offline(), target);
-  }
-  
-  // optional double winMoney1 = 6;
-  if (has_winmoney1()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(6, this->winmoney1(), target);
-  }
-  
-  // optional double winMoney2 = 7;
-  if (has_winmoney2()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(7, this->winmoney2(), target);
-  }
-  
-  // optional double loseMoney1 = 8;
-  if (has_losemoney1()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(8, this->losemoney1(), target);
-  }
-  
-  // optional double loseMoney2 = 9;
-  if (has_losemoney2()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(9, this->losemoney2(), target);
-  }
-  
-  // optional int32 playround = 10;
-  if (has_playround()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(10, this->playround(), target);
-  }
-  
-  // optional int32 dayWinNum = 11;
-  if (has_daywinnum()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(11, this->daywinnum(), target);
-  }
-  
-  // optional int32 dayLoseNum = 12;
-  if (has_daylosenum()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(12, this->daylosenum(), target);
-  }
-  
-  // optional int32 mapModelId = 13;
-  if (has_mapmodelid()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(13, this->mapmodelid(), target);
-  }
-  
-  // optional int32 continueWinNum = 14;
-  if (has_continuewinnum()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(14, this->continuewinnum(), target);
-  }
-  
-  // optional double gameMaxWinMoney = 15;
-  if (has_gamemaxwinmoney()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(15, this->gamemaxwinmoney(), target);
-  }
-  
-  // optional int32 charmValue = 16;
-  if (has_charmvalue()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(16, this->charmvalue(), target);
-  }
-  
-  // optional string others = 17;
-  if (has_others()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->others().data(), this->others().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        17, this->others(), target);
-  }
-  
-  // optional string achDataMap = 18;
-  if (has_achdatamap()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->achdatamap().data(), this->achdatamap().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        18, this->achdatamap(), target);
-  }
-  
-  // optional string sameTableMap = 19;
-  if (has_sametablemap()) {
-    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
-      this->sametablemap().data(), this->sametablemap().length(),
-      ::google::protobuf::internal::WireFormat::SERIALIZE);
-    target =
-      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
-        19, this->sametablemap(), target);
-  }
-  
-  // optional double taxMoney = 20;
-  if (has_taxmoney()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(20, this->taxmoney(), target);
-  }
-  
-  if (!unknown_fields().empty()) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        unknown_fields(), target);
-  }
-  return target;
-}
-
-int GLQuitSubFishGameMessage::ByteSize() const {
-  int total_size = 0;
-  
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // optional .com.game.proto.Protos_Rpc msgID = 1 [default = GLQuitSubFishGame];
-    if (has_msgid()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::EnumSize(this->msgid());
-    }
-    
-    // required double money1 = 2;
-    if (has_money1()) {
-      total_size += 1 + 8;
-    }
-    
-    // required double money2 = 3;
-    if (has_money2()) {
-      total_size += 1 + 8;
-    }
-    
-    // optional bool offLine = 4;
-    if (has_offline()) {
-      total_size += 1 + 1;
-    }
-    
-    // optional double winMoney1 = 6;
-    if (has_winmoney1()) {
-      total_size += 1 + 8;
-    }
-    
-    // optional double winMoney2 = 7;
-    if (has_winmoney2()) {
-      total_size += 1 + 8;
-    }
-    
-    // optional double loseMoney1 = 8;
-    if (has_losemoney1()) {
-      total_size += 1 + 8;
-    }
-    
-    // optional double loseMoney2 = 9;
-    if (has_losemoney2()) {
-      total_size += 1 + 8;
-    }
-    
-  }
-  if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    // optional int32 playround = 10;
-    if (has_playround()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->playround());
-    }
-    
-    // optional int32 dayWinNum = 11;
-    if (has_daywinnum()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->daywinnum());
-    }
-    
-    // optional int32 dayLoseNum = 12;
-    if (has_daylosenum()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->daylosenum());
-    }
-    
-    // optional int32 mapModelId = 13;
-    if (has_mapmodelid()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->mapmodelid());
-    }
-    
-    // optional int32 continueWinNum = 14;
-    if (has_continuewinnum()) {
-      total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->continuewinnum());
-    }
-    
-    // optional double gameMaxWinMoney = 15;
-    if (has_gamemaxwinmoney()) {
-      total_size += 1 + 8;
-    }
-    
-    // optional int32 charmValue = 16;
-    if (has_charmvalue()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
-          this->charmvalue());
-    }
-    
-    // optional string others = 17;
-    if (has_others()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->others());
-    }
-    
-  }
-  if (_has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-    // optional string achDataMap = 18;
-    if (has_achdatamap()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->achdatamap());
-    }
-    
-    // optional string sameTableMap = 19;
-    if (has_sametablemap()) {
-      total_size += 2 +
-        ::google::protobuf::internal::WireFormatLite::StringSize(
-          this->sametablemap());
-    }
-    
-    // optional double taxMoney = 20;
-    if (has_taxmoney()) {
-      total_size += 2 + 8;
-    }
-    
-  }
-  if (!unknown_fields().empty()) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        unknown_fields());
-  }
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void GLQuitSubFishGameMessage::MergeFrom(const ::google::protobuf::Message& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  const GLQuitSubFishGameMessage* source =
-    ::google::protobuf::internal::dynamic_cast_if_available<const GLQuitSubFishGameMessage*>(
-      &from);
-  if (source == NULL) {
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-    MergeFrom(*source);
-  }
-}
-
-void GLQuitSubFishGameMessage::MergeFrom(const GLQuitSubFishGameMessage& from) {
-  GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_msgid()) {
-      set_msgid(from.msgid());
-    }
-    if (from.has_money1()) {
-      set_money1(from.money1());
-    }
-    if (from.has_money2()) {
-      set_money2(from.money2());
-    }
-    if (from.has_offline()) {
-      set_offline(from.offline());
-    }
-    if (from.has_winmoney1()) {
-      set_winmoney1(from.winmoney1());
-    }
-    if (from.has_winmoney2()) {
-      set_winmoney2(from.winmoney2());
-    }
-    if (from.has_losemoney1()) {
-      set_losemoney1(from.losemoney1());
-    }
-    if (from.has_losemoney2()) {
-      set_losemoney2(from.losemoney2());
-    }
-  }
-  if (from._has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    if (from.has_playround()) {
-      set_playround(from.playround());
-    }
-    if (from.has_daywinnum()) {
-      set_daywinnum(from.daywinnum());
-    }
-    if (from.has_daylosenum()) {
-      set_daylosenum(from.daylosenum());
-    }
-    if (from.has_mapmodelid()) {
-      set_mapmodelid(from.mapmodelid());
-    }
-    if (from.has_continuewinnum()) {
-      set_continuewinnum(from.continuewinnum());
-    }
-    if (from.has_gamemaxwinmoney()) {
-      set_gamemaxwinmoney(from.gamemaxwinmoney());
-    }
-    if (from.has_charmvalue()) {
-      set_charmvalue(from.charmvalue());
-    }
-    if (from.has_others()) {
-      set_others(from.others());
-    }
-  }
-  if (from._has_bits_[16 / 32] & (0xffu << (16 % 32))) {
-    if (from.has_achdatamap()) {
-      set_achdatamap(from.achdatamap());
-    }
-    if (from.has_sametablemap()) {
-      set_sametablemap(from.sametablemap());
-    }
-    if (from.has_taxmoney()) {
-      set_taxmoney(from.taxmoney());
-    }
-  }
-  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
-}
-
-void GLQuitSubFishGameMessage::CopyFrom(const ::google::protobuf::Message& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void GLQuitSubFishGameMessage::CopyFrom(const GLQuitSubFishGameMessage& from) {
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool GLQuitSubFishGameMessage::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000006) != 0x00000006) return false;
-  
-  return true;
-}
-
-void GLQuitSubFishGameMessage::Swap(GLQuitSubFishGameMessage* other) {
-  if (other != this) {
-    std::swap(msgid_, other->msgid_);
-    std::swap(money1_, other->money1_);
-    std::swap(money2_, other->money2_);
-    std::swap(offline_, other->offline_);
-    std::swap(winmoney1_, other->winmoney1_);
-    std::swap(winmoney2_, other->winmoney2_);
-    std::swap(losemoney1_, other->losemoney1_);
-    std::swap(losemoney2_, other->losemoney2_);
-    std::swap(playround_, other->playround_);
-    std::swap(daywinnum_, other->daywinnum_);
-    std::swap(daylosenum_, other->daylosenum_);
-    std::swap(mapmodelid_, other->mapmodelid_);
-    std::swap(continuewinnum_, other->continuewinnum_);
-    std::swap(gamemaxwinmoney_, other->gamemaxwinmoney_);
-    std::swap(charmvalue_, other->charmvalue_);
-    std::swap(others_, other->others_);
-    std::swap(achdatamap_, other->achdatamap_);
-    std::swap(sametablemap_, other->sametablemap_);
-    std::swap(taxmoney_, other->taxmoney_);
-    std::swap(_has_bits_[0], other->_has_bits_[0]);
-    _unknown_fields_.Swap(&other->_unknown_fields_);
-    std::swap(_cached_size_, other->_cached_size_);
-  }
-}
-
-::google::protobuf::Metadata GLQuitSubFishGameMessage::GetMetadata() const {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::Metadata metadata;
-  metadata.descriptor = GLQuitSubFishGameMessage_descriptor_;
-  metadata.reflection = GLQuitSubFishGameMessage_reflection_;
-  return metadata;
 }
 
 
@@ -5386,6 +4366,7 @@ const int GLQuitSubGameMessage::kOthersFieldNumber;
 const int GLQuitSubGameMessage::kAchDataMapFieldNumber;
 const int GLQuitSubGameMessage::kSameTableMapFieldNumber;
 const int GLQuitSubGameMessage::kTaxMoneyFieldNumber;
+const int GLQuitSubGameMessage::kOffLineFieldNumber;
 #endif  // !_MSC_VER
 
 GLQuitSubGameMessage::GLQuitSubGameMessage()
@@ -5424,6 +4405,7 @@ void GLQuitSubGameMessage::SharedCtor() {
   achdatamap_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   sametablemap_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
   taxmoney_ = 0;
+  offline_ = false;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -5503,6 +4485,7 @@ void GLQuitSubGameMessage::Clear() {
       }
     }
     taxmoney_ = 0;
+    offline_ = false;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -5837,6 +4820,22 @@ bool GLQuitSubGameMessage::MergePartialFromCodedStream(
         } else {
           goto handle_uninterpreted;
         }
+        if (input->ExpectTag(168)) goto parse_offLine;
+        break;
+      }
+      
+      // optional bool offLine = 21;
+      case 21: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_offLine:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   bool, ::google::protobuf::internal::WireFormatLite::TYPE_BOOL>(
+                 input, &offline_)));
+          set_has_offline();
+        } else {
+          goto handle_uninterpreted;
+        }
         if (input->ExpectAtEnd()) return true;
         break;
       }
@@ -5972,6 +4971,11 @@ void GLQuitSubGameMessage::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(20, this->taxmoney(), output);
   }
   
+  // optional bool offLine = 21;
+  if (has_offline()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBool(21, this->offline(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -6094,6 +5098,11 @@ void GLQuitSubGameMessage::SerializeWithCachedSizes(
   // optional double taxMoney = 20;
   if (has_taxmoney()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(20, this->taxmoney(), target);
+  }
+  
+  // optional bool offLine = 21;
+  if (has_offline()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteBoolToArray(21, this->offline(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -6232,6 +5241,11 @@ int GLQuitSubGameMessage::ByteSize() const {
       total_size += 2 + 8;
     }
     
+    // optional bool offLine = 21;
+    if (has_offline()) {
+      total_size += 2 + 1;
+    }
+    
   }
   if (!unknown_fields().empty()) {
     total_size +=
@@ -6323,6 +5337,9 @@ void GLQuitSubGameMessage::MergeFrom(const GLQuitSubGameMessage& from) {
     if (from.has_taxmoney()) {
       set_taxmoney(from.taxmoney());
     }
+    if (from.has_offline()) {
+      set_offline(from.offline());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -6367,6 +5384,7 @@ void GLQuitSubGameMessage::Swap(GLQuitSubGameMessage* other) {
     std::swap(achdatamap_, other->achdatamap_);
     std::swap(sametablemap_, other->sametablemap_);
     std::swap(taxmoney_, other->taxmoney_);
+    std::swap(offline_, other->offline_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -12075,6 +11093,13 @@ void LGRemoveGoodsMessage::Swap(LGRemoveGoodsMessage* other) {
 
 #ifndef _MSC_VER
 const int GLFilishPresentCharmMessage::kMsgIDFieldNumber;
+const int GLFilishPresentCharmMessage::kNameFieldNumber;
+const int GLFilishPresentCharmMessage::kPlayerIdFieldNumber;
+const int GLFilishPresentCharmMessage::kToPlayerIdFieldNumber;
+const int GLFilishPresentCharmMessage::kSubGameIdFieldNumber;
+const int GLFilishPresentCharmMessage::kPresentTypeFieldNumber;
+const int GLFilishPresentCharmMessage::kPresentValueFieldNumber;
+const int GLFilishPresentCharmMessage::kNumFieldNumber;
 #endif  // !_MSC_VER
 
 GLFilishPresentCharmMessage::GLFilishPresentCharmMessage()
@@ -12094,6 +11119,13 @@ GLFilishPresentCharmMessage::GLFilishPresentCharmMessage(const GLFilishPresentCh
 void GLFilishPresentCharmMessage::SharedCtor() {
   _cached_size_ = 0;
   msgid_ = 6308;
+  name_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  playerid_ = GOOGLE_LONGLONG(0);
+  toplayerid_ = GOOGLE_LONGLONG(0);
+  subgameid_ = 0;
+  presenttype_ = 0;
+  presentvalue_ = 0;
+  num_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -12102,6 +11134,9 @@ GLFilishPresentCharmMessage::~GLFilishPresentCharmMessage() {
 }
 
 void GLFilishPresentCharmMessage::SharedDtor() {
+  if (name_ != &::google::protobuf::internal::kEmptyString) {
+    delete name_;
+  }
   if (this != default_instance_) {
   }
 }
@@ -12129,6 +11164,17 @@ GLFilishPresentCharmMessage* GLFilishPresentCharmMessage::New() const {
 void GLFilishPresentCharmMessage::Clear() {
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     msgid_ = 6308;
+    if (has_name()) {
+      if (name_ != &::google::protobuf::internal::kEmptyString) {
+        name_->clear();
+      }
+    }
+    playerid_ = GOOGLE_LONGLONG(0);
+    toplayerid_ = GOOGLE_LONGLONG(0);
+    subgameid_ = 0;
+    presenttype_ = 0;
+    presentvalue_ = 0;
+    num_ = 0;
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -12153,6 +11199,119 @@ bool GLFilishPresentCharmMessage::MergePartialFromCodedStream(
           } else {
             mutable_unknown_fields()->AddVarint(1, value);
           }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_name;
+        break;
+      }
+      
+      // required string name = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->name().data(), this->name().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(24)) goto parse_playerId;
+        break;
+      }
+      
+      // optional int64 playerId = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_playerId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &playerid_)));
+          set_has_playerid();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(32)) goto parse_toPlayerId;
+        break;
+      }
+      
+      // optional int64 toPlayerId = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_toPlayerId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &toplayerid_)));
+          set_has_toplayerid();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(40)) goto parse_subGameId;
+        break;
+      }
+      
+      // optional int32 subGameId = 5;
+      case 5: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_subGameId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &subgameid_)));
+          set_has_subgameid();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(48)) goto parse_presentType;
+        break;
+      }
+      
+      // optional int32 presentType = 6;
+      case 6: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_presentType:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &presenttype_)));
+          set_has_presenttype();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(56)) goto parse_presentValue;
+        break;
+      }
+      
+      // optional int32 presentValue = 7;
+      case 7: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_presentValue:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &presentvalue_)));
+          set_has_presentvalue();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(64)) goto parse_num;
+        break;
+      }
+      
+      // optional int32 num = 8;
+      case 8: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_num:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &num_)));
+          set_has_num();
         } else {
           goto handle_uninterpreted;
         }
@@ -12184,6 +11343,45 @@ void GLFilishPresentCharmMessage::SerializeWithCachedSizes(
       1, this->msgid(), output);
   }
   
+  // required string name = 2;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->name(), output);
+  }
+  
+  // optional int64 playerId = 3;
+  if (has_playerid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->playerid(), output);
+  }
+  
+  // optional int64 toPlayerId = 4;
+  if (has_toplayerid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->toplayerid(), output);
+  }
+  
+  // optional int32 subGameId = 5;
+  if (has_subgameid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->subgameid(), output);
+  }
+  
+  // optional int32 presentType = 6;
+  if (has_presenttype()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->presenttype(), output);
+  }
+  
+  // optional int32 presentValue = 7;
+  if (has_presentvalue()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(7, this->presentvalue(), output);
+  }
+  
+  // optional int32 num = 8;
+  if (has_num()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(8, this->num(), output);
+  }
+  
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -12196,6 +11394,46 @@ void GLFilishPresentCharmMessage::SerializeWithCachedSizes(
   if (has_msgid()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->msgid(), target);
+  }
+  
+  // required string name = 2;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->name().data(), this->name().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->name(), target);
+  }
+  
+  // optional int64 playerId = 3;
+  if (has_playerid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->playerid(), target);
+  }
+  
+  // optional int64 toPlayerId = 4;
+  if (has_toplayerid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->toplayerid(), target);
+  }
+  
+  // optional int32 subGameId = 5;
+  if (has_subgameid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->subgameid(), target);
+  }
+  
+  // optional int32 presentType = 6;
+  if (has_presenttype()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->presenttype(), target);
+  }
+  
+  // optional int32 presentValue = 7;
+  if (has_presentvalue()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(7, this->presentvalue(), target);
+  }
+  
+  // optional int32 num = 8;
+  if (has_num()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(8, this->num(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -12213,6 +11451,55 @@ int GLFilishPresentCharmMessage::ByteSize() const {
     if (has_msgid()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::EnumSize(this->msgid());
+    }
+    
+    // required string name = 2;
+    if (has_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->name());
+    }
+    
+    // optional int64 playerId = 3;
+    if (has_playerid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->playerid());
+    }
+    
+    // optional int64 toPlayerId = 4;
+    if (has_toplayerid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->toplayerid());
+    }
+    
+    // optional int32 subGameId = 5;
+    if (has_subgameid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->subgameid());
+    }
+    
+    // optional int32 presentType = 6;
+    if (has_presenttype()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->presenttype());
+    }
+    
+    // optional int32 presentValue = 7;
+    if (has_presentvalue()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->presentvalue());
+    }
+    
+    // optional int32 num = 8;
+    if (has_num()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->num());
     }
     
   }
@@ -12245,6 +11532,27 @@ void GLFilishPresentCharmMessage::MergeFrom(const GLFilishPresentCharmMessage& f
     if (from.has_msgid()) {
       set_msgid(from.msgid());
     }
+    if (from.has_name()) {
+      set_name(from.name());
+    }
+    if (from.has_playerid()) {
+      set_playerid(from.playerid());
+    }
+    if (from.has_toplayerid()) {
+      set_toplayerid(from.toplayerid());
+    }
+    if (from.has_subgameid()) {
+      set_subgameid(from.subgameid());
+    }
+    if (from.has_presenttype()) {
+      set_presenttype(from.presenttype());
+    }
+    if (from.has_presentvalue()) {
+      set_presentvalue(from.presentvalue());
+    }
+    if (from.has_num()) {
+      set_num(from.num());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -12262,6 +11570,7 @@ void GLFilishPresentCharmMessage::CopyFrom(const GLFilishPresentCharmMessage& fr
 }
 
 bool GLFilishPresentCharmMessage::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000002) != 0x00000002) return false;
   
   return true;
 }
@@ -12269,6 +11578,13 @@ bool GLFilishPresentCharmMessage::IsInitialized() const {
 void GLFilishPresentCharmMessage::Swap(GLFilishPresentCharmMessage* other) {
   if (other != this) {
     std::swap(msgid_, other->msgid_);
+    std::swap(name_, other->name_);
+    std::swap(playerid_, other->playerid_);
+    std::swap(toplayerid_, other->toplayerid_);
+    std::swap(subgameid_, other->subgameid_);
+    std::swap(presenttype_, other->presenttype_);
+    std::swap(presentvalue_, other->presentvalue_);
+    std::swap(num_, other->num_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

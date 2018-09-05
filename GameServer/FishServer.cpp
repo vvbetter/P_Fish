@@ -1108,7 +1108,6 @@ bool FishServer::HandleCenterMsg(NetCmd* pCmd)
 			CRoleEx* pRole = m_RoleManager.QuertUserByUid(uid);
 			if (pRole)
 			{
-				//TODO 根据物品ID决定效果
 				switch (pmsg->itemId)
 				{
 				case 300001:
@@ -1556,6 +1555,15 @@ void FishServer::OnReloadConfig()
 	m_FishConfig = pNewConfig;
 	Log("重新加载FishConfig.xml成功");
 }
+tagClientUserData* FishServer::GetHallDataCache(const int64 uid)
+{
+	auto it = m_HalldataCach.find(uid);
+	if (it == m_HalldataCach.end())
+	{
+		return NULL;
+	}
+	return it->second;
+}
 
 bool FishServer::OnRemoveHallCatchData(const int64 uid)
 {
@@ -1564,7 +1572,7 @@ bool FishServer::OnRemoveHallCatchData(const int64 uid)
 	{
 		free(it->second);
 		m_HalldataCach.erase(it);
-		Log("清除缓存数据：%lld", uid);
+		//Log("清除缓存数据：%lld", uid);
 	}
 	return true;
 }

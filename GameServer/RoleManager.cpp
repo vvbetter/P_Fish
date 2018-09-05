@@ -152,17 +152,24 @@ void RoleManager::OnKickOneUser(CRoleEx* pRole)
 			gdCacheIt->second = pRole->GetRoleGameData().GetGameData();
 		}
 		//同步数据到游戏大厅
-		GL_QuitSubGame msg;
-		SetMsgInfo(msg, GetMsgType(Main_Hall, 70), sizeof(GL_QuitSubGame));
-		msg.uid = pRole->GetRoleInfo().Uid;
-		msg.money1 = pRole->GetRoleInfo().money1*1.0 / MONEY_RATIO;
-		msg.money2 = pRole->GetRoleInfo().money2*1.0 / MONEY_RATIO;
-		msg.quitSubGame = false;
-		msg.loseNum = pRole->GetRoleGameData().GetLoseNum();
-		msg.winNum = pRole->GetRoleGameData().GetWinNum();
-		msg.winMoney = pRole->GetRoleGameData().GetTotalWinGold()*1.0 / MONEY_RATIO;
-		msg.loseMoney = pRole->GetRoleGameData().GetTotalLoseGold()*1.0 / MONEY_RATIO;
-		g_FishServer.SendNetCmdToCenter(&msg);
+		tagClientUserData* pUdata = g_FishServer.GetHallDataCache(pRole->GetRoleInfo().Uid);
+		UINT32 msgSize = sizeof(GL_QuitSubGame) + pUdata->achSize * (sizeof(tagAchDataMap));
+		GL_QuitSubGame* msg = (GL_QuitSubGame*)malloc(msgSize);
+		SetMsgInfo((*msg), GetMsgType(Main_Hall, 70), msgSize);
+		msg->uid = pRole->GetRoleInfo().Uid;
+		msg->money1 = pRole->GetRoleInfo().money1*1.0 / MONEY_RATIO;
+		msg->money2 = pRole->GetRoleInfo().money2*1.0 / MONEY_RATIO;
+		msg->quitSubGame = false;
+		msg->loseNum = pRole->GetRoleGameData().GetLoseNum();
+		msg->winNum = pRole->GetRoleGameData().GetWinNum();
+		msg->winMoney = pRole->GetRoleGameData().GetTotalWinGold()*1.0 / MONEY_RATIO;
+		msg->loseMoney = pRole->GetRoleGameData().GetTotalLoseGold()*1.0 / MONEY_RATIO;
+		msg->catchBossFishCount = pRole->GetRoleGameData().GetBossFishCount();
+		msg->charmValue = pUdata->charmValue;
+		msg->achSize = pUdata->achSize;
+		memcpy_s(msg->achData, pUdata->achSize * sizeof(tagAchDataMap), pUdata->achDataMap, pUdata->achSize * sizeof(tagAchDataMap));
+		g_FishServer.SendNetCmdToCenter(msg);
+		free(msg);
 		//清除缓存数据
 		g_FishServer.OnRemoveHallCatchData(pRole->GetRoleInfo().Uid);
 		//客户端让玩家返回游戏大厅

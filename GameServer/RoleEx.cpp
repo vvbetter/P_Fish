@@ -135,7 +135,7 @@ void CRoleEx::SendDataToCenter(NetCmd* pCmd)
 {
 	g_FishServer.SendNetCmdToCenter(pCmd);
 }
-bool CRoleEx::ChangeRoleGlobe(int64 AddGlobe, const BYTE TableTypeID)
+bool CRoleEx::ChangeRoleGlobe(int64 AddGlobe, const BYTE TableTypeID, const USHORT FishType)
 {
 	if (TableTypeID >= 4)
 		return false;
@@ -150,6 +150,8 @@ bool CRoleEx::ChangeRoleGlobe(int64 AddGlobe, const BYTE TableTypeID)
 	m_RoleGameData.GetGameData().turn_LoseWinGold[TableTypeID] += AddGlobe;
 	//记录每分钟输赢金币，统计输赢次数
 	m_RoleGameData.ChangeGameGold(AddGlobe);
+	//处理击杀鱼事件
+	m_RoleGameData.OnPlayerCatchFish(FishType);
 	//优先消耗游戏奖励的金币，再消耗玩家充值的
 	if (AddGlobe > 0)
 	{

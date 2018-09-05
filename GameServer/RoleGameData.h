@@ -19,11 +19,18 @@ public:
 	const int64 GetTurnLoseWinGoldByTable(const BYTE TableTypeID);
 	void UpdateMinWinLose();					//统计一分钟内的输赢
 	void ChangeGameGold(const INT64 gold);	//每次输赢统计金币
+	void OnPlayerCatchFish(const USHORT FishType); //处理击杀鱼事件
 
 	const INT32 GetWinNum(){ return m_winNum; }
 	const INT32 GetLoseNum(){ return m_loseNum; }
 	const INT64 GetTotalWinGold(){ return m_TotalWinGold; }
 	const int64 GetTotalLoseGold(){ return m_TotalLoseGold; }
+	const INT32 GetBossFishCount(){ return m_BossFishCount; }
+private:
+	void OnFishEvent(tagClientUserData* udata, INT eventType);
+
+	void OnCatchFihs_25(tagClientUserData* udata); //击杀电鳗
+	void OnCatchFish_1_3_19(tagClientUserData* udata);//击杀BOSS鱼
 private:
 	CRoleEx*				m_pRole;
 	tagRoleGameData			m_RoleGameData;
@@ -33,4 +40,6 @@ private:
 	INT32					m_loseNum; //统计每分钟的输赢，退出时返回输赢次数 
 	INT64					m_TotalWinGold;	//玩家一局游戏中总获得金币
 	INT64					m_TotalLoseGold; //玩家一局游戏中总输掉金币
+
+	INT32					m_BossFishCount; //击杀的BOSS鱼数量
 };

@@ -9714,6 +9714,10 @@ struct GL_QuitSubGame : public NetCmd
 	INT loseNum;	//统计每分钟的输赢，退出时返回输赢次数	
 	double winMoney;  //一局游戏获得的金币
 	double loseMoney; //一局游戏消耗的金币
+	INT32 catchBossFishCount; //击杀BOSS鱼数量，任务需要
+	INT32 charmValue; //魅力值
+	INT32 achSize;    //成就数据大小
+	tagAchDataMap achData[0]; //成就数据
 };
 
 struct GL_SyncDataToHall :public NetCmd

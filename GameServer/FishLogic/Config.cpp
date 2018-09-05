@@ -623,7 +623,7 @@ UINT   CConfig::CatchFish(PlayerID playerID, USHORT fishIndx, CatchType catchTyp
 		{
 			nMultiple = SkillMultiple(subType);
 		}
-		pUser->OnCatchFish(catchType, subType, fishIndx, byPackageType, nIncome*nMultiple, nIncome);
+		pUser->OnCatchFish(catchType, subType, fishIndx, nIncome*nMultiple);
 		return nIncome * nMultiple;
 	}
 	return 0;
