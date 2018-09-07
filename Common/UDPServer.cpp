@@ -584,7 +584,7 @@ void NewUDPServer::_ThreadAccept()
 				{
 					if (timeGetTime() - tick > 5000)
 					{
-						Log("udp 登录验证超时 uid = %lld", ntohll(csd->uid));
+						Log("udp 登录验证超时 uid = %lld", csd->uid);
 						closesocket(csd->Socket);
 						delete m_ClientCach.GetItem();
 					}
@@ -607,7 +607,7 @@ void NewUDPServer::_ThreadAccept()
 				{
 					playerid = checkMsg.playeronlyid();
 				}
-				if (ntohll(playerid) != csd->uid)
+				if (playerid != csd->uid)
 				{
 					Log("UDP uid错误！%lld != %lld", csd->uid, playerid);
 					closesocket(csd->Socket);

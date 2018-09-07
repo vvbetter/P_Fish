@@ -116,7 +116,7 @@ void FishServer::InitTestClientData()
 //	{
 //		CreateSocketData csd;
 //		memset(&csd, 0, sizeof(CreateSocketData));
-//		csd.uid = htonll(i);
+//		csd.uid = _HTONLL_(i);
 //		bool ret = m_ClientTcp.CreateNewClientSocket(csd, 0, static_cast<USHORT>(UDP_SOCKET_PORT_START + i));
 //		m_ratioValue = 1000;
 //		tagClientUserData udata;
@@ -127,7 +127,7 @@ void FishServer::InitTestClientData()
 //		udata.sex = 2;
 //		udata.vip = i % 5;
 //		udata.headIcon = 1;
-//		m_HalldataCach[ntohll(csd.uid)] = udata;
+//		m_HalldataCach[_NTOHLL(csd.uid)] = udata;
 //		if (i == 1 || i == MAX_TEST_CLIENT)
 //		{
 //			Log("Test Client Socket ip = %s, Prot = %d", g_FishServerConfig.GetGameServerConfig(m_GameNetworkID)->GameListenIP, csd.Port);
@@ -467,6 +467,10 @@ void FishServer::OnAddClient()
 				msg.ClientID = ClientID;
 				msg.LogonByGameServer = true;
 				g_FishServer.SendNetCmdToDB(&msg);
+			}
+			else
+			{
+				Log("未找到大厅发送的数据缓存uid=%lld", Uid);
 			}
 			//触发玩家加入的事件
 			OnTcpServerJoin(pOnce->SeverID, pOnce->pClient);
@@ -914,7 +918,7 @@ bool FishServer::HandleCenterMsg(NetCmd* pCmd)
 			msg.loginSubGame = false;
 			CreateSocketData csd;
 			memset(&csd, 0, sizeof(CreateSocketData));
-			memcpy_s(&csd.uid, 8, &(((LG_UDPClientConnect*)pCmd)->uid), 8);
+			csd.uid = ((LG_UDPClientConnect*)pCmd)->uid;
 			if (m_hallControl.IsHallRuning() == true)
 			{
 				if (m_ClientTcp.CreateNewClientSocket(csd, 0))// inet_addr(g_FishServerConfig.GetGameServerConfig(m_GameNetworkID)->GameListenIP));
@@ -923,14 +927,14 @@ bool FishServer::HandleCenterMsg(NetCmd* pCmd)
 					UINT32 uDataSize = sizeof(tagClientUserData) + ((LG_UDPClientConnect*)pCmd)->udata.achSize*sizeof(tagAchDataMap);
 					tagClientUserData* udata = (tagClientUserData*)malloc(uDataSize);
 					memcpy_s(udata, uDataSize, &(((LG_UDPClientConnect*)pCmd)->udata), uDataSize);
-					m_HalldataCach[ntohll(csd.uid)] = udata;
+					m_HalldataCach[csd.uid] = udata;
 					msg.loginSubGame = true;
 				}
 			}
 			msg.fishPort = csd.Port;
 			msg.fishIp = inet_addr(g_FishServerConfig.GetGameServerConfig(m_GameNetworkID)->GameListenIP);
 			msg.rpcId = ((LG_UDPClientConnect*)pCmd)->rpcid;
-			memcpy_s(&msg.uid, 8, &(((LG_UDPClientConnect*)pCmd)->uid), 8);
+			msg.uid = ((LG_UDPClientConnect*)pCmd)->uid;
 			//Log("new client ip = %d,prot = %d", msg.Addr, msg.Port);
 			SendNetCmdToCenter(&msg);
 			break;
@@ -938,11 +942,11 @@ bool FishServer::HandleCenterMsg(NetCmd* pCmd)
 		case 67:// 玩家金币改动，大厅通知捕鱼游戏
 		{
 			LG_UpdateMoney* pmsg = (LG_UpdateMoney*)pCmd;
-			int64 uid = ntohll(pmsg->uid);
 			//Log("update money uid = %lld,money1=%f,money2=%f", uid, pmsg->money1, pmsg->money2);
-		 	CRoleEx* pRole = m_RoleManager.QuertUserByUid(uid);
+			CRoleEx* pRole = m_RoleManager.QuertUserByUid(pmsg->uid);
 			if (!pRole)
 			{
+				Log("玩家金币改动，未找到玩家：%lld, money1=%lf, money2=%lf", pmsg->uid, pmsg->money1, pmsg->money2);
 				ASSERT(false);
 				return false;
 			}
@@ -1104,8 +1108,7 @@ bool FishServer::HandleCenterMsg(NetCmd* pCmd)
 		case 162://LG 使用物品
 		{
 			LG_UseGoods* pmsg = (LG_UseGoods*)pCmd;
-			int64 uid = ntohll(pmsg->uid);
-			CRoleEx* pRole = m_RoleManager.QuertUserByUid(uid);
+			CRoleEx* pRole = m_RoleManager.QuertUserByUid(pmsg->uid);
 			if (pRole)
 			{
 				switch (pmsg->itemId)
@@ -1119,6 +1122,10 @@ bool FishServer::HandleCenterMsg(NetCmd* pCmd)
 				}
 				//传入到游戏内部去
 				return m_TableManager.OnHandleTableMsg(pRole->GetUserID(), pCmd);
+			}
+			else
+			{
+				Log("使用物品,未知玩家：%lld, 物品ID=%d, 物品数量=%d", pmsg->uid, pmsg->itemId, pmsg->itemNum);
 			}
 		}
 		default:

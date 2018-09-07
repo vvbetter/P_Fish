@@ -36,7 +36,7 @@ void FishScene::Reset()
 	m_bFlowInterval = false;
 	m_FlowInterval = 0;
 }
-bool FishScene::Init(CTableRoleManager *pm,  FishSendInterface *pSend)
+bool FishScene::Init(CTableRoleManager *pm, FishSendInterface *pSend, BYTE TableTypeID)
 {
 	m_bFishTide = false;
 	m_pRoleMgr = pm;
@@ -45,11 +45,11 @@ bool FishScene::Init(CTableRoleManager *pm,  FishSendInterface *pSend)
 	m_pFishLauncher = new FishLauncher(m_pFishMgr);
 	m_pBulletMgr = new BulletManager;
 	m_pSender = pSend;
-	
+	m_TableTypeID = TableTypeID;
 	bool bRet = true;
 	bRet &= m_pFishMgr->Init();
 	bRet &= m_pBulletMgr->Init();
-	bRet &= m_pFishLauncher->Init(NULL, m_pSender);
+	bRet &= m_pFishLauncher->Init(NULL, m_pSender, TableTypeID);
 	m_SwapInterval = 0;
 	m_SwapScene = false;
 	if (!bRet)

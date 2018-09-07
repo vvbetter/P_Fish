@@ -15,7 +15,7 @@ public:
 	FishScene();
 	~FishScene();
 
-	bool Init(CTableRoleManager *pm, FishSendInterface *pSend);
+	bool Init(CTableRoleManager *pm, FishSendInterface *pSend, BYTE TableTypeID);
 	void Shutdown();
 	void Update(float deltaTime);
 	bool SetMap(const WCHAR *pcMapName);
@@ -59,4 +59,5 @@ protected:
 	FishMap				*m_pFishMap;
 	DWORD				m_SceneStopTime; //场景冰冻结束时间
 	bool				m_IsSceneStopTime;
+	BYTE				m_TableTypeID;
 };

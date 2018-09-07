@@ -455,8 +455,6 @@ float CConfig::CatchChance(PlayerID player, int maxCatch, Fish* pFish, Bullet* p
 		const float& maxHp = pFish->fishHp[pBullet->RateIndex].maxHp;
 		float& attackHp = pFish->fishHp[pBullet->RateIndex].attackHp;
 		float& seatAttackHp = pFish->fishHp[pBullet->RateIndex].seatAttack[seatID];
-		//系统收益矫正
-		const vector<float>& sysRate =  m_pTableManager->SysProduceRate(pPlayer->GetTableType());
 		//增加伤害
 		float addAttack = (1.0f * BulletMultiple(pBullet->RateIndex)  //子弹倍率
 			*m_Cannon[bulletType].nconsume					          //大炮基础value
@@ -467,7 +465,7 @@ float CConfig::CatchChance(PlayerID player, int maxCatch, Fish* pFish, Bullet* p
 			);
 		attackHp += addAttack;
 		seatAttackHp += addAttack;
-		//计算其他倍率总伤害
+		//计算该玩家其他倍率总伤害
 		float totalAttack = 0;
 		for (int i = 0; i<RateCount(); ++i)
 		{
@@ -477,22 +475,18 @@ float CConfig::CatchChance(PlayerID player, int maxCatch, Fish* pFish, Bullet* p
 			}
 		}
 		//防止补刀，需要玩家伤害达到最小比率
-		if (SystemControl::minPerKillHp >(totalAttack + seatAttackHp) / maxHp * sysRate[0])
+		if (SystemControl::minPerKillHp >(totalAttack + seatAttackHp) / maxHp)
 		{
 			return 0;
 		}
-		//3种情况判定是否可以击杀
-		if (sysRate[0] > (attackHp + totalAttack) / maxHp) //当前伤害比率小于击杀的最小比率
+		//判定是否可以击杀
+		if ((attackHp + totalAttack) < maxHp) //总伤害是否大于了鱼的最大血量
 		{
 			return 0;
 		}
-		else if (sysRate[1] <= (attackHp + totalAttack) / maxHp)//当前伤害比率大于击杀的最大比率
+		else 
 		{
 			return 1;
-		}
-		else
-		{
-			return RandFloat();
 		}
 	}
 	return 0;

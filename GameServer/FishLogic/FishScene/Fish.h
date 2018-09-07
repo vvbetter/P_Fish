@@ -7,6 +7,7 @@
 #define INFRUSTUM_OFFSET_SCR 7.0f
 #include "Timer.h"
 #define START_POS -3000
+#define FISH_HP_RANDRANGE_N 10000
 class Fish;
 
 extern FishServer g_FishServer;
@@ -43,7 +44,7 @@ struct FishHpInfo
 class Fish
 {
 public:
-	void InitFishData(USHORT groupID, USHORT id, USHORT fishType, USHORT pathGroup, USHORT pathIndex, float fishScaling, float speed, const Vector3 &offset, float time, PathData *pPathData)
+	void InitFishData(USHORT groupID, USHORT id, USHORT fishType, USHORT pathGroup, USHORT pathIndex, float fishScaling, float speed, const Vector3 &offset, float time, PathData *pPathData,BYTE TableTypeID)
 	{
 		//Log("Fish: id:%d,GroupID:%d,FishType:%d,pathGroup:%d,pathIndex:%d", id, groupID, FishType, pathGroup, pathIndex);
 		PackageType = 255;
@@ -64,12 +65,13 @@ public:
 		IsDead = false;
 		WorldPos = Vector3(START_POS, 0, 0);
 
+		const vector<float>& sysRate = g_FishServer.GetTableManager()->SysProduceRate(TableTypeID);
 		CConfig* gameConfig = g_FishServer.GetTableManager()->GetGameConfig();
 		for (int i = 0; i < gameConfig->RateCount(); ++i)
 		{
 			float maxHp = 1.0f * gameConfig->GetFishValue(FishType) * gameConfig->BulletMultiple(i)*gameConfig->GetFishSpecialRate(fishType);//×î´óÑªÁ¿
 			FishHpInfo oneRateHp;
-			oneRateHp.maxHp = maxHp;
+			oneRateHp.maxHp = maxHp* (RandRange(static_cast<UINT>(sysRate[0] * FISH_HP_RANDRANGE_N), static_cast<UINT>(sysRate[1] * FISH_HP_RANDRANGE_N))*1.0f / FISH_HP_RANDRANGE_N);
 			fishHp.insert(make_pair(i, oneRateHp));
 		}
 	}

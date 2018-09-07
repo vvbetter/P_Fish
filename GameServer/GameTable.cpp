@@ -26,7 +26,7 @@ bool GameTable::OnInit(WORD TableID, BYTE TableTypeID, BYTE MonthID)
 	m_TableID = TableID;//设置好桌子的ID 
 	m_TableTypeID = TableTypeID;
 	m_RoleManager.OnInit(TableID, Iter->second.wMaxPlayerSum);//初始化玩家管理器
-	m_fishdesk.Init(m_TableID, this, Iter->second.cMapName, &m_RoleManager);
+	m_fishdesk.Init(m_TableID, this, Iter->second.cMapName, &m_RoleManager, m_TableTypeID);
 	m_LastUpdateTime = timeGetTime();
 	m_MonthID = MonthID;
 	return true;

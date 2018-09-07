@@ -14,7 +14,7 @@ public:
 	FishDesk();
 	~FishDesk();
 
-	bool Init(int index, NetSendInterface *pNetSend, const WCHAR *pcMapName, CTableRoleManager* pManager);
+	bool Init(int index, NetSendInterface *pNetSend, const WCHAR *pcMapName, CTableRoleManager* pManager, BYTE TableTypeID);
 	void Shutdown();
 	//返回要踢除的玩家个数
 	void Update(float deltaTime);
@@ -64,6 +64,7 @@ protected:
 	int				g_BulletId;
 	float			g_DeltaTime;
 	bool			m_bResetScene;
+	BYTE			m_TableTypeID;
 
 	CTableRoleManager*	m_PlayerManager;//用户管理器 当前桌子的
 };

@@ -15,6 +15,24 @@ const uint PBC_HEADER_SIZE = 10;
 //客户端 2字节消息ID + 2字节消息长度（只是后面PBC的消息长度) + n字节的PBC消息
 //内部通讯的NetCmd 2字节的消息长度（全部长度）+ 8字节的UID + 2字节的消息ID + 消息体
 // proto buffer 编码
+
+
+
+void PrintLogInCmd( USHORT cmdType)
+{
+#ifdef _DEBUG
+	USHORT logCmeType[] = { 6003, 6004, 6030, 6017, 6018, 6032, 6031, 6025, 6026 };
+	for (USHORT& x : logCmeType)
+	{
+		if (cmdType == x)
+		{
+			Log("打印消息 cmdType=%d ", x);
+			break;
+		}
+	}
+#endif
+}
+
 NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, bool& isPBC)
 {
 	if (buffer == NULL)
@@ -22,6 +40,7 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 		ASSERT(false);
 		return NULL;
 	}
+	PrintLogInCmd(cmdType);
 	NetCmd *pCmd = NULL;
 	isPBC = true;
 	//游戏大厅的这些请求不处理
@@ -35,7 +54,9 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 	{
 		pCmd = CreateCmd(sizeof(LG_UseGoods));
 		pCmd->SetCmdType(GetMsgType(Main_Hall, 162));
-		memcpy_s(&(((LG_UseGoods*)pCmd)->uid), 8, buffer + 2, 8);
+		int64 uid = 0;
+		memcpy_s(&uid, 8, buffer + 2, 8);
+		((LG_UseGoods*)pCmd)->uid = _NTOHLL_(uid);
 		LGUseGoodsMessage msg;
 		msg.ParseFromArray(buffer + sizeof(NetCmd), length - PBC_HEADER_SIZE);
 		if (msg.has_itemid()) ((LG_UseGoods*)pCmd)->itemId = msg.itemid();
@@ -51,7 +72,9 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 	{
 		pCmd = CreateCmd(sizeof(LG_UpdateMoney));
 		pCmd->SetCmdType(GetMsgType(Main_Hall, 67));
-		memcpy_s(&(((LG_UpdateMoney*)pCmd)->uid), 8, buffer + 2, 8);
+		int64 uid = 0;
+		memcpy_s(&uid, 8, buffer + 2, 8);
+		((LG_UpdateMoney*)pCmd)->uid = _NTOHLL_(uid);
 		LGUpdateMoney1Message msg;
 		msg.ParseFromArray(buffer + sizeof(NetCmd), length - PBC_HEADER_SIZE);
 		if (msg.has_money1()) ((LG_UpdateMoney*)pCmd)->money1 = msg.money1();
@@ -77,7 +100,9 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 		}
 		pCmd = CreateCmd(dataSize);
 		pCmd->SetCmdType(GetMsgType(Main_Hall, 63));
-		memcpy_s(&(((LG_UDPClientConnect*)pCmd)->uid), 8, buffer + 2, 8);
+		int64 uid = 0;
+		memcpy_s(&uid, 8, buffer + 2, 8);
+		((LG_UDPClientConnect*)pCmd)->uid = _NTOHLL_(uid);
 		if (msg.has_rpcid())((LG_UDPClientConnect*)pCmd)->rpcid = msg.rpcid();
 		if (msg.has_money1()) ((LG_UDPClientConnect*)pCmd)->udata.money1 = msg.money1();
 		if (msg.has_money2()) ((LG_UDPClientConnect*)pCmd)->udata.money2 = msg.money2();
@@ -247,6 +272,7 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		return false;
 	}
 	USHORT cmdType = pCmd->GetCmdType();
+	PrintLogInCmd(cmdType);
 	isPBC = true;
 	char* ret = NULL;
 	//Log("PBC_Encode cmdType =%d", cmdType);
@@ -292,7 +318,8 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		ret = (char*)malloc(dataLenth);
 		USHORT pbcLen = htons(msg.ByteSize() + 10);
 		memcpy_s(ret, 2, &pbcLen, 2);
-		memcpy_s(ret + 2, 8, &pmsg->uid, 8);
+		int64 uid = _HTONLL_(pmsg->uid);
+		memcpy_s(ret + 2, 8, &uid, 8);
 		USHORT id = htons(com::game::proto::Protos_Rpc::GLLoginSubGame);
 		memcpy_s(ret + 10, 2, &id, 2);
 		msg.SerializeToArray(ret + 12, msg.ByteSize());
@@ -309,7 +336,8 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		ret = (char*)malloc(dataLenth);
 		USHORT pbcLen = htons(msg.ByteSize() + 10);
 		memcpy_s(ret, 2, &pbcLen, 2);
-		memcpy_s(ret + 2, 8, &pmsg->uid, 8);
+		int64 uid = _HTONLL_(pmsg->uid);
+		memcpy_s(ret + 2, 8, &uid, 8);
 		USHORT id = htons(com::game::proto::Protos_Rpc::GLUpdateRoundInfo);
 		memcpy_s(ret + 10, 2, &id, 2);
 		msg.SerializeToArray(ret + 12, msg.ByteSize());
@@ -361,7 +389,7 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		ret = (char*)malloc(dataLenth);
 		USHORT pbcLen = htons(msg.ByteSize() + 10);
 		memcpy_s(ret, 2, &pbcLen, 2);
-		int64 uid = htonll(pmsg->uid);
+		int64 uid = _HTONLL_(pmsg->uid);
 		memcpy_s(ret + 2, 8, &uid, 8);
 		USHORT id = htons(com::game::proto::Protos_Rpc::GLQuitSubGame);
 		memcpy_s(ret + 10, 2, &id, 2);

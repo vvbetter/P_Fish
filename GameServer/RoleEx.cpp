@@ -313,7 +313,7 @@ void CRoleEx::UpdateByMin(DWORD dwMin)
 	msg.money1 = m_RoleInfo.money1*1.0 / MONEY_RATIO;
 	msg.money2 = m_RoleInfo.money2*1.0 / MONEY_RATIO;
 	msg.subGameId = 80002;
-	msg.uid = htonll(m_RoleInfo.Uid);
+	msg.uid = m_RoleInfo.Uid;
 	SendDataToCenter(&msg);
 	//保存玩家游戏记录
 	DBR_Cmd_SaveRecord recordMsg;

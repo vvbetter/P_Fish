@@ -45,6 +45,7 @@ public:
 	vector<FlowTimeInfo>	m_FlowTimeCountList;
 	HashMap<int, LaunchPathTime>	m_PathIndexList;  //已经发射的路径列表,减少重复出现的机率
 	USHORT  m_FishID;
+	BYTE m_TableTypeID;
 	int     m_MaxProbability;
 	float   m_Time;
 	int     m_LoopCount;
@@ -69,10 +70,11 @@ public:
 	void Shutdown()
 	{
 	}
-	bool Init(FlowData *pFlow, FishSendInterface *pSend)
+	bool Init(FlowData *pFlow, FishSendInterface *pSend, BYTE TableTypeID)
 	{
 		m_pSendAll = pSend;
 		m_FishFlow = pFlow;
+		m_TableTypeID = TableTypeID;
 		if (m_FishFlow != NULL)
 			InitFlowData(true);
 		return true;
@@ -170,7 +172,7 @@ public:
 		for (int i = 0; i < pPathGroup->PathCount; ++i)
 		{
 			Fish *pFish = new Fish;
-			pFish->InitFishData(ConvertIntToWORD(groupID), m_FishID, pathgroup->FishIndex, pathgroup->PathGroupIndex, ConvertIntToWORD(i), pathgroup->FishScaling, pathgroup->Speed, Vector3(0, 0, 0), 0, &pPathGroup->pPathList[i]);
+			pFish->InitFishData(ConvertIntToWORD(groupID), m_FishID, pathgroup->FishIndex, pathgroup->PathGroupIndex, ConvertIntToWORD(i), pathgroup->FishScaling, pathgroup->Speed, Vector3(0, 0, 0), 0, &pPathGroup->pPathList[i], m_TableTypeID);
 			if (launchIdx == i)
 			{
 				packageFishID = m_FishID;
@@ -217,7 +219,7 @@ public:
 			for (int i = 0; i < pPathGroup->PathCount; ++i)
 			{
 				Fish *pFish = new Fish;
-				pFish->InitFishData(ConvertDWORDToWORD(plg.m_PathGroupID), m_FishID, pathgroup->FishIndex, pathgroup->PathGroupIndex, ConvertIntToWORD(i), pathgroup->FishScaling, pathgroup->Speed, Vector3(0, 0, 0), 0, &pPathGroup->pPathList[i]);
+				pFish->InitFishData(ConvertDWORDToWORD(plg.m_PathGroupID), m_FishID, pathgroup->FishIndex, pathgroup->PathGroupIndex, ConvertIntToWORD(i), pathgroup->FishScaling, pathgroup->Speed, Vector3(0, 0, 0), 0, &pPathGroup->pPathList[i], m_TableTypeID);
 				if (++m_FishID == MAX_FISH_NUM)
 					m_FishID = START_FISH_ID;
 				if (!m_pFishMgr->AddFish(pFish))
@@ -288,7 +290,7 @@ public:
 			{
 				float time = GetPathTimeByDist(startX, gd.pFishPosList[i].x, pathIndex);
 				Fish *pFish = new Fish;
-				pFish->InitFishData(ConvertIntToWORD(fishGroup), m_FishID, gd.FishIndex, ConvertIntToWORD(pathIndex), ConvertIntToWORD((n << 8) | i), gd.FishScaling, gd.SpeedScaling, gd.pFishPosList[i], time, pPathData);
+				pFish->InitFishData(ConvertIntToWORD(fishGroup), m_FishID, gd.FishIndex, ConvertIntToWORD(pathIndex), ConvertIntToWORD((n << 8) | i), gd.FishScaling, gd.SpeedScaling, gd.pFishPosList[i], time, pPathData, m_TableTypeID);
 
 				if (fishIdx == i)
 					fishPackageID = m_FishID;

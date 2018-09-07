@@ -20,10 +20,10 @@ FishDesk::~FishDesk()
 {
 
 }
-bool FishDesk::Init(int index, NetSendInterface *pNetSend, const WCHAR *pcMapName, CTableRoleManager* pManager)
+bool FishDesk::Init(int index, NetSendInterface *pNetSend, const WCHAR *pcMapName, CTableRoleManager* pManager, BYTE TableTypeID)
 {
 	m_pScene = new FishScene;
-	if (!m_pScene->Init(pManager, this))
+	if (!m_pScene->Init(pManager, this, TableTypeID))
 	{
 		SAFE_DELETE(m_pScene);
 		return false;
@@ -33,6 +33,7 @@ bool FishDesk::Init(int index, NetSendInterface *pNetSend, const WCHAR *pcMapNam
 	m_nDeskIndex = index;
 	m_bPause = false;
 	m_PlayerManager = pManager;
+	m_TableTypeID = TableTypeID;
 	if (!m_PlayerManager)
 	{
 		ASSERT(false);
