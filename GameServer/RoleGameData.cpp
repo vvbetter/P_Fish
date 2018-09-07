@@ -75,6 +75,10 @@ void RoleGameData::OnPlayerCatchFish(const USHORT FishType)
 		{
 			OnCatchFish_1_3_19(pUdata);
 		}
+		if (8 == FishType || 7 == FishType || 15 == FishType || 21 == FishType || 5 == FishType || 2 == FishType || 11 == FishType || 14 == FishType || 4 == FishType || 17 == FishType)
+		{
+			OnCatchFish_valueLE_10(pUdata);
+		}
 	}
 }
 
@@ -106,4 +110,8 @@ void RoleGameData::OnCatchFish_1_3_19(tagClientUserData* udata)
 {
 	OnFishEvent(udata, 60); //60 击杀BOSS鱼（金色鱼）
 	m_BossFishCount++;
+}
+void RoleGameData::OnCatchFish_valueLE_10(tagClientUserData* udata)
+{
+	OnFishEvent(udata, 63); //鱼价值小于等于10
 }

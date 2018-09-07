@@ -31,6 +31,7 @@ private:
 
 	void OnCatchFihs_25(tagClientUserData* udata); //击杀电鳗
 	void OnCatchFish_1_3_19(tagClientUserData* udata);//击杀BOSS鱼
+	void OnCatchFish_valueLE_10(tagClientUserData* udata); //鱼价值小于等于10
 private:
 	CRoleEx*				m_pRole;
 	tagRoleGameData			m_RoleGameData;

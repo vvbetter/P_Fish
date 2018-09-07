@@ -561,7 +561,6 @@ void  CConfig::GetSkillFreezeReduction(byte &speedScaling, byte &duration1, byte
 float CConfig::GetSkillChance(SkillType skill, USHORT fishIndex, BYTE byPackageType)
 {
 	ASSERT(ConvertIntToDWORD(skill)<m_Skill.size());
-	//TODO:// fishIndex=25 size=24
 	ASSERT(fishIndex<m_Fish.size());
 	return  1.0f*m_Skill[skill].nincome / (m_Fish[fishIndex].nvalue* m_Skill[skill].nmaxcatch)*PackageFactor(byPackageType);
 }

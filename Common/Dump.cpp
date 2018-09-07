@@ -41,7 +41,7 @@ int GenerateMiniDump(HANDLE hFile, PEXCEPTION_POINTERS pExceptionPointers)
 			ExpParam.ThreadId = GetCurrentThreadId();
 			ExpParam.ExceptionPointers = pExceptionPointers;
 			ExpParam.ClientPointers = FALSE;
-			pfnMiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hDumpFile, MiniDumpWithDataSegs, (pExceptionPointers ? &ExpParam : NULL), NULL, NULL);
+			pfnMiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(), hDumpFile, MiniDumpWithFullMemoryInfo, (pExceptionPointers ? &ExpParam : NULL), NULL, NULL);
 			if (bOwnDumpFile)
 			{
 				CloseHandle(hDumpFile);
