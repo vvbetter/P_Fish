@@ -86,8 +86,7 @@ void RoleGameData::OnFishEvent(tagClientUserData* udata, INT eventType)
 {
 	for (int i = 0; i < udata->achSize; ++i)
 	{
-		if (eventType == udata->achDataMap[i].achtype 
-			&& udata->achDataMap[i].qachfinishnum < udata->achDataMap[i].qachNum)
+		if (eventType == udata->achDataMap[i].achtype && udata->achDataMap[i].qachfinishnum < udata->achDataMap[i].qachNum)
 		{
 			//完成度 +1
 			udata->achDataMap[i].qachfinishnum += 1;
@@ -114,4 +113,24 @@ void RoleGameData::OnCatchFish_1_3_19(tagClientUserData* udata)
 void RoleGameData::OnCatchFish_valueLE_10(tagClientUserData* udata)
 {
 	OnFishEvent(udata, 63); //鱼价值小于等于10
+}
+
+void RoleGameData::OnPlayerUseMaxRate()
+{
+	tagClientUserData* udata = g_FishServer.GetHallDataCache(m_pRole->GetRoleInfo().Uid);
+	if (udata == NULL)
+	{
+		return;
+	}
+	OnFishEvent(udata, 62); // 62终极炮台成就
+}
+
+void RoleGameData::OnPlayerBulletNoCatch()
+{
+	tagClientUserData* udata = g_FishServer.GetHallDataCache(m_pRole->GetRoleInfo().Uid);
+	if (udata == NULL)
+	{
+		return;
+	}
+	OnFishEvent(udata, 64); // 64空炮专家成就
 }

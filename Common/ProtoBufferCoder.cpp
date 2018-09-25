@@ -141,17 +141,18 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 		((LG_UDPClientConnect*)pCmd)->udata.enterTime = timeGetTime();
 		((LG_UDPClientConnect*)pCmd)->udata.achSize = json_obj.size();
 		int achIndex = 0;
-		for (auto& x : json_obj)
+		for (const auto& x : json_obj)
 		{
+			if (x.isNull()) continue;
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].achtype = x["achtype"].asInt();
-			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].finishtime = x["finishtime"].asUInt();
+			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].finishtime = x["finishtime"].asUInt64();
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].gameid = x["gameid"].asInt();
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].liansheng = x["liansheng"].asInt();
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].lianshu = x["lianshu"].asInt();
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].qId = x["qId"].asInt();
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].qachNum = x["qachNum"].asInt();
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].qachfinishnum = x["qachfinishnum"].asInt();
-			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].receivetime = x["receivetime"].asUInt();
+			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].receivetime = x["receivetime"].asUInt64();
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].rewardMoney = x["rewardMoney"].asFloat();
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].titleID = x["titleID"].asInt();
 			((LG_UDPClientConnect*)pCmd)->udata.achDataMap[achIndex].titlemoney = x["titlemoney"].asFloat();
@@ -384,6 +385,7 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		ostringstream os;
 		writer->write(achValue, &os);
 		msg.set_achdatamap(os.str());
+		//cout << msg.achdatamap() << endl;
 		//Log("玩家%lld退出游戏,赢的次数:%d,输的次数:%d, 总赢的钱%lf,总输的钱%lf", pmsg->uid, pmsg->winNum, pmsg->loseNum, pmsg->winMoney, pmsg->loseMoney);
 		dataLenth = msg.ByteSize() + sizeof(NetCmd);
 		ret = (char*)malloc(dataLenth);

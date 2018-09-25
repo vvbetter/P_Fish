@@ -26,7 +26,7 @@ enum SideType
 };
 
 struct FishHpInfo 
-{
+{         
 	float maxHp;			//每种鱼对应倍率的最大血量
 	float attackHp;			//已经伤害血量
 	float seatAttack[4];	//4个位置伤害血量
@@ -64,9 +64,9 @@ public:
 		IsActive = true;
 		IsDead = false;
 		WorldPos = Vector3(START_POS, 0, 0);
-
 		const vector<float>& sysRate = g_FishServer.GetTableManager()->SysProduceRate(TableTypeID);
 		CConfig* gameConfig = g_FishServer.GetTableManager()->GetGameConfig();
+		FishValue = gameConfig->GetFishValue(FishType);
 		for (int i = 0; i < gameConfig->RateCount(); ++i)
 		{
 			float maxHp = 1.0f * gameConfig->GetFishValue(FishType) * gameConfig->BulletMultiple(i)*gameConfig->GetFishSpecialRate(fishType);//最大血量
@@ -240,5 +240,6 @@ public:
 	bool			HasAttackAction;
 	bool			IsInFrustum;
 	BYTE			PackageType;
+	INT 			FishValue;
 	map<USHORT, FishHpInfo> fishHp; // 子弹的每种倍率对应的血量信息
 };

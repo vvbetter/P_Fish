@@ -209,6 +209,11 @@ bool FishConfig::LoadConfigFilePath()
 		ASSERT(false);
 		return false;
 	}
+	if (!LoadFishWhiteList(pFishConfig))
+	{
+		ASSERT(false);
+		return false;
+	}
 	//¹ýÂË¹Ø¼ü×Ö
 	if (!LoadFishErrorStringFile("ErrorString.txt"))
 	{
@@ -2414,6 +2419,41 @@ bool FishConfig::LoadFishZPConfig(WHXmlNode* pFishConfig)
 	}
 	m_ZPConfig.dwMaxRate = TotalRate;
 	return true;
+}
+bool FishConfig::LoadFishWhiteList(WHXmlNode* pFishConfig)
+{
+	if (!pFishConfig)
+	{
+		ASSERT(false);
+		return false;
+	}
+	WHXmlNode* pFishNode = pFishConfig->GetChildNodeByName(TEXT("WhiteList"));
+	if (!pFishNode)
+	{
+		ASSERT(false);
+		return false;
+	}
+	WHXmlNode* pItem = pFishNode->GetChildNodeByName(TEXT("Item"));
+	DWORD TotalRate = 0;
+	while (pItem)
+	{
+		int64 uid = 0;
+		if (!pItem->GetAttribute(TEXT("uid"), uid))
+			return false;
+		m_WhiteList.uid.push_back(uid);
+		pItem = pItem->GetNextSignelNode();
+	}
+	return true;
+}
+bool FishConfig::CheckInWhiteList(const int64& uid)
+{
+	const vector<int64>& uids = m_WhiteList.uid;
+	for (const int64& x : uids)
+	{
+		if (x == uid)
+			return true;
+	}
+	return false;
 }
 bool FishConfig::LoadFishGameRobotConfig(WHXmlNode* pFishConfig)
 {

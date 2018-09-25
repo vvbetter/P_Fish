@@ -862,14 +862,14 @@ void FishDesk::ResetLauncher(PlayerID id)
 	msg.Seat = player->GetSeatID();
 	SendAll(&msg);
 }
-WORD FishDesk::GetAngleByFish(WORD& LoackFishID, BYTE SeatID)
+WORD FishDesk::GetAngleByFish(WORD& LoackFishID, BYTE SeatID, BYTE& FishValue)
 {
 	BulletStartPosData & pd = RuntimeInfo::BulletCenterList[SeatID];
 	Vector3 pPos = pd.Pos;
 	pPos.z = RuntimeInfo::NearLeftTopPoint.z;
 	Vector3 pCenter = pd.Center;
 	pCenter.z = RuntimeInfo::NearLeftTopPoint.z;
-	return m_pScene->GetAngleByFish(LoackFishID, SeatID, ProjectionToViewport(WorldToProjection(pPos)), ProjectionToViewport(WorldToProjection(pCenter)));
+	return m_pScene->GetAngleByFish(LoackFishID, SeatID, ProjectionToViewport(WorldToProjection(pCenter)), FishValue);
 }
 DWORD FishDesk::GetFishSum()
 {

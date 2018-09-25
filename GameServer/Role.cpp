@@ -305,6 +305,13 @@ bool CRole::CheckFire(BYTE byLauncher)
 	{
 		g_FishServer.GetTableManager()->OnChangeTableGlobel(GetTableID(), nConsume, TableRate());
 	}
+	//成就 终极炮台
+	BYTE all_tables = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.size();
+	if (m_TableType == all_tables - 1 && m_nMultipleIndex == m_pConfig->RateCount() - 1)
+	{
+		m_pRoleEx->GetRoleGameData().OnPlayerUseMaxRate();
+	}
+
 	m_dwLastFireTime = timeGetTime();
 	return true;
 }

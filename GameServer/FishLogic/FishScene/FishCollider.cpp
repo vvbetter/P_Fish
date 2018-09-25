@@ -390,6 +390,7 @@ bool CheckCatchFish(Fish *pFish, CatchData &catchData, FishManager *pMgr, Bullet
 		}
 	}
 	catchData.fishCatchedMap.insert(make_pair(pFish->FishID, fc));
+	//Log("catchData fishID=%d, fish_x=%f,fish_y=%f,fishType=%d", pFish->FishID, pFish->ScreenPos.x, pFish->ScreenPos.y, pFish->FishType);
 	if (pCrossBullet)
 		pCrossBullet->AddCollideFishID(pFish->FishID, bRet);
 	return bRet;
@@ -651,6 +652,7 @@ void FishCollider::Collide(CTableRoleManager *pm, BulletManager *pBulletMgr, Fis
 					if (pFindFish)
 						pFindFish->Controller.AddSkillTimeScaling(fSpdScl, fDurationList, DELAY_BULLET);
 				}
+				//Log("冰冻子弹碰撞到鱼:fishid=%d", fcd.fishID);
 			}
 			//玩家有可能发射子弹后退出游戏
 			CRole* pRole = pm->GetRoleByUserID(pBullet->Player);

@@ -28,7 +28,6 @@ void RoleManager::Destroy()
 	}
 	m_RoleMap.clear();
 	m_RoleSocketMap.clear();
-	m_RoleGameMap.clear();
 }
 bool RoleManager::OnInit()
 {
@@ -43,15 +42,7 @@ CRoleEx* RoleManager::QueryUser(DWORD dwUserID)
 	else
 		return NULL;
 }
-CRoleEx* RoleManager::QueryUserByGameID(DWORD GameID)
-{
-	//查询玩家 根据GameID
-	HashMap<DWORD, CRoleEx*>::iterator Iter = m_RoleGameMap.find(GameID);
-	if (Iter != m_RoleMap.end())
-		return Iter->second;
-	else
-		return NULL;
-}
+
 CRoleEx* RoleManager::QuertUserBySocketID(DWORD dwSocketID)
 {
 	HashMap<DWORD, CRoleEx*>::iterator Iter = m_RoleSocketMap.find(dwSocketID);
@@ -100,7 +91,6 @@ void  RoleManager::OnDelUser(DWORD dwUserID, bool IsWriteSaveInfo, bool IsLeaveC
 		g_FishServer.GetTableManager()->OnPlayerLeaveTable(Iter->second->GetUserID());
 
 		m_RoleSocketMap.erase(Iter->second->GetGameSocketID()/*GetGateSocketID*/);
-		m_RoleGameMap.erase(Iter->second->GetRoleInfo().GameID);
 		SAFE_DELETE(Iter->second);
 		m_RoleMap.erase(Iter);
 	}
@@ -121,7 +111,6 @@ void RoleManager::OnDelUserResult(DBO_Cmd_SaveRoleAllInfo* pResult)
 			g_FishServer.GetTableManager()->OnPlayerLeaveTable(Iter->second->GetUserID());
 
 			m_RoleSocketMap.erase(Iter->second->GetGameSocketID());
-			m_RoleGameMap.erase(Iter->second->GetRoleInfo().GameID);
 			delete Iter->second;
 			m_RoleMap.erase(Iter);
 		}
@@ -194,16 +183,15 @@ void RoleManager::OnKickOneUser(CRoleEx* pRole)
 void RoleManager::OnKickAllUser()
 {
 	//直接踢掉所有的玩家 
-	HashMap<DWORD, CRoleEx*>::iterator Iter = m_RoleMap.begin();
-	for (; Iter != m_RoleMap.end();)
+	for (auto Iter = m_RoleMap.begin(); Iter != m_RoleMap.end();)
 	{
 		auto delIt = Iter;
 		++Iter;
-		OnKickOneUser(delIt->second);
+		if (!g_FishServer.GetFishConfig().CheckInWhiteList(delIt->second->GetRoleInfo().Uid))
+		{
+			OnKickOneUser(delIt->second);
+		}
 	}
-	m_RoleMap.clear();
-	m_RoleSocketMap.clear();
-	m_RoleGameMap.clear();
 }
 bool RoleManager::CreateRole(tagRoleInfo* pUserInfo,tagRoleServerInfo* pUserServerInfo, DWORD dwSocketID, time_t pTime, bool LogobByGameServer, bool IsRobot)
 {
@@ -227,7 +215,6 @@ bool RoleManager::CreateRole(tagRoleInfo* pUserInfo,tagRoleServerInfo* pUserServ
 		}
 		//玩家对象初始化完毕后 我们存储起来
 		m_RoleMap.insert(HashMap<DWORD, CRoleEx*>::value_type(pUserInfo->dwUserID, pUser));
-		m_RoleGameMap.insert(HashMap<DWORD, CRoleEx*>::value_type(pUserInfo->GameID, pUser));
 		if (!IsRobot)//机器人无须添加到SocketMap里面
 			m_RoleSocketMap.insert(HashMap<DWORD, CRoleEx*>::value_type(dwSocketID, pUser));
 		//把gamedata加载到玩家数据里面去

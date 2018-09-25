@@ -10,7 +10,6 @@ public:
 
 	bool OnInit();
 	CRoleEx* QueryUser(DWORD dwUserID);
-	CRoleEx* QueryUserByGameID(DWORD GameID);
 	CRoleEx* QuertUserBySocketID(DWORD dwSocketID);
 	CRoleEx* QuertUserByUid(int64 uid);
 	void  OnDelUser(DWORD dwUserID,bool IsWriteSaveInfo,bool IsLeaveCenter);
@@ -29,6 +28,5 @@ private:
 	bool m_ResetGameData[4];
 	HashMap<DWORD, CRoleEx*>	m_RoleMap;       //userid,roleEx
 	HashMap<DWORD, CRoleEx*>	m_RoleSocketMap; // socket,roleEx
-	HashMap<DWORD, CRoleEx*>    m_RoleGameMap;   // gameid,roleEx
 	HashMap<int64, tagRoleGameData> m_RoleGameDataCache; //uid,gamedata
  };

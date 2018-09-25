@@ -98,8 +98,24 @@ GameRobot* GameRobotManager::GetFreeRobot(DWORD RobotID, GameTable* pTable)
 	}
 	if (!pRobot)
 		return NULL;
-	//初始化机器人的钱桌面玩家平均的0.5-1.5倍
-	pRobot->GetRoleInfo()->GetRoleInfo().money1 =  pTable->GetTablePlayerAvgMoney()*((RandUInt() % 10) + 5) / 10;
+	//获取桌子最低进入
+	int64 tableMinGold = 0;
+	const auto& tableInfo = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig;
+	const auto tableInfoIt = tableInfo.find(pTable->GetTableTypeID());
+	if (tableInfoIt != tableInfo.end())
+	{
+		tableMinGold = tableInfoIt->second.MinGlobelSum * g_FishServer.GetRatioValue() * MONEY_RATIO;
+	}
+	//初始化机器人的钱桌面玩家平均的0.8-1.5倍
+	int64 avgGold = pTable->GetTablePlayerAvgMoney();
+	if (tableMinGold == 0 || tableMinGold > avgGold)
+	{
+		pRobot->GetRoleInfo()->GetRoleInfo().money1 = tableMinGold * ((RandUInt() % 10) + 8) / 10;
+	}
+	else
+	{
+		pRobot->GetRoleInfo()->GetRoleInfo().money1 = avgGold * ((RandUInt() % 10) + 8) / 10;
+	}
 	pRobot->GetRoleInfo()->GetRoleInfo().money2 = 0;
 	pRobot->SetRobotUse(RobotID);//设置机器人已经使用了
 	m_GetIndex++;
@@ -138,8 +154,7 @@ bool GameRobotManager::GameRobotIsCanJoinTable(GameTable* pTable)
 	}
 	if (pTable->GetTableMonthID() == 0)
 	{
-		//修改规则 最后一个位置 机器人不可以进入
-		if (pTable->GetRoleManager().GetRoleSum() >= 3)
+		if (pTable->GetRoleManager().GetRoleSum() >= 4)
 			return false;
 		return true;
 	}
@@ -181,21 +196,8 @@ void GameRobotManager::OnRoleCreateNormalRoom(GameTable* pTable)
 	multimap<DWORD, DWORD>::iterator Iter= g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.find(Key);
 	if (Iter == g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.end())
 		return;
-	
-	DWORD RobotNum = (RandUInt() % 99999) % 3;
-	for (DWORD i = 0; i < RobotNum; ++i)
-	{
-		GameRobot* pRobot = GetFreeRobot(Iter->second, pTable);//获取一个空闲的机器人
-		if (!pRobot)
-			return;
-		CRoleEx* pRole = pRobot->GetRoleInfo();
-		if (!pRole)
-			return;
-		if (!g_FishServer.GetTableManager()->OnPlayerJoinTable(pTable->GetTableID(), pRole))
-		{
-			ResetGameRobot(pRole->GetUserID());
-		}
-	}
+	DWORD RobotID = Iter->second;
+	JoinRobot(RobotID, pTable);
 }
 void GameRobotManager::OnRoleLeaveNormalRoom(GameTable* pTable)
 {
@@ -263,21 +265,7 @@ void GameRobotManager::OnRoleJoinNormalRoom(GameTable* pTable)
 	if (Iter == g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.end())
 		return;
 	DWORD RobotID = Iter->second;
-
-	DWORD RobotNum = (RandUInt() % 99999) % 3;
-	for (DWORD i = 0; i < RobotNum; ++i)
-	{
-		GameRobot* pRobot = GetFreeRobot(RobotID, pTable);//获取一个空闲的机器人
-		if (!pRobot)
-			return;
-		CRoleEx* pRole = pRobot->GetRoleInfo();
-		if (!pRole)
-			return;
-		if (!g_FishServer.GetTableManager()->OnPlayerJoinTable(pTable->GetTableID(), pRole))
-		{
-			pRobot->ResetRobot();
-		}
-	}
+	JoinRobot(RobotID, pTable);
 }
 void GameRobotManager::Update()
 {
@@ -301,6 +289,25 @@ void GameRobotManager::AdddWriteRobot(WORD TableID, DWORD WriteTime)
 	pInfo.TimeLog = WriteTime;
 	m_WriteList.push_back(pInfo);
 }
+bool GameRobotManager::JoinRobot(DWORD robotTypeID, GameTable * pTable)
+{
+	DWORD RobotNum = (RandUInt() % 99999) % 2 + 1;
+	for (DWORD i = 0; i < RobotNum; ++i)
+	{
+		GameRobot* pRobot = GetFreeRobot(robotTypeID, pTable);//获取一个空闲的机器人
+		if (!pRobot)
+			return false;
+		CRoleEx* pRole = pRobot->GetRoleInfo();
+		if (!pRole)
+			return false;
+		if (!g_FishServer.GetTableManager()->OnPlayerJoinTable(pTable->GetTableID(), pRole))
+		{
+			pRobot->ResetRobot();
+			return false;
+		}
+	}
+	return true;
+}
 void GameRobotManager::UpdateWriteList()
 {
 	if (m_WriteList.empty())
@@ -318,9 +325,9 @@ void GameRobotManager::UpdateWriteList()
 				Iter = m_WriteList.erase(Iter);
 				continue;
 			}
-			if (pTable->GetTablePlayerSum() == 0)
+			if (pTable->GetTablePlayerSum() == 0 || pTable->GetTablePlayerSum() == 4)
 			{
-				//桌子空了
+				//桌子空了 或者桌子满了
 				Iter = m_WriteList.erase(Iter);
 				continue;
 			}
@@ -334,22 +341,32 @@ void GameRobotManager::UpdateWriteList()
 			DWORD RobotID = IterFind->second;
 
 			GameRobot* pRobot = GetFreeRobot(RobotID, pTable);
-			if (!pRobot)
+			if (pRobot)
 			{
-				++Iter;
-				continue;
+				//加入成功通知客户端机器人进入，不然就释放机器人
+				if (g_FishServer.GetTableManager()->OnPlayerJoinTable(Iter->TableID, pRobot->GetRoleInfo()))
+				{
+					g_FishServer.GetTableManager()->GetTable(Iter->TableID)->SendRoleJoinInfo(pRobot->GetRobotUserID());
+					//加入成功有50%概率可以继续加入机器人
+					if (RandFloat() > 0.5f)
+					{
+						Iter->TimeLog = Time + ((RandUInt() % 99999) % 60) * 1000;
+					}
+					else
+					{
+						Iter = m_WriteList.erase(Iter);
+						continue;
+					}
+				}
+				else //加入失败，重置机器人
+				{
+					pRobot->ResetRobot();
+					Iter = m_WriteList.erase(Iter);
+					continue;
+				}
 			}
-			//加入成功通知客户端机器人进入，不然就释放机器人
-			if (g_FishServer.GetTableManager()->OnPlayerJoinTable(Iter->TableID, pRobot->GetRoleInfo()))
-			{
-				g_FishServer.GetTableManager()->GetTable(Iter->TableID)->SendRoleJoinInfo(pRobot->GetRobotUserID());
-			}
-			Iter = m_WriteList.erase(Iter);
 		}
-		else
-		{
-			return;
-		}
+		++Iter;
 	}
 }
 
@@ -361,6 +378,8 @@ GameRobot::GameRobot(GameRobotManager* pManager, CRoleEx* pRole) :m_pManager(pMa
 		ASSERT(false);
 		return;
 	}
+	m_FishValue = 0;
+	m_LockFishID = -1;
 	m_RobotID = 0;
 	//
 	m_LeaveTableTimeLog = 0;
@@ -414,6 +433,8 @@ void GameRobot::ResetRobot()
 		ASSERT(false);
 		return;
 	}
+	m_FishValue = 0;
+	m_LockFishID = -1;
 	m_RobotID = 0;
 	m_IsUse = false;
 	//
@@ -769,7 +790,7 @@ void GameRobot::UpdateRobotLauncher(DWORD tickNow)
 }
 void GameRobot::UpdateRobotOpenFire(DWORD tickNow)
 {
-	if (m_OpenFireTimeLog == 0 || tickNow - m_OpenFireTimeLog > 200)
+	if (m_OpenFireTimeLog == 0 || tickNow - m_OpenFireTimeLog > 120)
 	{
 		m_OpenFireTimeLog = tickNow;
 
@@ -787,9 +808,16 @@ void GameRobot::UpdateRobotOpenFire(DWORD tickNow)
 		GameTable* pTable = g_FishServer.GetTableManager()->GetTable(pUser->GetTableID());
 		if (!pTable)
 			return; 
-		m_Angle = pTable->GetFishDesk()->GetAngleByFish(m_LockFishID, pUser->GetSeatID());
+		m_Angle = pTable->GetFishDesk()->GetAngleByFish(m_LockFishID, pUser->GetSeatID(), m_FishValue);
 		if (m_LockFishID == 0 && m_Angle == 0xffff)
+		{
+			if (m_FishValue > 10 && RandFloat() > 0.750f)
+			{
+				m_StopOpenFireTimeLog = tickNow + 600 + static_cast<DWORD>(RandFloat() * 1000); //锁定的鱼已经不在了，延迟1-4秒
+			}
+			m_LockFishID = -1; //下一次需要重新选定一条鱼
 			return;
+		}
 		//玩家开炮
 		if (!pUser->IsFullEnergy())//发射子弹
 		{

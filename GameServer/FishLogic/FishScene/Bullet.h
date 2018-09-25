@@ -35,6 +35,7 @@ public:
 				ClearLockFishID();
 			}
 		}
+		//Log("id = %d; ReboundCount=%d; time=%f; ScreenPos.x=%f; ScreenPos.y=%f; dir.x=%f; dir.y=%f", BulletID, ReboundCount, Time, ScreenPos.x, ScreenPos.y, Dir.x, Dir.y);
 		Time += deltaTime;
 		Pos += Dir * deltaTime * Speed;
 		Vector3 p = WorldToProjection(Pos);

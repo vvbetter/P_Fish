@@ -540,12 +540,16 @@ void FishServer::OnLeaveCenterServer()
 	//让全部玩家离线
 	m_RoleManager.OnKickAllUser();
 	//断开全部的网络
-	HashMap<DWORD, ServerClientData*>::iterator Iter = m_ClintList.begin();
-	for (; Iter != m_ClintList.end(); ++Iter)
+	for (auto Iter = m_ClintList.begin(); Iter != m_ClintList.end();)
 	{
-		m_ClientTcp.Kick(Iter->second);
+		if (!GetFishConfig().CheckInWhiteList(Iter->second->Uid))
+		{
+			m_ClientTcp.Kick(Iter->second);
+			Iter = m_ClintList.erase(Iter);
+			continue;
+		}
+		++Iter;
 	}
-	m_ClintList.clear();
 }
 void FishServer::OnTcpClientLeave(TCPClient* pClient)
 {
@@ -919,7 +923,7 @@ bool FishServer::HandleCenterMsg(NetCmd* pCmd)
 			CreateSocketData csd;
 			memset(&csd, 0, sizeof(CreateSocketData));
 			csd.uid = ((LG_UDPClientConnect*)pCmd)->uid;
-			if (m_hallControl.IsHallRuning() == true)
+			if (m_hallControl.IsHallRuning() == true || m_FishConfig.CheckInWhiteList(csd.uid))
 			{
 				if (m_ClientTcp.CreateNewClientSocket(csd, 0))// inet_addr(g_FishServerConfig.GetGameServerConfig(m_GameNetworkID)->GameListenIP));
 				{

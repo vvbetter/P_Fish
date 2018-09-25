@@ -2329,6 +2329,11 @@ struct tagFishZPInfo
 	vector<tagZPItemInfo> zpItemVec;
 };
 
+struct tagFishWhiteList
+{
+	vector<int64> uid;
+};
+
 //具体的网络命令了 
 //数据库命令
 enum FishDBCmd
@@ -9597,14 +9602,14 @@ struct LG_ReloadFishConfig :public NetCmd
 struct tagAchDataMap //成就
 {
 	INT	achtype;      //成就类型
-	UINT finishtime; //完成时间
+	UINT64 finishtime; //完成时间
 	INT gameid;       //游戏ID  60
 	INT	liansheng;    //连胜次数
 	INT	lianshu;      //连输
 	INT	qId;          //成就ID
 	INT	qachNum;      //成就需求次数
 	INT	qachfinishnum;//成就已经完成次数
-	UINT receivetime;//
+	UINT64 receivetime;//
 	float rewardMoney;//奖励钱
 	INT	titleID;      //奖励称号ID
 	float titlemoney; //称号奖励钱

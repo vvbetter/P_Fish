@@ -457,9 +457,9 @@ float CConfig::CatchChance(PlayerID player, int maxCatch, Fish* pFish, Bullet* p
 		float& seatAttackHp = pFish->fishHp[pBullet->RateIndex].seatAttack[seatID];
 		//增加伤害
 		float addAttack = (1.0f * BulletMultiple(pBullet->RateIndex)  //子弹倍率
-			*m_Cannon[bulletType].nconsume					          //大炮基础value
-			*m_Cannon[bulletType].power / maxCatch		              //大炮威力
-			*(pBullet->LockFishID == 0 ? Con_Cannon::s_unlockratio : 1) //不锁定增加威力
+			* m_Cannon[bulletType].nconsume					          //大炮基础value
+			* m_Cannon[bulletType].power / maxCatch		              //大炮威力
+			* ((pBullet->LockFishID == 0 || pPlayer->GetRoleExInfo()->IsRobot()) ? Con_Cannon::s_unlockratio : 1) //不锁定增加威力
 			* WinGolbeRate(pPlayer->GetRoleExInfo()->GetRoleGameData().GetTurnLoseWinGoldByTable(pPlayer->GetTableType()))//玩家收益控制
 			* pBullet->ExtraPower      //狂暴额外攻击力加成
 			);

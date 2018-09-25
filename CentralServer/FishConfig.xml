@@ -4256,4 +4256,10 @@ JoinBankerGlobelSum="20000000" GetNextBankerNeedGlobel="10000" BankerGameSum="10
     <ZPItem  RewardID="7" Rate="1"/>
     <ZPItem  RewardID="6" Rate="1"/>
   </FishZP>
+  <!--
+    白名单
+  -->
+  <WhiteList>
+    <Item uid="100699978532394"/>
+  </WhiteList>  
 </FishConfig>

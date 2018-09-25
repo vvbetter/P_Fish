@@ -67,6 +67,7 @@ public:
 	bool LoadFishNoticeConfig(const TCHAR* FilePath);
 	bool LoadRobotConfig(const TCHAR* FilePath);
 	HashMap<DWORD, tagNotice>& GetAllNoticeInfo(){ return m_NoticeMap; }
+	bool CheckInWhiteList(const int64& uid);
 private:
 	//void OnCreateGlobelTaskInfo();
 	bool LoadFishCheck(WHXmlNode* pFishConfig);//加载签到的数据
@@ -104,6 +105,7 @@ private:
 	bool LoadFishMiniGameConfig(WHXmlNode* pFishConfig);
 	bool LoadFishGameRobotConfig(WHXmlNode* pFishConfig);
 	bool LoadFishZPConfig(WHXmlNode* pFishConfig);
+	bool LoadFishWhiteList(WHXmlNode* pFishConfig);
 private:
 	RoleCheckConfig				m_CheckConfig;
 	tagTaskMap					m_TaskConfig;//任务配置文件
@@ -144,6 +146,7 @@ private:
 	tagGameRobotInfo			m_GameRobotConfig;
 
 	tagFishZPInfo				m_ZPConfig;
+	tagFishWhiteList			m_WhiteList; //白名单
 
 	HashMap<DWORD,tagNotice>	m_NoticeMap;//公告的结构
 };

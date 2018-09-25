@@ -6,6 +6,7 @@ class BulletManager;
 class FishSendInterface;
 class FishMap;
 class CTableRoleManager;
+class Fish;
 struct NetCmd;
 
 #include <list>
@@ -40,9 +41,11 @@ public:
 	void Clear();
 	byte GetSceneBackground()const;
 
-	USHORT GetAngleByFish(WORD& LoackFishID, BYTE SeatID, Vector2& Pos, Vector2& pCenter);
+	USHORT GetAngleByFish(WORD& LoackFishID, BYTE SeatID, Vector2& pCenter, BYTE& FishValue);
 	void SetSceneStopEndTime(DWORD addTime/*∫¡√Î*/);
 	bool IsSceneStopTime(){ return  m_IsSceneStopTime; }
+	Fish* GetRobotFish(const Vector2& pCenter, BYTE& BulletRate);
+
 protected:
 	bool				m_bFishTide;
 	CTableRoleManager*  m_pRoleMgr;

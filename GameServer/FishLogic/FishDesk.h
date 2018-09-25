@@ -37,7 +37,7 @@ public:
 
 	void ResetLauncher(PlayerID id);
 
-	WORD GetAngleByFish(WORD& LoackFishID, BYTE SeatID);
+	WORD GetAngleByFish(WORD& LoackFishID, BYTE SeatID, BYTE& FishValue);
 	DWORD GetFishSum();
 protected:
 	void CheckClientBulletPos(NetCmdCheckBulletPos *pos);

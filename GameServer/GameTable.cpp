@@ -38,18 +38,6 @@ bool GameTable::IsFull()
 bool GameTable::IsCanAddRobot()
 {
 	return g_FishServer.GetRobotManager().GameRobotIsCanJoinTable(this);
-
-	//判断当前桌子是否可以加入机器人
-	//1.如果座子的空位置只有一个了 机器人无法加入
-	/*HashMap<BYTE, TableInfo>::iterator Iter = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.find(m_TableTypeID);
-	if (Iter == g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.end())
-	{
-		ASSERT(false);
-		return false;
-	}
-	if (m_RoleManager.GetRoleSum() >= (Iter->second.wMaxPlayerSum - 1))
-		return false;
-	return true;*/
 }
 WORD GameTable::GetTablePlayerSum()
 {

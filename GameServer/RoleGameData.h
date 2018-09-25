@@ -20,6 +20,8 @@ public:
 	void UpdateMinWinLose();					//统计一分钟内的输赢
 	void ChangeGameGold(const INT64 gold);	//每次输赢统计金币
 	void OnPlayerCatchFish(const USHORT FishType); //处理击杀鱼事件
+	void OnPlayerUseMaxRate(); //处理终极炮台成就
+	void OnPlayerBulletNoCatch(); //处理成就空炮专家
 
 	const INT32 GetWinNum(){ return m_winNum; }
 	const INT32 GetLoseNum(){ return m_loseNum; }

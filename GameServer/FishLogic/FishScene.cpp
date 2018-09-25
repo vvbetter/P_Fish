@@ -208,7 +208,45 @@ const WCHAR *FishScene::GetMapName()const
 	return m_pFishMap->GetMapName();
 }
 
-USHORT FishScene::GetAngleByFish(WORD& LoackFishID, BYTE SeatID, Vector2& Pos, Vector2& pCenter)
+///------------alg 3 计算两个线段是否相交------------  
+/*线段1：炮台坐标到目标鱼中心坐标  p-f
+  线段2：其他鱼投影到屏幕的矩形坐标 m-n
+  目的是判断炮台p到目标鱼f之间是否有其他的鱼
+	y        /f
+	|	\n	/				
+	|    \ /
+	|     \
+	|	 / \   
+	|	/   \m
+  --|--p----------------------- x
+*/
+double determinant(double v1, double v2, double v3, double v4)  // 行列式  
+{
+	return (v1*v3 - v2*v4);
+}
+// aa,bb,cc,dd 是2条线段的4个端点
+bool intersect(const Vector2& aa, const Vector2& bb, const Vector2& cc, const Vector2& dd)
+{
+	double delta = determinant(bb.x - aa.x, cc.x - dd.x, bb.y - aa.y, cc.y - dd.y);
+	if (delta <= (1e-6) && delta >= -(1e-6))  // delta=0，表示两线段重合或平行  
+	{
+		return false;
+	}
+	double namenda = determinant(cc.x - aa.x, cc.x - dd.x, cc.y - aa.y, cc.y - dd.y) / delta;
+	if (namenda>1 || namenda<0)
+	{
+		return false;
+	}
+	double miu = determinant(bb.x - aa.x, cc.x - aa.x, bb.y - aa.y, cc.y - aa.y) / delta;
+	if (miu>1 || miu<0)
+	{
+		return false;
+	}
+	return true;
+}
+///------------alg 3------------  
+
+USHORT FishScene::GetAngleByFish(WORD& LoackFishID, BYTE SeatID, Vector2& pCenter, BYTE& FishValue)
 {
 	if (!m_pFishMgr)
 	{
@@ -219,14 +257,19 @@ USHORT FishScene::GetAngleByFish(WORD& LoackFishID, BYTE SeatID, Vector2& Pos, V
 	Fish *pFish = m_pFishMgr->GetFish(LoackFishID);
 	if (!pFish || !pFish->IsInFrustum || !pFish->IsActive || pFish->IsDead)
 	{
+		if (LoackFishID != (WORD)-1)// LoackFishID -1 获取另一条鱼。
+		{
+			LoackFishID = 0;
+			return 0xffff;
+		}
 		FishVecList* pVec = m_pFishMgr->GetFishVecList();
 		if (pVec->empty())
 		{
 			LoackFishID = 0;
 			return 0xffff;
 		}
-		UINT32 Index = RandUInt() % pVec->size();
-		pFish = pVec->at(Index);
+		BYTE BulletRate;
+		pFish = GetRobotFish(pCenter, BulletRate);
 		if (!pFish)
 		{
 			LoackFishID = 0;
@@ -239,7 +282,7 @@ USHORT FishScene::GetAngleByFish(WORD& LoackFishID, BYTE SeatID, Vector2& Pos, V
 		}
 	}
 	LoackFishID = pFish->FishID;
-
+	FishValue = pFish->FishValue;
 
 	Vector2 UpDir(0.0f, SeatID > 1 ? -1.0f : 1.0f); 
 	Vector2 pos = pFish->ScreenPos;//鱼的坐标
@@ -271,4 +314,56 @@ void FishScene::SetSceneStopEndTime(DWORD addTime)
 {
 	m_SceneStopTime = addTime;
 	m_IsSceneStopTime = true;
+}
+
+Fish* FishScene::GetRobotFish(const Vector2& pCenter, BYTE& BulletRate)
+{
+	Fish* tagetFish = NULL;
+	CConfig* gameConfig = g_FishServer.GetTableManager()->GetGameConfig();
+	FishVecList* pVec = m_pFishMgr->GetFishVecList();
+	//查询剩余血量最少的鱼
+	float minFishHpRate = 1.0f, tempHpRate = 0.0f;
+	UINT fishIndex = -1;
+	//查找离炮台最近的鱼
+	UINT nearFishIndex = -1;
+	float length = 1000.0f, tempLength = 0.0f;
+	//////////////
+	for (int i = 0; i < pVec->size()*0.8; ++i)
+	{
+		Fish* oneFish = pVec->at(i);
+		//查找最近的鱼
+		Vector2 l = oneFish->ScreenPos - pCenter;
+		tempLength = D3DXVec2LengthSq(&l);
+		if (tempLength < length)
+		{
+			length = tempLength;
+			nearFishIndex = i;
+		}
+		//查找剩余血量最少的鱼
+		if (oneFish->FishValue < 10 || oneFish->FishValue>45)
+			continue;
+		for (int r = 0; r < gameConfig->RateCount(); ++r)
+		{
+			const float& maxHp = oneFish->fishHp[r].maxHp;
+			const float& attackHp = oneFish->fishHp[r].attackHp;
+			const float remainHp_P = (maxHp - attackHp) / maxHp;
+			if (remainHp_P < SystemControl::minPerKillHp * 2)
+				continue;
+			if (remainHp_P < minFishHpRate)
+			{
+				minFishHpRate = remainHp_P;
+				fishIndex = i;
+				BulletRate = r;
+			}
+		}
+	}
+	if (fishIndex != (UINT)-1 && RandFloat() < 0.5f) //找到一条比较容易打死的鱼，有50%概率去争夺
+	{
+		tagetFish = pVec->at(fishIndex);
+	}
+	else if (nearFishIndex != (UINT)-1)
+	{
+		tagetFish = pVec->at(nearFishIndex);
+	}
+	return tagetFish;
 }

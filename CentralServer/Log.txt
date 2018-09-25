@@ -17,3 +17,8 @@
 ╤оят[2018 9 3 13:47:43]: FishServer.cpp FishServer::SendNetCmdToDB 602
 ╤оят[2018 9 3 13:47:43]: FishServer.cpp FishServer::SendNetCmdToDB 602
 ╤оят[2018 9 3 13:47:43]: FishServer.cpp FishServer::SendNetCmdToDB 602
+╤оят[2018 9 14 10:22:26]: ..\CommonFile\FishConfig.cpp FishConfig::LoadFishWhiteList 2433
+╤оят[2018 9 14 10:22:26]: ..\CommonFile\FishConfig.cpp FishConfig::LoadConfigFilePath 214
+╤оят[2018 9 14 10:22:26]: FishServer.cpp FishServer::InitServer 47
+╤оят[2018 9 14 10:22:26]: CentralServer.cpp wmain 50
+╤оят[2018 9 14 10:32:51]: ClientListManager.cpp ClientListManager::UnRsgUser 308
