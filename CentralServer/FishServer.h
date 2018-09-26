@@ -1,12 +1,8 @@
 #pragma once
 #include "..\CommonFile\FishConfig.h"
 #include "RoleManager.h"
-#include "RoleRelationManager.h"
-#include "FishMonthManager.h"
-#include "TaskManager.h"
 #include "ClientListManager.h"
 #include "AnnouncementManager.h"
-#include "FishNoticeManager.h"
 #include "..\CommonFile\RobotManager.h"
 #include "CashManager.h"
 
@@ -38,7 +34,6 @@ public:
 
 	FishConfig& GetFishConfig(){ return m_FishConfig; }
 	CenterRoleManager& GetRoleManager(){ return m_RoleManager; }
-	FishMonthManager&	GetMonthManager(){ return m_MonthManager; }
 	ClientListManager& GetCenterManager(){ return m_CenterServerManager; }
 	RobotManager& GetRobotManager(){ return m_RobotManager; }
 	CashManager& GetCashManager(){ return m_CashManager; }
@@ -102,19 +97,13 @@ private:
 	CenterRoleManager							m_RoleManager;
 	//配置文件
 	FishConfig									m_FishConfig;
-	//比赛管理区
-	FishMonthManager							m_MonthManager;
 	//任务管理器
-	TaskManager									m_GlobelTaskManager;
 	//GameServer 和 LogonServer 的 管理器 
 	ClientListManager							m_CenterServerManager;
 	//成就点排名
 	HashMap<DWORD, WORD>						m_AchievementList;
 	//公告
 	AnnouncementManager							m_AnnouncementManager;
-
-	FishNoticeManager							m_FishNoticeManager;
-
 	//连接到控制器
 	//TCPClient									m_ControlTcp;
 	bool										m_ControlIsConnect;

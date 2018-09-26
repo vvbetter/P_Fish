@@ -4,7 +4,6 @@
 #include "..\CommonFile\FishConfig.h"
 #include "RoleManager.h"
 #include "TableManager.h"
-#include "EventManager.h"
 #include "TcpClientList.h"
 #include "GameRobot.h"
 #include "GameHallControl.h"

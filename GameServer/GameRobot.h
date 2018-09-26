@@ -100,8 +100,6 @@ private:
 	void UpdateRobotLauncher(DWORD tickNow);
 	void UpdateRobotOpenFire(DWORD tickNow);
 	void UpdateRobotIsCanOpenFire(DWORD tickNow);
-	void UpdateRobotCharm();
-	void UpdateRobotSendCharm();
 private:
 	GameRobotManager*   m_pManager;
 	CRoleEx*			m_pRole;

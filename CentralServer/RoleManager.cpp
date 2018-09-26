@@ -125,14 +125,12 @@ void CenterRole::OnInit(BYTE dwSocketID, tagCenterRoleInfo* pInfo, CenterRoleMan
 	m_RoleInfo = *pInfo;
 	m_pRoleManager = pManager;
 	m_IsRobot = IsRobot;
-	m_RelationManager.OnInit(this, m_pRoleManager);
 }
 void CenterRole::OnRoleLeave()
 {
 	//当 一个玩家离开Center的时候 我们想要通知玩家 的被好友列表的全部玩家  xx玩家下线了
 	//发送命令 Relation...
 	//CTraceService::TraceString(TEXT("CenterRole 触发离开事件"), TraceLevel_Normal);
-	GetRelationManager().OnRoleOnlinChange(false);
 }
 void CenterRole::OnRoleEnterFinish()
 {
@@ -140,210 +138,12 @@ void CenterRole::OnRoleEnterFinish()
 	//1.将玩家上线的消息发送给全部的被好友玩家
 	//...
 	//CTraceService::TraceString(TEXT("CenterRole 触发进入事件"), TraceLevel_Normal);
-	GetRelationManager().OnRoleOnlinChange(true);
 }
 void CenterRole::SendDataToGameServer(NetCmd* pCmd)
 {
 	g_FishServer.GetCenterManager().SendNetCmdToGameServer(m_dwSocketID, pCmd);
 }
-void CenterRole::OnChangeRoleLevel(WORD wLevel)
-{
-	if (m_RoleInfo.wLevel == wLevel)
-		return;
-	m_RoleInfo.wLevel = wLevel;
-	//玩家中央服务器点击修改完毕了 我们可以通知全部的好友 玩家点击改变了
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeRelationUserLevel(m_RoleInfo.dwUserID, wLevel);
-		}
-	}
-}
-//void CenterRole::OnChangeRoleExp(DWORD dwExp)
-//{
-//	if (m_RoleInfo.dwExp == dwExp)
-//		return;
-//	m_RoleInfo.dwExp = dwExp;
-//	//经验的修改 无须通知其他的玩家
-//}
-void CenterRole::OnChangeRoleNickName(LPTSTR pNickName)
-{
-	if (_tcscmp(pNickName, m_RoleInfo.NickName) == 0)
-		return;
-	TCHARCopy(m_RoleInfo.NickName, CountArray(m_RoleInfo.NickName), pNickName, _tcslen(pNickName));
-	//通知好友
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChanfeRelationUserNickName(m_RoleInfo.dwUserID, pNickName);
-		}
-	}
-}
-void CenterRole::OnChangeRoleFaceID(DWORD dwFaceID)
-{
-	if (m_RoleInfo.dwFaceID == dwFaceID)
-		return;
-	m_RoleInfo.dwFaceID = dwFaceID;
-	//通知好友
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeReltaionUserFaceID(m_RoleInfo.dwUserID, dwFaceID);
-		}
-	}
-}
-void CenterRole::OnChangeRoleGender(bool bGender)
-{
-	if (m_RoleInfo.bGender == bGender)
-		return;
-	m_RoleInfo.bGender = bGender;
-	//通知好友
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChanfeRelationUserGender(m_RoleInfo.dwUserID, bGender);
-		}
-	}
-}
-void CenterRole::OnChangeRoleTitle(BYTE TitleID)
-{
-	if (m_RoleInfo.TitleID == TitleID)
-		return;
-	m_RoleInfo.TitleID = TitleID;
 
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeRelationUserTitle(m_RoleInfo.dwUserID, TitleID);
-		}
-	}
-}
-void CenterRole::OnChangeRoleAchievementPoint(DWORD dwAchievementPoint)
-{
-	if (m_RoleInfo.dwAchievementPoint == dwAchievementPoint)
-		return;
-	m_RoleInfo.dwAchievementPoint = dwAchievementPoint;
-
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeRelationUserAchievementPoint(m_RoleInfo.dwUserID, dwAchievementPoint);
-		}
-	}
-}
-void CenterRole::OnChangeRoleCharmValue(DWORD CharmInfo[MAX_CHARM_ITEMSUM])
-{
-	for (int i = 0; i < MAX_CHARM_ITEMSUM;++i)
-		m_RoleInfo.CharmArray[i] = CharmInfo[i];
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeRelationUserCharmValue(m_RoleInfo.dwUserID, CharmInfo);
-		}
-	}
-}
-void CenterRole::OnChangeRoleClientIP(DWORD ClientIP)
-{
-	m_RoleInfo.ClientIP = ClientIP;
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeRelationUserClientIP(m_RoleInfo.dwUserID, ClientIP);
-		}
-	}
-}
-void CenterRole::OnChangeRoleIsShowIpAddress(bool States)
-{
-	m_RoleInfo.IsShowIpAddress = States;
-	//通知所有加我好友的玩家 我的状态变化了 应该修改下我的地址的显示
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeRelationUserIsShowIpAddress(m_RoleInfo.dwUserID, States);
-		}
-	}
-}
-void CenterRole::OnChangeRoleIsOnline(bool States)
-{
-	m_RoleInfo.IsOnline = States;
-	m_pRoleManager->SetAddOrDelLeaveOnlineUser(States);//设置中央服务器离线人数
-	//通知所有的好友玩家离线了
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeBeRoleOnlineStateus(m_RoleInfo.dwUserID, States);
-		}
-	}
-}
-void CenterRole::OnChangeRoleVipLevel(BYTE VipLevel)
-{
-	//当玩家的VIP等级变化的时候
-	m_RoleInfo.VipLevel = VipLevel;
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeRelationUserVipLevel(m_RoleInfo.dwUserID, VipLevel);
-		}
-	}
-}
-void CenterRole::OnChangeRoleIsInMonthCard(bool IsInMonthCard)
-{
-	m_RoleInfo.IsInMonthCard = IsInMonthCard;
-	HashMap<DWORD, tagBeRoleRelation>& pMap = GetRelationManager().GetAllBeRelationInfo();
-	HashMap<DWORD, tagBeRoleRelation>::iterator Iter = pMap.begin();
-	for (; Iter != pMap.end(); ++Iter)
-	{
-		CenterRole* pRole = m_pRoleManager->QueryCenterUser(Iter->second.dwUserID);
-		if (pRole)
-		{
-			pRole->GetRelationManager().OnChangeRelatuonUserIsInMonthCard(m_RoleInfo.dwUserID, IsInMonthCard);
-		}
-	}
-}
 void CenterRole::OnChangeRoleParticularStates(DWORD States)
 {
 	m_RoleInfo.ParticularStates = States;

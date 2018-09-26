@@ -844,18 +844,7 @@ int CConfig::ComboBuffCycle()
 
 float CConfig::PackageFactor(BYTE cbPackage)
 {	
-	HashMap<BYTE, tagChestConfig>::iterator it=g_FishServer.GetFishConfig().GetChestConfig().ChestMap.find(cbPackage);
-	if (it == g_FishServer.GetFishConfig().GetChestConfig().ChestMap.end())
-	{
-		//ASSERT(false);
-		return 1.0f;
-	}
-	if (it->second.CatchChance==0)
-	{
-		//ASSERT(false);
-		return 1.0f;
-	}
-	return 1.0f / it->second.CatchChance;
+	return 0.0f;
 }
 USHORT CConfig::RateUnlock(BYTE byIndex)
 {

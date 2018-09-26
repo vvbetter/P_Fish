@@ -87,7 +87,6 @@ private:
 	bool OnHandleSaveRoleGender(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleSaveRoleAchievementPoint(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleSaveRoleCurTitle(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleSaveRoleCharmArray(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleSaveRoleCurency(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleSaveRoleFaceID(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 
@@ -133,17 +132,6 @@ private:
 	bool OnHandleAddUserItem(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleDelUserItem(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleChangeUserItem(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	//4.玩家关系
-	bool OnHandleGetUserRelation(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleAddUserRelation(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleDelUserRelation(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	//bool OnHandleChangeUserRelation(BYTE Index,BYTE ClientID, NetCmd* pCmd);
-	//5.邮件
-	bool OnHandleGetUserMail(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleAddUserMail(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleDelUserMail(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleGetUserMailItem(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleChangeUserMailIsRead(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	//6.查询
 	bool OnHandleQueryRoleInfoByNickName(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleQueryRoleInfoByUserID(BYTE Index, BYTE ClientID, NetCmd* pCmd);
@@ -184,19 +172,6 @@ private:
 	bool OnHandleSaveRoleEntityItemUsePhone(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleSaveRoleEntityItemUseAddress(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleSaveRoleEntityAlipayInfo(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	//14.赠送
-	bool OnHandleLoadRoleGiff(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleAddRoleGiff(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleDelRoleGiff(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleLoadNowDayGiff(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleClearNowDayGiff(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	//15.魅力
-	bool OnHandleChangeRoleCharm(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	//16.排行榜
-	bool OnHandleLoadRankInfo(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleLoadWeekRankInfo(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleSaveWeekRankInfo(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleChangeWeekInfo(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	//17.GameData
 	bool OnHandleLoadRoleGameData(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleSaveRoleGameData(BYTE Index, BYTE ClientID, NetCmd* pCmd);
@@ -236,10 +211,6 @@ private:
 	bool OnHandleLoadCharInfo(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleDelCharInfo(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleAddCharInfo(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	//RelationRequest
-	bool OnHandleLoadRelationRequest(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleAddRelationRequest(BYTE Index, BYTE ClientID, NetCmd* pCmd);
-	bool OnHandleDelRelationRequest(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	//
 	bool OnHandleAddCash(BYTE Index, BYTE ClientID, NetCmd* pCmd);
 	bool OnHandleLoadCash(BYTE Index, BYTE ClientID, NetCmd* pCmd);

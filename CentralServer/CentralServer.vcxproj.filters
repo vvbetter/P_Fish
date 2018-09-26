@@ -42,16 +42,7 @@
     <ClCompile Include="..\CommonFile\FishConfig.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FishMonthManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="RoleManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="RoleRelationManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="TaskManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\CommonFile\FishServerConfig.cpp">
@@ -61,9 +52,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="AnnouncementManager.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="FishNoticeManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\CommonFile\RobotManager.cpp">
@@ -92,16 +80,7 @@
     <ClInclude Include="..\CommonFile\FishConfig.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="FishMonthManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="RoleManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="RoleRelationManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="TaskManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\CommonFile\FishServerConfig.h">
@@ -111,9 +90,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="AnnouncementManager.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="FishNoticeManager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\CommonFile\RobotManager.h">
