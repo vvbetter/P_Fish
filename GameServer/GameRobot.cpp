@@ -117,7 +117,7 @@ GameRobot* GameRobotManager::GetFreeRobot(DWORD RobotID, GameTable* pTable)
 		pRobot->GetRoleInfo()->GetRoleInfo().money1 = avgGold * ((RandUInt() % 10) + 8) / 10;
 	}
 	pRobot->GetRoleInfo()->GetRoleInfo().money2 = 0;
-	pRobot->SetRobotUse(RobotID);//设置机器人已经使用了
+	pRobot->SetRobotUse(RobotID,pTable->GetTableMonthID());//设置机器人已经使用了
 	m_GetIndex++;
 	return pRobot;
 }
@@ -366,7 +366,7 @@ GameRobot::~GameRobot()
 {
 
 }
-void GameRobot::SetRobotUse(DWORD RobotID)
+void GameRobot::SetRobotUse(DWORD RobotID, BYTE MonthID)
 {
 	if (m_IsUse)
 	{
@@ -374,6 +374,7 @@ void GameRobot::SetRobotUse(DWORD RobotID)
 		return;
 	}
 	m_RobotID = RobotID;
+	m_monthID = MonthID;
 	m_IsUse = true;
 }
 void GameRobot::ResetRobot()
@@ -387,6 +388,7 @@ void GameRobot::ResetRobot()
 	m_LockFishID = -1;
 	m_RobotID = 0;
 	m_IsUse = false;
+	m_monthID = 0;
 	//
 	m_LeaveTableTimeLog = 0;
 	m_RoomTimeLog = 0;
@@ -450,7 +452,11 @@ void GameRobot::UpdateRobotRoom(DWORD tickNow)
 		ASSERT(false);
 		return;
 	}
-	//m_IsInTable = false;
+	//比赛房间不离开
+	if (m_monthID != 0)
+	{
+		return;
+	}
 	CRole* pRole = g_FishServer.GetTableManager()->SearchUser(m_pRole->GetUserID());
 	if (!pRole)//玩家不在桌子上
 		return;

@@ -31,7 +31,6 @@ public:
 
 	RoleGameData& GetRoleGameData(){ return m_RoleGameData; }
 	RoleLauncherManager& GetRoleLauncherManager(){ return m_RoleLauncherManager; }
-	DWORD	GetRoleOnlineSec();
 	RoleVip& GetRoleVip(){ return m_RoleVip; }
 	RoleRate& GetRoleRate(){ return m_RoleRate; }
 
@@ -42,20 +41,12 @@ public:
 
 	bool	ChangeRoleGlobe(int64 AddGlobe, const BYTE TableTypeID, const USHORT FishType = -1);
 
-
-	bool	ChangeRoleProduction(DWORD dwProduction);
-	bool	ChangeRoleGameTime(WORD wGameTime);
 	bool	ChangeRoleIsOnline(bool States);
 	
 	//RoleServerInfo
 	bool	ChangeRoleTotalFishGlobelSum(int64 AddSum);
-	void	AddRoleProtectSum();
-
-	bool	GetRoleIsShop(){ return m_RoleInfo.IsShop; }
-	//
 
 	int64 GetScore();
-	DWORD GetGameTime();
 
 	void OnSaveInfoToDB();
 	void UpdateByMin(DWORD dwMin);
@@ -75,13 +66,10 @@ public:
 
 	void SetRoleIsNeedSave(){ m_IsNeedSave = true; }//修改玩家 是需要保存的
 private:
-	void ResetPerDay();
-private:
 	RoleManager*				m_RoleManager;
 	tagRoleInfo					m_RoleInfo;//玩家的数据 从数据库里读取的 做一些特殊的操作 部分数据需要发送到客户端去的
 	tagRoleServerInfo			m_RoleServerInfo;
 	bool					    m_IsNeedSave;
-	bool						m_IsChangeClientIP;//初始化的时候使用
 	//玩家的数据处理
 	DWORD						m_dwGameSocketID;//玩家在Game和Socket上对应的ID		
 	time_t						m_LastOnLineTime;//最后次上线的时间记录

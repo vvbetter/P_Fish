@@ -473,79 +473,10 @@ struct tagRoleInfo
 	volatile int64			money2;  //游戏奖励的钱
 	DWORD           dwMedalNum;
 	DWORD			dwCurrencyNum;
-	DWORD			dwAchievementPoint;//玩家的成就点数
 	BYTE			TitleID;
 	char			signature[MAX_SIGNATURE + 1];  //玩家签名
-	DWORD			dwGameTime;//总游戏时间秒
-	//玩家每天的数据
-	DWORD			dwProduction;//当天获得的金币数量
-	BYTE			SendGiffSum;//发送赠送的次数 当天
-	BYTE			AcceptGiffSum;//接收赠送的次数 当天
-	//玩家的 一些状态
-	int256			TaskStates;
-	int256			AchievementStates;
-	int256			ActionStates;
-	//每天在线的分钟数
-	WORD			OnlineMin;
-	DWORD			OnlineRewardStates;//玩家当前领取奖励的记录 最大 32个 
-	//玩家的魅力数据
-	DWORD			CharmArray[MAX_CHARM_ITEMSUM];//魅力值对应的物品
-	//判断账号是否可以修改
-	bool			IsCanResetAccount;
-	//玩家排名
-	DWORD			AchievementPointIndex;//玩家成就点数排名
-	//玩家IP地址
-	DWORD			ClientIP;//玩家IP
-	TCHAR			IPAddress[MAX_ADDRESS_LENGTH_IP+1];
-	//签到数据
-	DWORD			CheckData;//签到的数据 1-31
-	bool			IsShowIPAddress;//默认值为true
-	//兑换码状态
-	DWORD			ExChangeStates;
-	//总充值数
-	DWORD			TotalRechargeSum;
-	//首冲
-	bool			bIsFirstPayGlobel;//是否首冲金币
-	bool			bIsFirstPayCurrcey;//是否首冲乐币
-	//新的
-	DWORD			LotteryScore;//奖金
-	BYTE			LotteryFishSum;//奖金鱼的数量
 	//Vip数据
 	BYTE			VipLevel;//不涉及数据库的
-	//月卡数据
-	BYTE			MonthCardID;
-	__int64			MonthCardEndTime;
-	__int64			GetMonthCardRewardTime;//最后次领取月卡物品的时间
-	//倍率
-	int256			RateValue;//开启的倍率的数值
-	//
-	BYTE			CashSum;//兑换次数
-	//
-	BYTE			benefitCount;//领取数量
-	DWORD			benefitTime;  //最近一次时间
-	//bool			bpoor;
-	//总兑换的奖牌
-	DWORD			TotalUseMedal;
-	//锁定数据
-	//DWORD			LockStates;
-	//__int64			LockEndTime;
-
-	//
-	DWORD			ParticularStates;//玩家的一些特殊状态
-	//
-	DWORD			GameID;//玩家在注册的时候 生成的不变的GameID 
-
-	//是否已经分享
-	bool			bShareStates;
-	//兑换次数
-	DWORD			TotalCashSum;//总兑换次数
-
-	//玩家的今天的转盘次数
-	DWORD			ZPNum;
-
-	bool			IsShop;
-	//玩家今天 提现次数
-	DWORD			ExchangeNum;
 };
 //玩家现实地址
 struct tagRoleAddressInfo
@@ -2748,6 +2679,12 @@ enum FishDBCmd
 	DBR_Save_Total_Gold,
 	DBR_GameserverStart,
 	DBO_GameserverStart,
+};
+
+struct msg_ArenaStartInfo :public NetCmd
+{
+	bool isStart;
+	INT waitPlayers;
 };
 
 struct Reg_Server : public NetCmd 
@@ -4986,6 +4923,8 @@ struct tagJonPlayerData
 	INT				launcherType;//炮台类型
 	INT				rateIndex;//倍率
 	INT 			energy;//当前的怒气技能的值
+	INT				bulletCount;// 竞技场子弹数量
+	INT				score; //竞技场积分
 };
 
 struct LC_JoinTableResult : public NetCmd

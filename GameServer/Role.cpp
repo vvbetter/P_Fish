@@ -325,25 +325,6 @@ int64 CRole::GetScore()
 	return m_pRoleEx->GetScore();
 }
 
-DWORD CRole::GetGameTime()
-{
-	if (!m_pRoleEx)
-	{
-		ASSERT(false);
-		return 0;
-	}
-	return m_pRoleEx->GetGameTime();
-}
-void CRole::AddGameTime(int nSecond)
-{
-	if (!m_pRoleEx)
-	{
-		ASSERT(false);
-		return;
-	}
-	m_pRoleEx->ChangeRoleGameTime(ConvertIntToWORD(nSecond));
-}
-
 USHORT CRole::Combo(WORD wCounter)
 {
 	if (!m_pConfig || !m_pTableRolemanager)
@@ -427,6 +408,16 @@ void CRole::SetRoomLauncher()
 			m_LauncherType = i;
 			return;
 		}
+	}
+	m_LauncherType = 0;
+	return;
+}
+void CRole::SetRoomLauncher(BYTE LancherType)
+{
+	if (GetRoleExInfo()->GetRoleLauncherManager().IsCanUserLauncherByID(LancherType))
+	{
+		m_LauncherType = LancherType;
+		return;
 	}
 	m_LauncherType = 0;
 	return;

@@ -34,6 +34,10 @@ public:
 
 	WORD		GetTableID(){ return m_TableID; }
 	BYTE		GetSeatID(){ return m_SeatID; }
+	UINT		GetBulletCount() { return m_bulletCount; }
+	void		SetBulletCount(const UINT n) { m_bulletCount = n; }
+	UINT        GetJJCScore() { return m_JJCscore; }
+	void		SetJJCScore(const UINT n) { m_JJCscore = n; }
 
 	DWORD		GetID();
 	char*		GetNickName();
@@ -59,12 +63,11 @@ public:
 	SkillFailedType UseSkill(SkillType skill);
 	LaunchFailedType UseLaser(byte launcherType);
 	int64 GetScore();
-	DWORD GetGameTime();
-	void AddGameTime(int nSecond);
 	USHORT Combo(WORD wCounter);
 	void OnSkillUsed(float nCdtime);
 	void SetBulletRate(USHORT uPoolRate,BYTE byMin, BYTE byMax);
 	void SetRoomLauncher();
+	void SetRoomLauncher(BYTE LancherType);
 
 	BYTE GetBulletIdx(){ return m_BulletIdx; }
 	ushort SkillInfo(SkillType skill);
@@ -106,6 +109,8 @@ private:
 	byte		m_BulletIdx;//子弹 
 	byte		m_LauncherType;//炮台
 	byte        m_nMultipleIndex;//
+	UINT		m_bulletCount; //竞技场子弹数量
+	UINT		m_JJCscore;// 竞技场积分
 	VecLauncherInfo				  m_vecLauncherInfo;
 	DWORD						m_dwLastFireTime;
 	BYTE						m_byMinRate;

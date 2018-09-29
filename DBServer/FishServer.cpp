@@ -1865,34 +1865,13 @@ bool FishServer::OnHandleGetRoleInfoByUserID(BYTE Index, BYTE ClientID, NetCmd* 
 		msg->RoleInfo.money2 = (int64)(pMsg->udata.money2 * MONEY_RATIO);
 		msg->RoleInfo.dwMedalNum = pTable1.GetUint(0, 7);
 		msg->RoleInfo.dwCurrencyNum = pTable1.GetUint(0, 8);
-		msg->RoleInfo.dwProduction = pTable1.GetUint(0, 9);
-		msg->RoleInfo.dwGameTime = pTable1.GetUint(0, 10);
 		msg->LastOnlineTime = pTable1.GetDateTime(0, 11);
 		msg->RoleInfo.TitleID = pTable1.GetByte(0, 12);
-		msg->RoleInfo.dwAchievementPoint = pTable1.GetUint(0, 13);
-		msg->RoleInfo.SendGiffSum = pTable1.GetByte(0, 14);
-		msg->RoleInfo.AcceptGiffSum = pTable1.GetByte(0, 15);
-		//blob
-		memcpy_s(&msg->RoleInfo.TaskStates, sizeof(msg->RoleInfo.TaskStates), pTable1.GetField((UINT)0, (UINT)16), sizeof(msg->RoleInfo.TaskStates));
-		memcpy_s(&msg->RoleInfo.AchievementStates, sizeof(msg->RoleInfo.AchievementStates), pTable1.GetField((UINT)0, (UINT)17), sizeof(msg->RoleInfo.AchievementStates));
-		memcpy_s(&msg->RoleInfo.ActionStates, sizeof(msg->RoleInfo.ActionStates), pTable1.GetField((UINT)0, (UINT)18), sizeof(msg->RoleInfo.ActionStates));
-		msg->RoleInfo.OnlineMin = pTable1.GetUshort(0, 19);
-		msg->RoleInfo.OnlineRewardStates = pTable1.GetUint(0, 20);
-		memcpy_s(&msg->RoleInfo.CharmArray, sizeof(msg->RoleInfo.CharmArray), pTable1.GetField((UINT)0, (UINT)22), sizeof(msg->RoleInfo.CharmArray));
-		msg->RoleInfo.IsCanResetAccount = pTable1.GetBit(0, 23);
-		msg->RoleInfo.ClientIP = pTable1.GetUint(0, 24);
-		msg->RoleInfo.CheckData = pTable1.GetUint(0, 25);
-		msg->RoleInfo.IsShowIPAddress = pTable1.GetByte(0, 26) == 1 ? true : false;//是否显示IP地址
 		msg->IsRobot = (msg->ClientID == 0 ? true : false); // pTable1.GetByte(0, 27) == 1 ? true : false;//是否为机器人
-		msg->RoleInfo.AchievementPointIndex = 0;
-		msg->RoleInfo.ExChangeStates = pTable1.GetUint(0, 28);
-		msg->RoleInfo.TotalRechargeSum = pTable1.GetUint(0, 29);
 		//Server属性
 		msg->RoleServerInfo.TotalFishGlobelSum = 0; // pTable1.GetInt64(0, 30);
 		msg->RoleServerInfo.RoleProtectSum = pTable1.GetByte(0, 31);
 		msg->RoleServerInfo.RoleProtectLogTime = pTable1.GetDateTime(0, 32);
-		msg->RoleInfo.bIsFirstPayGlobel = pTable1.GetByte(0, 33) == 1 ? true : false;
-		msg->RoleInfo.bIsFirstPayCurrcey = pTable1.GetByte(0, 34) == 1 ? true : false;
 
 		bool IsFreeze = pTable1.GetBit(0, 35);
 		time_t FreezeEndTime = pTable1.GetDateTime(0, 36);
@@ -1909,16 +1888,7 @@ bool FishServer::OnHandleGetRoleInfoByUserID(BYTE Index, BYTE ClientID, NetCmd* 
 			OnAddDBResult(Index, ClientID, msg);
 			return true;
 		}
-		msg->RoleInfo.LotteryScore = pTable1.GetUint(0, 37);
-		msg->RoleInfo.LotteryFishSum = pTable1.GetByte(0, 38);
-
-		msg->RoleInfo.MonthCardID = pTable1.GetByte(0, 39);
-		msg->RoleInfo.MonthCardEndTime = pTable1.GetDateTime(0, 40);
-		msg->RoleInfo.GetMonthCardRewardTime = pTable1.GetDateTime(0, 41);
-		memcpy_s(&msg->RoleInfo.RateValue, sizeof(msg->RoleInfo.RateValue), pTable1.GetField((UINT)0, (UINT)42), sizeof(msg->RoleInfo.RateValue));//修改玩家的炮台状态
 		msg->RoleInfo.VipLevel = pMsg->udata.vip;//  pTable1.GetByte(0, 43);
-		msg->RoleInfo.CashSum = pTable1.GetByte(0, 44);//今天兑换次数
-		msg->RoleInfo.TotalUseMedal = pTable1.GetUint(0, 45);
 
 		__int64 OnLineLogonTime = pTable1.GetDateTime(0, 46);
 		//最后登录的时间 如果最后登录的时间为 1971年 我们进行处理
@@ -1928,26 +1898,9 @@ bool FishServer::OnHandleGetRoleInfoByUserID(BYTE Index, BYTE ClientID, NetCmd* 
 			//为 1971年 
 			msg->LastOnlineTime = max(msg->LastOnlineTime, OnLineLogonTime);
 		}
-
-		msg->RoleInfo.ParticularStates = pTable1.GetUint(0, 47);//特殊状态值
-		msg->RoleInfo.GameID = pTable1.GetUint(0, 48);//玩家游戏ID
-
-
 		msg->RoleServerInfo.SecPasswordCrc1 = pTable1.GetUint(0, 49);
 		msg->RoleServerInfo.SecPasswordCrc2 = pTable1.GetUint(0, 50);
 		msg->RoleServerInfo.SecPasswordCrc3 = pTable1.GetUint(0, 51);
-
-
-		msg->RoleInfo.bShareStates = pTable1.GetBit(0, 52);
-		msg->RoleInfo.TotalCashSum = pTable1.GetUint(0, 53);
-		msg->RoleInfo.ZPNum = pTable1.GetUint(0, 54);
-		msg->RoleInfo.IsShop = pTable1.GetBit(0, 55);
-		msg->RoleInfo.ExchangeNum = pTable1.GetUint(0, 56);
-		//msg->RoleInfo.LockStates = pTable1.GetUint(0,47);
-		//msg->RoleInfo.LockEndTime = pTable1.GetDateTime(0, 48);
-
-		/*msg->TableID = pTable1.GetUint(0, 25);
-		msg->MonthID = pTable1.GetUint(0, 26);*/
 		msg->Result = true;
 		bool IsOnceDayLoad = !(m_Config.GetFishUpdateConfig().IsChangeUpdate(msg->LastOnlineTime, time(null)));
 		DWORD dwUserID = msg->RoleInfo.dwUserID;
@@ -2099,7 +2052,7 @@ bool FishServer::OnHandleSaveRoleInfo(BYTE Index, BYTE ClientID, NetCmd* pCmd)
 	ZeroMemory(DestNickName, (Size * 2 + 1) * sizeof(char));
 	m_Sql[Index].GetMySqlEscapeString(NickName, Size, DestNickName);
 
-	sprintf_s(SqlStr, sizeof(SqlStr), "call FishSaveUserInfo('%u','%s','%d');", pMsg->RoleInfo.dwUserID, DestNickName, pMsg->RoleInfo.dwGameTime);
+	//sprintf_s(SqlStr, sizeof(SqlStr), "call FishSaveUserInfo('%u','%s','%d');", pMsg->RoleInfo.dwUserID, DestNickName, pMsg->RoleInfo.dwGameTime);
 	//sprintf_s(SqlStr, sizeof(SqlStr), "call FishSaveUserInfo('%u','%s','%u','%u','%u',%u,'%lf','%u','%u','%u','%u','%u','%u','%u','%u','%s','%s','%s','%u','%u','%d','%s','%u','%u','%u');",
 	//	pMsg->RoleInfo.dwUserID, DestNickName, pMsg->RoleInfo.dwFaceID, pMsg->RoleInfo.wLevel, pMsg->RoleInfo.dwExp,
 	//	pMsg->RoleInfo.bGender, pMsg->RoleInfo.money1+pMsg->RoleInfo.money2, pMsg->RoleInfo.dwMedalNum, pMsg->RoleInfo.dwCurrencyNum, pMsg->RoleInfo.dwProduction,

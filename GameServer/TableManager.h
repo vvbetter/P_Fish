@@ -74,7 +74,6 @@ public:
 	bool OnPlayerJoinTable(WORD TableID, CRoleEx* pRoleEx, bool IsSendToClient = true);
 	void OnPlayerLeaveTable(DWORD dwUserID);
 
-	void ResetTableInfo(DWORD dwUserID);
 	//发送桌子消息
 	void SendDataToTable(DWORD dwUserID, NetCmd* pData);
 

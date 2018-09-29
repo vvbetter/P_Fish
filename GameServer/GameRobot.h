@@ -88,7 +88,7 @@ public:
 	virtual ~GameRobot();
 
 	void Update();
-	void SetRobotUse(DWORD RobotID);
+	void SetRobotUse(DWORD RobotID,BYTE MonthID = 0);
 	bool IsRobotUsed(){ return m_IsUse; };
 	void ResetRobot();
 	DWORD GetRobotUserID();
@@ -105,6 +105,7 @@ private:
 	CRoleEx*			m_pRole;
 	DWORD				m_RobotID; //配置的机器人类型ID
 	bool				m_IsUse;
+	BYTE				m_monthID;
 	//1.进出房间的记录
 	DWORD				m_RoomTimeLog;
 	DWORD				m_LeaveTableTimeLog;

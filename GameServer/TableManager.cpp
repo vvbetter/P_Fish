@@ -75,7 +75,7 @@ void TableManager::OnInit()
 	}
 
 	{
-		m_JJCTimer.StartTimer(GAME_TIME_SPACE, REPEATTIMER);
+		m_JJCTimer.StartTimer(JJC_GAME_TIME_SPACE, REPEATTIMER);
 	}
 
 	for (int i = 0; i < THREAD_NUM; ++i)//开启线程
@@ -129,7 +129,7 @@ void TableManager::Update(DWORD dwTimeStep)
 	{
 		if (!m_TableVec[i])
 			continue;
-		if (m_TableVec[i]->GetTablePlayerSum() == 0)
+		if (m_TableVec[i]->IsTableRunning() == false)
 			continue;
 		int idx = i % THREAD_NUM;
 		TableUpdateParam* pParam = (TableUpdateParam*)malloc(sizeof(TableUpdateParam));
@@ -167,11 +167,32 @@ void TableManager::UpdateJJC(DWORD dwTimeStep)
 				tableIt->table2->OnGameStop();
 			}
 			//竞技场人满，开始游戏
-			if (!tableIt->table1->IsTableRunning() && !tableIt->table2->IsTableRunning()
+			else if (!tableIt->table1->IsTableRunning() && !tableIt->table2->IsTableRunning()
 				&& tableIt->table1->IsFull() && tableIt->table2->IsFull())
 			{
+				msg_ArenaStartInfo msg;
+				SetMsgInfo(msg, 6040, sizeof(msg_ArenaStartInfo));
+				msg.isStart = true;
+				msg.waitPlayers = 8;
+				tableIt->table1->SendDataToTableAllUser(&msg);
+				tableIt->table2->SendDataToTableAllUser(&msg);
 				tableIt->table1->OnGameStart();
 				tableIt->table2->OnGameStart();
+			}
+			//通知桌子上面的人现在等待人数
+			else if (!tableIt->table1->IsTableRunning() && !tableIt->table2->IsTableRunning()
+				&& (!tableIt->table1->IsFull() || !tableIt->table2->IsFull()))
+			{
+				BYTE WaitPlayerSum = tableIt->table1->GetTablePlayerSum() + tableIt->table2->GetTablePlayerSum();
+				if (WaitPlayerSum != 0)
+				{
+					msg_ArenaStartInfo msg;
+					SetMsgInfo(msg, 6040, sizeof(msg_ArenaStartInfo));
+					msg.isStart = true;
+					msg.waitPlayers = WaitPlayerSum;
+					tableIt->table1->SendDataToTableAllUser(&msg);
+					tableIt->table2->SendDataToTableAllUser(&msg);
+				}
 			}
 		}
 	}
@@ -317,7 +338,7 @@ bool TableManager::OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE Mo
 	GameTable* joinTable = GetPlayerJoinTable(TableTypeID, MonthID);
 	if (joinTable != NULL)
 	{
-		if (PlayerJoinTable(joinTable, pRoleEx, TableTypeID, MonthID) == false)
+		if (PlayerJoinTable(joinTable, pRoleEx, TableTypeID, MonthID, IsSendToClient) == false)
 		{
 			return false;
 		}
@@ -337,7 +358,7 @@ bool TableManager::OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE Mo
 		{
 			AddJJCGameTable(TableTypeID, MonthID, pNewTable);
 		}
-		if (PlayerJoinTable(pNewTable, pRoleEx, TableTypeID, MonthID) == false)
+		if (PlayerJoinTable(pNewTable, pRoleEx, TableTypeID, MonthID, IsSendToClient) == false)
 		{
 			return false;
 		}
@@ -345,26 +366,6 @@ bool TableManager::OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE Mo
 	return true;
 }
 
-void TableManager::ResetTableInfo(DWORD dwUserID)
-{
-	HashMap<DWORD, WORD>::iterator Iter = m_RoleTableMap.find(dwUserID);
-	if (Iter == m_RoleTableMap.end())
-	{
-		//ASSERT(false);
-		return;
-	}
-	WORD Index = Iter->second;
-	if (m_TableVec.size() <= Index)
-	{
-		ASSERT(false);
-	}
-	GameTable* pTable = m_TableVec[Index];
-	if (!pTable)
-	{
-		ASSERT(false);
-	}
-	pTable->SendTableRoleInfoToClient(dwUserID);
-}
 void TableManager::OnPlayerLeaveTable(DWORD dwUserID)
 {
 	//根据玩家找到当前的桌子 
@@ -914,9 +915,9 @@ void TableManager::AddJJCGameTable(BYTE tableTypeID, BYTE monthTypeID, GameTable
 	//竞技场需要增加机器人 5-10s增加一个机器人
 	for (int i = 0; i < 4; ++i)
 	{
-		DWORD time1 = RandInt() % 5 + 6;
+		DWORD time1 = RandInt() % 5000 + 6000;
 		g_FishServer.GetRobotManager().AdddWriteRobot(pTable->GetTableID(), time1);
-		DWORD time2 = RandInt() % 5 + 6;
-		g_FishServer.GetRobotManager().AdddWriteRobot(pNewTable->GetTableID(), time1);
+		DWORD time2 = RandInt() % 5000 + 6000;
+		g_FishServer.GetRobotManager().AdddWriteRobot(pNewTable->GetTableID(), time2);
 	}
 }

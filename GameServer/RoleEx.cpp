@@ -8,7 +8,6 @@ extern void SendLogDB(NetCmd* pCmd);
 CRoleEx::CRoleEx()
 {
 	m_IsNeedSave = false;
-	m_IsChangeClientIP = false;
 	m_LogonTimeByDay = 0;
 	m_IsRobot = false;//是否为机器人
 	m_IsAfk = false;//是否离线
@@ -40,35 +39,12 @@ bool CRoleEx::OnInit(tagRoleInfo* pUserInfo, tagRoleServerInfo* pRoleServerInfo,
 	m_RoleInfo = *pUserInfo;
 	m_RoleServerInfo = *pRoleServerInfo;
 
-	{
-		m_RoleInfo.benefitCount = m_RoleServerInfo.RoleProtectSum;
-		m_RoleInfo.benefitTime = (DWORD)m_RoleServerInfo.RoleProtectLogTime;
-	}
-	if (pClient && m_RoleInfo.ClientIP != pClient->IP)
-	{
-		m_RoleInfo.ClientIP = pClient->IP;//玩家上线成功获取玩家的IP地址
-
-		//玩家的IP地址发生变化了 我们需要进行处理 玩家切换IP登陆了
-		m_IsNeedSave = true;
-		m_IsChangeClientIP = true;
-	}
-	else
-	{
-		m_IsChangeClientIP = false;
-	}
-
-	g_FishServer.GetAddressByIP(m_RoleInfo.ClientIP, m_RoleInfo.IPAddress, CountArray(m_RoleInfo.IPAddress));//设置玩家的IP位置
-
 	m_RoleManager = pManager;
 	m_LastOnLineTime = pTime;
 	m_LogonTime = time(NULL);
 	m_LogonTimeByDay = m_LogonTime;
 	if (!IsOnceDayOnline())
 	{
-		//是否为同一天登陆 每日数据清空
-		m_RoleInfo.dwProduction = 0;
-		m_RoleInfo.OnlineMin = 0;
-		ResetPerDay();
 		m_IsNeedSave = true;
 
 	}
@@ -84,10 +60,6 @@ bool CRoleEx::OnInit(tagRoleInfo* pUserInfo, tagRoleServerInfo* pRoleServerInfo,
 		}
 	}
 	return ret;
-}
-DWORD CRoleEx::GetRoleOnlineSec()
-{
-	return ConvertInt64ToDWORD(m_RoleInfo.OnlineMin * 60 + (time(NULL) - m_LogonTimeByDay));//获取当天在线的秒杀
 }
 void CRoleEx::ChangeRoleSocketID(DWORD SocketID)
 {
@@ -190,18 +162,6 @@ void CRoleEx::SendDataToTable(NetCmd* pCmd)
 	}
 	g_FishServer.GetTableManager()->SendDataToTable(m_RoleInfo.dwUserID, pCmd);
 }
-
-bool CRoleEx::ChangeRoleProduction(DWORD dwProduction)
-{
-	m_RoleInfo.dwProduction += dwProduction;
-	return true;
-}
-
-bool CRoleEx::ChangeRoleGameTime(WORD wGameTime)
-{
-	m_RoleInfo.dwGameTime += wGameTime;
-	return true;
-}
 bool CRoleEx::ChangeRoleIsOnline(bool States)
 {
 	//告诉玩家是否在线的状态 玩家进入AFK 状态 无须处理 直接将数据发送到中央服务器 与 数据库去
@@ -247,26 +207,11 @@ bool CRoleEx::ChangeRoleTotalFishGlobelSum(int64 AddSum)
 	m_IsNeedSave = true;
 	return true;
 }
-void CRoleEx::AddRoleProtectSum()
-{
-	time_t pNow = time(null);
-	m_RoleServerInfo.RoleProtectLogTime = pNow;
-	m_RoleServerInfo.RoleProtectSum += 1;
-	m_IsNeedSave = true;
-	{
-		m_RoleInfo.benefitCount = m_RoleServerInfo.RoleProtectSum;
-		m_RoleInfo.benefitTime = (DWORD)m_RoleServerInfo.RoleProtectLogTime;
-	}
-}
 int64 CRoleEx::GetScore()
 {
 	return m_RoleInfo.money1 + m_RoleInfo.money2;
 }
 
-DWORD CRoleEx::GetGameTime()
-{
-	return m_RoleInfo.dwGameTime;
-}
 bool CRoleEx::IsOnceDayOnline()
 {
 	if (g_FishServer.GetFishConfig().GetFishUpdateConfig().IsChangeUpdate(m_LastOnLineTime, m_LogonTime))
@@ -344,7 +289,7 @@ bool CRoleEx::SaveAllRoleInfo(bool IsExit)
 	DBR_Cmd_SaveRoleOnlineMin msgDB;
 	SetMsgInfo(msgDB, DBR_SaveRoleOnlineMin, sizeof(DBR_Cmd_SaveRoleOnlineMin));
 	msgDB.dwUserID = m_RoleInfo.dwUserID;
-	msgDB.OnLineMin = ConvertDWORDToWORD(GetRoleOnlineSec() / 60);//保存玩家的在线分钟
+	msgDB.OnLineMin = 0;//保存玩家的在线分钟
 	g_FishServer.SendNetCmdToSaveDB(&msgDB);
 
 	if (!m_IsNeedSave && !IsExit)//无须保存
@@ -369,10 +314,4 @@ void CRoleEx::SetIsExit(bool States)
 		return;
 	m_IsExit = States; 
 	ChangeRoleIsOnline(!States);
-}
-void CRoleEx::ResetPerDay()
-{
-	m_RoleInfo.benefitCount = m_RoleServerInfo.RoleProtectSum = 0;
-	m_RoleInfo.benefitTime = 0;
-	m_RoleServerInfo.RoleProtectLogTime = 0;
 }

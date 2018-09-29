@@ -3,125 +3,135 @@ package com.game.proto;
 
 enum Protos_Game60Fishing {
     
-	ReqEnterFishServer = 6001; //ÇëÇóºÍ²¶Óã·şÎñÆ÷½¨Á¢Í¨ĞÅ
-	ResEnterFishServer = 6002; //·µ»ØÍ¨Ñ¶½á¹û
+	ReqEnterFishServer = 6001; //è¯·æ±‚å’Œæ•é±¼æœåŠ¡å™¨å»ºç«‹é€šä¿¡
+	ResEnterFishServer = 6002; //è¿”å›é€šè®¯ç»“æœ
 	
-	ReqJoinRoom        = 6003;//ÇëÇó½øÈëÄ³¸ö·¿¼ä
-	ResJoinRoom        = 6004;//·µ»Ø½øÈë·¿¼äÏûÏ¢
+	ReqJoinRoom        = 6003;//è¯·æ±‚è¿›å…¥æŸä¸ªæˆ¿é—´
+	ResJoinRoom        = 6004;//è¿”å›è¿›å…¥æˆ¿é—´æ¶ˆæ¯
 	
-	ResCmdFish         = 6006;//Í¬²½³¡¾°ÖĞµÄÓã
+	ResCmdFish         = 6006;//åŒæ­¥åœºæ™¯ä¸­çš„é±¼
 	
-	ResCmdSyncFish     = 6008;//Í¬²½³¡¾°ÖĞµÄÒì²½µÄÓã
+	ResCmdSyncFish     = 6008;//åŒæ­¥åœºæ™¯ä¸­çš„å¼‚æ­¥çš„é±¼
 	
-	ReqBullet          = 6009;//·¢ËÍ×Óµ¯
-	ResBullet          = 6010;//½ÓÊÕ×Óµ¯
+	ReqBullet          = 6009;//å‘é€å­å¼¹
+	ResBullet          = 6010;//æ¥æ”¶å­å¼¹
 	
-	ResCatched         = 6012;//ÃüÖĞÓãµÄÏûÏ¢
+	ResCatched         = 6012;//å‘½ä¸­é±¼çš„æ¶ˆæ¯
 	
 	
-	ResClearScene      = 6014;//Çå³¡ÏûÏ¢
+	ResClearScene      = 6014;//æ¸…åœºæ¶ˆæ¯
 	
-	ResPlayerJoin      = 6016;//Íæ¼Ò¼ÓÈë
+	ResPlayerJoin      = 6016;//ç©å®¶åŠ å…¥
 	
-	ReqChangeLauncher  = 6017;//ÇëÇóÇĞ»»ÅÚÌ¨
-	ResChangeLauncher  = 6018;//ÇĞ»»ÅÚÌ¨·µ»Ø
+	ReqChangeLauncher  = 6017;//è¯·æ±‚åˆ‡æ¢ç‚®å°
+	ResChangeLauncher  = 6018;//åˆ‡æ¢ç‚®å°è¿”å›
 	
-	ReqChangeRate	   = 6019; //ÇëÇóÇĞ»»±¶ÂÊ
-	ResChangeRate	   = 6020; //ÇĞ»»±¶ÂÊ·µ»Ø
+	ReqChangeRate	   = 6019; //è¯·æ±‚åˆ‡æ¢å€ç‡
+	ResChangeRate	   = 6020; //åˆ‡æ¢å€ç‡è¿”å›
 	
-	ResCatchedFreeze   = 6022;//±ù¶³ÃüÖĞÓãµÄÏûÏ¢
+	ResCatchedFreeze   = 6022;//å†°å†»å‘½ä¸­é±¼çš„æ¶ˆæ¯
 
-	ResSyncBulletData	= 6024; //Í¬²½³¡¾°ÖĞ×Óµ¯
+	ResSyncBulletData	= 6024; //åŒæ­¥åœºæ™¯ä¸­å­å¼¹
 	
-	ReqLeaveGame		= 6025; //ÇëÇóÀë¿ªÓÎÏ·
-	ResLeaveGame		= 6026; //ÇëÇóÀë¿ªÓÎÏ··µ»Ø
+	ReqLeaveGame		= 6025; //è¯·æ±‚ç¦»å¼€æ¸¸æˆ
+	ResLeaveGame		= 6026; //è¯·æ±‚ç¦»å¼€æ¸¸æˆè¿”å›
 	
-	ReqLookUpPlayerInfo      = 6027; //ÇëÇó²é¿´Íæ¼ÒĞÅÏ¢
-    ResLookUpPlayerInfo      = 6028; //·µ»Ø²é¿´Íæ¼ÒÊı¾İ
+	ReqLookUpPlayerInfo      = 6027; //è¯·æ±‚æŸ¥çœ‹ç©å®¶ä¿¡æ¯
+    ResLookUpPlayerInfo      = 6028; //è¿”å›æŸ¥çœ‹ç©å®¶æ•°æ®
 	
-	ResConnectFinish		 = 6030;  // Á¬½Ó·şÎñÆ÷³É¹¦
+	ResConnectFinish		 = 6030;  // è¿æ¥æœåŠ¡å™¨æˆåŠŸ
 	
-	ReqStartSyncFish		 = 6031;  //³¡¾°¼ÓÔØÍê³É£¬¿ªÊ¼Í¬²½Óã
+	ReqStartSyncFish		 = 6031;  //åœºæ™¯åŠ è½½å®Œæˆï¼Œå¼€å§‹åŒæ­¥é±¼
 	
-	ResPlayerTickOut		= 6032; //Íæ¼Ò±»Ìá³öÓÎÏ·
+	ResPlayerTickOut		= 6032; //ç©å®¶è¢«æå‡ºæ¸¸æˆ
 	
-	ResSyncAddMoney			= 6034; //Íæ¼ÒµÄÇ®±ä¸ü
+	ResSyncAddMoney			= 6034; //ç©å®¶çš„é’±å˜æ›´
 
-	ResUseGoodsKB			= 6036; //Íæ¼ÒÊ¹ÓÃ¿ñ±©µÀ¾ß
-	ResUseGoodsBD			= 6038; //Íæ¼ÒÊ¹ÓÃÈ«ÆÁ±ù¶³µÀ¾ß
+	ResUseGoodsKB			= 6036; //ç©å®¶ä½¿ç”¨ç‹‚æš´é“å…·
+	ResUseGoodsBD			= 6038; //ç©å®¶ä½¿ç”¨å…¨å±å†°å†»é“å…·
+
+	ResArenaStartInfo           = 6040; //ç«æŠ€åœºå¼€å§‹æ¸¸æˆä¿¡æ¯
 }
 
-// ÇëÇó½øÈë²¶Óã·şÎñÆ÷
+//ç«æŠ€åœºå¼€å§‹æ¸¸æˆä¿¡æ¯
+message ResArenaStartInfoMessage{
+	optional Protos_Game60Fishing msgID = 1 [default = ResArenaStartInfo];
+	optional bool start = 2;   //æ˜¯å¦å¼€å§‹
+	optional int32 waitPlayer = 3; //ç­‰å¾…äººæ•°
+
+}
+
+// è¯·æ±‚è¿›å…¥æ•é±¼æœåŠ¡å™¨
 message ReqEnterFishServerMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ReqEnterFishServer];
 
     
-    required int64 playerOnlyID = 2;//Íæ¼ÒµÄÎ¨Ò»ID
+    required int64 playerOnlyID = 2;//ç©å®¶çš„å”¯ä¸€ID
 	
 	
    
 }
 
-// ·µ»ØÁ´½ÓÍ¨Ñ¶½á¹û
+// è¿”å›é“¾æ¥é€šè®¯ç»“æœ
 message ResEnterFishServerMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ResEnterFishServer];
 
     
-    required int32 serverState = 2;//·µ»Ø½á¹û 1³É¹¦£¬ÆäËûÎª¾ßÌåµÄ´íÎó´úÂë
+    required int32 serverState = 2;//è¿”å›ç»“æœ 1æˆåŠŸï¼Œå…¶ä»–ä¸ºå…·ä½“çš„é”™è¯¯ä»£ç 
    
 }
 
-// ÇëÇó½øÈëÓæ³¡
+// è¯·æ±‚è¿›å…¥æ¸”åœº
 message ReqJoinRoomMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ReqJoinRoom];
 
     
-    required int32 roomID = 2;//·¿¼äID
+    required int32 roomID = 2;//æˆ¿é—´ID
 
-    optional int32 isArena = 3;//ÊÇ·ñÊÇ¾º¼¼³¡£¬0²»ÊÇ 1ÊÇ
+    optional int32 isArena = 3;//æ˜¯å¦æ˜¯ç«æŠ€åœºï¼Œ0ä¸æ˜¯ 1æ˜¯
 }
 
-// ·µ»Ø½øÈëÓæ³¡ÏûÏ¢
+// è¿”å›è¿›å…¥æ¸”åœºæ¶ˆæ¯
 message ResJoinRoomMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ResJoinRoom];
 
     
-    required bool result = 2;//·µ»Ø½á¹û 
+    required bool result = 2;//è¿”å›ç»“æœ 
 	
-	required int32 roomID = 3;//·¿¼äID
+	required int32 roomID = 3;//æˆ¿é—´ID
 	
-	optional int32 backgroundImage = 4;//±³¾°Í¼ÑùÊ½
+	optional int32 backgroundImage = 4;//èƒŒæ™¯å›¾æ ·å¼
 	
 	optional PlayerData playerData = 5;
    
 }
 
 
-// ·µ»ØÓæ³¡ÖĞµÄÓã
+// è¿”å›æ¸”åœºä¸­çš„é±¼
 message ResCmdFishMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ResCmdFish];
 
     
-    required int32 groupID = 2;//ÓãÈºµÄÈº×éID
-	required int32 startID = 3;//ÆğÊ¼ÓãID
-	required int32 pathID = 4;//Â·¾¶ĞÅÏ¢ID
+    required int32 groupID = 2;//é±¼ç¾¤çš„ç¾¤ç»„ID
+	required int32 startID = 3;//èµ·å§‹é±¼ID
+	required int32 pathID = 4;//è·¯å¾„ä¿¡æ¯ID
 	
 	
 }
 
-// ·µ»ØÓæ³¡ÖĞµÄÒì²½Óã
+// è¿”å›æ¸”åœºä¸­çš„å¼‚æ­¥é±¼
 message ResCmdSyncFishMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ResCmdSyncFish];
 
-    required int32 fishID 			= 2;//ÓãID
-    required int32 groupID 			= 3;//ÓãÈºµÄÈº×éID
-	required double fishTime 		= 4;//ÓãµÄÊ±¼ä
-	required int32 pathGroup 		= 5;//Â·¾¶ÈºĞÅÏ¢ID
-	required int32 pathIdx   		= 6;//Â·¾¶ID
+    required int32 fishID 			= 2;//é±¼ID
+    required int32 groupID 			= 3;//é±¼ç¾¤çš„ç¾¤ç»„ID
+	required double fishTime 		= 4;//é±¼çš„æ—¶é—´
+	required int32 pathGroup 		= 5;//è·¯å¾„ç¾¤ä¿¡æ¯ID
+	required int32 pathIdx   		= 6;//è·¯å¾„ID
 	optional bool isActiveEvent 	= 7;
 	optional int32 elapsedTime		= 8;
-	optional int32 delayType 		= 9;//¼õËÙÀàĞÍ
-	optional int32 delayScaling 	= 10;//¼õËÙ°Ù·Ö±È
+	optional int32 delayType 		= 9;//å‡é€Ÿç±»å‹
+	optional int32 delayScaling 	= 10;//å‡é€Ÿç™¾åˆ†æ¯”
 	optional int32 delayDuration1 	= 11;
 	optional int32 delayDuration2 	= 12;
 	optional int32 delayDuration3 	= 13;
@@ -131,60 +141,60 @@ message ResCmdSyncFishMessage {
 	
 }
 
-// ÇëÇó·¢ËÍ×Óµ¯
+// è¯·æ±‚å‘é€å­å¼¹
 message ReqBulletMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ReqBullet];
 
     
-    required int32 angle = 2;//·¢ËÍ×Óµ¯µÄ½Ç¶È
-	optional int32 lockFishID = 3;//Ëø¶¨ÓãµÄID
-	required int32 launcherType = 4;//ÅÚÌ¨µÄÀàĞÍ
+    required int32 angle = 2;//å‘é€å­å¼¹çš„è§’åº¦
+	optional int32 lockFishID = 3;//é”å®šé±¼çš„ID
+	required int32 launcherType = 4;//ç‚®å°çš„ç±»å‹
 	
 	
    
 }
 
-// ½ÓÊÕ×Óµ¯
+// æ¥æ”¶å­å¼¹
 message ResBulletMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ResBullet];
 
     
-    required int32 bulletID = 2;//×Óµ¯ID
-	required int32 launcherType = 3;//ÅÚÌ¨ÀàĞÍ
-	required int32 angle          = 4;//×Óµ¯·½Ïò
-	optional int32 energy         = 5;//µ±Ç°Å­ÆøÖµ
+    required int32 bulletID = 2;//å­å¼¹ID
+	required int32 launcherType = 3;//ç‚®å°ç±»å‹
+	required int32 angle          = 4;//å­å¼¹æ–¹å‘
+	optional int32 energy         = 5;//å½“å‰æ€’æ°”å€¼
 	optional int32 reboundCount   = 6;//
-	optional int32 lockFishID     = 7;//Ëø¶¨ÓãµÄID
+	optional int32 lockFishID     = 7;//é”å®šé±¼çš„ID
    
 }
 
-// ±ù¶³ÃüÖĞÓãµÄÏûÏ¢
+// å†°å†»å‘½ä¸­é±¼çš„æ¶ˆæ¯
 message ResCatchedFreezeMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ResCatchedFreeze];
 
     
-    required int32 bulletID = 2;//×Óµ¯ID
+    required int32 bulletID = 2;//å­å¼¹ID
 	required int32 combo = 3;//
-	required int32 goldNum          = 4;//½ğ±ÒÊıÁ¿
-	optional int32 TotalNum         = 5;//×êÊ¯ÊıÁ¿
+	required int32 goldNum          = 4;//é‡‘å¸æ•°é‡
+	optional int32 TotalNum         = 5;//é’»çŸ³æ•°é‡
 	repeated FishCatchedInfo fishCatchedList = 6;
    
 }
 
-// ÃüÖĞÓãµÄÏûÏ¢
+// å‘½ä¸­é±¼çš„æ¶ˆæ¯
 message ResCatchedMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ResCatched];
 
     
-    required int32 bulletID = 2;//×Óµ¯ID
+    required int32 bulletID = 2;//å­å¼¹ID
 	required int32 combo = 3;//
-	required int32 goldNum          = 4;//½ğ±ÒÊıÁ¿
-	optional int32 TotalNum         = 5;//×êÊ¯ÊıÁ¿
+	required int32 goldNum          = 4;//é‡‘å¸æ•°é‡
+	optional int32 TotalNum         = 5;//é’»çŸ³æ•°é‡
 	repeated FishCatchedInfo fishCatchedList = 6;
    
 }
 
-//ÃüÖĞô~µÄ¾ßÌåĞÅÏ¢
+//å‘½ä¸­é­šçš„å…·ä½“ä¿¡æ¯
 message FishCatchedInfo{
 	optional int32 catchEvent = 1;
 	required int32 fishID = 2;
@@ -195,64 +205,66 @@ message FishCatchedInfo{
 
 message ResClearSceneMessage{
 	optional Protos_Game60Fishing msgID = 1 [default = ResClearScene];
-	required int32 clearType = 2;//Çå³¡ÀàĞÍ
+	required int32 clearType = 2;//æ¸…åœºç±»å‹
 
 }
 
 message ResPlayerJoinMessage{
 	optional Protos_Game60Fishing msgID = 1 [default = ResPlayerJoin];
-	//¸ù¾İlogonserverµÄÏûÏ¢À´¾ßÌå´¦Àí
+	//æ ¹æ®logonserverçš„æ¶ˆæ¯æ¥å…·ä½“å¤„ç†
 	
 	required PlayerData playerData = 2;
 	
 }
 
-//·¢ËÍ×Ô¼ººÍÆäËûÍæ¼ÒĞÅÏ¢µÄÊ±ºò£¬¸ù¾İoptional¹Ø¼ü´ÊÀ´¹ıÂË¡£
+//å‘é€è‡ªå·±å’Œå…¶ä»–ç©å®¶ä¿¡æ¯çš„æ—¶å€™ï¼Œæ ¹æ®optionalå…³é”®è¯æ¥è¿‡æ»¤ã€‚
 message PlayerData{
 	optional int64 			playerId 		= 1;
 	optional string 		playerName 		= 2;
 	optional int32          sex				= 3;
-	optional int32 			headicon        = 4;//Í·Ïñ¿ò
-	optional string 		icon        	= 5;//Í·Ïñ
+	optional int32 			headicon        = 4;//å¤´åƒæ¡†
+	optional string 		icon        	= 5;//å¤´åƒ
 	optional int32          vipLevel 		= 6;
 	optional int64 			goldNum			= 7;
-	optional int32 			seat			= 8;//×ùÎ»ºÅ
-	optional int32          launcherType    = 9;//ÅÚÌ¨ÀàĞÍ
-	optional int32			rateIndex 		= 10;//±¶ÂÊ
-	optional int32 			energy     		= 11;//µ±Ç°µÄÅ­Æø¼¼ÄÜµÄÖµ
+	optional int32 			seat			= 8;//åº§ä½å·
+	optional int32          launcherType    = 9;//ç‚®å°ç±»å‹
+	optional int32			rateIndex 		= 10;//å€ç‡
+	optional int32 			energy     		= 11;//å½“å‰çš„æ€’æ°”æŠ€èƒ½çš„å€¼
+	optional int32          bulletCount     = 12;//ç«æŠ€åœºå­å¼¹æ•°é‡
+	optional int32          score			= 13;//ç«æŠ€åœºç§¯åˆ†
 }
 
 
-// ÇëÇóÇĞ»»ÅÚÌ¨
+// è¯·æ±‚åˆ‡æ¢ç‚®å°
 message ReqChangeLauncherMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ReqChangeLauncher];
 
-    required int32 seat = 2;//×ùÎ»ID
-	required int32 launcherType = 3;//ÅÚÌ¨µÄÀàĞÍ
+    required int32 seat = 2;//åº§ä½ID
+	required int32 launcherType = 3;//ç‚®å°çš„ç±»å‹
 	
 }
 
-// ÇĞ»»ÅÚÌ¨·µ»Ø
+// åˆ‡æ¢ç‚®å°è¿”å›
 message ResChangeLauncherMessage {
     optional Protos_Game60Fishing msgID = 1 [default = ResChangeLauncher];
 
-    required int32 seat = 2;//×ùÎ»ID
-	required int32 launcherType = 3;//ÅÚÌ¨µÄÀàĞÍ
+    required int32 seat = 2;//åº§ä½ID
+	required int32 launcherType = 3;//ç‚®å°çš„ç±»å‹
 	
 }
 
 message ReqChangeRateMessage{
 	optional Protos_Game60Fishing msgID = 1 [default = ReqChangeRate];
 	
-	required bool UpRoDownRate = 2;// trueÔö¼Ófalse¼õÉÙ±¶ÂÊ
+	required bool UpRoDownRate = 2;// trueå¢åŠ falseå‡å°‘å€ç‡
 }
 
 message ResChangeRateMessage{
 	optional Protos_Game60Fishing msgID = 1 [default = ResChangeRate];
 	
-	required int32 Seat = 2;     //×ùÎ»ID
-	required int32 RateIndex = 3; //±¶ÂÊ
-	required bool IsCanUseRate = 4; //ÊÇ·ñ¿ÉÓÃ
+	required int32 Seat = 2;     //åº§ä½ID
+	required int32 RateIndex = 3; //å€ç‡
+	required bool IsCanUseRate = 4; //æ˜¯å¦å¯ç”¨
 }
 
 message SyncBulletData
@@ -269,73 +281,73 @@ message SyncBulletData
 message ResSyncBulletDataMessage
 {
 	optional Protos_Game60Fishing msgID = 1 [default = ResSyncBulletData];
-	repeated SyncBulletData  syncBulletData = 2;//×Óµ¯ĞÅÏ¢
+	repeated SyncBulletData  syncBulletData = 2;//å­å¼¹ä¿¡æ¯
 }
 
 message ReqLeaveGameMessage
 {
 	optional Protos_Game60Fishing msgID = 1 [default = ReqLeaveGame];
-	required int32 seat = 2;//×ùÎ»ID
+	required int32 seat = 2;//åº§ä½ID
 	
 }
 
 message ResLeaveGameMessage
 {
 	optional Protos_Game60Fishing msgID = 1 [default = ResLeaveGame];
-	required int32 seat = 2;//×ùÎ»ID
+	required int32 seat = 2;//åº§ä½ID
 }
 
-//ÇëÇó²é¿´Íæ¼ÒĞÅÏ¢
+//è¯·æ±‚æŸ¥çœ‹ç©å®¶ä¿¡æ¯
 message ReqLookUpPlayerInfoMessage {
     optional Protos_Game60Fishing msgID                  = 1 [default = ReqLookUpPlayerInfo]; 
 
-    optional int64   playerId                    = 2;//²é¿´µÄÍæ¼ÒID
+    optional int64   playerId                    = 2;//æŸ¥çœ‹çš„ç©å®¶ID
 }
 
-//·µ»Ø²é¿´Íæ¼ÒÊı¾İ
+//è¿”å›æŸ¥çœ‹ç©å®¶æ•°æ®
 message ResLookUpPlayerInfoMessage {
     optional Protos_Game60Fishing msgID                  = 1 [default = ResLookUpPlayerInfo]; 
 
-    optional int64   playerId                    = 2;//²é¿´µÄÍæ¼ÒID
-    optional int32   vipLevel                    = 3;//vipµÈ¼¶
+    optional int64   playerId                    = 2;//æŸ¥çœ‹çš„ç©å®¶ID
+    optional int32   vipLevel                    = 3;//vipç­‰çº§
     optional string   icon                       = 4;//icon
-    optional string   name                       = 5;//ÏÔÊ¾ĞÕÃû
-    optional int32    sex                        = 6;//ĞÔ±ğ
-    optional int32   titleId                     = 7;//³É¾ÍID
-    optional double   gameWinMaxMoney            = 8;//µ¥¾Ö×î¸ßÓ¯Àû
-    optional double   money                      = 9;//½ğ¶î
-    optional int32   charmValue                  = 10;//÷ÈÁ¦Öµ
-    optional string signature                    = 11; //¸öĞÔÇ©Ãû
-    optional int32   headIcon                    = 12; //Í·Ïñ¿ò
+    optional string   name                       = 5;//æ˜¾ç¤ºå§“å
+    optional int32    sex                        = 6;//æ€§åˆ«
+    optional int32   titleId                     = 7;//æˆå°±ID
+    optional double   gameWinMaxMoney            = 8;//å•å±€æœ€é«˜ç›ˆåˆ©
+    optional double   money                      = 9;//é‡‘é¢
+    optional int32   charmValue                  = 10;//é­…åŠ›å€¼
+    optional string signature                    = 11; //ä¸ªæ€§ç­¾å
+    optional int32   headIcon                    = 12; //å¤´åƒæ¡†
 }
 
-// Á¬½Ó·şÎñÆ÷³É¹¦
+// è¿æ¥æœåŠ¡å™¨æˆåŠŸ
 message ResConnectFinishMessage{
 	optional Protos_Game60Fishing msgID          = 1 [default = ResConnectFinish]; 
 }
-//³¡¾°¼ÓÔØÍê³É£¬¿ªÊ¼Í¬²½Óã
+//åœºæ™¯åŠ è½½å®Œæˆï¼Œå¼€å§‹åŒæ­¥é±¼
 message ReqStartSyncFishMessage{
 	optional Protos_Game60Fishing msgID          = 1 [default = ReqStartSyncFish]; 	
 }
-// Íæ¼Ò±»Ìá³öÓÎÏ·
+// ç©å®¶è¢«æå‡ºæ¸¸æˆ
 message ResPlayerTickOutMessage{
 	optional Protos_Game60Fishing msgID          = 1 [default = ResPlayerTickOut]; 	
 }
-//Íæ¼ÒµÄÇ®±ä¸ü
+//ç©å®¶çš„é’±å˜æ›´
 message ResSyncAddMoneyMessage{
 	optional Protos_Game60Fishing msgID          = 1 [default = ResSyncAddMoney]; 
-	required int64 add_goldNum = 2; // ¸Ä±ä»õ±ÒÖµ
-    optional int32 reason  = 4; // Ô­Òò
+	required int64 add_goldNum = 2; // æ”¹å˜è´§å¸å€¼
+    optional int32 reason  = 4; // åŸå› 
 }
-//Íæ¼ÒÊ¹ÓÃ¿ñ±©µÀ¾ß
+//ç©å®¶ä½¿ç”¨ç‹‚æš´é“å…·
 message ResUseGoodsKBMessage{
 	optional Protos_Game60Fishing msgID          = 1 [default = ResUseGoodsKB]; 
-	required int32 seatID = 2; //Ê¹ÓÃµÀ¾ßµÄ×ùÎ»
-	required uint32 keepTime = 3; //¿ñ±©³ÖĞøÊ±¼ä ºÁÃë
+	required int32 seatID = 2; //ä½¿ç”¨é“å…·çš„åº§ä½
+	required uint32 keepTime = 3; //ç‹‚æš´æŒç»­æ—¶é—´ æ¯«ç§’
 }
-//Íæ¼ÒÊ¹ÓÃÈ«ÆÁ±ù¶³µÀ¾ß
+//ç©å®¶ä½¿ç”¨å…¨å±å†°å†»é“å…·
 message ResUseGoodsBDMessage{
 	optional Protos_Game60Fishing msgID          = 1 [default = ResUseGoodsBD]; 
-	required int32 seatID = 2; //Ê¹ÓÃµÀ¾ßµÄ×ùÎ»
-	required uint32 keepTime = 3; //±ù¶³³ÖĞøÊ±¼ä ºÁÃë
+	required int32 seatID = 2; //ä½¿ç”¨é“å…·çš„åº§ä½
+	required uint32 keepTime = 3; //å†°å†»æŒç»­æ—¶é—´ æ¯«ç§’
 }

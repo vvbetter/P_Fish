@@ -110,10 +110,16 @@ bool GameTable::OnRoleJoinTable(CRoleEx* pRoleEx, BYTE MonthID, bool IsSendToCli
 		return false;
 	}
 	pRole->SetTableType(m_TableTypeID);
-	pRole->SetRoleIsCanSendTableMsg(false);//设置玩家是否可以发送命令到客户端去。等待客户端准备好的命令在同步
+	pRole->SetRoleIsCanSendTableMsg(IsSendToClient);//设置玩家是否可以发送命令到客户端去。等待客户端准备好的命令在同步
 	//发送玩家成功进入桌子的命令
 	pRole->SetBulletRate(Iter->second.TableRate, Iter->second.MinRate, Iter->second.MaxRate);
 	pRole->SetRoomLauncher();//设置玩家的炮台
+	if (m_MonthID != 0)//初始化积分和子弹
+	{
+		pRole->SetJJCScore(0);
+		pRole->SetBulletCount(600);//TODO
+		pRole->SetRoomLauncher(0);
+	}
 	//返回进入房间成功
 	LC_JoinTableResult msgJoin;
 	SetMsgInfo(msgJoin, GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
@@ -153,98 +159,16 @@ bool GameTable::OnRoleJoinTable(CRoleEx* pRoleEx, BYTE MonthID, bool IsSendToCli
 }
 void GameTable::DelaySyncDataToClient(CRoleEx* pRoleEx)
 {
-	if (m_RoleManager.GetRoleSum() == 1 && m_MonthID == 0)
+	if (m_MonthID == 0 && GetTablePlayerSum() > 0)
 	{
 		OnGameStart();
 	}
-	else
-	{
-		//人数大于1  我们想要进行玩家进入的同步函数处理 
-		SendRoleJoinInfo(pRoleEx->GetUserID());
-		//同步游戏内部的鱼
-		byte SeatID = 0;
-		m_fishdesk.PlayerJoin(pRoleEx->GetUserID(), SeatID);
-	}
+	//我们想要进行玩家进入的同步函数处理 
+	SendRoleJoinInfo(pRoleEx->GetUserID());
+	//同步游戏内部的鱼
+	byte SeatID = 0;
+	m_fishdesk.PlayerJoin(pRoleEx->GetUserID(), SeatID);
 	return;
-}
-void GameTable::SendTableRoleInfoToClient(DWORD dwUserID)
-{
-	CRole* pUser = m_RoleManager.GetRoleByUserID(dwUserID);
-	if (!pUser || !pUser->GetRoleExInfo())
-	{
-		ASSERT(false);
-		return;
-	}
-	//直接的一些炮台的数据 发送到客户端去
-	LC_JoinTableResult msgJoin;
-	SetMsgInfo(msgJoin, GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
-	msgJoin.RoomID = GetTableTypeID();
-	msgJoin.Result = true;
-	msgJoin.BackgroundImage = m_fishdesk.GetSceneBackground();
-
-	if (pUser->GetRoleExInfo()->GetRoleLauncherManager().IsCanUserLauncherByID(pUser->GetLauncherType()))
-		msgJoin.PlayerData.launcherType = pUser->GetLauncherType() | 128;
-	else
-		msgJoin.PlayerData.launcherType = pUser->GetLauncherType();
-
-	msgJoin.PlayerData.seat = pUser->GetSeatID();
-	msgJoin.PlayerData.rateIndex = pUser->GetRateIndex();
-	msgJoin.PlayerData.energy = pUser->GetEnergy();
-	pUser->GetRoleExInfo()->SendDataToClient(&msgJoin);
-	//其他信息
-	msgJoin.PlayerData.playerId = pUser->GetRoleExInfo()->GetRoleInfo().Uid;
-	memcpy_s(msgJoin.PlayerData.playerName, MAX_NICKNAME + 1, pUser->GetNickName(), MAX_NICKNAME + 1);
-	msgJoin.PlayerData.sex = pUser->GetRoleExInfo()->GetRoleInfo().bGender;
-	msgJoin.PlayerData.headicon = pUser->GetRoleExInfo()->GetRoleInfo().dwHeadIcon;
-	memcpy_s(msgJoin.PlayerData.icon, ICON_LENGTH, pUser->GetRoleExInfo()->GetRoleInfo().icon, ICON_LENGTH);
-	//msgJoin.PlayerData.icon = pUser->GetRoleExInfo()->GetRoleInfo().dwFaceID;
-	msgJoin.PlayerData.vipLevel = pUser->GetRoleExInfo()->GetRoleInfo().VipLevel;
-	msgJoin.PlayerData.goldNum = pUser->GetRoleExInfo()->GetRoleInfo().money1 + pUser->GetRoleExInfo()->GetRoleInfo().money2;
-
-	time_t pNow = time(null);
-
-	for (BYTE i = 0; i < m_RoleManager.GetMaxPlayerSum(); ++i)
-	{
-		CRole* pOtherUser = m_RoleManager.GetRoleBySeatID(i);
-		if (!pOtherUser || !pOtherUser->IsActionUser())
-			continue;
-		if (pOtherUser->GetID() != pUser->GetID())
-		{
-			LC_Cmd_ResetOtherUserInfo msg;
-			SetMsgInfo(msg, GetMsgType(Main_Table, LC_ResetOtherUserInfo), sizeof(LC_Cmd_ResetOtherUserInfo));
-			msg.UserInfo.dwUserID = pOtherUser->GetID();
-			msg.UserInfo.dwFaceID = pOtherUser->GetFaceID();
-			msg.UserInfo.bGender = pOtherUser->GetRoleExInfo()->GetRoleInfo().bGender;
-			//msg.UserInfo.dwExp = pOtherUser->GetRoleExInfo()->GetRoleInfo().dwExp;
-			msg.UserInfo.dwGlobeNum = pOtherUser->GetRoleExInfo()->GetRoleInfo().money1 + pOtherUser->GetRoleExInfo()->GetRoleInfo().money2;
-			msg.UserInfo.dwAchievementPoint = pOtherUser->GetRoleExInfo()->GetRoleInfo().dwAchievementPoint;
-			msg.UserInfo.TitleID = pOtherUser->GetRoleExInfo()->GetRoleInfo().TitleID;
-			msg.UserInfo.GameID = pOtherUser->GetRoleExInfo()->GetRoleInfo().GameID;
-
-			if (pOtherUser->GetRoleExInfo()->GetRoleInfo().IsShowIPAddress)
-			{
-				//TCHARCopy(msg.UserInfo.IPAddress, CountArray(msg.UserInfo.IPAddress), pOtherUser->GetRoleExInfo()->GetRoleInfo().IPAddress, _tcslen(pOtherUser->GetRoleExInfo()->GetRoleInfo().IPAddress));
-				g_FishServer.GetAddressByIP(pOtherUser->GetRoleExInfo()->GetRoleInfo().ClientIP, msg.UserInfo.IPAddress, CountArray(msg.UserInfo.IPAddress));
-			}
-			else
-			{
-				TCHARCopy(msg.UserInfo.IPAddress, CountArray(msg.UserInfo.IPAddress), Defalue_Ip_Address, _tcslen(Defalue_Ip_Address));
-			}
-
-			for (int j = 0; j < MAX_CHARM_ITEMSUM; ++j)
-				msg.UserInfo.CharmArray[j] = pOtherUser->GetRoleExInfo()->GetRoleInfo().CharmArray[j];
-			//TCHARCopy(msg.UserInfo.NickName, CountArray(msg.UserInfo.NickName), pOtherUser->GetNickName(), _tcslen(pOtherUser->GetNickName()));
-			memcpy_s(msg.UserInfo.NickName, MAX_NICKNAME + 1, pOtherUser->GetNickName(), MAX_NICKNAME + 1);
-			//msg.UserInfo.NickName = pOtherUser->GetNickName();
-			msg.UserInfo.VipLevel = pOtherUser->GetRoleExInfo()->GetRoleInfo().VipLevel;
-			msg.UserInfo.IsInMonthCard = (pOtherUser->GetRoleExInfo()->GetRoleInfo().MonthCardID != 0 && pOtherUser->GetRoleExInfo()->GetRoleInfo().MonthCardEndTime >= pNow);
-			msg.UserInfo.SeatID = pOtherUser->GetSeatID();
-			msg.UserInfo.wLevel = pOtherUser->GetRoleExInfo()->GetRoleInfo().wLevel;
-
-			pUser->GetRoleExInfo()->SendDataToClient(&msg);
-		}
-	}
-	m_fishdesk.AsyncPlayerJoin(pUser, true);//玩家加入
 }
 void GameTable::SendRoleJoinInfo(DWORD dwUserID)
 {
@@ -274,11 +198,13 @@ void GameTable::SendRoleJoinInfo(DWORD dwUserID)
 	msgUser.UserInfo.launcherType = pUser->GetLauncherType();
 	msgUser.UserInfo.rateIndex = pUser->GetRateIndex();
 	msgUser.UserInfo.energy = pUser->GetEnergy();
-	
+	msgUser.UserInfo.bulletCount = pUser->GetBulletCount();
+	msgUser.UserInfo.score = pUser->GetJJCScore();
+
 	for (BYTE i = 0; i < m_RoleManager.GetMaxPlayerSum(); ++i)
 	{
 		CRole* pOtherUser = m_RoleManager.GetRoleBySeatID(i);
-		if (!pOtherUser || !pOtherUser->IsActionUser())
+		if (!pOtherUser || !pOtherUser->IsActionUser() || !pOtherUser->IsCanSendTableMsg())
 			continue;
 		if (pOtherUser->GetID() != pUser->GetID())
 		{
@@ -296,6 +222,8 @@ void GameTable::SendRoleJoinInfo(DWORD dwUserID)
 			msg.UserInfo.launcherType = pOtherUser->GetLauncherType();
 			msg.UserInfo.rateIndex = pOtherUser->GetRateIndex();
 			msg.UserInfo.energy = pOtherUser->GetEnergy();
+			msg.UserInfo.bulletCount = pOtherUser->GetBulletCount();
+			msg.UserInfo.score = pOtherUser->GetJJCScore();
 
 			pUser->GetRoleExInfo()->SendDataToClient(&msg);
 			pOtherUser->GetRoleExInfo()->SendDataToClient(&msgUser);
@@ -332,21 +260,22 @@ void GameTable::Update(bool bUpdateTime)
 	DWORD dwCurrent = timeGetTime();
 	m_fishdesk.Update((dwCurrent - m_LastUpdateTime)*0.001f);
 	m_LastUpdateTime = dwCurrent;
-	DWORD dwTimer = timeGetTime();
 }
 void GameTable::OnGameStart()
 {
+	if (m_isRun == true) return;
 	m_fishdesk.OnGameStar();
 	m_LastUpdateTime = timeGetTime();
 	m_GameStartTime = timeGetTime();
 	m_isRun = true;
-	//CTraceService::TraceString(TEXT("一个桌子开始游戏"), TraceLevel_Normal);
+	Log("一个桌子开始游戏 id = %d", m_TableID);
 }
 void GameTable::OnGameStop()
 {
+	if (m_isRun == false) return;
 	m_fishdesk.OnGameEnd();
 	m_isRun = false;
-	//CTraceService::TraceString(TEXT("一个桌子结束游戏"), TraceLevel_Normal);
+	Log("一个桌子结束游戏 id = %d", m_TableID);
 }
 void GameTable::Send(PlayerID RoleID, NetCmd*pCmd)
 {

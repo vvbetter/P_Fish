@@ -34,6 +34,7 @@ void  protobuf_AddDesc_Game60_5fFishingMessage_2eproto();
 void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto();
 void protobuf_ShutdownFile_Game60_5fFishingMessage_2eproto();
 
+class ResArenaStartInfoMessage;
 class ReqEnterFishServerMessage;
 class ResEnterFishServerMessage;
 class ReqJoinRoomMessage;
@@ -92,11 +93,12 @@ enum Protos_Game60Fishing {
   ResPlayerTickOut = 6032,
   ResSyncAddMoney = 6034,
   ResUseGoodsKB = 6036,
-  ResUseGoodsBD = 6038
+  ResUseGoodsBD = 6038,
+  ResArenaStartInfo = 6040
 };
 bool Protos_Game60Fishing_IsValid(int value);
 const Protos_Game60Fishing Protos_Game60Fishing_MIN = ReqEnterFishServer;
-const Protos_Game60Fishing Protos_Game60Fishing_MAX = ResUseGoodsBD;
+const Protos_Game60Fishing Protos_Game60Fishing_MAX = ResArenaStartInfo;
 const int Protos_Game60Fishing_ARRAYSIZE = Protos_Game60Fishing_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* Protos_Game60Fishing_descriptor();
@@ -110,6 +112,108 @@ inline bool Protos_Game60Fishing_Parse(
     Protos_Game60Fishing_descriptor(), name, value);
 }
 // ===================================================================
+
+class ResArenaStartInfoMessage : public ::google::protobuf::Message {
+ public:
+  ResArenaStartInfoMessage();
+  virtual ~ResArenaStartInfoMessage();
+  
+  ResArenaStartInfoMessage(const ResArenaStartInfoMessage& from);
+  
+  inline ResArenaStartInfoMessage& operator=(const ResArenaStartInfoMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ResArenaStartInfoMessage& default_instance();
+  
+  void Swap(ResArenaStartInfoMessage* other);
+  
+  // implements Message ----------------------------------------------
+  
+  ResArenaStartInfoMessage* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ResArenaStartInfoMessage& from);
+  void MergeFrom(const ResArenaStartInfoMessage& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaStartInfo];
+  inline bool has_msgid() const;
+  inline void clear_msgid();
+  static const int kMsgIDFieldNumber = 1;
+  inline com::game::proto::Protos_Game60Fishing msgid() const;
+  inline void set_msgid(com::game::proto::Protos_Game60Fishing value);
+  
+  // optional bool start = 2;
+  inline bool has_start() const;
+  inline void clear_start();
+  static const int kStartFieldNumber = 2;
+  inline bool start() const;
+  inline void set_start(bool value);
+  
+  // optional int32 waitPlayer = 3;
+  inline bool has_waitplayer() const;
+  inline void clear_waitplayer();
+  static const int kWaitPlayerFieldNumber = 3;
+  inline ::google::protobuf::int32 waitplayer() const;
+  inline void set_waitplayer(::google::protobuf::int32 value);
+  
+  // @@protoc_insertion_point(class_scope:com.game.proto.ResArenaStartInfoMessage)
+ private:
+  inline void set_has_msgid();
+  inline void clear_has_msgid();
+  inline void set_has_start();
+  inline void clear_has_start();
+  inline void set_has_waitplayer();
+  inline void clear_has_waitplayer();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  int msgid_;
+  bool start_;
+  ::google::protobuf::int32 waitplayer_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_ShutdownFile_Game60_5fFishingMessage_2eproto();
+  
+  void InitAsDefaultInstance();
+  static ResArenaStartInfoMessage* default_instance_;
+};
+// -------------------------------------------------------------------
 
 class ReqEnterFishServerMessage : public ::google::protobuf::Message {
  public:
@@ -1814,6 +1918,20 @@ class PlayerData : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 energy() const;
   inline void set_energy(::google::protobuf::int32 value);
   
+  // optional int32 bulletCount = 12;
+  inline bool has_bulletcount() const;
+  inline void clear_bulletcount();
+  static const int kBulletCountFieldNumber = 12;
+  inline ::google::protobuf::int32 bulletcount() const;
+  inline void set_bulletcount(::google::protobuf::int32 value);
+  
+  // optional int32 score = 13;
+  inline bool has_score() const;
+  inline void clear_score();
+  static const int kScoreFieldNumber = 13;
+  inline ::google::protobuf::int32 score() const;
+  inline void set_score(::google::protobuf::int32 value);
+  
   // @@protoc_insertion_point(class_scope:com.game.proto.PlayerData)
  private:
   inline void set_has_playerid();
@@ -1838,6 +1956,10 @@ class PlayerData : public ::google::protobuf::Message {
   inline void clear_has_rateindex();
   inline void set_has_energy();
   inline void clear_has_energy();
+  inline void set_has_bulletcount();
+  inline void clear_has_bulletcount();
+  inline void set_has_score();
+  inline void clear_has_score();
   
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
   
@@ -1852,9 +1974,11 @@ class PlayerData : public ::google::protobuf::Message {
   ::google::protobuf::int32 launchertype_;
   ::google::protobuf::int32 rateindex_;
   ::google::protobuf::int32 energy_;
+  ::google::protobuf::int32 bulletcount_;
+  ::google::protobuf::int32 score_;
   
   mutable int _cached_size_;
-  ::google::protobuf::uint32 _has_bits_[(11 + 31) / 32];
+  ::google::protobuf::uint32 _has_bits_[(13 + 31) / 32];
   
   friend void  protobuf_AddDesc_Game60_5fFishingMessage_2eproto();
   friend void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto();
@@ -3544,6 +3668,77 @@ class ResUseGoodsBDMessage : public ::google::protobuf::Message {
 
 
 // ===================================================================
+
+// ResArenaStartInfoMessage
+
+// optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaStartInfo];
+inline bool ResArenaStartInfoMessage::has_msgid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ResArenaStartInfoMessage::set_has_msgid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ResArenaStartInfoMessage::clear_has_msgid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ResArenaStartInfoMessage::clear_msgid() {
+  msgid_ = 6040;
+  clear_has_msgid();
+}
+inline com::game::proto::Protos_Game60Fishing ResArenaStartInfoMessage::msgid() const {
+  return static_cast< com::game::proto::Protos_Game60Fishing >(msgid_);
+}
+inline void ResArenaStartInfoMessage::set_msgid(com::game::proto::Protos_Game60Fishing value) {
+  GOOGLE_DCHECK(com::game::proto::Protos_Game60Fishing_IsValid(value));
+  set_has_msgid();
+  msgid_ = value;
+}
+
+// optional bool start = 2;
+inline bool ResArenaStartInfoMessage::has_start() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ResArenaStartInfoMessage::set_has_start() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ResArenaStartInfoMessage::clear_has_start() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ResArenaStartInfoMessage::clear_start() {
+  start_ = false;
+  clear_has_start();
+}
+inline bool ResArenaStartInfoMessage::start() const {
+  return start_;
+}
+inline void ResArenaStartInfoMessage::set_start(bool value) {
+  set_has_start();
+  start_ = value;
+}
+
+// optional int32 waitPlayer = 3;
+inline bool ResArenaStartInfoMessage::has_waitplayer() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ResArenaStartInfoMessage::set_has_waitplayer() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ResArenaStartInfoMessage::clear_has_waitplayer() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ResArenaStartInfoMessage::clear_waitplayer() {
+  waitplayer_ = 0;
+  clear_has_waitplayer();
+}
+inline ::google::protobuf::int32 ResArenaStartInfoMessage::waitplayer() const {
+  return waitplayer_;
+}
+inline void ResArenaStartInfoMessage::set_waitplayer(::google::protobuf::int32 value) {
+  set_has_waitplayer();
+  waitplayer_ = value;
+}
+
+// -------------------------------------------------------------------
 
 // ReqEnterFishServerMessage
 
@@ -5307,6 +5502,50 @@ inline ::google::protobuf::int32 PlayerData::energy() const {
 inline void PlayerData::set_energy(::google::protobuf::int32 value) {
   set_has_energy();
   energy_ = value;
+}
+
+// optional int32 bulletCount = 12;
+inline bool PlayerData::has_bulletcount() const {
+  return (_has_bits_[0] & 0x00000800u) != 0;
+}
+inline void PlayerData::set_has_bulletcount() {
+  _has_bits_[0] |= 0x00000800u;
+}
+inline void PlayerData::clear_has_bulletcount() {
+  _has_bits_[0] &= ~0x00000800u;
+}
+inline void PlayerData::clear_bulletcount() {
+  bulletcount_ = 0;
+  clear_has_bulletcount();
+}
+inline ::google::protobuf::int32 PlayerData::bulletcount() const {
+  return bulletcount_;
+}
+inline void PlayerData::set_bulletcount(::google::protobuf::int32 value) {
+  set_has_bulletcount();
+  bulletcount_ = value;
+}
+
+// optional int32 score = 13;
+inline bool PlayerData::has_score() const {
+  return (_has_bits_[0] & 0x00001000u) != 0;
+}
+inline void PlayerData::set_has_score() {
+  _has_bits_[0] |= 0x00001000u;
+}
+inline void PlayerData::clear_has_score() {
+  _has_bits_[0] &= ~0x00001000u;
+}
+inline void PlayerData::clear_score() {
+  score_ = 0;
+  clear_has_score();
+}
+inline ::google::protobuf::int32 PlayerData::score() const {
+  return score_;
+}
+inline void PlayerData::set_score(::google::protobuf::int32 value) {
+  set_has_score();
+  score_ = value;
 }
 
 // -------------------------------------------------------------------

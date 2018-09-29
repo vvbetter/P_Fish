@@ -1381,7 +1381,7 @@ bool FishServer::OnHandleRoleJoinTable(ServerClientData* pClient, NetCmd* pCmd)
 		ASSERT(false);
 		return false;
 	}
-	return m_TableManager.OnPlayerJoinTable(pMsg->bTableTypeID, pRole, (pMsg->isArena ? (pMsg->bTableTypeID | 0x80) : 0));//内部处理玩家进入桌子 会处理命令的 不带比赛参数
+	return m_TableManager.OnPlayerJoinTable(pMsg->bTableTypeID, pRole, (pMsg->isArena ? (pMsg->bTableTypeID | 0x80) : 0), false);//内部处理玩家进入桌子 会处理命令的 不带比赛参数
 }
 bool FishServer::OnHandleRoleLeaveTable(ServerClientData* pClient)
 {

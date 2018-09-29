@@ -6,7 +6,7 @@
 #include"SkillInfo.h"
 
 const DWORD REPEATTIMER = (DWORD)0xFFFFFFFF;
-const int GAME_TIME_SPACE = 5;//record game time;
+const int JJC_GAME_TIME_SPACE = 1;//record game time;
 const int MINUTE2SECOND = 60;
 
 //×À×Ó¿ØÖÆ
@@ -49,7 +49,6 @@ public:
 	const DWORD					GetTableStartTime() { return m_GameStartTime; }
 	FishDesk*					GetFishDesk() { return &m_fishdesk; }
 	bool						IsTableRunning() { return m_isRun; }
-	void SendTableRoleInfoToClient(DWORD dwUserID);
 	void DelaySyncDataToClient(CRoleEx* pData);
 	const int64 GetTablePlayerAvgMoney();
 private:

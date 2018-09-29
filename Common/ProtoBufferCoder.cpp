@@ -21,7 +21,7 @@ const uint PBC_HEADER_SIZE = 10;
 void PrintLogInCmd( USHORT cmdType)
 {
 #ifdef _DEBUG
-	USHORT logCmeType[] = { 6003, 6004, 6030, 6017, 6018, 6032, 6031, 6025, 6026 };
+	USHORT logCmeType[] = { 6003, 6004, 6030, 6017, 6018, 6032, 6031, 6025, 6026, 6031 };
 	for (USHORT& x : logCmeType)
 	{
 		if (cmdType == x)
@@ -446,6 +446,8 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		pNewData->set_launchertype(pmsg->UserInfo.launcherType);
 		pNewData->set_rateindex(pmsg->UserInfo.rateIndex);
 		pNewData->set_energy(pmsg->UserInfo.energy);
+		pNewData->set_bulletcount(pmsg->UserInfo.bulletCount);
+		pNewData->set_score(pmsg->UserInfo.score);
 		dataLenth = msg.ByteSize() + 4;
 		ret = (char*)malloc(dataLenth);
 		USHORT msgID = Protos_Game60Fishing::ResPlayerJoin;
