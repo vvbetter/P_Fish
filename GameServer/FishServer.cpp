@@ -1165,7 +1165,7 @@ void FishServer::UpdateByMin(DWORD dwTimer)//按分钟进行更新 不受中央服务器控制
 	bool IsNewDay = (pNowTime.tm_hour == 0 && pNowTime.tm_min == 0);
 	//具体的关系函数
 	m_RoleManager.OnUpdateByMin(IsHourChange, IsDayChange, IsMonthChange, IsYearChange);
-	m_TableManager.CostAndProduceMin();
+	m_TableManager.UpdateMinutes();
 	m_hallControl.UpdateMin();
 	if (m_hallControl.IsHallRuning() == false)
 	{
@@ -1381,7 +1381,7 @@ bool FishServer::OnHandleRoleJoinTable(ServerClientData* pClient, NetCmd* pCmd)
 		ASSERT(false);
 		return false;
 	}
-	return m_TableManager.OnPlayerJoinTable(pMsg->bTableTypeID, pRole);//内部处理玩家进入桌子 会处理命令的 不带比赛参数
+	return m_TableManager.OnPlayerJoinTable(pMsg->bTableTypeID, pRole, (pMsg->isArena ? (pMsg->bTableTypeID | 0x80) : 0));//内部处理玩家进入桌子 会处理命令的 不带比赛参数
 }
 bool FishServer::OnHandleRoleLeaveTable(ServerClientData* pClient)
 {

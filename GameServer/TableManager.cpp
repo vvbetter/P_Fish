@@ -55,7 +55,6 @@ UINT WINAPI TableThreadUpdate(void *p)
 TableManager::TableManager() //:m_GameConfig(this)
 {
 	m_MaxTableID = 0;
-	m_TableTypeSum.clear();
 	m_TableGlobeMap.clear();
 	//初始化系统调控
 	m_sysMinutes.clear();
@@ -76,9 +75,9 @@ void TableManager::OnInit()
 	}
 
 	{
-		m_TimerGameTime.StartTimer(GAME_TIME_SPACE, REPEATTIMER);
+		m_JJCTimer.StartTimer(GAME_TIME_SPACE, REPEATTIMER);
 	}
-	
+
 	for (int i = 0; i < THREAD_NUM; ++i)//开启线程
 	{
 		::_beginthreadex(0, 0, (TableThreadUpdate), (void*)i, 0, 0);
@@ -117,7 +116,12 @@ void TableManager::Update(DWORD dwTimeStep)
 		return;
 	float TimeStep = (dwTimeStep - m_LastUpdate) * 0.001f;
 	m_LastUpdate = dwTimeStep;
-	bool m_bUpdateTime = m_TimerGameTime.Update(TimeStep);
+	//更新竞技场桌子
+	bool m_bUpdateTime = m_JJCTimer.Update(TimeStep);
+	if (m_bUpdateTime)
+	{
+		UpdateJJC(dwTimeStep);
+	}
 	//对桌子数组进行更新
 	g_UpdateCount = 0;
 	int UpdateSum = 0;
@@ -134,7 +138,7 @@ void TableManager::Update(DWORD dwTimeStep)
 			ASSERT(false);
 			return;
 		}
-		pParam->m_bUpdateTime = m_bUpdateTime;
+		pParam->m_bUpdateTime = false;
 		pParam->pTable = m_TableVec[i];
 		g_SafeList[idx].AddItem(pParam);
 		++UpdateSum;
@@ -142,12 +146,42 @@ void TableManager::Update(DWORD dwTimeStep)
 	while (g_UpdateCount != UpdateSum)
 		Sleep(1);
 }
+void TableManager::UpdateMinutes()
+{
+	CostAndProduceMin();
+}
+void TableManager::UpdateJJC(DWORD dwTimeStep)
+{
+	const tagFishJJC& jjc_cfg = g_FishServer.GetFishConfig().GetFishJJC();
+	const tagJJC_Time& jjc_time_cfg = jjc_cfg.time;
+	for (auto it = m_JJCGameTables.begin(); it != m_JJCGameTables.end(); ++it)
+	{
+		vector<JJCGameTables>& jjc_tables = it->second;
+		for (auto tableIt = jjc_tables.begin(); tableIt != jjc_tables.end(); ++tableIt)
+		{
+			//运行时间大于了最大竞技场持续时间，关闭游戏
+			if (tableIt->table1->IsTableRunning() && dwTimeStep - tableIt->table1->GetTableStartTime() > static_cast<DWORD>(jjc_time_cfg.maxTime * 60 * 1000))
+			{
+				//TODO 结算竞技场
+				tableIt->table1->OnGameStop();
+				tableIt->table2->OnGameStop();
+			}
+			//竞技场人满，开始游戏
+			if (!tableIt->table1->IsTableRunning() && !tableIt->table2->IsTableRunning()
+				&& tableIt->table1->IsFull() && tableIt->table2->IsFull())
+			{
+				tableIt->table1->OnGameStart();
+				tableIt->table2->OnGameStart();
+			}
+		}
+	}
+}
 GameTable* TableManager::GetTable(WORD TableID)
 {
 	{
-	if (TableID == 0xffff || TableID >= m_TableVec.size())
-		//ASSERT(false);
-		return NULL;
+		if (TableID == 0xffff || TableID >= m_TableVec.size())
+			//ASSERT(false);
+			return NULL;
 	}
 	GameTable* pTable = m_TableVec[TableID];
 	return pTable;
@@ -205,11 +239,6 @@ bool TableManager::OnPlayerJoinTable(WORD TableID, CRoleEx* pRoleEx, bool IsSend
 			pData->IsInScene = true;
 		}
 
-		if (pTable->GetTableMonthID() == 0)
-			OnChangeTableTypePlayerSum(TableTypeID, true);
-
-		
-
 		DBR_Cmd_TableChange msgDB;//记录玩家进入
 		SetMsgInfo(msgDB, DBR_TableChange, sizeof(DBR_Cmd_TableChange));
 		msgDB.dwUserID = pRoleEx->GetUserID();
@@ -224,8 +253,8 @@ bool TableManager::OnPlayerJoinTable(WORD TableID, CRoleEx* pRoleEx, bool IsSend
 		//用户成功加入桌子 我们想要发送命令到客户端去 告诉客户端玩家进入游戏成功
 		m_RoleTableMap.insert(HashMap<DWORD, WORD>::value_type(pRoleEx->GetUserID(), pTable->GetTableID()));
 
-		if (pTable->GetTableMonthID() == 0 && !pRoleEx->IsRobot())
-			g_FishServer.GetRobotManager().OnRoleJoinNormalRoom(pTable);
+		if (!pRoleEx->IsRobot())
+			g_FishServer.GetRobotManager().OnJoinRobotToTable(pTable);
 		return true;
 	}
 	else
@@ -255,7 +284,7 @@ bool TableManager::OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE Mo
 	{
 		//玩家已经有桌子了无法继续进入桌子
 		LC_JoinTableResult msg;
-		SetMsgInfo(msg,GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
+		SetMsgInfo(msg, GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
 		msg.RoomID = TableTypeID;
 		msg.Result = false;
 		memset(msg.PlayerData.playerName, 0, MAX_NICKNAME + 1);
@@ -264,131 +293,58 @@ bool TableManager::OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE Mo
 		ASSERT(false);
 		return false;
 	}
-	HashMap<BYTE, TableInfo>::iterator IterConfig =  g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.find(TableTypeID);
+	HashMap<BYTE, TableInfo>::iterator IterConfig = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.find(TableTypeID);
 	if (IterConfig == g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.end())
 	{
 		LC_JoinTableResult msg;
-		SetMsgInfo(msg,GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
+		SetMsgInfo(msg, GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
 		msg.RoomID = TableTypeID;
 		msg.Result = false;
 		pRoleEx->SendDataToClient(&msg);
 		ASSERT(false);
 		return false;
 	}
-	std::vector<GameTable*>::iterator IterVec = m_TableVec.begin();
-	for (WORD i = 0; IterVec != m_TableVec.end(); ++IterVec, ++i)
-	{
-		if (!(*IterVec))
-			continue;
-		if ((*IterVec)->GetTableTypeID() == TableTypeID && MonthID == (*IterVec)->GetTableMonthID() && !(*IterVec)->IsFull())
-		{
-			//判断机器人是否可以加入当前桌子
-			if (pRoleEx->IsRobot() && !(*IterVec)->IsCanAddRobot())
-			{
-				continue;
-			}
-			if ((*IterVec)->OnRoleJoinTable(pRoleEx,MonthID,IsSendToClient))
-			{
-				ServerClientData* pData = g_FishServer.GetUserClientDataByIndex(pRoleEx->GetGameSocketID());
-				if (pData)
-				{
-					pData->IsInScene = true;
-				}
-
-				if (MonthID == 0)
-					OnChangeTableTypePlayerSum(TableTypeID, true);
-
-				
-
-				DBR_Cmd_TableChange msgDB;//记录玩家进入
-				SetMsgInfo(msgDB, DBR_TableChange, sizeof(DBR_Cmd_TableChange));
-				msgDB.dwUserID = pRoleEx->GetUserID();
-				msgDB.CurrceySum = pRoleEx->GetRoleInfo().dwCurrencyNum;
-				msgDB.GlobelSum = pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2;
-				msgDB.MedalSum = pRoleEx->GetRoleInfo().dwMedalNum;
-				msgDB.JoinOrLeave = true;
-				msgDB.LogTime = time(null);
-				msgDB.TableTypeID = TableTypeID;
-				msgDB.TableMonthID = MonthID;
-				g_FishServer.SendNetCmdToSaveDB(&msgDB);
-				//用户成功加入桌子 我们想要发送命令到客户端去 告诉客户端玩家进入游戏成功
-				m_RoleTableMap.insert(HashMap<DWORD, WORD>::value_type(pRoleEx->GetUserID(), i));
-
-				if (MonthID == 0 && !pRoleEx->IsRobot())
-					g_FishServer.GetRobotManager().OnRoleJoinNormalRoom(*IterVec);
-
-				return true;
-			}
-			else
-			{
-				//非人满的情况 不可以进入桌子 我们无须继续判断
-				//发送命令到客户端 告诉玩家进入桌子失败了
-				LC_JoinTableResult msg;
-				SetMsgInfo(msg,GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
-				msg.RoomID = TableTypeID;
-				msg.Result = false;
-				pRoleEx->SendDataToClient(&msg);
-				return false;
-			}
-		}
-	}
-	GameTable* pTable = new GameTable();
-	if (!pTable)
+	if (MonthID != 0 && CanPlayerJoinJJC(pRoleEx, TableTypeID) == false)
 	{
 		LC_JoinTableResult msg;
-		SetMsgInfo(msg,GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
+		SetMsgInfo(msg, GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
 		msg.RoomID = TableTypeID;
 		msg.Result = false;
 		pRoleEx->SendDataToClient(&msg);
-		//ASSERT(false);
 		return false;
 	}
-	pTable->OnInit(m_MaxTableID, TableTypeID,MonthID);//将桌子初始化
-	m_MaxTableID++;
-	m_TableVec.push_back(pTable);
-	//桌子插入后 我们开始进入
-	if (pTable->OnRoleJoinTable(pRoleEx,MonthID,IsSendToClient))
+
+	GameTable* joinTable = GetPlayerJoinTable(TableTypeID, MonthID);
+	if (joinTable != NULL)
 	{
-		//玩家进入桌子成功了
-		ServerClientData* pData = g_FishServer.GetUserClientDataByIndex(pRoleEx->GetGameSocketID());
-		if (pData)
+		if (PlayerJoinTable(joinTable, pRoleEx, TableTypeID, MonthID) == false)
 		{
-			pData->IsInScene = true;
+			return false;
 		}
-
-		if (MonthID == 0)
-			OnChangeTableTypePlayerSum(TableTypeID, true);
-
-		DBR_Cmd_TableChange msgDB;//记录玩家进入
-		SetMsgInfo(msgDB, DBR_TableChange, sizeof(DBR_Cmd_TableChange));
-		msgDB.dwUserID = pRoleEx->GetUserID();
-		msgDB.CurrceySum = pRoleEx->GetRoleInfo().dwCurrencyNum;
-		msgDB.GlobelSum = pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2;
-		msgDB.MedalSum = pRoleEx->GetRoleInfo().dwMedalNum;
-		msgDB.JoinOrLeave = true;
-		msgDB.LogTime = time(null);
-		msgDB.TableTypeID = TableTypeID;
-		msgDB.TableMonthID = MonthID;
-		g_FishServer.SendNetCmdToSaveDB(&msgDB);
-
-		m_RoleTableMap.insert(HashMap<DWORD, WORD>::value_type(pRoleEx->GetUserID(), m_TableVec.size() - 1));
-
-		if (MonthID == 0 && !pRoleEx->IsRobot())
-			g_FishServer.GetRobotManager().OnRoleCreateNormalRoom(pTable);
-
-		return true;
 	}
 	else
 	{
-		LC_JoinTableResult msg;
-		SetMsgInfo(msg,GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
-		msg.RoomID = TableTypeID;
-		msg.Result = false;
-		pRoleEx->SendDataToClient(&msg);
-		ASSERT(false);
-		return false;
+		GameTable* pNewTable = new GameTable();
+		if (!pNewTable)
+		{
+			return false;
+		}
+		pNewTable->OnInit(m_MaxTableID, TableTypeID, MonthID);//将桌子初始化
+		m_MaxTableID++;
+		m_TableVec.push_back(pNewTable);
+		//添加竞技场数据
+		if (MonthID != 0)
+		{
+			AddJJCGameTable(TableTypeID, MonthID, pNewTable);
+		}
+		if (PlayerJoinTable(pNewTable, pRoleEx, TableTypeID, MonthID) == false)
+		{
+			return false;
+		}
 	}
+	return true;
 }
+
 void TableManager::ResetTableInfo(DWORD dwUserID)
 {
 	HashMap<DWORD, WORD>::iterator Iter = m_RoleTableMap.find(dwUserID);
@@ -430,10 +386,6 @@ void TableManager::OnPlayerLeaveTable(DWORD dwUserID)
 	{
 		ASSERT(false);
 	}
-
-	if (pTable->GetTableMonthID() == 0)
-		OnChangeTableTypePlayerSum(pTable->GetTableTypeID(), false);
-
 	//当玩家离开桌子的时候 将金币刷新下到客户端去
 	CRoleEx* pRole = g_FishServer.GetRoleManager()->QueryUser(dwUserID);
 	if (pRole)
@@ -449,31 +401,14 @@ void TableManager::OnPlayerLeaveTable(DWORD dwUserID)
 		msgDB.TableTypeID = pTable->GetTableTypeID();
 		msgDB.TableMonthID = pTable->GetTableMonthID();
 		g_FishServer.SendNetCmdToSaveDB(&msgDB);
-		//if (pTable->GetTableMonthID() != 0)
-		//{
-		//	pRole->GetRoleMonth().OnPlayerLeaveTable();//玩家离开比赛
-		//}
-
-		ServerClientData* pData = g_FishServer.GetUserClientDataByIndex(pRole->GetGameSocketID());
-		if (pData)
-		{
-			pData->IsInScene = false;
-		}
-
-		//LC_Cmd_ResetRoleGlobel msg;
-		//SetMsgInfo(msg, GetMsgType(Main_Role, LC_ResetRoleGlobel), sizeof(LC_Cmd_ResetRoleGlobel));
-		//msg.dwTotalGlobel = pRole->GetRoleInfo().money1 + pRole->GetRoleInfo().money2;
-		//msg.dwLotteryScore = pRole->GetRoleInfo().LotteryScore;
-		//pRole->SendDataToClient(&msg);//
 	}
-
 	pTable->OnRoleLeaveTable(dwUserID);
 	m_RoleTableMap.erase(Iter);//将玩家的数据删除掉
 
-	if (pTable->GetTableMonthID() == 0 && !pRole->IsRobot())
+	if (!pRole->IsRobot())
 		g_FishServer.GetRobotManager().OnRoleLeaveNormalRoom(pTable);
 }
-bool TableManager::OnHandleTableMsg(DWORD dwUserID,NetCmd* pData)
+bool TableManager::OnHandleTableMsg(DWORD dwUserID, NetCmd* pData)
 {
 	//将Game消息传递到内部去
 	//CWHDataLocker lock(m_CriticalSection);
@@ -492,10 +427,10 @@ bool TableManager::OnHandleTableMsg(DWORD dwUserID,NetCmd* pData)
 	GameTable* pTable = m_TableVec[Index];
 	if (!pTable)
 	{
-		ASSERT(false); 
+		ASSERT(false);
 		return false;
 	}
-	pTable->OnHandleTableMsg(dwUserID,pData);
+	pTable->OnHandleTableMsg(dwUserID, pData);
 	return true;
 }
 void TableManager::SendDataToTable(DWORD dwUserID, NetCmd* pData)
@@ -534,7 +469,7 @@ CRole* TableManager::SearchUser(DWORD dwUserid)
 	if (m_TableVec.size() <= Index)
 	{
 		ASSERT(false);
-		return NULL; 
+		return NULL;
 	}
 	GameTable* pTable = m_TableVec[Index];
 	if (!pTable)
@@ -550,7 +485,7 @@ CConfig* TableManager::GetGameConfig()
 }
 void TableManager::OnChangeTableGlobel(WORD TableID, int64 AddGlobel, USHORT uTableRate)
 {
-	
+
 	GameTable* pTable = GetTable(TableID);
 	if (!pTable)
 	{
@@ -633,12 +568,12 @@ void TableManager::OnChangeTableGlobel(WORD TableID, int64 AddGlobel, USHORT uTa
 	{
 		Iter->second.gold += AddGlobel;
 		AllGlobelSum = Iter->second.gold;
-	}	
+	}
 
-	Iter = m_TableGlobeMap.find(pTable->GetTableTypeID());	
+	Iter = m_TableGlobeMap.find(pTable->GetTableTypeID());
 	if (Iter->second.open)
 	{
-		if (AllGlobelSum <=0)
+		if (AllGlobelSum <= 0)
 		{
 			Iter->second.open = false;
 			//Iter->second.gold = 0;			
@@ -673,43 +608,8 @@ int64 TableManager::GetTableGlobel(WORD TableID)
 	else
 		return 0;
 }
-void TableManager::OnChangeTableTypePlayerSum(BYTE TableTypeID, bool IsAddOrDel)
-{
-	HashMap<BYTE, DWORD>::iterator Iter = m_TableTypeSum.find(TableTypeID);
-	if (Iter == m_TableTypeSum.end())
-	{
-		if (IsAddOrDel)
-		{
-			m_TableTypeSum.insert(HashMap<BYTE, DWORD>::value_type(TableTypeID, 1));
-			return;
-		}
-		else
-		{
-			ASSERT(false);
-			return;
-		}
-	}
-	else
-	{
-		if (IsAddOrDel)
-		{
-			Iter->second += 1;
-			return;
-		}
-		else
-		{
-			if (Iter->second == 0)
-			{
-				ASSERT(false);
-				return;
-			}
-			Iter->second -= 1;
-			return;
-		}
-	}
-}
 
-bool TableManager::QueryPool(WORD TableID,int64 & nPoolGold)
+bool TableManager::QueryPool(WORD TableID, int64 & nPoolGold)
 {
 	GameTable* pTable = GetTable(TableID);
 	if (!pTable)
@@ -740,29 +640,6 @@ void TableManager::QueryPool(BYTE TableTypeID, bool & bopen, int64 & nPoolGold)
 	nPoolGold = Iter->second.gold;
 }
 
-std::list<DWORD> TableManager::GetBlackList()
-{
-	return m_blacklist;
-}
-
-bool TableManager::SetBlackList(DWORD *pid, BYTE byCount)
-{
-	if (pid == NULL || byCount == 0)
-	{
-		return false;
-	}
-	m_blacklist.clear();
-	for (int i = 0; i < byCount; i++)
-	{
-		m_blacklist.push_back(pid[i]);
-	}	
-	return true;
-}
-
-bool TableManager::Isabhor(DWORD dwUserid)
-{
-	return std::find(m_blacklist.begin(), m_blacklist.end(), dwUserid) != m_blacklist.end();
-}
 CRole* TableManager::QueryRoleByRoleEx(CRoleEx* pRoleEx)
 {
 	auto it = m_TableVec.begin();
@@ -801,9 +678,9 @@ void TableManager::CostAndProduceMin()
 			auto itSys = m_sysTotal.find(tableType);
 			if (itSys != m_sysTotal.end())
 			{
-				float sysRand = ((itSys->second.total_earn + InitEarn*MONEY_RATIO*g_FishServer.GetRatioValue())
-					- (itSys->second.total_produce + InitProduce*MONEY_RATIO *g_FishServer.GetRatioValue()))*1.0f
-					/ (itSys->second.total_earn + InitEarn*MONEY_RATIO*g_FishServer.GetRatioValue());
+				float sysRand = ((itSys->second.total_earn + InitEarn * MONEY_RATIO*g_FishServer.GetRatioValue())
+					- (itSys->second.total_produce + InitProduce * MONEY_RATIO *g_FishServer.GetRatioValue()))*1.0f
+					/ (itSys->second.total_earn + InitEarn * MONEY_RATIO*g_FishServer.GetRatioValue());
 				msg.rate = sysRand;
 			}
 
@@ -848,9 +725,9 @@ const vector<float>& TableManager::SysProduceRate(const BYTE tableType)
 
 	const int64& InitProduce = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.find(tableType)->second.InitProduce;
 	const int64& InitEarn = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.find(tableType)->second.InitEarn;
-	float sysRand = ((it->second.total_earn + InitEarn*MONEY_RATIO*g_FishServer.GetRatioValue()) 
-						- (it->second.total_produce + InitProduce*MONEY_RATIO *g_FishServer.GetRatioValue()))*1.0f
-						/ (it->second.total_earn + InitEarn*MONEY_RATIO*g_FishServer.GetRatioValue());
+	float sysRand = ((it->second.total_earn + InitEarn * MONEY_RATIO*g_FishServer.GetRatioValue())
+		- (it->second.total_produce + InitProduce * MONEY_RATIO *g_FishServer.GetRatioValue()))*1.0f
+		/ (it->second.total_earn + InitEarn * MONEY_RATIO*g_FishServer.GetRatioValue());
 
 	if (sysRand < SystemControl::sysMinWin)
 	{
@@ -876,4 +753,170 @@ bool TableManager::InitTableTotalGold(NetCmd* pData)
 		m_sysTotal.insert(make_pair(table_id, tg));
 	}
 	return true;
+}
+
+bool TableManager::PlayerJoinTable(GameTable* pTable, CRoleEx* pRoleEx, BYTE TableTypeID, BYTE MonthID, bool IsSendToClient)
+{
+	//桌子插入后 我们开始进入
+	if (pTable->OnRoleJoinTable(pRoleEx, MonthID, IsSendToClient))
+	{
+		//玩家进入桌子成功了
+		DBR_Cmd_TableChange msgDB;//记录玩家进入
+		SetMsgInfo(msgDB, DBR_TableChange, sizeof(DBR_Cmd_TableChange));
+		msgDB.dwUserID = pRoleEx->GetUserID();
+		msgDB.CurrceySum = pRoleEx->GetRoleInfo().dwCurrencyNum;
+		msgDB.GlobelSum = pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2;
+		msgDB.MedalSum = pRoleEx->GetRoleInfo().dwMedalNum;
+		msgDB.JoinOrLeave = true;
+		msgDB.LogTime = time(null);
+		msgDB.TableTypeID = TableTypeID;
+		msgDB.TableMonthID = MonthID;
+		g_FishServer.SendNetCmdToSaveDB(&msgDB);
+
+		m_RoleTableMap.insert(HashMap<DWORD, WORD>::value_type(pRoleEx->GetUserID(), pTable->GetTableID()));
+		if (!pRoleEx->IsRobot())
+		{
+			g_FishServer.GetRobotManager().OnJoinRobotToTable(pTable);
+		}
+		return true;
+	}
+	else
+	{
+		LC_JoinTableResult msg;
+		SetMsgInfo(msg, GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
+		msg.RoomID = TableTypeID;
+		msg.Result = false;
+		pRoleEx->SendDataToClient(&msg);
+		return false;
+	}
+}
+
+GameTable * TableManager::GetPlayerJoinTable(BYTE tableTypeID, BYTE MonthID)
+{
+	if (MonthID == 0) //普通场
+	{
+		for (auto IterVec = m_TableVec.begin(); IterVec != m_TableVec.end(); ++IterVec)
+		{
+			if (!(*IterVec))
+				continue;
+			if ((*IterVec)->GetTableTypeID() == tableTypeID && MonthID == (*IterVec)->GetTableMonthID() && !(*IterVec)->IsFull())
+			{
+				return *IterVec;
+			}
+		}
+	}
+	else //竞技场
+	{
+		//找一个人最多的场次进去
+		auto it = m_JJCGameTables.find(MonthID);
+		if (it != m_JJCGameTables.end())
+		{
+			const vector<JJCGameTables>& jjcTables = it->second;
+			BYTE maxTablePlayerSum = 0;
+			auto retit = jjcTables.end();
+			for (auto tableIt = jjcTables.begin(); tableIt != jjcTables.end(); ++tableIt)
+			{
+				if ((tableIt->table1 != NULL && tableIt->table1->IsTableRunning())
+					|| (tableIt->table2 != NULL && tableIt->table2->IsTableRunning()))
+				{
+					continue;
+				}
+				BYTE playerSum = 0;
+				if (tableIt->table1 != NULL && tableIt->table1->IsTableRunning() == false)
+				{
+					playerSum += tableIt->table1->GetTablePlayerSum();
+				}
+				if (tableIt->table2 != NULL && tableIt->table2->IsTableRunning() == false)
+				{
+					playerSum += tableIt->table2->GetTablePlayerSum();
+				}
+				if (playerSum < 8 && playerSum >= maxTablePlayerSum)
+				{
+					maxTablePlayerSum = playerSum;
+					retit = tableIt;
+				}
+			}
+			//如果找到一个竞技场场次
+			if (retit != jjcTables.end())
+			{
+				if (retit->table1 && !retit->table1->IsFull()) return retit->table1;
+				if (retit->table2 && !retit->table2->IsFull()) return retit->table2;
+			}
+		}
+	}
+	return NULL;
+}
+
+bool TableManager::CanPlayerJoinJJC(CRoleEx * pRoleEx, BYTE tableTypeID)
+{
+	if (IsJJCOpen())
+	{
+		const tagFishJJC& jjc_cfg = g_FishServer.GetFishConfig().GetFishJJC();
+		INT64 admission = -1 * jjc_cfg.admission*MONEY_RATIO;
+		if (pRoleEx->ChangeRoleGlobe(admission, tableTypeID))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool TableManager::IsJJCOpen()
+{
+	//判断竞技场开始时间
+	const tagFishJJC& jjc_cfg = g_FishServer.GetFishConfig().GetFishJJC();
+	const tagJJC_Time& jjc_time_cfg = jjc_cfg.time;
+	time_t NowTimeStamp = time(NULL);
+	tm cfgTime;
+	localtime_s(&cfgTime, &NowTimeStamp);
+	for (auto it = jjc_time_cfg.openTime.begin(); it != jjc_time_cfg.openTime.end(); ++it)
+	{
+		if (it->year != 0) cfgTime.tm_year = it->year - 1900;
+		if (it->month != 0) cfgTime.tm_mon = it->month - 1;
+		if (it->day != 0) cfgTime.tm_mday = it->day;
+		if (it->hour != 0) cfgTime.tm_hour = it->hour;
+		if (it->minute != 0) cfgTime.tm_min = it->minute;
+		cfgTime.tm_sec = 0;
+		time_t cfgTimeStamp = mktime(&cfgTime);
+		if (NowTimeStamp >= cfgTimeStamp && NowTimeStamp <= cfgTimeStamp + jjc_time_cfg.remainTime * 60)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void TableManager::AddJJCGameTable(BYTE tableTypeID, BYTE monthTypeID, GameTable * pTable)
+{
+	//竞技场需要2个桌子
+	GameTable* pNewTable = new GameTable();
+	if (!pNewTable)
+	{
+		return;
+	}
+	pNewTable->OnInit(m_MaxTableID, tableTypeID, monthTypeID);//将桌子初始化
+	m_MaxTableID++;
+	auto jjTablesIt = m_JJCGameTables.find(monthTypeID);
+	if (jjTablesIt == m_JJCGameTables.end())
+	{
+		m_TableVec.push_back(pNewTable);
+		JJCGameTables tables(pTable, pNewTable);
+		vector<JJCGameTables> temp;
+		temp.push_back(tables);
+		m_JJCGameTables.insert(make_pair(monthTypeID, temp));
+	}
+	else
+	{
+		vector<JJCGameTables>& jjcTables = jjTablesIt->second;
+		JJCGameTables newtables(pTable, pNewTable);
+		jjcTables.push_back(newtables);
+	}
+	//竞技场需要增加机器人 5-10s增加一个机器人
+	for (int i = 0; i < 4; ++i)
+	{
+		DWORD time1 = RandInt() % 5 + 6;
+		g_FishServer.GetRobotManager().AdddWriteRobot(pTable->GetTableID(), time1);
+		DWORD time2 = RandInt() % 5 + 6;
+		g_FishServer.GetRobotManager().AdddWriteRobot(pNewTable->GetTableID(), time1);
+	}
 }

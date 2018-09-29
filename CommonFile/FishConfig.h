@@ -20,9 +20,9 @@ public:
 	bool LoadConfigFilePath();
 	void OnDestroy();
 
+	const tagFishJJC& GetFishJJC() { return m_jjc; }
 	tagTableConfig& GetTableConfig(){ return m_TableConfig; }
 	tagFishServerUpdate& GetFishUpdateConfig(){ return m_FishUpdateConfig; }
-	//tagGlobelShop& GetGlobelShopConfig(){ return m_GlobelShopConfig; }
 	bool ItemIsExists(DWORD ItemID){ return m_ItemMap.count(ItemID) == 1; }
 	BYTE GetItemType(DWORD ItemID);
 	DWORD GetItemParam(DWORD ItemID);
@@ -46,17 +46,16 @@ private:
 	bool LoadFishVipConfig(WHXmlNode* pFishConfig);
 	bool LoadFishGameRobotConfig(WHXmlNode* pFishConfig);
 	bool LoadFishWhiteList(WHXmlNode* pFishConfig);
+	bool LoadFishJJC(WHXmlNode* pFishConfig);
 private:
 	tagTableConfig				m_TableConfig;
 	tagFishServerUpdate			m_FishUpdateConfig;
-	//tagGlobelShop				m_GlobelShopConfig;
 	tagRewardMap				m_FishRewardConfig;
 	HashMap<DWORD, tagItemConfig>	m_ItemMap;
 	tagFishSystemInfo			m_SystemConfig;
-	//std::vector<TCHAR*>			m_ErrorStr;//屏蔽字
 	tagErrorMap					m_ErrorStr;
-
 	tagVipConfig				m_VipMap;
 	tagGameRobotInfo			m_GameRobotConfig;
 	tagFishWhiteList			m_WhiteList; //白名单
+	tagFishJJC					m_jjc;//竞技场
 };

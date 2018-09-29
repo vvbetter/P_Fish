@@ -76,7 +76,7 @@ void FishScene::Shutdown()
 	m_pFishMgr->Shutdown();
 	m_pBulletMgr->Shutdown();
 	m_pFishLauncher->Shutdown();
-	
+
 	SAFE_DELETE(m_pFishMap);
 	SAFE_DELETE(m_pFishLauncher);
 	SAFE_DELETE(m_pFishMgr);
@@ -85,7 +85,7 @@ void FishScene::Shutdown()
 void FishScene::Update(float deltaTime)
 {
 	bool bClearScene = false;
-	UINT package = 0xffffffff; 
+	UINT package = 0xffffffff;
 	//控制场景冰冻
 	float updateTime = deltaTime;
 	if (m_IsSceneStopTime == true)
@@ -93,13 +93,13 @@ void FishScene::Update(float deltaTime)
 		m_SceneStopTime -= (DWORD)(deltaTime * 1000);
 		updateTime = 0.0f;
 	}
-	if (m_SceneStopTime <= 0) 
+	if (m_SceneStopTime <= 0)
 	{
-		m_IsSceneStopTime = false; 
+		m_IsSceneStopTime = false;
 		m_SceneStopTime = 0;
 	}
 	//开始更新流程
-	if(m_bFlowInterval == false)
+	if (m_bFlowInterval == false)
 	{
 		package = m_pFishMap->Update(updateTime);
 		//流程使用完了,更换新的。
@@ -119,7 +119,7 @@ void FishScene::Update(float deltaTime)
 			{
 				int idx = m_pFishMap->GetFlowIndex(m_bFlowInterval);
 				m_bFishTide = m_bFlowInterval;
-				if(m_bFlowInterval)
+				if (m_bFlowInterval)
 				{
 					m_pFishMgr->ClearAllFish(false);
 					m_FlowIndex = ConvertIntToWORD(idx);
@@ -127,9 +127,9 @@ void FishScene::Update(float deltaTime)
 					//Log(L"切换鱼阵，间隔3.5秒:%d", idx);
 
 					NetCmdClearScene nt;
-					SetMsgInfo(nt,CMD_CLEAR_SCENE, sizeof(NetCmdClearScene));
+					SetMsgInfo(nt, CMD_CLEAR_SCENE, sizeof(NetCmdClearScene));
 					nt.ClearType = rand() % 2;
-					m_pSender->SendAll(&nt); 
+					m_pSender->SendAll(&nt);
 					m_pRoleMgr->SwitchFishTide();
 					bClearScene = true;
 				}
@@ -141,7 +141,7 @@ void FishScene::Update(float deltaTime)
 			}
 		}
 	}
-	if(m_bFlowInterval == false)
+	if (m_bFlowInterval == false)
 	{
 		if (m_bFishTide)
 			package = -1;
@@ -156,14 +156,14 @@ void FishScene::Update(float deltaTime)
 	}
 	else
 	{
-		if(GetTickCount() - m_FlowInterval > INTERVAL_FLOW)
+		if (GetTickCount() - m_FlowInterval > INTERVAL_FLOW)
 		{
 			//Log(L"切换流程:%d", m_FlowIndex);
 			m_pFishLauncher->Init(FishResManager::Inst()->GetFlow(m_FlowIndex));
 			m_bFlowInterval = false;
 		}
 	}
-	
+
 	m_pFishMgr->Update(updateTime);
 	m_pBulletMgr->Update(m_pFishMgr, deltaTime);
 	UINT count = m_pFishMgr->GetFishCount();
@@ -191,7 +191,7 @@ void FishScene::Update(float deltaTime)
 		}
 	}
 	FishCollider::Collide(m_pRoleMgr, m_pBulletMgr, m_pFishMgr, m_pSender);
-	
+
 }
 void FishScene::Clear()
 {
@@ -213,16 +213,16 @@ const WCHAR *FishScene::GetMapName()const
   线段2：其他鱼投影到屏幕的矩形坐标 m-n
   目的是判断炮台p到目标鱼f之间是否有其他的鱼
 	y        /f
-	|	\n	/				
+	|	\n	/
 	|    \ /
 	|     \
-	|	 / \   
+	|	 / \
 	|	/   \m
   --|--p----------------------- x
 */
 double determinant(double v1, double v2, double v3, double v4)  // 行列式  
 {
-	return (v1*v3 - v2*v4);
+	return (v1*v3 - v2 * v4);
 }
 // aa,bb,cc,dd 是2条线段的4个端点
 bool intersect(const Vector2& aa, const Vector2& bb, const Vector2& cc, const Vector2& dd)
@@ -233,12 +233,12 @@ bool intersect(const Vector2& aa, const Vector2& bb, const Vector2& cc, const Ve
 		return false;
 	}
 	double namenda = determinant(cc.x - aa.x, cc.x - dd.x, cc.y - aa.y, cc.y - dd.y) / delta;
-	if (namenda>1 || namenda<0)
+	if (namenda > 1 || namenda < 0)
 	{
 		return false;
 	}
 	double miu = determinant(bb.x - aa.x, cc.x - aa.x, bb.y - aa.y, cc.y - aa.y) / delta;
-	if (miu>1 || miu<0)
+	if (miu > 1 || miu < 0)
 	{
 		return false;
 	}
@@ -284,7 +284,7 @@ USHORT FishScene::GetAngleByFish(WORD& LoackFishID, BYTE SeatID, Vector2& pCente
 	LoackFishID = pFish->FishID;
 	FishValue = pFish->FishValue;
 
-	Vector2 UpDir(0.0f, SeatID > 1 ? -1.0f : 1.0f); 
+	Vector2 UpDir(0.0f, SeatID > 1 ? -1.0f : 1.0f);
 	Vector2 pos = pFish->ScreenPos;//鱼的坐标
 	Vector2 Direction = (pos - pCenter);
 	if (SeatID <= 1 && Direction.y < 0.1f)

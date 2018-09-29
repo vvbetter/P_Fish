@@ -49,6 +49,13 @@ struct SysYieldControl //系统收益控制
 	}
 };
 
+struct JJCGameTables
+{
+	GameTable* table1;
+	GameTable* table2;
+	JJCGameTables(GameTable* t1 = NULL, GameTable* t2 = NULL) :table1(t1), table2(t2) {}
+};
+
 class TableManager //管理桌子 需要一个桌子的配置文件控制器 网络命令与更新器的线程冲突
 {
 	//桌子的管理器
@@ -60,50 +67,53 @@ public:
 	void Destroy();
 	void OnStopService();
 	void Update(DWORD dwTimeStep);
-	bool OnHandleTableMsg(DWORD dwUserID,NetCmd* pData);
-	bool OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx,BYTE MonthID = 0,bool IsSendToClient = true);
+	void UpdateMinutes();
+	void UpdateJJC(DWORD dwTimeStep); //竞技场更新
+	bool OnHandleTableMsg(DWORD dwUserID, NetCmd* pData);
+	bool OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE MonthID = 0, bool IsSendToClient = true);
 	bool OnPlayerJoinTable(WORD TableID, CRoleEx* pRoleEx, bool IsSendToClient = true);
 	void OnPlayerLeaveTable(DWORD dwUserID);
+
 	void ResetTableInfo(DWORD dwUserID);
 	//发送桌子消息
 	void SendDataToTable(DWORD dwUserID, NetCmd* pData);
-	
+
 	CRole* SearchUser(DWORD dwUserid);
 	CConfig *GetGameConfig();
 	GameTable* GetTable(WORD TableID);
-	DWORD GetTableSum(){ return m_TableVec.size(); }
+	DWORD GetTableSum() { return m_TableVec.size(); }
 
 	void OnChangeTableGlobel(WORD TableID, int64 AddGlobel, USHORT uTableRate);
-	void OnResetTableGlobel(WORD TableID,int64 nValue);
+	void OnResetTableGlobel(WORD TableID, int64 nValue);
 	int64  GetTableGlobel(WORD TableID);
 
-	void OnChangeTableTypePlayerSum(BYTE TableTypeID,bool IsAddOrDel);
 	bool QueryPool(WORD TableID, int64 & nPoolGold);
 	void QueryPool(BYTE TableTypeID, bool &bopen, int64&nPoolGold);
-	std::list<DWORD> GetBlackList();
-	bool SetBlackList(DWORD *pid,BYTE byCount);
-	bool Isabhor(DWORD dwUserid);
 	CRole* QueryRoleByRoleEx(CRoleEx* pRoleEx);
 	void CostAndProduceMin(); //每分钟记录系统收支日志
 	void NewDayForTable();//每天重置
-	const vector<float>& SysProduceRate(const BYTE tableType );//系统收益比率
+	const vector<float>& SysProduceRate(const BYTE tableType);//系统收益比率
 	bool InitTableTotalGold(NetCmd* pData);
+private:
+	//
+	bool PlayerJoinTable(GameTable* pTable, CRoleEx* pRoleEx,BYTE tableTypeID, BYTE MonthID, bool IsSendToClient = true);
+	GameTable* GetPlayerJoinTable(BYTE tableTypeID, BYTE MonthID);
+	//竞技场消息
+	bool CanPlayerJoinJJC(CRoleEx* pRoleEx, BYTE tableTypeID);
+	bool IsJJCOpen();
+	void AddJJCGameTable(BYTE tableTypeID, BYTE monthTypeID, GameTable* pTable);
 private:
 	DWORD									m_LastUpdate;
 	WORD						 			m_MaxTableID;
 	//桌子具体的对象处理
 	HashMap<DWORD, WORD>					m_RoleTableMap;
 	std::vector<GameTable*>					m_TableVec;
-
 	CConfig                     *m_pGameConfig;
-
-	CFishTimer                  m_TimerGameTime;//玩家在线时间更新
+	CFishTimer					m_JJCTimer;// 竞技场计时器
 
 	bool						m_bUpdateTime;
-
+	HashMap<BYTE, vector<JJCGameTables> > m_JJCGameTables; //桌子类型-竞技场桌子
 	HashMap<BYTE, GoldPool>		m_TableGlobeMap;//桌子类型的金币池
-	HashMap<BYTE, DWORD>        m_TableTypeSum;//当前类型玩家的数量
-	std::list<DWORD>			m_blacklist;
 	map<BYTE, SysYieldControl> m_sysMinutes;//每个桌子每天的金币记录
 	map<BYTE, TableTotalGold> m_sysTotal;//分桌子统计玩家消耗金币和系统产出金币
 };

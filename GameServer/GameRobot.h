@@ -161,10 +161,9 @@ public:
 	void ResetGameRobot(DWORD dwUserID);//归还一个机器人
 	void ResetAllGameRobot();//归还所有机器人
 	bool GameRobotIsCanJoinTable(GameTable* pTable);//判断机器人是否可以进入当前的桌子
-	void  OnRoleCreateNormalRoom(GameTable* pTable);//当普通玩家创建一个非比赛房间的时候
-	void  OnRoleLeaveNormalRoom(GameTable* pTable);//当普通玩家离开一个非比赛房间的时候
-	void  OnRoleJoinNormalRoom(GameTable* pTable);//当普通玩家进入一个非比赛房间的时候
-	void  AdddWriteRobot(WORD TableID, DWORD WriteTime); //添加到重新加入房间的机器人队列
+	void OnJoinRobotToTable(GameTable* pTable);    //增加机器人
+	void OnRoleLeaveNormalRoom(GameTable* pTable);//当普通玩家离开一个非比赛房间的时候
+	void AdddWriteRobot(WORD TableID, DWORD WriteTime); //添加到重新加入房间的机器人队列
 private:
 	bool JoinRobot(DWORD robotTypeID, GameTable* pTable);
 private:

@@ -16,20 +16,20 @@ public:
 	GameTable();
 	virtual ~GameTable();
 
-	virtual bool				OnInit(WORD TableID, BYTE TableTypeID,BYTE MonthID = 0);
+	virtual bool				OnInit(WORD TableID, BYTE TableTypeID, BYTE MonthID = 0);
 	virtual void				OnDestroy();
 	virtual bool				IsCanJoinTable(CRoleEx* pRoleEx, BYTE MonthID);
-	virtual bool				OnRoleJoinTable(CRoleEx* pRoleEx,BYTE MonthID,bool IsSendToClient);
+	virtual bool				OnRoleJoinTable(CRoleEx* pRoleEx, BYTE MonthID, bool IsSendToClient);
 	virtual bool				OnRoleLeaveTable(DWORD dwUserID);
-	virtual bool				OnHandleTableMsg(DWORD dwUserID,NetCmd* pCmd);
+	virtual bool				OnHandleTableMsg(DWORD dwUserID, NetCmd* pCmd);
 	virtual void				Update(bool bUpdateTime);
 	virtual void				OnGameStart();
 	virtual void				OnGameStop();
-	virtual WORD				GetTableID(){ return m_TableID; }
+	virtual WORD				GetTableID() { return m_TableID; }
 	virtual bool				IsFull();
 	virtual WORD				GetTablePlayerSum();
-	virtual BYTE				GetTableTypeID(){ return m_TableTypeID; }
-	virtual BYTE				GetTableMonthID(){ return m_MonthID; }
+	virtual BYTE				GetTableTypeID() { return m_TableTypeID; }
+	virtual BYTE				GetTableMonthID() { return m_MonthID; }
 	virtual CRole*              SearchUser(DWORD dwUserID);
 	virtual void				SendDataToTable(DWORD dwUserID, NetCmd* pData);
 	virtual void				SendDataToTableAllUser(NetCmd* pData);
@@ -44,15 +44,18 @@ public:
 	//机器人
 	virtual bool				IsCanAddRobot();
 	//
-	virtual CTableRoleManager&	GetRoleManager(){ return m_RoleManager; }
+	virtual CTableRoleManager&	GetRoleManager() { return m_RoleManager; }
 
-	FishDesk*					GetFishDesk(){ return &m_fishdesk; }
-
+	const DWORD					GetTableStartTime() { return m_GameStartTime; }
+	FishDesk*					GetFishDesk() { return &m_fishdesk; }
+	bool						IsTableRunning() { return m_isRun; }
 	void SendTableRoleInfoToClient(DWORD dwUserID);
 	void DelaySyncDataToClient(CRoleEx* pData);
 	const int64 GetTablePlayerAvgMoney();
 private:
+	bool						m_isRun;
 	DWORD						m_LastUpdateTime;
+	DWORD						m_GameStartTime;
 	WORD						m_TableID;
 	BYTE						m_MonthID;//比赛的ID  0表示不是比赛的桌子
 	CTableRoleManager			m_RoleManager;

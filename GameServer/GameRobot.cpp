@@ -152,48 +152,15 @@ bool GameRobotManager::GameRobotIsCanJoinTable(GameTable* pTable)
 		ASSERT(false);
 		return false;
 	}
-	if (pTable->GetTableMonthID() == 0)
-	{
-		if (pTable->GetRoleManager().GetRoleSum() >= 4)
-			return false;
-		return true;
-	}
-	else
-	{
-		//比赛房间 一个房间最多2个机器人
-		BYTE RobotSum = 0;
-		for (BYTE i = 0; i < pTable->GetRoleManager().GetMaxPlayerSum(); ++i)
-		{
-			CRole* pRole = pTable->GetRoleManager().GetRoleBySeatID(i);
-			if (!pRole || !pRole->IsActionUser())
-				continue;
-			if (pRole->GetRoleExInfo()->IsRobot())
-				++RobotSum;
-		}
-		if (RobotSum >= 2)
-			return false;
-		else
-			return true;
-	}
+	if (pTable->IsFull())
+		return false;
+	return true;
 }
-void GameRobotManager::OnRoleCreateNormalRoom(GameTable* pTable)
+void GameRobotManager::OnJoinRobotToTable(GameTable * pTable)
 {
-	if (!pTable || pTable->GetTableMonthID() != 0)
-		return;
-	if (pTable->GetRoleManager().GetRoleSum() != 1)
-		return;
-	for (BYTE i = 0; i < pTable->GetRoleManager().GetMaxPlayerSum(); ++i)
-	{
-		CRole* pRole = pTable->GetRoleManager().GetRoleBySeatID(i);
-		if (!pRole || !pRole->IsActionUser())
-			continue;
-		if (pRole->GetRoleExInfo()->IsRobot())
-			return;
-	}
-
 	//桌子ID 和 比赛ID 我们生成机器人的类型ID
-	DWORD Key = (pTable->GetTableTypeID() << 16) + pTable->GetTableMonthID();
-	multimap<DWORD, DWORD>::iterator Iter= g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.find(Key);
+	DWORD Key = (pTable->GetTableTypeID() << 16) + (pTable->GetTableMonthID() & 0x7f);
+	multimap<DWORD, DWORD>::iterator Iter = g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.find(Key);
 	if (Iter == g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.end())
 		return;
 	DWORD RobotID = Iter->second;
@@ -240,32 +207,6 @@ void GameRobotManager::OnRoleLeaveNormalRoom(GameTable* pTable)
 			}
 		}
 	}
-}
-void GameRobotManager::OnRoleJoinNormalRoom(GameTable* pTable)
-{
-	//当普通玩家进入一个已经存在的房间的时候 如果玩家人数 小于等于2人 并且 全部为普通玩家的时候 添加一个机器人进来
-	if (!pTable || pTable->GetTableMonthID() != 0)
-		return;
-	if (pTable->GetRoleManager().GetRoleSum() > 2)
-		return;
-	BYTE RobotSum = 0;
-	for (BYTE i = 0; i < pTable->GetRoleManager().GetMaxPlayerSum(); ++i)
-	{
-		CRole* pRole = pTable->GetRoleManager().GetRoleBySeatID(i);
-		if (!pRole || !pRole->IsActionUser())
-			continue;
-		if (pRole->GetRoleExInfo()->IsRobot())
-			++RobotSum;
-	}
-	if (RobotSum > 0)
-		return;
-
-	DWORD Key = (pTable->GetTableTypeID() << 16) + pTable->GetTableMonthID();
-	multimap<DWORD, DWORD>::iterator Iter = g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.find(Key);
-	if (Iter == g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.end())
-		return;
-	DWORD RobotID = Iter->second;
-	JoinRobot(RobotID, pTable);
 }
 void GameRobotManager::Update()
 {
@@ -325,16 +266,25 @@ void GameRobotManager::UpdateWriteList()
 				Iter = m_WriteList.erase(Iter);
 				continue;
 			}
-			if (pTable->GetTablePlayerSum() == 0 || pTable->GetTablePlayerSum() == 4)
+			if ( pTable->GetTablePlayerSum() == 4)
 			{
-				//桌子空了 或者桌子满了
+				//桌子满了
 				Iter = m_WriteList.erase(Iter);
 				continue;
 			}
-			BYTE TableTypeID = pTable->GetTableTypeID();
-			BYTE MonthID = pTable->GetTableMonthID();
-			
-			DWORD Key = (TableTypeID << 16) + MonthID;
+			if (pTable->GetTablePlayerSum() == 0 && pTable->GetTableMonthID() == 0)
+			{
+				//普通桌子空的
+				Iter = m_WriteList.erase(Iter);
+				continue;
+			}
+			if (pTable->GetTableMonthID() != 0 && pTable->IsTableRunning())
+			{
+				//竞技场的桌子已经开始游戏了
+				Iter = m_WriteList.erase(Iter);
+				continue;
+			}
+			DWORD Key = (pTable->GetTableTypeID() << 16) + (pTable->GetTableMonthID() & 0x7f);
 			multimap<DWORD, DWORD>::iterator IterFind = g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.find(Key);
 			if (IterFind == g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.end())
 				return;

@@ -2334,6 +2334,30 @@ struct tagFishWhiteList
 	vector<int64> uid;
 };
 
+struct subJJC_Time
+{
+	INT year;
+	BYTE month;
+	BYTE day;
+	BYTE hour;
+	BYTE minute;
+};
+struct tagJJC_Time
+{
+	INT remainTime;//持续时间
+	INT maxTime; //单场最大时间
+	vector<subJJC_Time> openTime;
+};
+
+struct tagFishJJC
+{
+	BYTE maxPlayerSum; //最大参赛人数
+	INT64 admission; //报名费用
+	tagJJC_Time time;//开放时间
+	map<BYTE, INT64> reward;//排名-奖励
+};
+
+
 //具体的网络命令了 
 //数据库命令
 enum FishDBCmd
@@ -4938,21 +4962,6 @@ enum TableCmd
 	LC_Sub_MeSeatID = 6,
 	LC_Sub_StartSyncFish = 7,//可以同步鱼了
 	LC_Sub_ShowOthers = 8, //查看其它玩家信息
-	//桌子上其他玩家的数据修改
-	LC_TableChangeRoleLevel = 10,
-	LC_TableChangeRoleGender = 11,
-	LC_TableChangeRoleNickName = 12,
-	LC_TableChangeRoleFaceID = 13,
-	LC_TableChangeRoleGlobe = 14,
-	LC_TableChangeRoleExp = 15,
-	LC_TableChangeRoleTitle = 16,
-	LC_TableChangeRoleAchievementPoint = 17,
-	LC_TableChangeRoleCharmValue = 18,
-	LC_TableChangeRoleIpAddress = 19,
-	LC_TableChangeRoleVipLevel = 20,
-	LC_TableChangeRoleIsInMonthCard = 21,
-
-
 	LC_ResetOtherUserInfo = 30,
 
 	LC_LeaveTableByServer = 31,//服务器让玩家离开桌子
@@ -4961,6 +4970,7 @@ enum TableCmd
 struct CL_JoinTable : public NetCmd
 {
 	BYTE		bTableTypeID;//选择进入桌子的类型
+	bool        isArena; //是否是竞技场
 };
 
 struct tagJonPlayerData

@@ -206,6 +206,10 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 		{
 			((CL_JoinTable*)pCmd)->bTableTypeID = msg.roomid();
 		}
+		if (msg.has_isarena())
+		{
+			((CL_JoinTable*)pCmd)->isArena = (msg.isarena() == 0 ? false : true);
+		}
 	}
 	else if (cmdType == 6009)//·¢ËÍ×Óµ¯
 	{

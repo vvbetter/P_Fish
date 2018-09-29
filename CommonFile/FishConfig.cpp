@@ -67,6 +67,10 @@ bool FishConfig::LoadConfigFilePath()
 		ASSERT(false);
 		return false;
 	}
+	if (!LoadFishJJC(pFishConfig))
+	{
+		return false;
+	}
 	//¹ýÂË¹Ø¼ü×Ö
 	if (!LoadFishErrorStringFile("ErrorString.txt"))
 	{
@@ -509,6 +513,62 @@ bool FishConfig::LoadFishWhiteList(WHXmlNode* pFishConfig)
 			return false;
 		m_WhiteList.uid.push_back(uid);
 		pItem = pItem->GetNextSignelNode();
+	}
+	return true;
+}
+bool FishConfig::LoadFishJJC(WHXmlNode * pFishConfig)
+{
+	if (!pFishConfig)
+	{
+		return false;
+	}
+	WHXmlNode* pFishNode = pFishConfig->GetChildNodeByName(TEXT("JJC"));
+	if (!pFishNode)
+	{
+		return false;
+	}
+	if (!pFishNode->GetAttribute(TEXT("MaxPlayerSum"), m_jjc.maxPlayerSum))
+		return false;
+	if (!pFishNode->GetAttribute(TEXT("admission"), m_jjc.admission))
+		return false;
+
+	WHXmlNode* pTime = pFishNode->GetChildNodeByName(TEXT("time"));
+	if (!pTime)
+	{
+		return false;
+	}
+	if (!pTime->GetAttribute(TEXT("maxtime"), m_jjc.time.maxTime))
+		return false;
+	if (!pTime->GetAttribute(TEXT("remaintime"), m_jjc.time.remainTime))
+		return false;
+	WHXmlNode* pTimeItem = pTime->GetChildNodeByName(TEXT("Item"));
+	m_jjc.time.openTime.clear();
+	while (pTimeItem)
+	{
+		subJJC_Time tempTime;
+		pTimeItem->GetAttribute(TEXT("year"), tempTime.year);
+		pTimeItem->GetAttribute(TEXT("month"), tempTime.month);
+		pTimeItem->GetAttribute(TEXT("day"), tempTime.day);
+		pTimeItem->GetAttribute(TEXT("hour"), tempTime.hour);
+		pTimeItem->GetAttribute(TEXT("minute"), tempTime.minute);
+		m_jjc.time.openTime.push_back(tempTime);
+		pTimeItem = pTimeItem->GetNextSignelNode();
+	}
+	WHXmlNode* pReward = pFishNode->GetChildNodeByName(TEXT("reward"));
+	if (!pReward)
+	{
+		return false;
+	}
+	WHXmlNode* pRewardItem = pReward->GetChildNodeByName(TEXT("Item"));
+	m_jjc.reward.clear();
+	while (pRewardItem)
+	{
+		BYTE rank = 0;
+		INT64 gold = 0;
+		pRewardItem->GetAttribute(TEXT("rank"), rank);
+		pRewardItem->GetAttribute(TEXT("gold"), gold);
+		m_jjc.reward[rank] = gold;
+		pRewardItem = pRewardItem->GetNextSignelNode();
 	}
 	return true;
 }

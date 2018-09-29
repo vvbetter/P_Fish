@@ -9,7 +9,6 @@
 
 GameTable::GameTable()
 {
-	//m_TableConfig = NULL;
 }
 GameTable::~GameTable()
 {
@@ -28,7 +27,9 @@ bool GameTable::OnInit(WORD TableID, BYTE TableTypeID, BYTE MonthID)
 	m_RoleManager.OnInit(TableID, Iter->second.wMaxPlayerSum);//初始化玩家管理器
 	m_fishdesk.Init(m_TableID, this, Iter->second.cMapName, &m_RoleManager, m_TableTypeID);
 	m_LastUpdateTime = timeGetTime();
+	m_GameStartTime = 0;
 	m_MonthID = MonthID;
+	m_isRun = false;
 	return true;
 }
 bool GameTable::IsFull()
@@ -152,7 +153,7 @@ bool GameTable::OnRoleJoinTable(CRoleEx* pRoleEx, BYTE MonthID, bool IsSendToCli
 }
 void GameTable::DelaySyncDataToClient(CRoleEx* pRoleEx)
 {
-	if (m_RoleManager.GetRoleSum() == 1)
+	if (m_RoleManager.GetRoleSum() == 1 && m_MonthID == 0)
 	{
 		OnGameStart();
 	}
@@ -327,32 +328,24 @@ bool GameTable::OnHandleTableMsg(DWORD dwUserID, NetCmd* pCmd)
 }
 void GameTable::Update(bool bUpdateTime)
 {
+	if (!m_isRun) return;
 	DWORD dwCurrent = timeGetTime();
 	m_fishdesk.Update((dwCurrent - m_LastUpdateTime)*0.001f);
 	m_LastUpdateTime = dwCurrent;
-
-	if (bUpdateTime)
-	{
-		for (BYTE i = 0; i < m_RoleManager.GetMaxPlayerSum(); i++)
-		{
-			CRole *pRole = m_RoleManager.GetRoleBySeatID(i);
-			if (pRole&&pRole->IsActionUser())
-			{
-				pRole->AddGameTime(GAME_TIME_SPACE);
-			}
-		}
-	}
 	DWORD dwTimer = timeGetTime();
 }
 void GameTable::OnGameStart()
 {
 	m_fishdesk.OnGameStar();
 	m_LastUpdateTime = timeGetTime();
+	m_GameStartTime = timeGetTime();
+	m_isRun = true;
 	//CTraceService::TraceString(TEXT("一个桌子开始游戏"), TraceLevel_Normal);
 }
 void GameTable::OnGameStop()
 {
 	m_fishdesk.OnGameEnd();
+	m_isRun = false;
 	//CTraceService::TraceString(TEXT("一个桌子结束游戏"), TraceLevel_Normal);
 }
 void GameTable::Send(PlayerID RoleID, NetCmd*pCmd)
@@ -444,6 +437,10 @@ bool GameTable::IsCanJoinRoom(CRoleEx* pRole)
 	if (Iter == g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.end())
 	{
 		ASSERT(false);
+		return false;
+	}
+	if (IsFull())
+	{
 		return false;
 	}
 	return true;
