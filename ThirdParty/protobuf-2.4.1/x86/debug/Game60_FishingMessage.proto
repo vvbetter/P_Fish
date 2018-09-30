@@ -50,7 +50,34 @@ enum Protos_Game60Fishing {
 	ResUseGoodsKB			= 6036; //玩家使用狂暴道具
 	ResUseGoodsBD			= 6038; //玩家使用全屏冰冻道具
 
-	ResArenaStartInfo           = 6040; //竞技场开始游戏信息
+	ResArenaStartInfo       = 6040; //竞技场开始游戏信息
+
+	ResArenaRewardInfo		= 6042;//竞技场结束排行奖励信息
+
+	ResArenaRankInfo		= 6044;//竞技场排行
+}
+
+message ArenaRank{
+	optional int32 rank = 1; //排名
+	optional int64 nScore = 2; //积分
+	optional int64 playerId = 3; //玩家ID
+}
+
+message ResArenaRankInfoMessage{
+	optional Protos_Game60Fishing msgID = 1 [default = ResArenaRankInfo];
+	repeated ArenaRank rankInfo = 2;
+}
+
+message ArenaRewardRank{
+	optional int32 rank = 1;//排名
+	optional string nickname = 2; //昵称
+	optional int64 nScore = 3; //积分
+	optional int64 playerId = 4; //玩家ID
+}
+
+message ResArenaRewardInfoMessage{
+	optional Protos_Game60Fishing msgID = 1 [default = ResArenaRewardInfo];
+	repeated ArenaRewardRank reward = 3;//奖励
 }
 
 //竞技场开始游戏信息

@@ -632,6 +632,17 @@ void CTableRoleManager::Destroy()
 	delete[] m_TableRoleArray;
 	m_TableRoleArray = NULL;
 }
+bool CTableRoleManager::IsAllUserHaveBullets()
+{
+	for (int i = 0; i < m_MaxTableUserSum; ++i)
+	{
+		if (m_TableRoleArray[i].GetBulletCount() != 0)
+		{
+			return false;
+		}
+	}
+	return true;
+}
 int CTableRoleManager::GetRoleSum()
 {
 	if (!m_TableRoleArray)

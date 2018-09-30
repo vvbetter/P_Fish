@@ -49,6 +49,7 @@ public:
 	const DWORD					GetTableStartTime() { return m_GameStartTime; }
 	FishDesk*					GetFishDesk() { return &m_fishdesk; }
 	bool						IsTableRunning() { return m_isRun; }
+	bool						IsCanEndMonthGame();
 	void DelaySyncDataToClient(CRoleEx* pData);
 	const int64 GetTablePlayerAvgMoney();
 private:

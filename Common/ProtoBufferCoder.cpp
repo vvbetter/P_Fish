@@ -747,6 +747,47 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		msg.SerializeToArray(ret + 4, msg.ByteSize());
 		break;
 	}
+	case 6042:
+	{
+		msg_ArenaReward* pmsg = (msg_ArenaReward*)pCmd;
+		ResArenaRewardInfoMessage msg;
+		UINT nRank = (pmsg->GetCmdSize() - sizeof(msg_ArenaReward)) / sizeof(tagArenaRewardRank);
+		for (UINT i = 0; i < nRank; ++i)
+		{
+			ArenaRewardRank* data = msg.add_reward();
+			data->set_rank(pmsg->reward[i].rank);
+			data->set_nscore(pmsg->reward[i].nScore);
+			data->set_nickname(std::string(pmsg->reward[i].nickname));
+			data->set_playerid(pmsg->reward[i].uid);
+		}
+		dataLenth = msg.ByteSize() + 4;
+		ret = (char*)malloc(dataLenth);
+		USHORT msgID = Protos_Game60Fishing::ResArenaRewardInfo;
+		memcpy_s(ret, 2, &msgID, 2);
+		USHORT pbcLen = msg.ByteSize();
+		memcpy_s(ret + 2, 2, &pbcLen, 2);
+		msg.SerializeToArray(ret + 4, msg.ByteSize());
+	}
+	case 6044:
+	{
+		msg_ArenaReward* pmsg = (msg_ArenaReward*)pCmd;
+		ResArenaRankInfoMessage msg;
+		UINT nRank = (pmsg->GetCmdSize() - sizeof(msg_ArenaReward)) / sizeof(tagArenaRewardRank);
+		for (UINT i = 0; i < nRank; ++i)
+		{
+			ArenaRank* data = msg.add_rankinfo();
+			data->set_rank(pmsg->reward[i].rank);
+			data->set_nscore(pmsg->reward[i].nScore);
+			data->set_playerid(pmsg->reward[i].uid);
+		}
+		dataLenth = msg.ByteSize() + 4;
+		ret = (char*)malloc(dataLenth);
+		USHORT msgID = Protos_Game60Fishing::ResArenaRankInfo;
+		memcpy_s(ret, 2, &msgID, 2);
+		USHORT pbcLen = msg.ByteSize();
+		memcpy_s(ret + 2, 2, &pbcLen, 2);
+		msg.SerializeToArray(ret + 4, msg.ByteSize());
+	}
 	default:
 		isPBC = false;
 		ret = (char*)pCmd;

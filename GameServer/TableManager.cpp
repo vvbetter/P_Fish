@@ -159,10 +159,12 @@ void TableManager::UpdateJJC(DWORD dwTimeStep)
 		vector<JJCGameTables>& jjc_tables = it->second;
 		for (auto tableIt = jjc_tables.begin(); tableIt != jjc_tables.end(); ++tableIt)
 		{
-			//运行时间大于了最大竞技场持续时间，关闭游戏
-			if (tableIt->table1->IsTableRunning() && dwTimeStep - tableIt->table1->GetTableStartTime() > static_cast<DWORD>(jjc_time_cfg.maxTime * 60 * 1000))
+			//运行时间大于了最大竞技场持续时间 或者 大家都没有子弹了 关闭游戏
+			if ( (tableIt->table1->IsTableRunning() 
+				&& dwTimeStep - tableIt->table1->GetTableStartTime() > static_cast<DWORD>(jjc_time_cfg.maxTime * 60 * 1000))
+				||( tableIt->table1->IsCanEndMonthGame() && tableIt->table2->IsCanEndMonthGame()) )
 			{
-				//TODO 结算竞技场
+				JJCRewardRank(tableIt->table1, tableIt->table2, true);
 				tableIt->table1->OnGameStop();
 				tableIt->table2->OnGameStop();
 			}
@@ -193,6 +195,11 @@ void TableManager::UpdateJJC(DWORD dwTimeStep)
 					tableIt->table1->SendDataToTableAllUser(&msg);
 					tableIt->table2->SendDataToTableAllUser(&msg);
 				}
+			}
+			//游戏运行中，同步排行数据
+			else if (tableIt->table1->IsTableRunning() && tableIt->table2->IsTableRunning())
+			{
+				JJCRewardRank(tableIt->table1, tableIt->table2, false);
 			}
 		}
 	}
@@ -325,7 +332,7 @@ bool TableManager::OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE Mo
 		ASSERT(false);
 		return false;
 	}
-	if (MonthID != 0 && CanPlayerJoinJJC(pRoleEx, TableTypeID) == false)
+	if (MonthID != 0 && CanPlayerJoinJJC(pRoleEx, MonthID) == false)
 	{
 		LC_JoinTableResult msg;
 		SetMsgInfo(msg, GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
@@ -855,12 +862,15 @@ GameTable * TableManager::GetPlayerJoinTable(BYTE tableTypeID, BYTE MonthID)
 	return NULL;
 }
 
-bool TableManager::CanPlayerJoinJJC(CRoleEx * pRoleEx, BYTE tableTypeID)
+bool TableManager::CanPlayerJoinJJC(CRoleEx * pRoleEx, BYTE MonthID)
 {
 	if (IsJJCOpen())
 	{
+		BYTE tableTypeID = MonthID & 0x7f;
 		const tagFishJJC& jjc_cfg = g_FishServer.GetFishConfig().GetFishJJC();
-		INT64 admission = -1 * jjc_cfg.admission*MONEY_RATIO;
+		auto it = jjc_cfg.admission.find(tableTypeID);
+		if (it == jjc_cfg.admission.end()) return false;
+		INT64 admission = -1 * it->second *MONEY_RATIO;
 		if (pRoleEx->ChangeRoleGlobe(admission, tableTypeID))
 		{
 			return true;
@@ -897,28 +907,28 @@ bool TableManager::IsJJCOpen()
 void TableManager::AddJJCGameTable(BYTE tableTypeID, BYTE monthTypeID, GameTable * pTable)
 {
 	//竞技场需要2个桌子
-	GameTable* pNewTable = new GameTable();
-	if (!pNewTable)
-	{
-		return;
-	}
-	pNewTable->OnInit(m_MaxTableID, tableTypeID, monthTypeID);//将桌子初始化
-	m_MaxTableID++;
-	auto jjTablesIt = m_JJCGameTables.find(monthTypeID);
-	if (jjTablesIt == m_JJCGameTables.end())
-	{
-		m_TableVec.push_back(pNewTable);
-		JJCGameTables tables(pTable, pNewTable);
-		vector<JJCGameTables> temp;
-		temp.push_back(tables);
-		m_JJCGameTables.insert(make_pair(monthTypeID, temp));
-	}
-	else
-	{
-		vector<JJCGameTables>& jjcTables = jjTablesIt->second;
-		JJCGameTables newtables(pTable, pNewTable);
-		jjcTables.push_back(newtables);
-	}
+GameTable* pNewTable = new GameTable();
+if (!pNewTable)
+{
+	return;
+}
+pNewTable->OnInit(m_MaxTableID, tableTypeID, monthTypeID);//将桌子初始化
+m_MaxTableID++;
+auto jjTablesIt = m_JJCGameTables.find(monthTypeID);
+if (jjTablesIt == m_JJCGameTables.end())
+{
+	m_TableVec.push_back(pNewTable);
+	JJCGameTables tables(pTable, pNewTable);
+	vector<JJCGameTables> temp;
+	temp.push_back(tables);
+	m_JJCGameTables.insert(make_pair(monthTypeID, temp));
+}
+else
+{
+	vector<JJCGameTables>& jjcTables = jjTablesIt->second;
+	JJCGameTables newtables(pTable, pNewTable);
+	jjcTables.push_back(newtables);
+}
 }
 
 void TableManager::AddJJCGameRobot(GameTable * p1)
@@ -950,4 +960,72 @@ void TableManager::AddJJCGameRobot(GameTable * p1)
 			g_FishServer.GetRobotManager().AdddWriteRobot(pOther->GetTableID(), time2);
 		}
 	}
+}
+
+void TableManager::JJCRewardRank(GameTable * p1, GameTable * p2, bool isReward)
+{
+	if (!p1 || !p2) return;
+	UINT msgLength = sizeof(msg_ArenaReward) + 8 * sizeof(tagArenaRewardRank);
+	msg_ArenaReward* msg = (msg_ArenaReward*) new char[msgLength];
+	memset(msg, 0, msgLength);
+	for (BYTE i = 0; i < 4; ++i)
+	{
+		CRole* pRole = p1->GetRoleManager().GetRoleBySeatID(i);
+		INT64 nJJCScore = pRole->GetJJCScore();
+		msg->reward[i].nScore = nJJCScore;
+		memcpy_s(msg->reward[i].nickname, MAX_NICKNAME, pRole->GetRoleExInfo()->GetRoleInfo().NickName, MAX_NICKNAME);
+		msg->reward[i].rank = 0;
+		msg->reward[i].uid = pRole->GetRoleExInfo()->GetRoleInfo().Uid;
+	}
+	for (BYTE i = 0; i < 4; ++i)
+	{
+		CRole* pRole = p2->GetRoleManager().GetRoleBySeatID(i);
+		INT64 nJJCScore = pRole->GetJJCScore();
+		msg->reward[i + 4].nScore = nJJCScore;
+		memcpy_s(msg->reward[i + 4].nickname, MAX_NICKNAME, pRole->GetRoleExInfo()->GetRoleInfo().NickName, MAX_NICKNAME);
+		msg->reward[i + 4].rank = 0;
+		msg->reward[i + 4].uid = pRole->GetRoleExInfo()->GetRoleInfo().Uid;
+	}
+	//计算排行发放奖励
+	UINT rank = 1;
+	tagArenaRewardRank temp;
+	UINT tmpSize = sizeof(tagArenaRewardRank);
+	const tagFishJJC& jjc_cfg = g_FishServer.GetFishConfig().GetFishJJC();
+	const map<BYTE, INT64>& reward = jjc_cfg.reward;
+	for (UINT i = 0; i < 8; ++i)
+	{
+		for (UINT j = i + 1; j < 8; ++j)
+		{
+			if (msg->reward[j].nScore > msg->reward[i].nScore)
+			{
+				memcpy_s(&temp, tmpSize, &msg->reward[i], tmpSize);
+				memcpy_s(&msg->reward[i], tmpSize, &msg->reward[j], tmpSize);
+				memcpy_s(&msg->reward[j], tmpSize, &temp, tmpSize);
+			}
+		}
+		//设置排行和发放奖励
+		msg->reward[i].rank = rank++;
+		auto it = reward.find(msg->reward[i].rank);
+		if ( it != reward.end())
+		{
+			CRoleEx* pRoleEx = g_FishServer.GetRoleManager()->QuertUserByUid(msg->reward[i].uid);
+			if (pRoleEx)
+			{
+				pRoleEx->GetRoleInfo().money1 += it->second*MONEY_RATIO;
+			}
+		}
+	}
+	if (isReward) //结束发放奖励
+	{
+		SetMsgInfo((*msg), 6042, msgLength);
+		p1->SendDataToTableAllUser(msg);
+		p2->SendDataToTableAllUser(msg);
+	}
+	else //只是发送排行信息
+	{
+		SetMsgInfo((*msg), 6044, msgLength);
+		p1->SendDataToTableAllUser(msg);
+		p2->SendDataToTableAllUser(msg);
+	}
+	SAFE_DELETE_ARR(msg);
 }

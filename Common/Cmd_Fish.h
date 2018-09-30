@@ -2283,7 +2283,7 @@ struct tagJJC_Time
 struct tagFishJJC
 {
 	BYTE maxPlayerSum; //最大参赛人数
-	INT64 admission; //报名费用
+	map<BYTE, INT64> admission; //场次- 报名费用
 	tagJJC_Time time;//开放时间
 	map<BYTE, INT64> reward;//排名-奖励
 };
@@ -2685,6 +2685,17 @@ struct msg_ArenaStartInfo :public NetCmd
 {
 	bool isStart;
 	INT waitPlayers;
+};
+struct tagArenaRewardRank
+{
+	INT rank;
+	char nickname[MAX_NICKNAME + 1];
+	INT64 nScore;
+	INT64 uid;
+};
+struct msg_ArenaReward :public NetCmd
+{
+	tagArenaRewardRank reward[0];
 };
 
 struct Reg_Server : public NetCmd 

@@ -19,6 +19,18 @@ namespace proto {
 
 namespace {
 
+const ::google::protobuf::Descriptor* ArenaRank_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ArenaRank_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ResArenaRankInfoMessage_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ResArenaRankInfoMessage_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ArenaRewardRank_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ArenaRewardRank_reflection_ = NULL;
+const ::google::protobuf::Descriptor* ResArenaRewardInfoMessage_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ResArenaRewardInfoMessage_reflection_ = NULL;
 const ::google::protobuf::Descriptor* ResArenaStartInfoMessage_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   ResArenaStartInfoMessage_reflection_ = NULL;
@@ -123,7 +135,74 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
     ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
       "Game60_FishingMessage.proto");
   GOOGLE_CHECK(file != NULL);
-  ResArenaStartInfoMessage_descriptor_ = file->message_type(0);
+  ArenaRank_descriptor_ = file->message_type(0);
+  static const int ArenaRank_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRank, rank_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRank, nscore_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRank, playerid_),
+  };
+  ArenaRank_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ArenaRank_descriptor_,
+      ArenaRank::default_instance_,
+      ArenaRank_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRank, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRank, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ArenaRank));
+  ResArenaRankInfoMessage_descriptor_ = file->message_type(1);
+  static const int ResArenaRankInfoMessage_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaRankInfoMessage, msgid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaRankInfoMessage, rankinfo_),
+  };
+  ResArenaRankInfoMessage_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ResArenaRankInfoMessage_descriptor_,
+      ResArenaRankInfoMessage::default_instance_,
+      ResArenaRankInfoMessage_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaRankInfoMessage, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaRankInfoMessage, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ResArenaRankInfoMessage));
+  ArenaRewardRank_descriptor_ = file->message_type(2);
+  static const int ArenaRewardRank_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRewardRank, rank_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRewardRank, nickname_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRewardRank, nscore_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRewardRank, playerid_),
+  };
+  ArenaRewardRank_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ArenaRewardRank_descriptor_,
+      ArenaRewardRank::default_instance_,
+      ArenaRewardRank_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRewardRank, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ArenaRewardRank, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ArenaRewardRank));
+  ResArenaRewardInfoMessage_descriptor_ = file->message_type(3);
+  static const int ResArenaRewardInfoMessage_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaRewardInfoMessage, msgid_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaRewardInfoMessage, reward_),
+  };
+  ResArenaRewardInfoMessage_reflection_ =
+    new ::google::protobuf::internal::GeneratedMessageReflection(
+      ResArenaRewardInfoMessage_descriptor_,
+      ResArenaRewardInfoMessage::default_instance_,
+      ResArenaRewardInfoMessage_offsets_,
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaRewardInfoMessage, _has_bits_[0]),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaRewardInfoMessage, _unknown_fields_),
+      -1,
+      ::google::protobuf::DescriptorPool::generated_pool(),
+      ::google::protobuf::MessageFactory::generated_factory(),
+      sizeof(ResArenaRewardInfoMessage));
+  ResArenaStartInfoMessage_descriptor_ = file->message_type(4);
   static const int ResArenaStartInfoMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaStartInfoMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResArenaStartInfoMessage, start_),
@@ -140,7 +219,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResArenaStartInfoMessage));
-  ReqEnterFishServerMessage_descriptor_ = file->message_type(1);
+  ReqEnterFishServerMessage_descriptor_ = file->message_type(5);
   static const int ReqEnterFishServerMessage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqEnterFishServerMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqEnterFishServerMessage, playeronlyid_),
@@ -156,7 +235,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ReqEnterFishServerMessage));
-  ResEnterFishServerMessage_descriptor_ = file->message_type(2);
+  ResEnterFishServerMessage_descriptor_ = file->message_type(6);
   static const int ResEnterFishServerMessage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResEnterFishServerMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResEnterFishServerMessage, serverstate_),
@@ -172,7 +251,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResEnterFishServerMessage));
-  ReqJoinRoomMessage_descriptor_ = file->message_type(3);
+  ReqJoinRoomMessage_descriptor_ = file->message_type(7);
   static const int ReqJoinRoomMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqJoinRoomMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqJoinRoomMessage, roomid_),
@@ -189,7 +268,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ReqJoinRoomMessage));
-  ResJoinRoomMessage_descriptor_ = file->message_type(4);
+  ResJoinRoomMessage_descriptor_ = file->message_type(8);
   static const int ResJoinRoomMessage_offsets_[5] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResJoinRoomMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResJoinRoomMessage, result_),
@@ -208,7 +287,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResJoinRoomMessage));
-  ResCmdFishMessage_descriptor_ = file->message_type(5);
+  ResCmdFishMessage_descriptor_ = file->message_type(9);
   static const int ResCmdFishMessage_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResCmdFishMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResCmdFishMessage, groupid_),
@@ -226,7 +305,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResCmdFishMessage));
-  ResCmdSyncFishMessage_descriptor_ = file->message_type(6);
+  ResCmdSyncFishMessage_descriptor_ = file->message_type(10);
   static const int ResCmdSyncFishMessage_offsets_[15] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResCmdSyncFishMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResCmdSyncFishMessage, fishid_),
@@ -255,7 +334,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResCmdSyncFishMessage));
-  ReqBulletMessage_descriptor_ = file->message_type(7);
+  ReqBulletMessage_descriptor_ = file->message_type(11);
   static const int ReqBulletMessage_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqBulletMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqBulletMessage, angle_),
@@ -273,7 +352,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ReqBulletMessage));
-  ResBulletMessage_descriptor_ = file->message_type(8);
+  ResBulletMessage_descriptor_ = file->message_type(12);
   static const int ResBulletMessage_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResBulletMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResBulletMessage, bulletid_),
@@ -294,7 +373,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResBulletMessage));
-  ResCatchedFreezeMessage_descriptor_ = file->message_type(9);
+  ResCatchedFreezeMessage_descriptor_ = file->message_type(13);
   static const int ResCatchedFreezeMessage_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResCatchedFreezeMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResCatchedFreezeMessage, bulletid_),
@@ -314,7 +393,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResCatchedFreezeMessage));
-  ResCatchedMessage_descriptor_ = file->message_type(10);
+  ResCatchedMessage_descriptor_ = file->message_type(14);
   static const int ResCatchedMessage_offsets_[6] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResCatchedMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResCatchedMessage, bulletid_),
@@ -334,7 +413,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResCatchedMessage));
-  FishCatchedInfo_descriptor_ = file->message_type(11);
+  FishCatchedInfo_descriptor_ = file->message_type(15);
   static const int FishCatchedInfo_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FishCatchedInfo, catchevent_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(FishCatchedInfo, fishid_),
@@ -352,7 +431,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(FishCatchedInfo));
-  ResClearSceneMessage_descriptor_ = file->message_type(12);
+  ResClearSceneMessage_descriptor_ = file->message_type(16);
   static const int ResClearSceneMessage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResClearSceneMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResClearSceneMessage, cleartype_),
@@ -368,7 +447,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResClearSceneMessage));
-  ResPlayerJoinMessage_descriptor_ = file->message_type(13);
+  ResPlayerJoinMessage_descriptor_ = file->message_type(17);
   static const int ResPlayerJoinMessage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResPlayerJoinMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResPlayerJoinMessage, playerdata_),
@@ -384,7 +463,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResPlayerJoinMessage));
-  PlayerData_descriptor_ = file->message_type(14);
+  PlayerData_descriptor_ = file->message_type(18);
   static const int PlayerData_offsets_[13] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlayerData, playerid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PlayerData, playername_),
@@ -411,7 +490,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(PlayerData));
-  ReqChangeLauncherMessage_descriptor_ = file->message_type(15);
+  ReqChangeLauncherMessage_descriptor_ = file->message_type(19);
   static const int ReqChangeLauncherMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqChangeLauncherMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqChangeLauncherMessage, seat_),
@@ -428,7 +507,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ReqChangeLauncherMessage));
-  ResChangeLauncherMessage_descriptor_ = file->message_type(16);
+  ResChangeLauncherMessage_descriptor_ = file->message_type(20);
   static const int ResChangeLauncherMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResChangeLauncherMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResChangeLauncherMessage, seat_),
@@ -445,7 +524,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResChangeLauncherMessage));
-  ReqChangeRateMessage_descriptor_ = file->message_type(17);
+  ReqChangeRateMessage_descriptor_ = file->message_type(21);
   static const int ReqChangeRateMessage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqChangeRateMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqChangeRateMessage, uprodownrate_),
@@ -461,7 +540,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ReqChangeRateMessage));
-  ResChangeRateMessage_descriptor_ = file->message_type(18);
+  ResChangeRateMessage_descriptor_ = file->message_type(22);
   static const int ResChangeRateMessage_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResChangeRateMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResChangeRateMessage, seat_),
@@ -479,7 +558,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResChangeRateMessage));
-  SyncBulletData_descriptor_ = file->message_type(19);
+  SyncBulletData_descriptor_ = file->message_type(23);
   static const int SyncBulletData_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SyncBulletData, bulletid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SyncBulletData, degree_),
@@ -500,7 +579,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(SyncBulletData));
-  ResSyncBulletDataMessage_descriptor_ = file->message_type(20);
+  ResSyncBulletDataMessage_descriptor_ = file->message_type(24);
   static const int ResSyncBulletDataMessage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResSyncBulletDataMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResSyncBulletDataMessage, syncbulletdata_),
@@ -516,7 +595,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResSyncBulletDataMessage));
-  ReqLeaveGameMessage_descriptor_ = file->message_type(21);
+  ReqLeaveGameMessage_descriptor_ = file->message_type(25);
   static const int ReqLeaveGameMessage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqLeaveGameMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqLeaveGameMessage, seat_),
@@ -532,7 +611,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ReqLeaveGameMessage));
-  ResLeaveGameMessage_descriptor_ = file->message_type(22);
+  ResLeaveGameMessage_descriptor_ = file->message_type(26);
   static const int ResLeaveGameMessage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResLeaveGameMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResLeaveGameMessage, seat_),
@@ -548,7 +627,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResLeaveGameMessage));
-  ReqLookUpPlayerInfoMessage_descriptor_ = file->message_type(23);
+  ReqLookUpPlayerInfoMessage_descriptor_ = file->message_type(27);
   static const int ReqLookUpPlayerInfoMessage_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqLookUpPlayerInfoMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqLookUpPlayerInfoMessage, playerid_),
@@ -564,7 +643,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ReqLookUpPlayerInfoMessage));
-  ResLookUpPlayerInfoMessage_descriptor_ = file->message_type(24);
+  ResLookUpPlayerInfoMessage_descriptor_ = file->message_type(28);
   static const int ResLookUpPlayerInfoMessage_offsets_[12] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResLookUpPlayerInfoMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResLookUpPlayerInfoMessage, playerid_),
@@ -590,7 +669,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResLookUpPlayerInfoMessage));
-  ResConnectFinishMessage_descriptor_ = file->message_type(25);
+  ResConnectFinishMessage_descriptor_ = file->message_type(29);
   static const int ResConnectFinishMessage_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResConnectFinishMessage, msgid_),
   };
@@ -605,7 +684,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResConnectFinishMessage));
-  ReqStartSyncFishMessage_descriptor_ = file->message_type(26);
+  ReqStartSyncFishMessage_descriptor_ = file->message_type(30);
   static const int ReqStartSyncFishMessage_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ReqStartSyncFishMessage, msgid_),
   };
@@ -620,7 +699,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ReqStartSyncFishMessage));
-  ResPlayerTickOutMessage_descriptor_ = file->message_type(27);
+  ResPlayerTickOutMessage_descriptor_ = file->message_type(31);
   static const int ResPlayerTickOutMessage_offsets_[1] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResPlayerTickOutMessage, msgid_),
   };
@@ -635,7 +714,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResPlayerTickOutMessage));
-  ResSyncAddMoneyMessage_descriptor_ = file->message_type(28);
+  ResSyncAddMoneyMessage_descriptor_ = file->message_type(32);
   static const int ResSyncAddMoneyMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResSyncAddMoneyMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResSyncAddMoneyMessage, add_goldnum_),
@@ -652,7 +731,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResSyncAddMoneyMessage));
-  ResUseGoodsKBMessage_descriptor_ = file->message_type(29);
+  ResUseGoodsKBMessage_descriptor_ = file->message_type(33);
   static const int ResUseGoodsKBMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResUseGoodsKBMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResUseGoodsKBMessage, seatid_),
@@ -669,7 +748,7 @@ void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto() {
       ::google::protobuf::DescriptorPool::generated_pool(),
       ::google::protobuf::MessageFactory::generated_factory(),
       sizeof(ResUseGoodsKBMessage));
-  ResUseGoodsBDMessage_descriptor_ = file->message_type(30);
+  ResUseGoodsBDMessage_descriptor_ = file->message_type(34);
   static const int ResUseGoodsBDMessage_offsets_[3] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResUseGoodsBDMessage, msgid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ResUseGoodsBDMessage, seatid_),
@@ -699,6 +778,14 @@ inline void protobuf_AssignDescriptorsOnce() {
 
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ArenaRank_descriptor_, &ArenaRank::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ResArenaRankInfoMessage_descriptor_, &ResArenaRankInfoMessage::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ArenaRewardRank_descriptor_, &ArenaRewardRank::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+    ResArenaRewardInfoMessage_descriptor_, &ResArenaRewardInfoMessage::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
     ResArenaStartInfoMessage_descriptor_, &ResArenaStartInfoMessage::default_instance());
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
@@ -766,6 +853,14 @@ void protobuf_RegisterTypes(const ::std::string&) {
 }  // namespace
 
 void protobuf_ShutdownFile_Game60_5fFishingMessage_2eproto() {
+  delete ArenaRank::default_instance_;
+  delete ArenaRank_reflection_;
+  delete ResArenaRankInfoMessage::default_instance_;
+  delete ResArenaRankInfoMessage_reflection_;
+  delete ArenaRewardRank::default_instance_;
+  delete ArenaRewardRank_reflection_;
+  delete ResArenaRewardInfoMessage::default_instance_;
+  delete ResArenaRewardInfoMessage_reflection_;
   delete ResArenaStartInfoMessage::default_instance_;
   delete ResArenaStartInfoMessage_reflection_;
   delete ReqEnterFishServerMessage::default_instance_;
@@ -838,142 +933,159 @@ void protobuf_AddDesc_Game60_5fFishingMessage_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\033Game60_FishingMessage.proto\022\016com.game."
-    "proto\"\205\001\n\030ResArenaStartInfoMessage\022F\n\005ms"
-    "gID\030\001 \001(\0162$.com.game.proto.Protos_Game60"
-    "Fishing:\021ResArenaStartInfo\022\r\n\005start\030\002 \001("
-    "\010\022\022\n\nwaitPlayer\030\003 \001(\005\"z\n\031ReqEnterFishSer"
-    "verMessage\022G\n\005msgID\030\001 \001(\0162$.com.game.pro"
-    "to.Protos_Game60Fishing:\022ReqEnterFishSer"
-    "ver\022\024\n\014playerOnlyID\030\002 \002(\003\"y\n\031ResEnterFis"
-    "hServerMessage\022G\n\005msgID\030\001 \001(\0162$.com.game"
-    ".proto.Protos_Game60Fishing:\022ResEnterFis"
-    "hServer\022\023\n\013serverState\030\002 \002(\005\"w\n\022ReqJoinR"
-    "oomMessage\022@\n\005msgID\030\001 \001(\0162$.com.game.pro"
-    "to.Protos_Game60Fishing:\013ReqJoinRoom\022\016\n\006"
-    "roomID\030\002 \002(\005\022\017\n\007isArena\030\003 \001(\005\"\277\001\n\022ResJoi"
-    "nRoomMessage\022@\n\005msgID\030\001 \001(\0162$.com.game.p"
-    "roto.Protos_Game60Fishing:\013ResJoinRoom\022\016"
-    "\n\006result\030\002 \002(\010\022\016\n\006roomID\030\003 \002(\005\022\027\n\017backgr"
-    "oundImage\030\004 \001(\005\022.\n\nplayerData\030\005 \001(\0132\032.co"
-    "m.game.proto.PlayerData\"\206\001\n\021ResCmdFishMe"
-    "ssage\022\?\n\005msgID\030\001 \001(\0162$.com.game.proto.Pr"
-    "otos_Game60Fishing:\nResCmdFish\022\017\n\007groupI"
-    "D\030\002 \002(\005\022\017\n\007startID\030\003 \002(\005\022\016\n\006pathID\030\004 \002(\005"
-    "\"\373\002\n\025ResCmdSyncFishMessage\022C\n\005msgID\030\001 \001("
-    "\0162$.com.game.proto.Protos_Game60Fishing:"
-    "\016ResCmdSyncFish\022\016\n\006fishID\030\002 \002(\005\022\017\n\007group"
-    "ID\030\003 \002(\005\022\020\n\010fishTime\030\004 \002(\001\022\021\n\tpathGroup\030"
-    "\005 \002(\005\022\017\n\007pathIdx\030\006 \002(\005\022\025\n\risActiveEvent\030"
-    "\007 \001(\010\022\023\n\013elapsedTime\030\010 \001(\005\022\021\n\tdelayType\030"
-    "\t \001(\005\022\024\n\014delayScaling\030\n \001(\005\022\026\n\016delayDura"
-    "tion1\030\013 \001(\005\022\026\n\016delayDuration2\030\014 \001(\005\022\026\n\016d"
-    "elayDuration3\030\r \001(\005\022\030\n\020delayCurrentTime\030"
-    "\016 \001(\005\022\017\n\007package\030\017 \001(\005\"\213\001\n\020ReqBulletMess"
-    "age\022>\n\005msgID\030\001 \001(\0162$.com.game.proto.Prot"
-    "os_Game60Fishing:\tReqBullet\022\r\n\005angle\030\002 \002"
-    "(\005\022\022\n\nlockFishID\030\003 \001(\005\022\024\n\014launcherType\030\004"
-    " \002(\005\"\303\001\n\020ResBulletMessage\022>\n\005msgID\030\001 \001(\016"
-    "2$.com.game.proto.Protos_Game60Fishing:\t"
-    "ResBullet\022\020\n\010bulletID\030\002 \002(\005\022\024\n\014launcherT"
-    "ype\030\003 \002(\005\022\r\n\005angle\030\004 \002(\005\022\016\n\006energy\030\005 \001(\005"
-    "\022\024\n\014reboundCount\030\006 \001(\005\022\022\n\nlockFishID\030\007 \001"
-    "(\005\"\336\001\n\027ResCatchedFreezeMessage\022E\n\005msgID\030"
-    "\001 \001(\0162$.com.game.proto.Protos_Game60Fish"
-    "ing:\020ResCatchedFreeze\022\020\n\010bulletID\030\002 \002(\005\022"
-    "\r\n\005combo\030\003 \002(\005\022\017\n\007goldNum\030\004 \002(\005\022\020\n\010Total"
-    "Num\030\005 \001(\005\0228\n\017fishCatchedList\030\006 \003(\0132\037.com"
-    ".game.proto.FishCatchedInfo\"\322\001\n\021ResCatch"
-    "edMessage\022\?\n\005msgID\030\001 \001(\0162$.com.game.prot"
-    "o.Protos_Game60Fishing:\nResCatched\022\020\n\010bu"
-    "lletID\030\002 \002(\005\022\r\n\005combo\030\003 \002(\005\022\017\n\007goldNum\030\004"
-    " \002(\005\022\020\n\010TotalNum\030\005 \001(\005\0228\n\017fishCatchedLis"
-    "t\030\006 \003(\0132\037.com.game.proto.FishCatchedInfo"
-    "\"^\n\017FishCatchedInfo\022\022\n\ncatchEvent\030\001 \001(\005\022"
-    "\016\n\006fishID\030\002 \002(\005\022\017\n\007nReward\030\003 \001(\005\022\026\n\016ligh"
-    "tingFishID\030\004 \001(\005\"m\n\024ResClearSceneMessage"
-    "\022B\n\005msgID\030\001 \001(\0162$.com.game.proto.Protos_"
-    "Game60Fishing:\rResClearScene\022\021\n\tclearTyp"
-    "e\030\002 \002(\005\"\212\001\n\024ResPlayerJoinMessage\022B\n\005msgI"
-    "D\030\001 \001(\0162$.com.game.proto.Protos_Game60Fi"
-    "shing:\rResPlayerJoin\022.\n\nplayerData\030\002 \002(\013"
-    "2\032.com.game.proto.PlayerData\"\355\001\n\nPlayerD"
-    "ata\022\020\n\010playerId\030\001 \001(\003\022\022\n\nplayerName\030\002 \001("
-    "\t\022\013\n\003sex\030\003 \001(\005\022\020\n\010headicon\030\004 \001(\005\022\014\n\004icon"
-    "\030\005 \001(\t\022\020\n\010vipLevel\030\006 \001(\005\022\017\n\007goldNum\030\007 \001("
-    "\003\022\014\n\004seat\030\010 \001(\005\022\024\n\014launcherType\030\t \001(\005\022\021\n"
-    "\trateIndex\030\n \001(\005\022\016\n\006energy\030\013 \001(\005\022\023\n\013bull"
-    "etCount\030\014 \001(\005\022\r\n\005score\030\r \001(\003\"\206\001\n\030ReqChan"
-    "geLauncherMessage\022F\n\005msgID\030\001 \001(\0162$.com.g"
-    "ame.proto.Protos_Game60Fishing:\021ReqChang"
-    "eLauncher\022\014\n\004seat\030\002 \002(\005\022\024\n\014launcherType\030"
-    "\003 \002(\005\"\206\001\n\030ResChangeLauncherMessage\022F\n\005ms"
-    "gID\030\001 \001(\0162$.com.game.proto.Protos_Game60"
-    "Fishing:\021ResChangeLauncher\022\014\n\004seat\030\002 \002(\005"
-    "\022\024\n\014launcherType\030\003 \002(\005\"p\n\024ReqChangeRateM"
-    "essage\022B\n\005msgID\030\001 \001(\0162$.com.game.proto.P"
-    "rotos_Game60Fishing:\rReqChangeRate\022\024\n\014Up"
-    "RoDownRate\030\002 \002(\010\"\221\001\n\024ResChangeRateMessag"
-    "e\022B\n\005msgID\030\001 \001(\0162$.com.game.proto.Protos"
-    "_Game60Fishing:\rResChangeRate\022\014\n\004Seat\030\002 "
-    "\002(\005\022\021\n\tRateIndex\030\003 \002(\005\022\024\n\014IsCanUseRate\030\004"
-    " \002(\010\"\217\001\n\016SyncBulletData\022\020\n\010BulletID\030\001 \001("
-    "\r\022\016\n\006Degree\030\002 \001(\005\022\014\n\004Time\030\003 \001(\r\022\022\n\nBulle"
-    "tType\030\004 \001(\005\022\017\n\007RateIdx\030\005 \001(\005\022\024\n\014ReboundC"
-    "ount\030\006 \001(\005\022\022\n\nLockFishID\030\007 \001(\r\"\232\001\n\030ResSy"
-    "ncBulletDataMessage\022F\n\005msgID\030\001 \001(\0162$.com"
-    ".game.proto.Protos_Game60Fishing:\021ResSyn"
-    "cBulletData\0226\n\016syncBulletData\030\002 \003(\0132\036.co"
-    "m.game.proto.SyncBulletData\"f\n\023ReqLeaveG"
-    "ameMessage\022A\n\005msgID\030\001 \001(\0162$.com.game.pro"
-    "to.Protos_Game60Fishing:\014ReqLeaveGame\022\014\n"
-    "\004seat\030\002 \002(\005\"f\n\023ResLeaveGameMessage\022A\n\005ms"
-    "gID\030\001 \001(\0162$.com.game.proto.Protos_Game60"
-    "Fishing:\014ResLeaveGame\022\014\n\004seat\030\002 \002(\005\"x\n\032R"
-    "eqLookUpPlayerInfoMessage\022H\n\005msgID\030\001 \001(\016"
-    "2$.com.game.proto.Protos_Game60Fishing:\023"
-    "ReqLookUpPlayerInfo\022\020\n\010playerId\030\002 \001(\003\"\245\002"
-    "\n\032ResLookUpPlayerInfoMessage\022H\n\005msgID\030\001 "
-    "\001(\0162$.com.game.proto.Protos_Game60Fishin"
-    "g:\023ResLookUpPlayerInfo\022\020\n\010playerId\030\002 \001(\003"
-    "\022\020\n\010vipLevel\030\003 \001(\005\022\014\n\004icon\030\004 \001(\t\022\014\n\004name"
-    "\030\005 \001(\t\022\013\n\003sex\030\006 \001(\005\022\017\n\007titleId\030\007 \001(\005\022\027\n\017"
-    "gameWinMaxMoney\030\010 \001(\001\022\r\n\005money\030\t \001(\001\022\022\n\n"
-    "charmValue\030\n \001(\005\022\021\n\tsignature\030\013 \001(\t\022\020\n\010h"
-    "eadIcon\030\014 \001(\005\"`\n\027ResConnectFinishMessage"
-    "\022E\n\005msgID\030\001 \001(\0162$.com.game.proto.Protos_"
-    "Game60Fishing:\020ResConnectFinish\"`\n\027ReqSt"
-    "artSyncFishMessage\022E\n\005msgID\030\001 \001(\0162$.com."
-    "game.proto.Protos_Game60Fishing:\020ReqStar"
-    "tSyncFish\"`\n\027ResPlayerTickOutMessage\022E\n\005"
+    "proto\";\n\tArenaRank\022\014\n\004rank\030\001 \001(\005\022\016\n\006nSco"
+    "re\030\002 \001(\003\022\020\n\010playerId\030\003 \001(\003\"\215\001\n\027ResArenaR"
+    "ankInfoMessage\022E\n\005msgID\030\001 \001(\0162$.com.game"
+    ".proto.Protos_Game60Fishing:\020ResArenaRan"
+    "kInfo\022+\n\010rankInfo\030\002 \003(\0132\031.com.game.proto"
+    ".ArenaRank\"S\n\017ArenaRewardRank\022\014\n\004rank\030\001 "
+    "\001(\005\022\020\n\010nickname\030\002 \001(\t\022\016\n\006nScore\030\003 \001(\003\022\020\n"
+    "\010playerId\030\004 \001(\003\"\225\001\n\031ResArenaRewardInfoMe"
+    "ssage\022G\n\005msgID\030\001 \001(\0162$.com.game.proto.Pr"
+    "otos_Game60Fishing:\022ResArenaRewardInfo\022/"
+    "\n\006reward\030\003 \003(\0132\037.com.game.proto.ArenaRew"
+    "ardRank\"\205\001\n\030ResArenaStartInfoMessage\022F\n\005"
     "msgID\030\001 \001(\0162$.com.game.proto.Protos_Game"
-    "60Fishing:\020ResPlayerTickOut\"\203\001\n\026ResSyncA"
-    "ddMoneyMessage\022D\n\005msgID\030\001 \001(\0162$.com.game"
-    ".proto.Protos_Game60Fishing:\017ResSyncAddM"
-    "oney\022\023\n\013add_goldNum\030\002 \002(\003\022\016\n\006reason\030\004 \001("
-    "\005\"|\n\024ResUseGoodsKBMessage\022B\n\005msgID\030\001 \001(\016"
-    "2$.com.game.proto.Protos_Game60Fishing:\r"
-    "ResUseGoodsKB\022\016\n\006seatID\030\002 \002(\005\022\020\n\010keepTim"
-    "e\030\003 \002(\r\"|\n\024ResUseGoodsBDMessage\022B\n\005msgID"
-    "\030\001 \001(\0162$.com.game.proto.Protos_Game60Fis"
-    "hing:\rResUseGoodsBD\022\016\n\006seatID\030\002 \002(\005\022\020\n\010k"
-    "eepTime\030\003 \002(\r*\347\004\n\024Protos_Game60Fishing\022\027"
-    "\n\022ReqEnterFishServer\020\361.\022\027\n\022ResEnterFishS"
-    "erver\020\362.\022\020\n\013ReqJoinRoom\020\363.\022\020\n\013ResJoinRoo"
-    "m\020\364.\022\017\n\nResCmdFish\020\366.\022\023\n\016ResCmdSyncFish\020"
-    "\370.\022\016\n\tReqBullet\020\371.\022\016\n\tResBullet\020\372.\022\017\n\nRe"
-    "sCatched\020\374.\022\022\n\rResClearScene\020\376.\022\022\n\rResPl"
-    "ayerJoin\020\200/\022\026\n\021ReqChangeLauncher\020\201/\022\026\n\021R"
-    "esChangeLauncher\020\202/\022\022\n\rReqChangeRate\020\203/\022"
-    "\022\n\rResChangeRate\020\204/\022\025\n\020ResCatchedFreeze\020"
-    "\206/\022\026\n\021ResSyncBulletData\020\210/\022\021\n\014ReqLeaveGa"
-    "me\020\211/\022\021\n\014ResLeaveGame\020\212/\022\030\n\023ReqLookUpPla"
-    "yerInfo\020\213/\022\030\n\023ResLookUpPlayerInfo\020\214/\022\025\n\020"
-    "ResConnectFinish\020\216/\022\025\n\020ReqStartSyncFish\020"
-    "\217/\022\025\n\020ResPlayerTickOut\020\220/\022\024\n\017ResSyncAddM"
-    "oney\020\222/\022\022\n\rResUseGoodsKB\020\224/\022\022\n\rResUseGoo"
-    "dsBD\020\226/\022\026\n\021ResArenaStartInfo\020\230/", 5391);
+    "60Fishing:\021ResArenaStartInfo\022\r\n\005start\030\002 "
+    "\001(\010\022\022\n\nwaitPlayer\030\003 \001(\005\"z\n\031ReqEnterFishS"
+    "erverMessage\022G\n\005msgID\030\001 \001(\0162$.com.game.p"
+    "roto.Protos_Game60Fishing:\022ReqEnterFishS"
+    "erver\022\024\n\014playerOnlyID\030\002 \002(\003\"y\n\031ResEnterF"
+    "ishServerMessage\022G\n\005msgID\030\001 \001(\0162$.com.ga"
+    "me.proto.Protos_Game60Fishing:\022ResEnterF"
+    "ishServer\022\023\n\013serverState\030\002 \002(\005\"w\n\022ReqJoi"
+    "nRoomMessage\022@\n\005msgID\030\001 \001(\0162$.com.game.p"
+    "roto.Protos_Game60Fishing:\013ReqJoinRoom\022\016"
+    "\n\006roomID\030\002 \002(\005\022\017\n\007isArena\030\003 \001(\005\"\277\001\n\022ResJ"
+    "oinRoomMessage\022@\n\005msgID\030\001 \001(\0162$.com.game"
+    ".proto.Protos_Game60Fishing:\013ResJoinRoom"
+    "\022\016\n\006result\030\002 \002(\010\022\016\n\006roomID\030\003 \002(\005\022\027\n\017back"
+    "groundImage\030\004 \001(\005\022.\n\nplayerData\030\005 \001(\0132\032."
+    "com.game.proto.PlayerData\"\206\001\n\021ResCmdFish"
+    "Message\022\?\n\005msgID\030\001 \001(\0162$.com.game.proto."
+    "Protos_Game60Fishing:\nResCmdFish\022\017\n\007grou"
+    "pID\030\002 \002(\005\022\017\n\007startID\030\003 \002(\005\022\016\n\006pathID\030\004 \002"
+    "(\005\"\373\002\n\025ResCmdSyncFishMessage\022C\n\005msgID\030\001 "
+    "\001(\0162$.com.game.proto.Protos_Game60Fishin"
+    "g:\016ResCmdSyncFish\022\016\n\006fishID\030\002 \002(\005\022\017\n\007gro"
+    "upID\030\003 \002(\005\022\020\n\010fishTime\030\004 \002(\001\022\021\n\tpathGrou"
+    "p\030\005 \002(\005\022\017\n\007pathIdx\030\006 \002(\005\022\025\n\risActiveEven"
+    "t\030\007 \001(\010\022\023\n\013elapsedTime\030\010 \001(\005\022\021\n\tdelayTyp"
+    "e\030\t \001(\005\022\024\n\014delayScaling\030\n \001(\005\022\026\n\016delayDu"
+    "ration1\030\013 \001(\005\022\026\n\016delayDuration2\030\014 \001(\005\022\026\n"
+    "\016delayDuration3\030\r \001(\005\022\030\n\020delayCurrentTim"
+    "e\030\016 \001(\005\022\017\n\007package\030\017 \001(\005\"\213\001\n\020ReqBulletMe"
+    "ssage\022>\n\005msgID\030\001 \001(\0162$.com.game.proto.Pr"
+    "otos_Game60Fishing:\tReqBullet\022\r\n\005angle\030\002"
+    " \002(\005\022\022\n\nlockFishID\030\003 \001(\005\022\024\n\014launcherType"
+    "\030\004 \002(\005\"\303\001\n\020ResBulletMessage\022>\n\005msgID\030\001 \001"
+    "(\0162$.com.game.proto.Protos_Game60Fishing"
+    ":\tResBullet\022\020\n\010bulletID\030\002 \002(\005\022\024\n\014launche"
+    "rType\030\003 \002(\005\022\r\n\005angle\030\004 \002(\005\022\016\n\006energy\030\005 \001"
+    "(\005\022\024\n\014reboundCount\030\006 \001(\005\022\022\n\nlockFishID\030\007"
+    " \001(\005\"\336\001\n\027ResCatchedFreezeMessage\022E\n\005msgI"
+    "D\030\001 \001(\0162$.com.game.proto.Protos_Game60Fi"
+    "shing:\020ResCatchedFreeze\022\020\n\010bulletID\030\002 \002("
+    "\005\022\r\n\005combo\030\003 \002(\005\022\017\n\007goldNum\030\004 \002(\005\022\020\n\010Tot"
+    "alNum\030\005 \001(\005\0228\n\017fishCatchedList\030\006 \003(\0132\037.c"
+    "om.game.proto.FishCatchedInfo\"\322\001\n\021ResCat"
+    "chedMessage\022\?\n\005msgID\030\001 \001(\0162$.com.game.pr"
+    "oto.Protos_Game60Fishing:\nResCatched\022\020\n\010"
+    "bulletID\030\002 \002(\005\022\r\n\005combo\030\003 \002(\005\022\017\n\007goldNum"
+    "\030\004 \002(\005\022\020\n\010TotalNum\030\005 \001(\005\0228\n\017fishCatchedL"
+    "ist\030\006 \003(\0132\037.com.game.proto.FishCatchedIn"
+    "fo\"^\n\017FishCatchedInfo\022\022\n\ncatchEvent\030\001 \001("
+    "\005\022\016\n\006fishID\030\002 \002(\005\022\017\n\007nReward\030\003 \001(\005\022\026\n\016li"
+    "ghtingFishID\030\004 \001(\005\"m\n\024ResClearSceneMessa"
+    "ge\022B\n\005msgID\030\001 \001(\0162$.com.game.proto.Proto"
+    "s_Game60Fishing:\rResClearScene\022\021\n\tclearT"
+    "ype\030\002 \002(\005\"\212\001\n\024ResPlayerJoinMessage\022B\n\005ms"
+    "gID\030\001 \001(\0162$.com.game.proto.Protos_Game60"
+    "Fishing:\rResPlayerJoin\022.\n\nplayerData\030\002 \002"
+    "(\0132\032.com.game.proto.PlayerData\"\355\001\n\nPlaye"
+    "rData\022\020\n\010playerId\030\001 \001(\003\022\022\n\nplayerName\030\002 "
+    "\001(\t\022\013\n\003sex\030\003 \001(\005\022\020\n\010headicon\030\004 \001(\005\022\014\n\004ic"
+    "on\030\005 \001(\t\022\020\n\010vipLevel\030\006 \001(\005\022\017\n\007goldNum\030\007 "
+    "\001(\003\022\014\n\004seat\030\010 \001(\005\022\024\n\014launcherType\030\t \001(\005\022"
+    "\021\n\trateIndex\030\n \001(\005\022\016\n\006energy\030\013 \001(\005\022\023\n\013bu"
+    "lletCount\030\014 \001(\005\022\r\n\005score\030\r \001(\003\"\206\001\n\030ReqCh"
+    "angeLauncherMessage\022F\n\005msgID\030\001 \001(\0162$.com"
+    ".game.proto.Protos_Game60Fishing:\021ReqCha"
+    "ngeLauncher\022\014\n\004seat\030\002 \002(\005\022\024\n\014launcherTyp"
+    "e\030\003 \002(\005\"\206\001\n\030ResChangeLauncherMessage\022F\n\005"
+    "msgID\030\001 \001(\0162$.com.game.proto.Protos_Game"
+    "60Fishing:\021ResChangeLauncher\022\014\n\004seat\030\002 \002"
+    "(\005\022\024\n\014launcherType\030\003 \002(\005\"p\n\024ReqChangeRat"
+    "eMessage\022B\n\005msgID\030\001 \001(\0162$.com.game.proto"
+    ".Protos_Game60Fishing:\rReqChangeRate\022\024\n\014"
+    "UpRoDownRate\030\002 \002(\010\"\221\001\n\024ResChangeRateMess"
+    "age\022B\n\005msgID\030\001 \001(\0162$.com.game.proto.Prot"
+    "os_Game60Fishing:\rResChangeRate\022\014\n\004Seat\030"
+    "\002 \002(\005\022\021\n\tRateIndex\030\003 \002(\005\022\024\n\014IsCanUseRate"
+    "\030\004 \002(\010\"\217\001\n\016SyncBulletData\022\020\n\010BulletID\030\001 "
+    "\001(\r\022\016\n\006Degree\030\002 \001(\005\022\014\n\004Time\030\003 \001(\r\022\022\n\nBul"
+    "letType\030\004 \001(\005\022\017\n\007RateIdx\030\005 \001(\005\022\024\n\014Reboun"
+    "dCount\030\006 \001(\005\022\022\n\nLockFishID\030\007 \001(\r\"\232\001\n\030Res"
+    "SyncBulletDataMessage\022F\n\005msgID\030\001 \001(\0162$.c"
+    "om.game.proto.Protos_Game60Fishing:\021ResS"
+    "yncBulletData\0226\n\016syncBulletData\030\002 \003(\0132\036."
+    "com.game.proto.SyncBulletData\"f\n\023ReqLeav"
+    "eGameMessage\022A\n\005msgID\030\001 \001(\0162$.com.game.p"
+    "roto.Protos_Game60Fishing:\014ReqLeaveGame\022"
+    "\014\n\004seat\030\002 \002(\005\"f\n\023ResLeaveGameMessage\022A\n\005"
+    "msgID\030\001 \001(\0162$.com.game.proto.Protos_Game"
+    "60Fishing:\014ResLeaveGame\022\014\n\004seat\030\002 \002(\005\"x\n"
+    "\032ReqLookUpPlayerInfoMessage\022H\n\005msgID\030\001 \001"
+    "(\0162$.com.game.proto.Protos_Game60Fishing"
+    ":\023ReqLookUpPlayerInfo\022\020\n\010playerId\030\002 \001(\003\""
+    "\245\002\n\032ResLookUpPlayerInfoMessage\022H\n\005msgID\030"
+    "\001 \001(\0162$.com.game.proto.Protos_Game60Fish"
+    "ing:\023ResLookUpPlayerInfo\022\020\n\010playerId\030\002 \001"
+    "(\003\022\020\n\010vipLevel\030\003 \001(\005\022\014\n\004icon\030\004 \001(\t\022\014\n\004na"
+    "me\030\005 \001(\t\022\013\n\003sex\030\006 \001(\005\022\017\n\007titleId\030\007 \001(\005\022\027"
+    "\n\017gameWinMaxMoney\030\010 \001(\001\022\r\n\005money\030\t \001(\001\022\022"
+    "\n\ncharmValue\030\n \001(\005\022\021\n\tsignature\030\013 \001(\t\022\020\n"
+    "\010headIcon\030\014 \001(\005\"`\n\027ResConnectFinishMessa"
+    "ge\022E\n\005msgID\030\001 \001(\0162$.com.game.proto.Proto"
+    "s_Game60Fishing:\020ResConnectFinish\"`\n\027Req"
+    "StartSyncFishMessage\022E\n\005msgID\030\001 \001(\0162$.co"
+    "m.game.proto.Protos_Game60Fishing:\020ReqSt"
+    "artSyncFish\"`\n\027ResPlayerTickOutMessage\022E"
+    "\n\005msgID\030\001 \001(\0162$.com.game.proto.Protos_Ga"
+    "me60Fishing:\020ResPlayerTickOut\"\203\001\n\026ResSyn"
+    "cAddMoneyMessage\022D\n\005msgID\030\001 \001(\0162$.com.ga"
+    "me.proto.Protos_Game60Fishing:\017ResSyncAd"
+    "dMoney\022\023\n\013add_goldNum\030\002 \002(\003\022\016\n\006reason\030\004 "
+    "\001(\005\"|\n\024ResUseGoodsKBMessage\022B\n\005msgID\030\001 \001"
+    "(\0162$.com.game.proto.Protos_Game60Fishing"
+    ":\rResUseGoodsKB\022\016\n\006seatID\030\002 \002(\005\022\020\n\010keepT"
+    "ime\030\003 \002(\r\"|\n\024ResUseGoodsBDMessage\022B\n\005msg"
+    "ID\030\001 \001(\0162$.com.game.proto.Protos_Game60F"
+    "ishing:\rResUseGoodsBD\022\016\n\006seatID\030\002 \002(\005\022\020\n"
+    "\010keepTime\030\003 \002(\r*\227\005\n\024Protos_Game60Fishing"
+    "\022\027\n\022ReqEnterFishServer\020\361.\022\027\n\022ResEnterFis"
+    "hServer\020\362.\022\020\n\013ReqJoinRoom\020\363.\022\020\n\013ResJoinR"
+    "oom\020\364.\022\017\n\nResCmdFish\020\366.\022\023\n\016ResCmdSyncFis"
+    "h\020\370.\022\016\n\tReqBullet\020\371.\022\016\n\tResBullet\020\372.\022\017\n\n"
+    "ResCatched\020\374.\022\022\n\rResClearScene\020\376.\022\022\n\rRes"
+    "PlayerJoin\020\200/\022\026\n\021ReqChangeLauncher\020\201/\022\026\n"
+    "\021ResChangeLauncher\020\202/\022\022\n\rReqChangeRate\020\203"
+    "/\022\022\n\rResChangeRate\020\204/\022\025\n\020ResCatchedFreez"
+    "e\020\206/\022\026\n\021ResSyncBulletData\020\210/\022\021\n\014ReqLeave"
+    "Game\020\211/\022\021\n\014ResLeaveGame\020\212/\022\030\n\023ReqLookUpP"
+    "layerInfo\020\213/\022\030\n\023ResLookUpPlayerInfo\020\214/\022\025"
+    "\n\020ResConnectFinish\020\216/\022\025\n\020ReqStartSyncFis"
+    "h\020\217/\022\025\n\020ResPlayerTickOut\020\220/\022\024\n\017ResSyncAd"
+    "dMoney\020\222/\022\022\n\rResUseGoodsKB\020\224/\022\022\n\rResUseG"
+    "oodsBD\020\226/\022\026\n\021ResArenaStartInfo\020\230/\022\027\n\022Res"
+    "ArenaRewardInfo\020\232/\022\025\n\020ResArenaRankInfo\020\234"
+    "/", 5881);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Game60_FishingMessage.proto", &protobuf_RegisterTypes);
+  ArenaRank::default_instance_ = new ArenaRank();
+  ResArenaRankInfoMessage::default_instance_ = new ResArenaRankInfoMessage();
+  ArenaRewardRank::default_instance_ = new ArenaRewardRank();
+  ResArenaRewardInfoMessage::default_instance_ = new ResArenaRewardInfoMessage();
   ResArenaStartInfoMessage::default_instance_ = new ResArenaStartInfoMessage();
   ReqEnterFishServerMessage::default_instance_ = new ReqEnterFishServerMessage();
   ResEnterFishServerMessage::default_instance_ = new ResEnterFishServerMessage();
@@ -1005,6 +1117,10 @@ void protobuf_AddDesc_Game60_5fFishingMessage_2eproto() {
   ResSyncAddMoneyMessage::default_instance_ = new ResSyncAddMoneyMessage();
   ResUseGoodsKBMessage::default_instance_ = new ResUseGoodsKBMessage();
   ResUseGoodsBDMessage::default_instance_ = new ResUseGoodsBDMessage();
+  ArenaRank::default_instance_->InitAsDefaultInstance();
+  ResArenaRankInfoMessage::default_instance_->InitAsDefaultInstance();
+  ArenaRewardRank::default_instance_->InitAsDefaultInstance();
+  ResArenaRewardInfoMessage::default_instance_->InitAsDefaultInstance();
   ResArenaStartInfoMessage::default_instance_->InitAsDefaultInstance();
   ReqEnterFishServerMessage::default_instance_->InitAsDefaultInstance();
   ResEnterFishServerMessage::default_instance_->InitAsDefaultInstance();
@@ -1080,10 +1196,1149 @@ bool Protos_Game60Fishing_IsValid(int value) {
     case 6036:
     case 6038:
     case 6040:
+    case 6042:
+    case 6044:
       return true;
     default:
       return false;
   }
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int ArenaRank::kRankFieldNumber;
+const int ArenaRank::kNScoreFieldNumber;
+const int ArenaRank::kPlayerIdFieldNumber;
+#endif  // !_MSC_VER
+
+ArenaRank::ArenaRank()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void ArenaRank::InitAsDefaultInstance() {
+}
+
+ArenaRank::ArenaRank(const ArenaRank& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void ArenaRank::SharedCtor() {
+  _cached_size_ = 0;
+  rank_ = 0;
+  nscore_ = GOOGLE_LONGLONG(0);
+  playerid_ = GOOGLE_LONGLONG(0);
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ArenaRank::~ArenaRank() {
+  SharedDtor();
+}
+
+void ArenaRank::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void ArenaRank::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ArenaRank::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ArenaRank_descriptor_;
+}
+
+const ArenaRank& ArenaRank::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Game60_5fFishingMessage_2eproto();  return *default_instance_;
+}
+
+ArenaRank* ArenaRank::default_instance_ = NULL;
+
+ArenaRank* ArenaRank::New() const {
+  return new ArenaRank;
+}
+
+void ArenaRank::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    rank_ = 0;
+    nscore_ = GOOGLE_LONGLONG(0);
+    playerid_ = GOOGLE_LONGLONG(0);
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ArenaRank::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int32 rank = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &rank_)));
+          set_has_rank();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(16)) goto parse_nScore;
+        break;
+      }
+      
+      // optional int64 nScore = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_nScore:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &nscore_)));
+          set_has_nscore();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(24)) goto parse_playerId;
+        break;
+      }
+      
+      // optional int64 playerId = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_playerId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &playerid_)));
+          set_has_playerid();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void ArenaRank::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional int32 rank = 1;
+  if (has_rank()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->rank(), output);
+  }
+  
+  // optional int64 nScore = 2;
+  if (has_nscore()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(2, this->nscore(), output);
+  }
+  
+  // optional int64 playerId = 3;
+  if (has_playerid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->playerid(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ArenaRank::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional int32 rank = 1;
+  if (has_rank()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->rank(), target);
+  }
+  
+  // optional int64 nScore = 2;
+  if (has_nscore()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(2, this->nscore(), target);
+  }
+  
+  // optional int64 playerId = 3;
+  if (has_playerid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->playerid(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int ArenaRank::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional int32 rank = 1;
+    if (has_rank()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->rank());
+    }
+    
+    // optional int64 nScore = 2;
+    if (has_nscore()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->nscore());
+    }
+    
+    // optional int64 playerId = 3;
+    if (has_playerid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->playerid());
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ArenaRank::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ArenaRank* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ArenaRank*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ArenaRank::MergeFrom(const ArenaRank& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_rank()) {
+      set_rank(from.rank());
+    }
+    if (from.has_nscore()) {
+      set_nscore(from.nscore());
+    }
+    if (from.has_playerid()) {
+      set_playerid(from.playerid());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ArenaRank::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ArenaRank::CopyFrom(const ArenaRank& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ArenaRank::IsInitialized() const {
+  
+  return true;
+}
+
+void ArenaRank::Swap(ArenaRank* other) {
+  if (other != this) {
+    std::swap(rank_, other->rank_);
+    std::swap(nscore_, other->nscore_);
+    std::swap(playerid_, other->playerid_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata ArenaRank::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ArenaRank_descriptor_;
+  metadata.reflection = ArenaRank_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int ResArenaRankInfoMessage::kMsgIDFieldNumber;
+const int ResArenaRankInfoMessage::kRankInfoFieldNumber;
+#endif  // !_MSC_VER
+
+ResArenaRankInfoMessage::ResArenaRankInfoMessage()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void ResArenaRankInfoMessage::InitAsDefaultInstance() {
+}
+
+ResArenaRankInfoMessage::ResArenaRankInfoMessage(const ResArenaRankInfoMessage& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void ResArenaRankInfoMessage::SharedCtor() {
+  _cached_size_ = 0;
+  msgid_ = 6044;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ResArenaRankInfoMessage::~ResArenaRankInfoMessage() {
+  SharedDtor();
+}
+
+void ResArenaRankInfoMessage::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void ResArenaRankInfoMessage::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ResArenaRankInfoMessage::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ResArenaRankInfoMessage_descriptor_;
+}
+
+const ResArenaRankInfoMessage& ResArenaRankInfoMessage::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Game60_5fFishingMessage_2eproto();  return *default_instance_;
+}
+
+ResArenaRankInfoMessage* ResArenaRankInfoMessage::default_instance_ = NULL;
+
+ResArenaRankInfoMessage* ResArenaRankInfoMessage::New() const {
+  return new ResArenaRankInfoMessage;
+}
+
+void ResArenaRankInfoMessage::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    msgid_ = 6044;
+  }
+  rankinfo_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ResArenaRankInfoMessage::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRankInfo];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (com::game::proto::Protos_Game60Fishing_IsValid(value)) {
+            set_msgid(static_cast< com::game::proto::Protos_Game60Fishing >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(1, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_rankInfo;
+        break;
+      }
+      
+      // repeated .com.game.proto.ArenaRank rankInfo = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_rankInfo:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_rankinfo()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_rankInfo;
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void ResArenaRankInfoMessage::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRankInfo];
+  if (has_msgid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->msgid(), output);
+  }
+  
+  // repeated .com.game.proto.ArenaRank rankInfo = 2;
+  for (int i = 0; i < this->rankinfo_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->rankinfo(i), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ResArenaRankInfoMessage::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRankInfo];
+  if (has_msgid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->msgid(), target);
+  }
+  
+  // repeated .com.game.proto.ArenaRank rankInfo = 2;
+  for (int i = 0; i < this->rankinfo_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        2, this->rankinfo(i), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int ResArenaRankInfoMessage::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRankInfo];
+    if (has_msgid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->msgid());
+    }
+    
+  }
+  // repeated .com.game.proto.ArenaRank rankInfo = 2;
+  total_size += 1 * this->rankinfo_size();
+  for (int i = 0; i < this->rankinfo_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->rankinfo(i));
+  }
+  
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ResArenaRankInfoMessage::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ResArenaRankInfoMessage* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ResArenaRankInfoMessage*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ResArenaRankInfoMessage::MergeFrom(const ResArenaRankInfoMessage& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  rankinfo_.MergeFrom(from.rankinfo_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_msgid()) {
+      set_msgid(from.msgid());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ResArenaRankInfoMessage::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ResArenaRankInfoMessage::CopyFrom(const ResArenaRankInfoMessage& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ResArenaRankInfoMessage::IsInitialized() const {
+  
+  return true;
+}
+
+void ResArenaRankInfoMessage::Swap(ResArenaRankInfoMessage* other) {
+  if (other != this) {
+    std::swap(msgid_, other->msgid_);
+    rankinfo_.Swap(&other->rankinfo_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata ResArenaRankInfoMessage::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ResArenaRankInfoMessage_descriptor_;
+  metadata.reflection = ResArenaRankInfoMessage_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int ArenaRewardRank::kRankFieldNumber;
+const int ArenaRewardRank::kNicknameFieldNumber;
+const int ArenaRewardRank::kNScoreFieldNumber;
+const int ArenaRewardRank::kPlayerIdFieldNumber;
+#endif  // !_MSC_VER
+
+ArenaRewardRank::ArenaRewardRank()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void ArenaRewardRank::InitAsDefaultInstance() {
+}
+
+ArenaRewardRank::ArenaRewardRank(const ArenaRewardRank& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void ArenaRewardRank::SharedCtor() {
+  _cached_size_ = 0;
+  rank_ = 0;
+  nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+  nscore_ = GOOGLE_LONGLONG(0);
+  playerid_ = GOOGLE_LONGLONG(0);
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ArenaRewardRank::~ArenaRewardRank() {
+  SharedDtor();
+}
+
+void ArenaRewardRank::SharedDtor() {
+  if (nickname_ != &::google::protobuf::internal::kEmptyString) {
+    delete nickname_;
+  }
+  if (this != default_instance_) {
+  }
+}
+
+void ArenaRewardRank::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ArenaRewardRank::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ArenaRewardRank_descriptor_;
+}
+
+const ArenaRewardRank& ArenaRewardRank::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Game60_5fFishingMessage_2eproto();  return *default_instance_;
+}
+
+ArenaRewardRank* ArenaRewardRank::default_instance_ = NULL;
+
+ArenaRewardRank* ArenaRewardRank::New() const {
+  return new ArenaRewardRank;
+}
+
+void ArenaRewardRank::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    rank_ = 0;
+    if (has_nickname()) {
+      if (nickname_ != &::google::protobuf::internal::kEmptyString) {
+        nickname_->clear();
+      }
+    }
+    nscore_ = GOOGLE_LONGLONG(0);
+    playerid_ = GOOGLE_LONGLONG(0);
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ArenaRewardRank::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional int32 rank = 1;
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &rank_)));
+          set_has_rank();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(18)) goto parse_nickname;
+        break;
+      }
+      
+      // optional string nickname = 2;
+      case 2: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_nickname:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_nickname()));
+          ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+            this->nickname().data(), this->nickname().length(),
+            ::google::protobuf::internal::WireFormat::PARSE);
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(24)) goto parse_nScore;
+        break;
+      }
+      
+      // optional int64 nScore = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_nScore:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &nscore_)));
+          set_has_nscore();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(32)) goto parse_playerId;
+        break;
+      }
+      
+      // optional int64 playerId = 4;
+      case 4: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+         parse_playerId:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
+                 input, &playerid_)));
+          set_has_playerid();
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void ArenaRewardRank::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional int32 rank = 1;
+  if (has_rank()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->rank(), output);
+  }
+  
+  // optional string nickname = 2;
+  if (has_nickname()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->nickname().data(), this->nickname().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    ::google::protobuf::internal::WireFormatLite::WriteString(
+      2, this->nickname(), output);
+  }
+  
+  // optional int64 nScore = 3;
+  if (has_nscore()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(3, this->nscore(), output);
+  }
+  
+  // optional int64 playerId = 4;
+  if (has_playerid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(4, this->playerid(), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ArenaRewardRank::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional int32 rank = 1;
+  if (has_rank()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->rank(), target);
+  }
+  
+  // optional string nickname = 2;
+  if (has_nickname()) {
+    ::google::protobuf::internal::WireFormat::VerifyUTF8String(
+      this->nickname().data(), this->nickname().length(),
+      ::google::protobuf::internal::WireFormat::SERIALIZE);
+    target =
+      ::google::protobuf::internal::WireFormatLite::WriteStringToArray(
+        2, this->nickname(), target);
+  }
+  
+  // optional int64 nScore = 3;
+  if (has_nscore()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(3, this->nscore(), target);
+  }
+  
+  // optional int64 playerId = 4;
+  if (has_playerid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(4, this->playerid(), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int ArenaRewardRank::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional int32 rank = 1;
+    if (has_rank()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->rank());
+    }
+    
+    // optional string nickname = 2;
+    if (has_nickname()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->nickname());
+    }
+    
+    // optional int64 nScore = 3;
+    if (has_nscore()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->nscore());
+    }
+    
+    // optional int64 playerId = 4;
+    if (has_playerid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
+          this->playerid());
+    }
+    
+  }
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ArenaRewardRank::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ArenaRewardRank* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ArenaRewardRank*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ArenaRewardRank::MergeFrom(const ArenaRewardRank& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_rank()) {
+      set_rank(from.rank());
+    }
+    if (from.has_nickname()) {
+      set_nickname(from.nickname());
+    }
+    if (from.has_nscore()) {
+      set_nscore(from.nscore());
+    }
+    if (from.has_playerid()) {
+      set_playerid(from.playerid());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ArenaRewardRank::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ArenaRewardRank::CopyFrom(const ArenaRewardRank& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ArenaRewardRank::IsInitialized() const {
+  
+  return true;
+}
+
+void ArenaRewardRank::Swap(ArenaRewardRank* other) {
+  if (other != this) {
+    std::swap(rank_, other->rank_);
+    std::swap(nickname_, other->nickname_);
+    std::swap(nscore_, other->nscore_);
+    std::swap(playerid_, other->playerid_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata ArenaRewardRank::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ArenaRewardRank_descriptor_;
+  metadata.reflection = ArenaRewardRank_reflection_;
+  return metadata;
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int ResArenaRewardInfoMessage::kMsgIDFieldNumber;
+const int ResArenaRewardInfoMessage::kRewardFieldNumber;
+#endif  // !_MSC_VER
+
+ResArenaRewardInfoMessage::ResArenaRewardInfoMessage()
+  : ::google::protobuf::Message() {
+  SharedCtor();
+}
+
+void ResArenaRewardInfoMessage::InitAsDefaultInstance() {
+}
+
+ResArenaRewardInfoMessage::ResArenaRewardInfoMessage(const ResArenaRewardInfoMessage& from)
+  : ::google::protobuf::Message() {
+  SharedCtor();
+  MergeFrom(from);
+}
+
+void ResArenaRewardInfoMessage::SharedCtor() {
+  _cached_size_ = 0;
+  msgid_ = 6042;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ResArenaRewardInfoMessage::~ResArenaRewardInfoMessage() {
+  SharedDtor();
+}
+
+void ResArenaRewardInfoMessage::SharedDtor() {
+  if (this != default_instance_) {
+  }
+}
+
+void ResArenaRewardInfoMessage::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ::google::protobuf::Descriptor* ResArenaRewardInfoMessage::descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return ResArenaRewardInfoMessage_descriptor_;
+}
+
+const ResArenaRewardInfoMessage& ResArenaRewardInfoMessage::default_instance() {
+  if (default_instance_ == NULL) protobuf_AddDesc_Game60_5fFishingMessage_2eproto();  return *default_instance_;
+}
+
+ResArenaRewardInfoMessage* ResArenaRewardInfoMessage::default_instance_ = NULL;
+
+ResArenaRewardInfoMessage* ResArenaRewardInfoMessage::New() const {
+  return new ResArenaRewardInfoMessage;
+}
+
+void ResArenaRewardInfoMessage::Clear() {
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    msgid_ = 6042;
+  }
+  reward_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->Clear();
+}
+
+bool ResArenaRewardInfoMessage::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) return false
+  ::google::protobuf::uint32 tag;
+  while ((tag = input->ReadTag()) != 0) {
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRewardInfo];
+      case 1: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (com::game::proto::Protos_Game60Fishing_IsValid(value)) {
+            set_msgid(static_cast< com::game::proto::Protos_Game60Fishing >(value));
+          } else {
+            mutable_unknown_fields()->AddVarint(1, value);
+          }
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_reward;
+        break;
+      }
+      
+      // repeated .com.game.proto.ArenaRewardRank reward = 3;
+      case 3: {
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_LENGTH_DELIMITED) {
+         parse_reward:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+                input, add_reward()));
+        } else {
+          goto handle_uninterpreted;
+        }
+        if (input->ExpectTag(26)) goto parse_reward;
+        if (input->ExpectAtEnd()) return true;
+        break;
+      }
+      
+      default: {
+      handle_uninterpreted:
+        if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          return true;
+        }
+        DO_(::google::protobuf::internal::WireFormat::SkipField(
+              input, tag, mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+  return true;
+#undef DO_
+}
+
+void ResArenaRewardInfoMessage::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRewardInfo];
+  if (has_msgid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->msgid(), output);
+  }
+  
+  // repeated .com.game.proto.ArenaRewardRank reward = 3;
+  for (int i = 0; i < this->reward_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      3, this->reward(i), output);
+  }
+  
+  if (!unknown_fields().empty()) {
+    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
+        unknown_fields(), output);
+  }
+}
+
+::google::protobuf::uint8* ResArenaRewardInfoMessage::SerializeWithCachedSizesToArray(
+    ::google::protobuf::uint8* target) const {
+  // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRewardInfo];
+  if (has_msgid()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
+      1, this->msgid(), target);
+  }
+  
+  // repeated .com.game.proto.ArenaRewardRank reward = 3;
+  for (int i = 0; i < this->reward_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteMessageNoVirtualToArray(
+        3, this->reward(i), target);
+  }
+  
+  if (!unknown_fields().empty()) {
+    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
+        unknown_fields(), target);
+  }
+  return target;
+}
+
+int ResArenaRewardInfoMessage::ByteSize() const {
+  int total_size = 0;
+  
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRewardInfo];
+    if (has_msgid()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->msgid());
+    }
+    
+  }
+  // repeated .com.game.proto.ArenaRewardRank reward = 3;
+  total_size += 1 * this->reward_size();
+  for (int i = 0; i < this->reward_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->reward(i));
+  }
+  
+  if (!unknown_fields().empty()) {
+    total_size +=
+      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
+        unknown_fields());
+  }
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ResArenaRewardInfoMessage::MergeFrom(const ::google::protobuf::Message& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  const ResArenaRewardInfoMessage* source =
+    ::google::protobuf::internal::dynamic_cast_if_available<const ResArenaRewardInfoMessage*>(
+      &from);
+  if (source == NULL) {
+    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+  } else {
+    MergeFrom(*source);
+  }
+}
+
+void ResArenaRewardInfoMessage::MergeFrom(const ResArenaRewardInfoMessage& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  reward_.MergeFrom(from.reward_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_msgid()) {
+      set_msgid(from.msgid());
+    }
+  }
+  mutable_unknown_fields()->MergeFrom(from.unknown_fields());
+}
+
+void ResArenaRewardInfoMessage::CopyFrom(const ::google::protobuf::Message& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void ResArenaRewardInfoMessage::CopyFrom(const ResArenaRewardInfoMessage& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ResArenaRewardInfoMessage::IsInitialized() const {
+  
+  return true;
+}
+
+void ResArenaRewardInfoMessage::Swap(ResArenaRewardInfoMessage* other) {
+  if (other != this) {
+    std::swap(msgid_, other->msgid_);
+    reward_.Swap(&other->reward_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.Swap(&other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::google::protobuf::Metadata ResArenaRewardInfoMessage::GetMetadata() const {
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ResArenaRewardInfoMessage_descriptor_;
+  metadata.reflection = ResArenaRewardInfoMessage_reflection_;
+  return metadata;
 }
 
 

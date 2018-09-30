@@ -95,10 +95,11 @@ private:
 	bool PlayerJoinTable(GameTable* pTable, CRoleEx* pRoleEx,BYTE tableTypeID, BYTE MonthID, bool IsSendToClient = true);
 	GameTable* GetPlayerJoinTable(BYTE tableTypeID, BYTE MonthID);
 	//竞技场消息
-	bool CanPlayerJoinJJC(CRoleEx* pRoleEx, BYTE tableTypeID);
+	bool CanPlayerJoinJJC(CRoleEx* pRoleEx, BYTE MonthID);
 	bool IsJJCOpen();
 	void AddJJCGameTable(BYTE tableTypeID, BYTE monthTypeID, GameTable* pTable);
 	void AddJJCGameRobot(GameTable* p1);
+	void JJCRewardRank(GameTable* p1, GameTable* p2,bool isReward = false/*是否发放奖励*/);
 private:
 	DWORD									m_LastUpdate;
 	WORD						 			m_MaxTableID;

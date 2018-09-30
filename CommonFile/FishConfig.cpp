@@ -529,9 +529,23 @@ bool FishConfig::LoadFishJJC(WHXmlNode * pFishConfig)
 	}
 	if (!pFishNode->GetAttribute(TEXT("MaxPlayerSum"), m_jjc.maxPlayerSum))
 		return false;
-	if (!pFishNode->GetAttribute(TEXT("admission"), m_jjc.admission))
-		return false;
 
+	WHXmlNode* pTable = pFishNode->GetChildNodeByName(TEXT("table"));
+	if (!pTable)
+	{
+		return false;
+	}
+	WHXmlNode* pTableItem = pTable->GetChildNodeByName(TEXT("Item"));
+	m_jjc.admission.clear();
+	while (pTableItem)
+	{
+		BYTE id = 0;
+		pTableItem->GetAttribute(TEXT("id"), id);
+		INT64 gold = 0;
+		pTableItem->GetAttribute(TEXT("admission"), gold);
+		m_jjc.admission.insert(make_pair(id, gold));
+		pTableItem = pTableItem->GetNextSignelNode();
+	}
 	WHXmlNode* pTime = pFishNode->GetChildNodeByName(TEXT("time"));
 	if (!pTime)
 	{

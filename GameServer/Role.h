@@ -135,6 +135,7 @@ public:
 	void		OnInit(WORD TableID, BYTE TableMaxPlayerSum);
 
 	bool		IsFull(){ return GetRoleSum() >= GetMaxPlayerSum(); }
+	bool        IsAllUserHaveBullets();
 	int			GetRoleSum();//获取用户数量 获取激活的用户数量
 	bool		OnDelRole(PlayerID RoleID);
 	bool		OnDleRole(WORD ChairID);

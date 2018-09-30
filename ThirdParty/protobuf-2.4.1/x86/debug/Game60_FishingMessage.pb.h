@@ -34,6 +34,10 @@ void  protobuf_AddDesc_Game60_5fFishingMessage_2eproto();
 void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto();
 void protobuf_ShutdownFile_Game60_5fFishingMessage_2eproto();
 
+class ArenaRank;
+class ResArenaRankInfoMessage;
+class ArenaRewardRank;
+class ResArenaRewardInfoMessage;
 class ResArenaStartInfoMessage;
 class ReqEnterFishServerMessage;
 class ResEnterFishServerMessage;
@@ -94,11 +98,13 @@ enum Protos_Game60Fishing {
   ResSyncAddMoney = 6034,
   ResUseGoodsKB = 6036,
   ResUseGoodsBD = 6038,
-  ResArenaStartInfo = 6040
+  ResArenaStartInfo = 6040,
+  ResArenaRewardInfo = 6042,
+  ResArenaRankInfo = 6044
 };
 bool Protos_Game60Fishing_IsValid(int value);
 const Protos_Game60Fishing Protos_Game60Fishing_MIN = ReqEnterFishServer;
-const Protos_Game60Fishing Protos_Game60Fishing_MAX = ResArenaStartInfo;
+const Protos_Game60Fishing Protos_Game60Fishing_MAX = ResArenaRankInfo;
 const int Protos_Game60Fishing_ARRAYSIZE = Protos_Game60Fishing_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* Protos_Game60Fishing_descriptor();
@@ -112,6 +118,414 @@ inline bool Protos_Game60Fishing_Parse(
     Protos_Game60Fishing_descriptor(), name, value);
 }
 // ===================================================================
+
+class ArenaRank : public ::google::protobuf::Message {
+ public:
+  ArenaRank();
+  virtual ~ArenaRank();
+  
+  ArenaRank(const ArenaRank& from);
+  
+  inline ArenaRank& operator=(const ArenaRank& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ArenaRank& default_instance();
+  
+  void Swap(ArenaRank* other);
+  
+  // implements Message ----------------------------------------------
+  
+  ArenaRank* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ArenaRank& from);
+  void MergeFrom(const ArenaRank& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // optional int32 rank = 1;
+  inline bool has_rank() const;
+  inline void clear_rank();
+  static const int kRankFieldNumber = 1;
+  inline ::google::protobuf::int32 rank() const;
+  inline void set_rank(::google::protobuf::int32 value);
+  
+  // optional int64 nScore = 2;
+  inline bool has_nscore() const;
+  inline void clear_nscore();
+  static const int kNScoreFieldNumber = 2;
+  inline ::google::protobuf::int64 nscore() const;
+  inline void set_nscore(::google::protobuf::int64 value);
+  
+  // optional int64 playerId = 3;
+  inline bool has_playerid() const;
+  inline void clear_playerid();
+  static const int kPlayerIdFieldNumber = 3;
+  inline ::google::protobuf::int64 playerid() const;
+  inline void set_playerid(::google::protobuf::int64 value);
+  
+  // @@protoc_insertion_point(class_scope:com.game.proto.ArenaRank)
+ private:
+  inline void set_has_rank();
+  inline void clear_has_rank();
+  inline void set_has_nscore();
+  inline void clear_has_nscore();
+  inline void set_has_playerid();
+  inline void clear_has_playerid();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  ::google::protobuf::int64 nscore_;
+  ::google::protobuf::int64 playerid_;
+  ::google::protobuf::int32 rank_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(3 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_ShutdownFile_Game60_5fFishingMessage_2eproto();
+  
+  void InitAsDefaultInstance();
+  static ArenaRank* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ResArenaRankInfoMessage : public ::google::protobuf::Message {
+ public:
+  ResArenaRankInfoMessage();
+  virtual ~ResArenaRankInfoMessage();
+  
+  ResArenaRankInfoMessage(const ResArenaRankInfoMessage& from);
+  
+  inline ResArenaRankInfoMessage& operator=(const ResArenaRankInfoMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ResArenaRankInfoMessage& default_instance();
+  
+  void Swap(ResArenaRankInfoMessage* other);
+  
+  // implements Message ----------------------------------------------
+  
+  ResArenaRankInfoMessage* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ResArenaRankInfoMessage& from);
+  void MergeFrom(const ResArenaRankInfoMessage& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRankInfo];
+  inline bool has_msgid() const;
+  inline void clear_msgid();
+  static const int kMsgIDFieldNumber = 1;
+  inline com::game::proto::Protos_Game60Fishing msgid() const;
+  inline void set_msgid(com::game::proto::Protos_Game60Fishing value);
+  
+  // repeated .com.game.proto.ArenaRank rankInfo = 2;
+  inline int rankinfo_size() const;
+  inline void clear_rankinfo();
+  static const int kRankInfoFieldNumber = 2;
+  inline const ::com::game::proto::ArenaRank& rankinfo(int index) const;
+  inline ::com::game::proto::ArenaRank* mutable_rankinfo(int index);
+  inline ::com::game::proto::ArenaRank* add_rankinfo();
+  inline const ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRank >&
+      rankinfo() const;
+  inline ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRank >*
+      mutable_rankinfo();
+  
+  // @@protoc_insertion_point(class_scope:com.game.proto.ResArenaRankInfoMessage)
+ private:
+  inline void set_has_msgid();
+  inline void clear_has_msgid();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRank > rankinfo_;
+  int msgid_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_ShutdownFile_Game60_5fFishingMessage_2eproto();
+  
+  void InitAsDefaultInstance();
+  static ResArenaRankInfoMessage* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ArenaRewardRank : public ::google::protobuf::Message {
+ public:
+  ArenaRewardRank();
+  virtual ~ArenaRewardRank();
+  
+  ArenaRewardRank(const ArenaRewardRank& from);
+  
+  inline ArenaRewardRank& operator=(const ArenaRewardRank& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ArenaRewardRank& default_instance();
+  
+  void Swap(ArenaRewardRank* other);
+  
+  // implements Message ----------------------------------------------
+  
+  ArenaRewardRank* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ArenaRewardRank& from);
+  void MergeFrom(const ArenaRewardRank& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // optional int32 rank = 1;
+  inline bool has_rank() const;
+  inline void clear_rank();
+  static const int kRankFieldNumber = 1;
+  inline ::google::protobuf::int32 rank() const;
+  inline void set_rank(::google::protobuf::int32 value);
+  
+  // optional string nickname = 2;
+  inline bool has_nickname() const;
+  inline void clear_nickname();
+  static const int kNicknameFieldNumber = 2;
+  inline const ::std::string& nickname() const;
+  inline void set_nickname(const ::std::string& value);
+  inline void set_nickname(const char* value);
+  inline void set_nickname(const char* value, size_t size);
+  inline ::std::string* mutable_nickname();
+  inline ::std::string* release_nickname();
+  
+  // optional int64 nScore = 3;
+  inline bool has_nscore() const;
+  inline void clear_nscore();
+  static const int kNScoreFieldNumber = 3;
+  inline ::google::protobuf::int64 nscore() const;
+  inline void set_nscore(::google::protobuf::int64 value);
+  
+  // optional int64 playerId = 4;
+  inline bool has_playerid() const;
+  inline void clear_playerid();
+  static const int kPlayerIdFieldNumber = 4;
+  inline ::google::protobuf::int64 playerid() const;
+  inline void set_playerid(::google::protobuf::int64 value);
+  
+  // @@protoc_insertion_point(class_scope:com.game.proto.ArenaRewardRank)
+ private:
+  inline void set_has_rank();
+  inline void clear_has_rank();
+  inline void set_has_nickname();
+  inline void clear_has_nickname();
+  inline void set_has_nscore();
+  inline void clear_has_nscore();
+  inline void set_has_playerid();
+  inline void clear_has_playerid();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  ::std::string* nickname_;
+  ::google::protobuf::int64 nscore_;
+  ::google::protobuf::int64 playerid_;
+  ::google::protobuf::int32 rank_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(4 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_ShutdownFile_Game60_5fFishingMessage_2eproto();
+  
+  void InitAsDefaultInstance();
+  static ArenaRewardRank* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ResArenaRewardInfoMessage : public ::google::protobuf::Message {
+ public:
+  ResArenaRewardInfoMessage();
+  virtual ~ResArenaRewardInfoMessage();
+  
+  ResArenaRewardInfoMessage(const ResArenaRewardInfoMessage& from);
+  
+  inline ResArenaRewardInfoMessage& operator=(const ResArenaRewardInfoMessage& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _unknown_fields_;
+  }
+  
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+  
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const ResArenaRewardInfoMessage& default_instance();
+  
+  void Swap(ResArenaRewardInfoMessage* other);
+  
+  // implements Message ----------------------------------------------
+  
+  ResArenaRewardInfoMessage* New() const;
+  void CopyFrom(const ::google::protobuf::Message& from);
+  void MergeFrom(const ::google::protobuf::Message& from);
+  void CopyFrom(const ResArenaRewardInfoMessage& from);
+  void MergeFrom(const ResArenaRewardInfoMessage& from);
+  void Clear();
+  bool IsInitialized() const;
+  
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  ::google::protobuf::uint8* SerializeWithCachedSizesToArray(::google::protobuf::uint8* output) const;
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  
+  ::google::protobuf::Metadata GetMetadata() const;
+  
+  // nested types ----------------------------------------------------
+  
+  // accessors -------------------------------------------------------
+  
+  // optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRewardInfo];
+  inline bool has_msgid() const;
+  inline void clear_msgid();
+  static const int kMsgIDFieldNumber = 1;
+  inline com::game::proto::Protos_Game60Fishing msgid() const;
+  inline void set_msgid(com::game::proto::Protos_Game60Fishing value);
+  
+  // repeated .com.game.proto.ArenaRewardRank reward = 3;
+  inline int reward_size() const;
+  inline void clear_reward();
+  static const int kRewardFieldNumber = 3;
+  inline const ::com::game::proto::ArenaRewardRank& reward(int index) const;
+  inline ::com::game::proto::ArenaRewardRank* mutable_reward(int index);
+  inline ::com::game::proto::ArenaRewardRank* add_reward();
+  inline const ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRewardRank >&
+      reward() const;
+  inline ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRewardRank >*
+      mutable_reward();
+  
+  // @@protoc_insertion_point(class_scope:com.game.proto.ResArenaRewardInfoMessage)
+ private:
+  inline void set_has_msgid();
+  inline void clear_has_msgid();
+  
+  ::google::protobuf::UnknownFieldSet _unknown_fields_;
+  
+  ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRewardRank > reward_;
+  int msgid_;
+  
+  mutable int _cached_size_;
+  ::google::protobuf::uint32 _has_bits_[(2 + 31) / 32];
+  
+  friend void  protobuf_AddDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_AssignDesc_Game60_5fFishingMessage_2eproto();
+  friend void protobuf_ShutdownFile_Game60_5fFishingMessage_2eproto();
+  
+  void InitAsDefaultInstance();
+  static ResArenaRewardInfoMessage* default_instance_;
+};
+// -------------------------------------------------------------------
 
 class ResArenaStartInfoMessage : public ::google::protobuf::Message {
  public:
@@ -3668,6 +4082,308 @@ class ResUseGoodsBDMessage : public ::google::protobuf::Message {
 
 
 // ===================================================================
+
+// ArenaRank
+
+// optional int32 rank = 1;
+inline bool ArenaRank::has_rank() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ArenaRank::set_has_rank() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ArenaRank::clear_has_rank() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ArenaRank::clear_rank() {
+  rank_ = 0;
+  clear_has_rank();
+}
+inline ::google::protobuf::int32 ArenaRank::rank() const {
+  return rank_;
+}
+inline void ArenaRank::set_rank(::google::protobuf::int32 value) {
+  set_has_rank();
+  rank_ = value;
+}
+
+// optional int64 nScore = 2;
+inline bool ArenaRank::has_nscore() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ArenaRank::set_has_nscore() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ArenaRank::clear_has_nscore() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ArenaRank::clear_nscore() {
+  nscore_ = GOOGLE_LONGLONG(0);
+  clear_has_nscore();
+}
+inline ::google::protobuf::int64 ArenaRank::nscore() const {
+  return nscore_;
+}
+inline void ArenaRank::set_nscore(::google::protobuf::int64 value) {
+  set_has_nscore();
+  nscore_ = value;
+}
+
+// optional int64 playerId = 3;
+inline bool ArenaRank::has_playerid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ArenaRank::set_has_playerid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ArenaRank::clear_has_playerid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ArenaRank::clear_playerid() {
+  playerid_ = GOOGLE_LONGLONG(0);
+  clear_has_playerid();
+}
+inline ::google::protobuf::int64 ArenaRank::playerid() const {
+  return playerid_;
+}
+inline void ArenaRank::set_playerid(::google::protobuf::int64 value) {
+  set_has_playerid();
+  playerid_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ResArenaRankInfoMessage
+
+// optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRankInfo];
+inline bool ResArenaRankInfoMessage::has_msgid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ResArenaRankInfoMessage::set_has_msgid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ResArenaRankInfoMessage::clear_has_msgid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ResArenaRankInfoMessage::clear_msgid() {
+  msgid_ = 6044;
+  clear_has_msgid();
+}
+inline com::game::proto::Protos_Game60Fishing ResArenaRankInfoMessage::msgid() const {
+  return static_cast< com::game::proto::Protos_Game60Fishing >(msgid_);
+}
+inline void ResArenaRankInfoMessage::set_msgid(com::game::proto::Protos_Game60Fishing value) {
+  GOOGLE_DCHECK(com::game::proto::Protos_Game60Fishing_IsValid(value));
+  set_has_msgid();
+  msgid_ = value;
+}
+
+// repeated .com.game.proto.ArenaRank rankInfo = 2;
+inline int ResArenaRankInfoMessage::rankinfo_size() const {
+  return rankinfo_.size();
+}
+inline void ResArenaRankInfoMessage::clear_rankinfo() {
+  rankinfo_.Clear();
+}
+inline const ::com::game::proto::ArenaRank& ResArenaRankInfoMessage::rankinfo(int index) const {
+  return rankinfo_.Get(index);
+}
+inline ::com::game::proto::ArenaRank* ResArenaRankInfoMessage::mutable_rankinfo(int index) {
+  return rankinfo_.Mutable(index);
+}
+inline ::com::game::proto::ArenaRank* ResArenaRankInfoMessage::add_rankinfo() {
+  return rankinfo_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRank >&
+ResArenaRankInfoMessage::rankinfo() const {
+  return rankinfo_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRank >*
+ResArenaRankInfoMessage::mutable_rankinfo() {
+  return &rankinfo_;
+}
+
+// -------------------------------------------------------------------
+
+// ArenaRewardRank
+
+// optional int32 rank = 1;
+inline bool ArenaRewardRank::has_rank() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ArenaRewardRank::set_has_rank() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ArenaRewardRank::clear_has_rank() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ArenaRewardRank::clear_rank() {
+  rank_ = 0;
+  clear_has_rank();
+}
+inline ::google::protobuf::int32 ArenaRewardRank::rank() const {
+  return rank_;
+}
+inline void ArenaRewardRank::set_rank(::google::protobuf::int32 value) {
+  set_has_rank();
+  rank_ = value;
+}
+
+// optional string nickname = 2;
+inline bool ArenaRewardRank::has_nickname() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void ArenaRewardRank::set_has_nickname() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void ArenaRewardRank::clear_has_nickname() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void ArenaRewardRank::clear_nickname() {
+  if (nickname_ != &::google::protobuf::internal::kEmptyString) {
+    nickname_->clear();
+  }
+  clear_has_nickname();
+}
+inline const ::std::string& ArenaRewardRank::nickname() const {
+  return *nickname_;
+}
+inline void ArenaRewardRank::set_nickname(const ::std::string& value) {
+  set_has_nickname();
+  if (nickname_ == &::google::protobuf::internal::kEmptyString) {
+    nickname_ = new ::std::string;
+  }
+  nickname_->assign(value);
+}
+inline void ArenaRewardRank::set_nickname(const char* value) {
+  set_has_nickname();
+  if (nickname_ == &::google::protobuf::internal::kEmptyString) {
+    nickname_ = new ::std::string;
+  }
+  nickname_->assign(value);
+}
+inline void ArenaRewardRank::set_nickname(const char* value, size_t size) {
+  set_has_nickname();
+  if (nickname_ == &::google::protobuf::internal::kEmptyString) {
+    nickname_ = new ::std::string;
+  }
+  nickname_->assign(reinterpret_cast<const char*>(value), size);
+}
+inline ::std::string* ArenaRewardRank::mutable_nickname() {
+  set_has_nickname();
+  if (nickname_ == &::google::protobuf::internal::kEmptyString) {
+    nickname_ = new ::std::string;
+  }
+  return nickname_;
+}
+inline ::std::string* ArenaRewardRank::release_nickname() {
+  clear_has_nickname();
+  if (nickname_ == &::google::protobuf::internal::kEmptyString) {
+    return NULL;
+  } else {
+    ::std::string* temp = nickname_;
+    nickname_ = const_cast< ::std::string*>(&::google::protobuf::internal::kEmptyString);
+    return temp;
+  }
+}
+
+// optional int64 nScore = 3;
+inline bool ArenaRewardRank::has_nscore() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void ArenaRewardRank::set_has_nscore() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void ArenaRewardRank::clear_has_nscore() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void ArenaRewardRank::clear_nscore() {
+  nscore_ = GOOGLE_LONGLONG(0);
+  clear_has_nscore();
+}
+inline ::google::protobuf::int64 ArenaRewardRank::nscore() const {
+  return nscore_;
+}
+inline void ArenaRewardRank::set_nscore(::google::protobuf::int64 value) {
+  set_has_nscore();
+  nscore_ = value;
+}
+
+// optional int64 playerId = 4;
+inline bool ArenaRewardRank::has_playerid() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void ArenaRewardRank::set_has_playerid() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void ArenaRewardRank::clear_has_playerid() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void ArenaRewardRank::clear_playerid() {
+  playerid_ = GOOGLE_LONGLONG(0);
+  clear_has_playerid();
+}
+inline ::google::protobuf::int64 ArenaRewardRank::playerid() const {
+  return playerid_;
+}
+inline void ArenaRewardRank::set_playerid(::google::protobuf::int64 value) {
+  set_has_playerid();
+  playerid_ = value;
+}
+
+// -------------------------------------------------------------------
+
+// ResArenaRewardInfoMessage
+
+// optional .com.game.proto.Protos_Game60Fishing msgID = 1 [default = ResArenaRewardInfo];
+inline bool ResArenaRewardInfoMessage::has_msgid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void ResArenaRewardInfoMessage::set_has_msgid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void ResArenaRewardInfoMessage::clear_has_msgid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void ResArenaRewardInfoMessage::clear_msgid() {
+  msgid_ = 6042;
+  clear_has_msgid();
+}
+inline com::game::proto::Protos_Game60Fishing ResArenaRewardInfoMessage::msgid() const {
+  return static_cast< com::game::proto::Protos_Game60Fishing >(msgid_);
+}
+inline void ResArenaRewardInfoMessage::set_msgid(com::game::proto::Protos_Game60Fishing value) {
+  GOOGLE_DCHECK(com::game::proto::Protos_Game60Fishing_IsValid(value));
+  set_has_msgid();
+  msgid_ = value;
+}
+
+// repeated .com.game.proto.ArenaRewardRank reward = 3;
+inline int ResArenaRewardInfoMessage::reward_size() const {
+  return reward_.size();
+}
+inline void ResArenaRewardInfoMessage::clear_reward() {
+  reward_.Clear();
+}
+inline const ::com::game::proto::ArenaRewardRank& ResArenaRewardInfoMessage::reward(int index) const {
+  return reward_.Get(index);
+}
+inline ::com::game::proto::ArenaRewardRank* ResArenaRewardInfoMessage::mutable_reward(int index) {
+  return reward_.Mutable(index);
+}
+inline ::com::game::proto::ArenaRewardRank* ResArenaRewardInfoMessage::add_reward() {
+  return reward_.Add();
+}
+inline const ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRewardRank >&
+ResArenaRewardInfoMessage::reward() const {
+  return reward_;
+}
+inline ::google::protobuf::RepeatedPtrField< ::com::game::proto::ArenaRewardRank >*
+ResArenaRewardInfoMessage::mutable_reward() {
+  return &reward_;
+}
+
+// -------------------------------------------------------------------
 
 // ResArenaStartInfoMessage
 

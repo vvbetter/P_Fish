@@ -160,6 +160,12 @@ bool GameTable::OnRoleJoinTable(CRoleEx* pRoleEx, BYTE MonthID, bool IsSendToCli
 	g_FishServer.SendNetCmdToDB(&msg);
 	return true;
 }
+bool GameTable::IsCanEndMonthGame()
+{
+	if (m_isRun == false) return false;
+	if (m_MonthID == 0) return false;
+	return m_RoleManager.IsAllUserHaveBullets();
+}
 void GameTable::DelaySyncDataToClient(CRoleEx* pRoleEx)
 {
 	if (m_MonthID == 0 && GetTablePlayerSum() > 0)
