@@ -234,13 +234,24 @@ void CRole::OnCatchFish(CatchType catchType, byte subType,WORD FishType, int nSc
 	}
 	int64 catchScore = nScore*static_cast<int64>(MONEY_RATIO*g_FishServer.GetRatioValue()*tableBasicRate);
 	
-	m_pRoleEx->ChangeRoleGlobe(catchScore, m_TableType, FishType);
-
-	if (!m_pRoleEx->IsRobot())
+	GameTable* pTable = g_FishServer.GetTableManager()->GetTable(m_TableID);
+	if (pTable == NULL || !pTable->IsTableRunning())
 	{
-		g_FishServer.GetTableManager()->OnChangeTableGlobel(GetTableID(), -catchScore, TableRate());
+		return;
 	}
-	m_pRoleEx->ChangeRoleTotalFishGlobelSum(catchScore);
+	if (pTable->GetTableMonthID() != 0)
+	{
+		m_JJCscore += catchScore;
+	}
+	else
+	{
+		m_pRoleEx->ChangeRoleGlobe(catchScore, m_TableType, FishType);
+		if (!m_pRoleEx->IsRobot())
+		{
+			g_FishServer.GetTableManager()->OnChangeTableGlobel(GetTableID(), -catchScore, TableRate());
+		}
+		m_pRoleEx->ChangeRoleTotalFishGlobelSum(catchScore);
+	}
 }
 bool CRole::IsFullEnergy()
 {
@@ -276,42 +287,54 @@ bool CRole::CheckFire(BYTE byLauncher)
 		//Log(L"大炮发射间隔:%s, 炮台:%d", m_pRoleEx->GetRoleInfo().NickName, m_LauncherType);
 		return false;
 	}
-	
-	LauncherInfo&  launcher = m_vecLauncherInfo[m_LauncherType]; //暂时先屏蔽掉 xuda  后期开启
-	if (launcher.nEnergy >= m_pConfig->LaserThreshold(m_LauncherType)*m_pConfig->BulletMultiple(m_nMultipleIndex))// *rate 
+	//游戏桌子是否运行
+	GameTable* pTable = g_FishServer.GetTableManager()->GetTable(m_TableID);
+	if (pTable == NULL || !pTable->IsTableRunning())
 	{
-		//Log(L"大炮能量值已满:%s, 炮台:%d", m_pRoleEx->GetRoleInfo().NickName, m_LauncherType);
 		return false;
 	}
-	auto it = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.find(m_TableType);
-	double tableBasicRate = 0.00;
-	if (it != g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.end())
+	if (pTable->GetTableMonthID() != 0)
 	{
-		tableBasicRate = it->second.BasicRatio;
+		//校验竞技场子弹和倍率
+		if (m_LauncherType != 0) return false;
+		if (m_bulletCount <= 0) return false;
+		if (m_bulletCount > 400 && m_bulletCount <= 600 && m_nMultipleIndex != 2) return false;
+		if (m_bulletCount > 200 && m_bulletCount <= 400 && m_nMultipleIndex != 5) return false;
+		if (m_bulletCount > 0 && m_bulletCount <= 200 && m_nMultipleIndex != 8) return false;
+		m_bulletCount--;
 	}
-	int nConsume = (int)(m_pConfig->BulletConsume(m_LauncherType)	 // 每个炮的基础消耗
-		*m_pConfig->BulletMultiple(m_nMultipleIndex) //玩家调整的倍率
-		*g_FishServer.GetRatioValue()				 // 大厅的货币比例
-		*tableBasicRate					 // 桌子的基础倍率 
-		*MONEY_RATIO					// 游戏服务器处理货币的倍率值
-		* (IsInKbState() ? KB_RATIO : 1) //是否在狂暴状态
-		);
-	if (!m_pRoleEx->ChangeRoleGlobe(nConsume*-1, m_TableType))
+	else
 	{
-		//Log(L"大炮金币不够:%s, 炮台:%d", m_pRoleEx->GetRoleInfo().NickName, m_LauncherType);
-		return false;
+		auto it = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.find(m_TableType);
+		double tableBasicRate = 0.00;
+		if (it != g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.end())
+		{
+			tableBasicRate = it->second.BasicRatio;
+		}
+		int nConsume = (int)(m_pConfig->BulletConsume(m_LauncherType)	 // 每个炮的基础消耗
+			*m_pConfig->BulletMultiple(m_nMultipleIndex) //玩家调整的倍率
+			*g_FishServer.GetRatioValue()				 // 大厅的货币比例
+			*tableBasicRate					 // 桌子的基础倍率 
+			*MONEY_RATIO					// 游戏服务器处理货币的倍率值
+			* (IsInKbState() ? KB_RATIO : 1) //是否在狂暴状态
+			);
+		if (!m_pRoleEx->ChangeRoleGlobe(nConsume*-1, m_TableType))
+		{
+			//Log(L"大炮金币不够:%s, 炮台:%d", m_pRoleEx->GetRoleInfo().NickName, m_LauncherType);
+			return false;
+		}
+		if (!m_pRoleEx->IsRobot())
+		{
+			g_FishServer.GetTableManager()->OnChangeTableGlobel(GetTableID(), nConsume, TableRate());
+		}
+		//成就 终极炮台
+		BYTE all_tables = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.size();
+		if (m_TableType == all_tables - 1 && m_nMultipleIndex == m_pConfig->RateCount() - 1)
+		{
+			m_pRoleEx->GetRoleGameData().OnPlayerUseMaxRate();
+		}
+		//end
 	}
-	if (!m_pRoleEx->IsRobot())
-	{
-		g_FishServer.GetTableManager()->OnChangeTableGlobel(GetTableID(), nConsume, TableRate());
-	}
-	//成就 终极炮台
-	BYTE all_tables = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.size();
-	if (m_TableType == all_tables - 1 && m_nMultipleIndex == m_pConfig->RateCount() - 1)
-	{
-		m_pRoleEx->GetRoleGameData().OnPlayerUseMaxRate();
-	}
-
 	m_dwLastFireTime = timeGetTime();
 	return true;
 }

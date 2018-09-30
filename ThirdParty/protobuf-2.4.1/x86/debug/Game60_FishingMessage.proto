@@ -231,7 +231,7 @@ message PlayerData{
 	optional int32			rateIndex 		= 10;//倍率
 	optional int32 			energy     		= 11;//当前的怒气技能的值
 	optional int32          bulletCount     = 12;//竞技场子弹数量
-	optional int32          score			= 13;//竞技场积分
+	optional int64          score			= 13;//竞技场积分
 }
 
 

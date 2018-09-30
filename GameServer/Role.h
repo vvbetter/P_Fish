@@ -36,8 +36,8 @@ public:
 	BYTE		GetSeatID(){ return m_SeatID; }
 	UINT		GetBulletCount() { return m_bulletCount; }
 	void		SetBulletCount(const UINT n) { m_bulletCount = n; }
-	UINT        GetJJCScore() { return m_JJCscore; }
-	void		SetJJCScore(const UINT n) { m_JJCscore = n; }
+	INT64        GetJJCScore() { return m_JJCscore; }
+	void		SetJJCScore(const INT64 n) { m_JJCscore = n; }
 
 	DWORD		GetID();
 	char*		GetNickName();
@@ -110,7 +110,7 @@ private:
 	byte		m_LauncherType;//炮台
 	byte        m_nMultipleIndex;//
 	UINT		m_bulletCount; //竞技场子弹数量
-	UINT		m_JJCscore;// 竞技场积分
+	INT64		m_JJCscore;// 竞技场积分
 	VecLauncherInfo				  m_vecLauncherInfo;
 	DWORD						m_dwLastFireTime;
 	BYTE						m_byMinRate;

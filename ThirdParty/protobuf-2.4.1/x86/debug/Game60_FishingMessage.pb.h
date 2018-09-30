@@ -1925,12 +1925,12 @@ class PlayerData : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 bulletcount() const;
   inline void set_bulletcount(::google::protobuf::int32 value);
   
-  // optional int32 score = 13;
+  // optional int64 score = 13;
   inline bool has_score() const;
   inline void clear_score();
   static const int kScoreFieldNumber = 13;
-  inline ::google::protobuf::int32 score() const;
-  inline void set_score(::google::protobuf::int32 value);
+  inline ::google::protobuf::int64 score() const;
+  inline void set_score(::google::protobuf::int64 value);
   
   // @@protoc_insertion_point(class_scope:com.game.proto.PlayerData)
  private:
@@ -1975,7 +1975,7 @@ class PlayerData : public ::google::protobuf::Message {
   ::google::protobuf::int32 rateindex_;
   ::google::protobuf::int32 energy_;
   ::google::protobuf::int32 bulletcount_;
-  ::google::protobuf::int32 score_;
+  ::google::protobuf::int64 score_;
   
   mutable int _cached_size_;
   ::google::protobuf::uint32 _has_bits_[(13 + 31) / 32];
@@ -5526,7 +5526,7 @@ inline void PlayerData::set_bulletcount(::google::protobuf::int32 value) {
   bulletcount_ = value;
 }
 
-// optional int32 score = 13;
+// optional int64 score = 13;
 inline bool PlayerData::has_score() const {
   return (_has_bits_[0] & 0x00001000u) != 0;
 }
@@ -5537,13 +5537,13 @@ inline void PlayerData::clear_has_score() {
   _has_bits_[0] &= ~0x00001000u;
 }
 inline void PlayerData::clear_score() {
-  score_ = 0;
+  score_ = GOOGLE_LONGLONG(0);
   clear_has_score();
 }
-inline ::google::protobuf::int32 PlayerData::score() const {
+inline ::google::protobuf::int64 PlayerData::score() const {
   return score_;
 }
-inline void PlayerData::set_score(::google::protobuf::int32 value) {
+inline void PlayerData::set_score(::google::protobuf::int64 value) {
   set_has_score();
   score_ = value;
 }

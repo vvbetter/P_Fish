@@ -4924,7 +4924,7 @@ struct tagJonPlayerData
 	INT				rateIndex;//倍率
 	INT 			energy;//当前的怒气技能的值
 	INT				bulletCount;// 竞技场子弹数量
-	INT				score; //竞技场积分
+	INT64				score; //竞技场积分
 };
 
 struct LC_JoinTableResult : public NetCmd

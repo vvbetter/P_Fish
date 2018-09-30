@@ -69,23 +69,20 @@ public:
 	void Update(DWORD dwTimeStep);
 	void UpdateMinutes();
 	void UpdateJJC(DWORD dwTimeStep); //竞技场更新
+	//
 	bool OnHandleTableMsg(DWORD dwUserID, NetCmd* pData);
 	bool OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE MonthID = 0, bool IsSendToClient = true);
 	bool OnPlayerJoinTable(WORD TableID, CRoleEx* pRoleEx, bool IsSendToClient = true);
 	void OnPlayerLeaveTable(DWORD dwUserID);
-
 	//发送桌子消息
 	void SendDataToTable(DWORD dwUserID, NetCmd* pData);
-
 	CRole* SearchUser(DWORD dwUserid);
 	CConfig *GetGameConfig();
 	GameTable* GetTable(WORD TableID);
 	DWORD GetTableSum() { return m_TableVec.size(); }
-
 	void OnChangeTableGlobel(WORD TableID, int64 AddGlobel, USHORT uTableRate);
 	void OnResetTableGlobel(WORD TableID, int64 nValue);
 	int64  GetTableGlobel(WORD TableID);
-
 	bool QueryPool(WORD TableID, int64 & nPoolGold);
 	void QueryPool(BYTE TableTypeID, bool &bopen, int64&nPoolGold);
 	CRole* QueryRoleByRoleEx(CRoleEx* pRoleEx);
@@ -101,6 +98,7 @@ private:
 	bool CanPlayerJoinJJC(CRoleEx* pRoleEx, BYTE tableTypeID);
 	bool IsJJCOpen();
 	void AddJJCGameTable(BYTE tableTypeID, BYTE monthTypeID, GameTable* pTable);
+	void AddJJCGameRobot(GameTable* p1);
 private:
 	DWORD									m_LastUpdate;
 	WORD						 			m_MaxTableID;
@@ -111,7 +109,7 @@ private:
 	CFishTimer					m_JJCTimer;// 竞技场计时器
 
 	bool						m_bUpdateTime;
-	HashMap<BYTE, vector<JJCGameTables> > m_JJCGameTables; //桌子类型-竞技场桌子
+	HashMap<BYTE, vector<JJCGameTables> > m_JJCGameTables; //竞技场桌子类型-竞技场桌子
 	HashMap<BYTE, GoldPool>		m_TableGlobeMap;//桌子类型的金币池
 	map<BYTE, SysYieldControl> m_sysMinutes;//每个桌子每天的金币记录
 	map<BYTE, TableTotalGold> m_sysTotal;//分桌子统计玩家消耗金币和系统产出金币

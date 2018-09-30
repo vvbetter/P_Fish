@@ -777,7 +777,14 @@ bool TableManager::PlayerJoinTable(GameTable* pTable, CRoleEx* pRoleEx, BYTE Tab
 		m_RoleTableMap.insert(HashMap<DWORD, WORD>::value_type(pRoleEx->GetUserID(), pTable->GetTableID()));
 		if (!pRoleEx->IsRobot())
 		{
-			g_FishServer.GetRobotManager().OnJoinRobotToTable(pTable);
+			if (pTable->GetTableMonthID() == 0)
+			{
+				g_FishServer.GetRobotManager().OnJoinRobotToTable(pTable);
+			}
+			else
+			{
+				AddJJCGameRobot(pTable);
+			}
 		}
 		return true;
 	}
@@ -912,12 +919,35 @@ void TableManager::AddJJCGameTable(BYTE tableTypeID, BYTE monthTypeID, GameTable
 		JJCGameTables newtables(pTable, pNewTable);
 		jjcTables.push_back(newtables);
 	}
-	//竞技场需要增加机器人 5-10s增加一个机器人
-	for (int i = 0; i < 4; ++i)
+}
+
+void TableManager::AddJJCGameRobot(GameTable * p1)
+{
+	if (!p1)
 	{
-		DWORD time1 = RandInt() % 5000 + 6000;
-		g_FishServer.GetRobotManager().AdddWriteRobot(pTable->GetTableID(), time1);
-		DWORD time2 = RandInt() % 5000 + 6000;
-		g_FishServer.GetRobotManager().AdddWriteRobot(pNewTable->GetTableID(), time2);
+		return;
+	}
+	//竞技场有2个桌子。先找到另一个桌子
+	GameTable* pOther = NULL;
+	auto jjcIt = m_JJCGameTables.find(p1->GetTableMonthID());
+	if (jjcIt == m_JJCGameTables.end()) return;
+	vector<JJCGameTables>& tables = jjcIt->second;
+	for (auto tableIt = tables.begin(); tableIt != tables.end(); ++tableIt)
+	{
+		if (pOther && p1) break;
+		if (tableIt->table1 == p1) pOther = tableIt->table2;
+		if (tableIt->table2 == p1) pOther = tableIt->table1;
+	}
+	if (p1 && pOther)
+	{
+		//竞技场需要增加机器人 5-10s增加一个机器人
+		DWORD tick = timeGetTime();
+		for (int i = 0; i < 4; ++i)
+		{
+			DWORD time1 = RandInt() % 5000 + 6000 + tick;
+			g_FishServer.GetRobotManager().AdddWriteRobot(p1->GetTableID(), time1);
+			DWORD time2 = RandInt() % 5000 + 6000 + tick;
+			g_FishServer.GetRobotManager().AdddWriteRobot(pOther->GetTableID(), time2);
+		}
 	}
 }

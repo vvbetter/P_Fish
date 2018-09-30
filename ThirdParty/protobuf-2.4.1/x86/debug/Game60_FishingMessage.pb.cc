@@ -902,7 +902,7 @@ void protobuf_AddDesc_Game60_5fFishingMessage_2eproto() {
     "\030\005 \001(\t\022\020\n\010vipLevel\030\006 \001(\005\022\017\n\007goldNum\030\007 \001("
     "\003\022\014\n\004seat\030\010 \001(\005\022\024\n\014launcherType\030\t \001(\005\022\021\n"
     "\trateIndex\030\n \001(\005\022\016\n\006energy\030\013 \001(\005\022\023\n\013bull"
-    "etCount\030\014 \001(\005\022\r\n\005score\030\r \001(\005\"\206\001\n\030ReqChan"
+    "etCount\030\014 \001(\005\022\r\n\005score\030\r \001(\003\"\206\001\n\030ReqChan"
     "geLauncherMessage\022F\n\005msgID\030\001 \001(\0162$.com.g"
     "ame.proto.Protos_Game60Fishing:\021ReqChang"
     "eLauncher\022\014\n\004seat\030\002 \002(\005\022\024\n\014launcherType\030"
@@ -6176,7 +6176,7 @@ void PlayerData::SharedCtor() {
   rateindex_ = 0;
   energy_ = 0;
   bulletcount_ = 0;
-  score_ = 0;
+  score_ = GOOGLE_LONGLONG(0);
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -6239,7 +6239,7 @@ void PlayerData::Clear() {
     rateindex_ = 0;
     energy_ = 0;
     bulletcount_ = 0;
-    score_ = 0;
+    score_ = GOOGLE_LONGLONG(0);
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
@@ -6444,13 +6444,13 @@ bool PlayerData::MergePartialFromCodedStream(
         break;
       }
       
-      // optional int32 score = 13;
+      // optional int64 score = 13;
       case 13: {
         if (::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
             ::google::protobuf::internal::WireFormatLite::WIRETYPE_VARINT) {
          parse_score:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                   ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &score_)));
           set_has_score();
         } else {
@@ -6546,9 +6546,9 @@ void PlayerData::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(12, this->bulletcount(), output);
   }
   
-  // optional int32 score = 13;
+  // optional int64 score = 13;
   if (has_score()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(13, this->score(), output);
+    ::google::protobuf::internal::WireFormatLite::WriteInt64(13, this->score(), output);
   }
   
   if (!unknown_fields().empty()) {
@@ -6629,9 +6629,9 @@ void PlayerData::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(12, this->bulletcount(), target);
   }
   
-  // optional int32 score = 13;
+  // optional int64 score = 13;
   if (has_score()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(13, this->score(), target);
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(13, this->score(), target);
   }
   
   if (!unknown_fields().empty()) {
@@ -6731,10 +6731,10 @@ int PlayerData::ByteSize() const {
           this->bulletcount());
     }
     
-    // optional int32 score = 13;
+    // optional int64 score = 13;
     if (has_score()) {
       total_size += 1 +
-        ::google::protobuf::internal::WireFormatLite::Int32Size(
+        ::google::protobuf::internal::WireFormatLite::Int64Size(
           this->score());
     }
     

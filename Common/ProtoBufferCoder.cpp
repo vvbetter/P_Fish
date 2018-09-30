@@ -421,6 +421,8 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		pNewData->set_launchertype(pmsg->PlayerData.launcherType);
 		pNewData->set_rateindex(pmsg->PlayerData.rateIndex);
 		pNewData->set_energy(pmsg->PlayerData.energy);
+		pNewData->set_bulletcount(pmsg->PlayerData.bulletCount);
+		pNewData->set_score(pmsg->PlayerData.score);
 		dataLenth = msg.ByteSize() + 4;
 		ret = (char*)malloc(dataLenth);
 		USHORT msgID = Protos_Game60Fishing::ResJoinRoom;
@@ -724,6 +726,21 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		dataLenth = msg.ByteSize() + 4;
 		ret = (char*)malloc(dataLenth);
 		USHORT msgID = Protos_Game60Fishing::ResSyncAddMoney;
+		memcpy_s(ret, 2, &msgID, 2);
+		USHORT pbcLen = msg.ByteSize();
+		memcpy_s(ret + 2, 2, &pbcLen, 2);
+		msg.SerializeToArray(ret + 4, msg.ByteSize());
+		break;
+	}
+	case 6040:
+	{
+		msg_ArenaStartInfo* pmsg = (msg_ArenaStartInfo*)pCmd;
+		ResArenaStartInfoMessage msg;
+		msg.set_start(pmsg->isStart);
+		msg.set_waitplayer(pmsg->waitPlayers);
+		dataLenth = msg.ByteSize() + 4;
+		ret = (char*)malloc(dataLenth);
+		USHORT msgID = Protos_Game60Fishing::ResArenaStartInfo;
 		memcpy_s(ret, 2, &msgID, 2);
 		USHORT pbcLen = msg.ByteSize();
 		memcpy_s(ret + 2, 2, &pbcLen, 2);

@@ -116,6 +116,7 @@ bool GameTable::OnRoleJoinTable(CRoleEx* pRoleEx, BYTE MonthID, bool IsSendToCli
 	pRole->SetRoomLauncher();//设置玩家的炮台
 	if (m_MonthID != 0)//初始化积分和子弹
 	{
+		pRole->SetRateIndex(2);
 		pRole->SetJJCScore(0);
 		pRole->SetBulletCount(600);//TODO
 		pRole->SetRoomLauncher(0);
@@ -144,6 +145,8 @@ bool GameTable::OnRoleJoinTable(CRoleEx* pRoleEx, BYTE MonthID, bool IsSendToCli
 	memcpy_s(msgJoin.PlayerData.icon, ICON_LENGTH, pRoleEx->GetRoleInfo().icon, ICON_LENGTH);
 	msgJoin.PlayerData.vipLevel = pRoleEx->GetRoleInfo().VipLevel;
 	msgJoin.PlayerData.goldNum = pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2;
+	msgJoin.PlayerData.bulletCount = pRole->GetBulletCount();
+	msgJoin.PlayerData.score = pRole->GetJJCScore();
 	pRoleEx->SendDataToClient(&msgJoin);
 	//保存玩家游戏开始记录
 	DBR_Cmd_SaveRecord msg;
@@ -274,6 +277,7 @@ void GameTable::OnGameStop()
 {
 	if (m_isRun == false) return;
 	m_fishdesk.OnGameEnd();
+	m_RoleManager.OnDelAllRole();
 	m_isRun = false;
 	Log("一个桌子结束游戏 id = %d", m_TableID);
 }
@@ -311,7 +315,7 @@ void GameTable::SendDataToTable(DWORD dwUserID, NetCmd* pData)
 	for (BYTE i = 0; i < m_RoleManager.GetMaxPlayerSum(); ++i)
 	{
 		CRole* pRole = m_RoleManager.GetRoleBySeatID(i);
-		if (pRole->IsActionUser() && pRole->GetID() != dwUserID)
+		if (pRole->IsActionUser() && pRole->IsCanSendTableMsg() && pRole->GetID() != dwUserID)
 		{
 			pRole->GetRoleExInfo()->SendDataToClient(pData);
 		}
@@ -331,7 +335,7 @@ void GameTable::SendDataToTableAllUser(NetCmd* pData)
 	for (BYTE i = 0; i < m_RoleManager.GetMaxPlayerSum(); ++i)
 	{
 		CRole* pRole = m_RoleManager.GetRoleBySeatID(i);
-		if (pRole->IsActionUser())
+		if (pRole->IsActionUser() && pRole->IsCanSendTableMsg())
 		{
 			pRole->GetRoleExInfo()->SendDataToClient(pData);
 		}

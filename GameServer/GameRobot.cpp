@@ -156,7 +156,7 @@ bool GameRobotManager::GameRobotIsCanJoinTable(GameTable* pTable)
 		return false;
 	return true;
 }
-void GameRobotManager::OnJoinRobotToTable(GameTable * pTable)
+void GameRobotManager::OnJoinRobotToTable(GameTable * pTable, INT robotNum)
 {
 	//桌子ID 和 比赛ID 我们生成机器人的类型ID
 	DWORD Key = (pTable->GetTableTypeID() << 16) + (pTable->GetTableMonthID() & 0x7f);
@@ -164,12 +164,12 @@ void GameRobotManager::OnJoinRobotToTable(GameTable * pTable)
 	if (Iter == g_FishServer.GetFishConfig().GetFishGameRobotConfig().RobotIndexMap.end())
 		return;
 	DWORD RobotID = Iter->second;
-	JoinRobot(RobotID, pTable);
+	JoinRobot(RobotID, pTable, robotNum);
 }
 void GameRobotManager::OnRoleLeaveNormalRoom(GameTable* pTable)
 {
 	//当普通玩家离开一个房间的时候 判断如果房间里没有普通玩家了 全部的机器人离开
-	if (!pTable || pTable->GetTableMonthID() != 0)
+	if (!pTable)
 		return;
 	BYTE RoleSum = 0;
 	for (BYTE i = 0; i < pTable->GetRoleManager().GetMaxPlayerSum(); ++i)
@@ -230,10 +230,13 @@ void GameRobotManager::AdddWriteRobot(WORD TableID, DWORD WriteTime)
 	pInfo.TimeLog = WriteTime;
 	m_WriteList.push_back(pInfo);
 }
-bool GameRobotManager::JoinRobot(DWORD robotTypeID, GameTable * pTable)
+bool GameRobotManager::JoinRobot(DWORD robotTypeID, GameTable * pTable, INT robotNum)
 {
-	DWORD RobotNum = (RandUInt() % 99999) % 2 + 1;
-	for (DWORD i = 0; i < RobotNum; ++i)
+	if (robotNum == -1)
+	{
+		robotNum = (RandUInt() % 99999) % 2 + 1;
+	}
+	for (INT i = 0; i < robotNum; ++i)
 	{
 		GameRobot* pRobot = GetFreeRobot(robotTypeID, pTable);//获取一个空闲的机器人
 		if (!pRobot)
@@ -521,11 +524,33 @@ void GameRobot::UpdateRobotRate(DWORD tickNow)
 	m_RateTimeLog = tickNow;
 	//更新机器人切换倍率
 	CRole* pUser = g_FishServer.GetTableManager()->SearchUser(m_pRole->GetUserID());//玩家进入桌子 异步的
-	if (!pUser /*|| m_pRole->GetRoleMonth().IsInMonthTable()*/)
+	if (!pUser)
 		return;
 	GameTable* pTable = g_FishServer.GetTableManager()->GetTable(pUser->GetTableID());
 	if (!pTable)
 		return;
+	//竞技场倍率调整为3-6-9 , index = 2,5,8
+	if (m_monthID != 0)
+	{
+		//TODO
+		if (pUser->GetBulletCount() <= 400 && pUser->GetBulletCount() > 200 && pUser->GetRateIndex() != 5)
+		{
+			NetCmdChangeRateType msg;
+			SetMsgInfo(msg, CMD_CHANGE_RATE_TYPE, sizeof(msg));
+			msg.Seat = pUser->GetSeatID();
+			msg.RateIndex = 5;
+			g_FishServer.GetTableManager()->OnHandleTableMsg(m_pRole->GetUserID(), &msg);
+		}
+		else if (pUser->GetBulletCount() <= 200 && pUser->GetBulletCount() > 0 && pUser->GetRateIndex() != 8)
+		{
+			NetCmdChangeRateType msg;
+			SetMsgInfo(msg, CMD_CHANGE_RATE_TYPE, sizeof(msg));
+			msg.Seat = pUser->GetSeatID();
+			msg.RateIndex = 8;
+			g_FishServer.GetTableManager()->OnHandleTableMsg(m_pRole->GetUserID(), &msg);
+		}
+		return;
+	}
 	if (m_NowRate == 0xff)
 	{
 		if (m_ChangeRateTimeLog == 0)
@@ -669,6 +694,8 @@ void GameRobot::UpdateRobotSkill()
 void GameRobot::UpdateRobotLauncher(DWORD tickNow)
 {
 	if (m_LauncherTimeLog != 0 && tickNow - m_LauncherTimeLog < 1000)
+		return;
+	if (m_monthID != 0)
 		return;
 	m_LauncherTimeLog = tickNow;
 	CRole* pUser = g_FishServer.GetTableManager()->SearchUser(m_pRole->GetUserID());//玩家进入桌子 异步的
