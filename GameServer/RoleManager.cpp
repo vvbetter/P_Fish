@@ -142,6 +142,7 @@ void RoleManager::OnKickOneUser(CRoleEx* pRole)
 		}
 		//同步数据到游戏大厅
 		tagClientUserData* pUdata = g_FishServer.GetHallDataCache(pRole->GetRoleInfo().Uid);
+		if (!pUdata) return;
 		UINT32 msgSize = sizeof(GL_QuitSubGame) + pUdata->achSize * (sizeof(tagAchDataMap));
 		GL_QuitSubGame* msg = (GL_QuitSubGame*)malloc(msgSize);
 		SetMsgInfo((*msg), GetMsgType(Main_Hall, 70), msgSize);

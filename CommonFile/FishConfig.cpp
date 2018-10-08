@@ -522,7 +522,7 @@ bool FishConfig::LoadFishJJC(WHXmlNode * pFishConfig)
 	{
 		return false;
 	}
-	WHXmlNode* pFishNode = pFishConfig->GetChildNodeByName(TEXT("JJC"));
+	WHXmlNode* pFishNode = pFishConfig->GetChildNodeByName(TEXT("Arena"));
 	if (!pFishNode)
 	{
 		return false;
@@ -535,16 +535,31 @@ bool FishConfig::LoadFishJJC(WHXmlNode * pFishConfig)
 	{
 		return false;
 	}
-	WHXmlNode* pTableItem = pTable->GetChildNodeByName(TEXT("Item"));
-	m_jjc.admission.clear();
-	while (pTableItem)
+	m_jjc.jjcTable.clear();
+	while (pTable)
 	{
-		BYTE id = 0;
-		pTableItem->GetAttribute(TEXT("id"), id);
-		INT64 gold = 0;
-		pTableItem->GetAttribute(TEXT("admission"), gold);
-		m_jjc.admission.insert(make_pair(id, gold));
-		pTableItem = pTableItem->GetNextSignelNode();
+		tagJJCTableInfo tableInfo;
+		BYTE tableTypeID = -1;
+		pTable->GetAttribute(TEXT("id"), tableTypeID);
+		INT64 admission = 0;
+		pTable->GetAttribute(TEXT("admission"), tableInfo.admission);
+		WHXmlNode* pReward = pTable->GetChildNodeByName(TEXT("reward"));
+		if (!pReward)
+		{
+			return false;
+		}
+		WHXmlNode* pRewardItem = pReward->GetChildNodeByName(TEXT("Item"));
+		while (pRewardItem)
+		{
+			BYTE rank = 0;
+			INT64 gold = 0;
+			pRewardItem->GetAttribute(TEXT("rank"), rank);
+			pRewardItem->GetAttribute(TEXT("gold"), gold);
+			tableInfo.reward.insert(make_pair(rank, gold));
+			pRewardItem = pRewardItem->GetNextSignelNode();
+		}
+		m_jjc.jjcTable.insert(make_pair(tableTypeID, tableInfo));
+		pTable = pTable->GetNextSignelNode();
 	}
 	WHXmlNode* pTime = pFishNode->GetChildNodeByName(TEXT("time"));
 	if (!pTime)
@@ -567,22 +582,6 @@ bool FishConfig::LoadFishJJC(WHXmlNode * pFishConfig)
 		pTimeItem->GetAttribute(TEXT("minute"), tempTime.minute);
 		m_jjc.time.openTime.push_back(tempTime);
 		pTimeItem = pTimeItem->GetNextSignelNode();
-	}
-	WHXmlNode* pReward = pFishNode->GetChildNodeByName(TEXT("reward"));
-	if (!pReward)
-	{
-		return false;
-	}
-	WHXmlNode* pRewardItem = pReward->GetChildNodeByName(TEXT("Item"));
-	m_jjc.reward.clear();
-	while (pRewardItem)
-	{
-		BYTE rank = 0;
-		INT64 gold = 0;
-		pRewardItem->GetAttribute(TEXT("rank"), rank);
-		pRewardItem->GetAttribute(TEXT("gold"), gold);
-		m_jjc.reward[rank] = gold;
-		pRewardItem = pRewardItem->GetNextSignelNode();
 	}
 	return true;
 }

@@ -163,8 +163,9 @@ public:
 	void ResetAllGameRobot();//归还所有机器人
 	bool GameRobotIsCanJoinTable(GameTable* pTable);//判断机器人是否可以进入当前的桌子
 	void OnJoinRobotToTable(GameTable* pTable,INT robotNum = -1);    //增加机器人
-	void OnRoleLeaveNormalRoom(GameTable* pTable);//当普通玩家离开一个非比赛房间的时候
+	void OnRoleLeaveNormalRoom(GameTable* pTable);//当普通玩家离开一个房间的时候
 	void AdddWriteRobot(WORD TableID, DWORD WriteTime); //添加到重新加入房间的机器人队列
+	void OnAllRobotLeaveTable(GameTable* pTable);  //所有机器人离开房间
 private:
 	bool JoinRobot(DWORD robotTypeID, GameTable* pTable, INT robotNum = -1);
 private:
@@ -220,7 +221,7 @@ static string g_RobotName[MAX_ROBOTNAME_COUNT] = {
 	/*41*/    GBKToUTF8("菜菜的小锤锤"),
 	/*42*/    GBKToUTF8("跳进了火坑"),
 	/*43*/    GBKToUTF8("雨飘飘2016"),
-	/*44*/    GBKToUTF8("梦里花落知多少we"),
+	/*44*/    GBKToUTF8("梦里花落知多少"),
 	/*45*/    GBKToUTF8("马拉个币2016"),
 	/*46*/    GBKToUTF8("闽子2011"),
 	/*47*/    GBKToUTF8("烂人一个I"),
@@ -234,7 +235,7 @@ static string g_RobotName[MAX_ROBOTNAME_COUNT] = {
 	/*55*/    GBKToUTF8("小喜鹊HD"),
 	/*56*/    GBKToUTF8("温玉兰"),
 	/*57*/    GBKToUTF8("大大的马甲"),
-	/*58*/    GBKToUTF8("我就是那个零点五"),
+	/*58*/    GBKToUTF8("我就是那个零点"),
 	/*59*/    GBKToUTF8("枫林主人"),
 	/*60*/    GBKToUTF8("沧海一粟qwe"),
 	/*61*/    GBKToUTF8("沁如心扉"),
@@ -245,10 +246,10 @@ static string g_RobotName[MAX_ROBOTNAME_COUNT] = {
 	/*66*/    GBKToUTF8("我爱狐狸皮大氅"),
 	/*67*/    GBKToUTF8("婆婆应不应该来"),
 	/*68*/    GBKToUTF8("iam繁星点点"),
-	/*69*/    GBKToUTF8("心随风飞心随风飞"),
+	/*69*/    GBKToUTF8("心随风飞心随飞"),
 	/*70*/    GBKToUTF8("灵悟师傅"),
-	/*71*/    GBKToUTF8("暖暖的阳光2016"),
-	/*72*/    GBKToUTF8("A疯人院的疯言疯"),
+	/*71*/    GBKToUTF8("暖暖的阳光"),
+	/*72*/    GBKToUTF8("A疯人院疯言疯"),
 	/*73*/    GBKToUTF8("我的密斯特D"),
 	/*74*/    GBKToUTF8("我的未来不靠谱"),
 	/*75*/    GBKToUTF8("桔梗的眼泪"),
@@ -259,7 +260,7 @@ static string g_RobotName[MAX_ROBOTNAME_COUNT] = {
 	/*80*/    GBKToUTF8("耶里雅"),
 	/*81*/    GBKToUTF8("佳哥么么哒"),
 	/*82*/    GBKToUTF8("妖娆的小屁股"),
-	/*83*/    GBKToUTF8("穿高跟鞋的小草莓"),
+	/*83*/    GBKToUTF8("穿高跟鞋的小草"),
 	/*84*/    GBKToUTF8("把我还给我Y"),
 	/*85*/    GBKToUTF8("fangque123"),
 	/*86*/    GBKToUTF8("杨光lonely"),
@@ -286,7 +287,7 @@ static string g_RobotName[MAX_ROBOTNAME_COUNT] = {
 	/*107*/    GBKToUTF8("shaqt"),
 	/*108*/    GBKToUTF8("阿男本色"),
 	/*109*/    GBKToUTF8("温软的子罗1119"),
-	/*110*/    GBKToUTF8("一个欢乐的逗比星"),
+	/*110*/    GBKToUTF8("一个欢乐的逗比"),
 	/*111*/    GBKToUTF8("你一定会来吗"),
 	/*112*/    GBKToUTF8("我是那个小米"),
 	/*113*/    GBKToUTF8("爱佳缘99"),
@@ -301,13 +302,13 @@ static string g_RobotName[MAX_ROBOTNAME_COUNT] = {
 	/*122*/    GBKToUTF8("微微小微"),
 	/*123*/    GBKToUTF8("一华独秀"),
 	/*124*/    GBKToUTF8("七月天热"),
-	/*125*/    GBKToUTF8("一颗孤零零的小草"),
+	/*125*/    GBKToUTF8("孤零零的小草"),
 	/*126*/    GBKToUTF8("童十七"),
-	/*127*/    GBKToUTF8("偶滴个神啊啊啊"),
+	/*127*/    GBKToUTF8("偶滴个神啊啊"),
 	/*128*/    GBKToUTF8("昙花"),
 	/*129*/    GBKToUTF8("无名氏飘飘"),
 	/*130*/    GBKToUTF8("黄金马铃薯派"),
-	/*131*/    GBKToUTF8("小酒窝长睫毛CXY"),
+	/*131*/    GBKToUTF8("小酒窝长睫毛"),
 	/*132*/    GBKToUTF8("柳树成荫1940"),
 	/*133*/    GBKToUTF8("我的尧尧"),
 	/*134*/    GBKToUTF8("二支访蕊"),
@@ -315,7 +316,7 @@ static string g_RobotName[MAX_ROBOTNAME_COUNT] = {
 	/*136*/    GBKToUTF8("夕夜1993"),
 	/*137*/    GBKToUTF8("坚强的鬼点子"),
 	/*138*/    GBKToUTF8("谷育"),
-	/*139*/    GBKToUTF8("窝只是个女孩纸"),
+	/*139*/    GBKToUTF8("窝是个女孩纸"),
 	/*140*/    GBKToUTF8("循环2010"),
 	/*141*/    GBKToUTF8("凉尘"),
 	/*142*/    GBKToUTF8("芋头馒头"),
@@ -339,7 +340,7 @@ static string g_RobotName[MAX_ROBOTNAME_COUNT] = {
 	/*160*/    GBKToUTF8("若初某谋"),
 	/*161*/    GBKToUTF8("追忆岁月悠悠"),
 	/*162*/    GBKToUTF8("一抹小橄榄"),
-	/*163*/    GBKToUTF8("让一切随风而去吧"),
+	/*163*/    GBKToUTF8("让一切随风而去"),
 	/*164*/    GBKToUTF8("飞天龙蛋"),
 	/*165*/    GBKToUTF8("大漠醉红尘"),
 	/*166*/    GBKToUTF8("欢乐花果山"),

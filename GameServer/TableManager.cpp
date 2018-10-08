@@ -190,7 +190,7 @@ void TableManager::UpdateJJC(DWORD dwTimeStep)
 				{
 					msg_ArenaStartInfo msg;
 					SetMsgInfo(msg, 6040, sizeof(msg_ArenaStartInfo));
-					msg.isStart = true;
+					msg.isStart = false;
 					msg.waitPlayers = WaitPlayerSum;
 					tableIt->table1->SendDataToTableAllUser(&msg);
 					tableIt->table2->SendDataToTableAllUser(&msg);
@@ -388,11 +388,13 @@ void TableManager::OnPlayerLeaveTable(DWORD dwUserID)
 	if (m_TableVec.size() <= Index)
 	{
 		ASSERT(false);
+		return;
 	}
 	GameTable* pTable = m_TableVec[Index];
 	if (!pTable)
 	{
 		ASSERT(false);
+		return;
 	}
 	//当玩家离开桌子的时候 将金币刷新下到客户端去
 	CRoleEx* pRole = g_FishServer.GetRoleManager()->QueryUser(dwUserID);
@@ -868,9 +870,9 @@ bool TableManager::CanPlayerJoinJJC(CRoleEx * pRoleEx, BYTE MonthID)
 	{
 		BYTE tableTypeID = MonthID & 0x7f;
 		const tagFishJJC& jjc_cfg = g_FishServer.GetFishConfig().GetFishJJC();
-		auto it = jjc_cfg.admission.find(tableTypeID);
-		if (it == jjc_cfg.admission.end()) return false;
-		INT64 admission = -1 * it->second *MONEY_RATIO;
+		auto it = jjc_cfg.jjcTable.find(tableTypeID);
+		if (it == jjc_cfg.jjcTable.end()) return false;
+		INT64 admission = -1 * it->second.admission * MONEY_RATIO;
 		if (pRoleEx->ChangeRoleGlobe(admission, tableTypeID))
 		{
 			return true;
@@ -952,12 +954,16 @@ void TableManager::AddJJCGameRobot(GameTable * p1)
 	{
 		//竞技场需要增加机器人 5-10s增加一个机器人
 		DWORD tick = timeGetTime();
-		for (int i = 0; i < 4; ++i)
+		DWORD lastAddTime1 = 0;
+		DWORD lastAddTime2 = 0;
+		for (int i = 0; i < 6; ++i)
 		{
-			DWORD time1 = RandInt() % 5000 + 6000 + tick;
-			g_FishServer.GetRobotManager().AdddWriteRobot(p1->GetTableID(), time1);
-			DWORD time2 = RandInt() % 5000 + 6000 + tick;
-			g_FishServer.GetRobotManager().AdddWriteRobot(pOther->GetTableID(), time2);
+			DWORD time1 = RandInt() % 5000 + 6000 + lastAddTime1;
+			lastAddTime1 = time1;
+			g_FishServer.GetRobotManager().AdddWriteRobot(p1->GetTableID(), time1 + tick);
+			DWORD time2 = RandInt() % 5000 + 6000 + lastAddTime2;
+			lastAddTime2 = time2;
+			g_FishServer.GetRobotManager().AdddWriteRobot(pOther->GetTableID(), time2 + tick);
 		}
 	}
 }
@@ -971,6 +977,7 @@ void TableManager::JJCRewardRank(GameTable * p1, GameTable * p2, bool isReward)
 	for (BYTE i = 0; i < 4; ++i)
 	{
 		CRole* pRole = p1->GetRoleManager().GetRoleBySeatID(i);
+		if (!pRole->IsActionUser()) continue;
 		INT64 nJJCScore = pRole->GetJJCScore();
 		msg->reward[i].nScore = nJJCScore;
 		memcpy_s(msg->reward[i].nickname, MAX_NICKNAME, pRole->GetRoleExInfo()->GetRoleInfo().NickName, MAX_NICKNAME);
@@ -980,6 +987,7 @@ void TableManager::JJCRewardRank(GameTable * p1, GameTable * p2, bool isReward)
 	for (BYTE i = 0; i < 4; ++i)
 	{
 		CRole* pRole = p2->GetRoleManager().GetRoleBySeatID(i);
+		if (!pRole->IsActionUser()) continue;
 		INT64 nJJCScore = pRole->GetJJCScore();
 		msg->reward[i + 4].nScore = nJJCScore;
 		memcpy_s(msg->reward[i + 4].nickname, MAX_NICKNAME, pRole->GetRoleExInfo()->GetRoleInfo().NickName, MAX_NICKNAME);
@@ -991,7 +999,9 @@ void TableManager::JJCRewardRank(GameTable * p1, GameTable * p2, bool isReward)
 	tagArenaRewardRank temp;
 	UINT tmpSize = sizeof(tagArenaRewardRank);
 	const tagFishJJC& jjc_cfg = g_FishServer.GetFishConfig().GetFishJJC();
-	const map<BYTE, INT64>& reward = jjc_cfg.reward;
+	auto it = jjc_cfg.jjcTable.find(p1->GetTableTypeID());
+	if (it == jjc_cfg.jjcTable.end()) return;
+	const map<BYTE, INT64>& reward = it->second.reward;
 	for (UINT i = 0; i < 8; ++i)
 	{
 		for (UINT j = i + 1; j < 8; ++j)
@@ -1005,13 +1015,16 @@ void TableManager::JJCRewardRank(GameTable * p1, GameTable * p2, bool isReward)
 		}
 		//设置排行和发放奖励
 		msg->reward[i].rank = rank++;
-		auto it = reward.find(msg->reward[i].rank);
-		if ( it != reward.end())
+		if (isReward)
 		{
-			CRoleEx* pRoleEx = g_FishServer.GetRoleManager()->QuertUserByUid(msg->reward[i].uid);
-			if (pRoleEx)
+			auto it = reward.find(msg->reward[i].rank);
+			if (it != reward.end())
 			{
-				pRoleEx->GetRoleInfo().money1 += it->second*MONEY_RATIO;
+				CRoleEx* pRoleEx = g_FishServer.GetRoleManager()->QuertUserByUid(msg->reward[i].uid);
+				if (pRoleEx)
+				{
+					pRoleEx->ChangeRoleGlobe(it->second*MONEY_RATIO, p1->GetTableMonthID() & 0x7f, 0);
+				}
 			}
 		}
 	}

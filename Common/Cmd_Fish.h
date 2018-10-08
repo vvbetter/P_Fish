@@ -2280,12 +2280,17 @@ struct tagJJC_Time
 	vector<subJJC_Time> openTime;
 };
 
+struct tagJJCTableInfo
+{
+	INT64 admission; //报名费用
+	map<BYTE, INT64> reward;//排名-奖励
+};
+
 struct tagFishJJC
 {
 	BYTE maxPlayerSum; //最大参赛人数
-	map<BYTE, INT64> admission; //场次- 报名费用
 	tagJJC_Time time;//开放时间
-	map<BYTE, INT64> reward;//排名-奖励
+	map<BYTE, tagJJCTableInfo> jjcTable; //桌子类型ID - 桌子信息
 };
 
 

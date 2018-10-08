@@ -169,7 +169,7 @@ void GameRobotManager::OnJoinRobotToTable(GameTable * pTable, INT robotNum)
 void GameRobotManager::OnRoleLeaveNormalRoom(GameTable* pTable)
 {
 	//当普通玩家离开一个房间的时候 判断如果房间里没有普通玩家了 全部的机器人离开
-	if (!pTable)
+	if (!pTable || pTable->GetTableMonthID() != 0)
 		return;
 	BYTE RoleSum = 0;
 	for (BYTE i = 0; i < pTable->GetRoleManager().GetMaxPlayerSum(); ++i)
@@ -230,6 +230,33 @@ void GameRobotManager::AdddWriteRobot(WORD TableID, DWORD WriteTime)
 	pInfo.TimeLog = WriteTime;
 	m_WriteList.push_back(pInfo);
 }
+void GameRobotManager::OnAllRobotLeaveTable(GameTable * pTable)
+{
+	for (BYTE i = 0; i < pTable->GetRoleManager().GetMaxPlayerSum(); ++i)
+	{
+		CRole* pRole = pTable->GetRoleManager().GetRoleBySeatID(i);
+		if (!pRole || !pRole->IsActionUser())
+			continue;
+		if (pRole->GetRoleExInfo()->IsRobot())
+		{
+			//保存玩家游戏记录
+			CRoleEx* pRoleEx = pRole->GetRoleExInfo();
+			DBR_Cmd_SaveRecord recordMsg;
+			SetMsgInfo(recordMsg, DBR_Save_battle_Record, sizeof(DBR_Cmd_SaveRecord));
+			recordMsg.model = 2;
+			recordMsg.uid = pRoleEx->GetRoleInfo().Uid;
+			recordMsg.table_id = 0;
+			recordMsg.enter_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
+			recordMsg.leave_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
+			recordMsg.leave_code = 2;
+			g_FishServer.SendNetCmdToDB(&recordMsg);
+			//归还机器人
+			DWORD dwUserID = pRole->GetID();
+			g_FishServer.GetTableManager()->OnPlayerLeaveTable(dwUserID);
+			ResetGameRobot(dwUserID);//归还机器人
+		}
+	}
+}
 bool GameRobotManager::JoinRobot(DWORD robotTypeID, GameTable * pTable, INT robotNum)
 {
 	if (robotNum == -1)
@@ -275,7 +302,7 @@ void GameRobotManager::UpdateWriteList()
 				Iter = m_WriteList.erase(Iter);
 				continue;
 			}
-			if (pTable->GetTablePlayerSum() == 0 && pTable->GetTableMonthID() == 0)
+			if (!pTable->IsTableRunning() && pTable->GetTableMonthID() == 0)
 			{
 				//普通桌子空的
 				Iter = m_WriteList.erase(Iter);
@@ -299,7 +326,14 @@ void GameRobotManager::UpdateWriteList()
 				//加入成功通知客户端机器人进入，不然就释放机器人
 				if (g_FishServer.GetTableManager()->OnPlayerJoinTable(Iter->TableID, pRobot->GetRoleInfo()))
 				{
-					g_FishServer.GetTableManager()->GetTable(Iter->TableID)->SendRoleJoinInfo(pRobot->GetRobotUserID());
+					GameTable* pTable = g_FishServer.GetTableManager()->GetTable(Iter->TableID);
+					if (!pTable)
+					{
+						//已经没有这个桌子了
+						Iter = m_WriteList.erase(Iter);
+						continue;
+					}
+					pTable->SendRoleJoinInfo(pRobot->GetRobotUserID());
 					//加入成功有50%概率可以继续加入机器人
 					if (RandFloat() > 0.5f)
 					{

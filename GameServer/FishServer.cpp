@@ -1325,7 +1325,12 @@ bool FishServer::OnHandleTCPNetworkTable(ServerClientData* pClient, NetCmd* pCmd
 				return false;
 			}
 			pR->SetRoleIsCanSendTableMsg(true);
-			m_TableManager.GetTable(pR->GetTableID())->DelaySyncDataToClient(pRole);
+			GameTable* pTable = m_TableManager.GetTable(pR->GetTableID());
+			if (!pTable)
+			{
+				return false;
+			}
+			pTable->DelaySyncDataToClient(pRole);
 			return true;
 		}
 		case LC_Sub_ShowOthers:

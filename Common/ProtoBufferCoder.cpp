@@ -21,7 +21,7 @@ const uint PBC_HEADER_SIZE = 10;
 void PrintLogInCmd( USHORT cmdType)
 {
 #ifdef _DEBUG
-	USHORT logCmeType[] = { 6003, 6004, 6030, 6017, 6018, 6032, 6031, 6025, 6026, 6031 };
+	USHORT logCmeType[] = { 6003, 6004, 6030, 6017, 6018, 6032, 6031, 6025, 6026, 6031 ,6042 };
 	for (USHORT& x : logCmeType)
 	{
 		if (cmdType == x)
@@ -787,6 +787,7 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		USHORT pbcLen = msg.ByteSize();
 		memcpy_s(ret + 2, 2, &pbcLen, 2);
 		msg.SerializeToArray(ret + 4, msg.ByteSize());
+		break;
 	}
 	default:
 		isPBC = false;

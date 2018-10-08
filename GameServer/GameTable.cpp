@@ -273,18 +273,19 @@ void GameTable::Update(bool bUpdateTime)
 void GameTable::OnGameStart()
 {
 	if (m_isRun == true) return;
+	m_isRun = true;
 	m_fishdesk.OnGameStar();
 	m_LastUpdateTime = timeGetTime();
 	m_GameStartTime = timeGetTime();
-	m_isRun = true;
 	Log("一个桌子开始游戏 id = %d", m_TableID);
 }
 void GameTable::OnGameStop()
 {
 	if (m_isRun == false) return;
-	m_fishdesk.OnGameEnd();
-	m_RoleManager.OnDelAllRole();
 	m_isRun = false;
+	m_fishdesk.OnGameEnd();
+	g_FishServer.GetRobotManager().OnAllRobotLeaveTable(this);
+	m_RoleManager.OnDelAllRole();
 	Log("一个桌子结束游戏 id = %d", m_TableID);
 }
 void GameTable::Send(PlayerID RoleID, NetCmd*pCmd)

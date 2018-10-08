@@ -32,6 +32,7 @@ void CRole::ResetData()
 {
 	//Log("CRole ResetData");
 	m_pRoleEx = NULL;
+	m_JJCscore = 0;
 	m_BulletIdx = 0;
 	m_LauncherType = 0;
 	m_nMultipleIndex = 0;
@@ -636,6 +637,8 @@ bool CTableRoleManager::IsAllUserHaveBullets()
 {
 	for (int i = 0; i < m_MaxTableUserSum; ++i)
 	{
+		if (!m_TableRoleArray[i].IsActionUser())
+			continue;
 		if (m_TableRoleArray[i].GetBulletCount() != 0)
 		{
 			return false;

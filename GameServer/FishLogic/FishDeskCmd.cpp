@@ -24,7 +24,6 @@ bool FishDesk::HandleNetCmd(PlayerID id, NetCmd *pCmd)
 	CRole *player = GetPlayerFromID(id);
 	if (player == NULL)
 	{
-		Log(L"此桌子(%d)不存在玩家ID:%ld", m_nDeskIndex, id);
 		return false;
 	}
 	IFishSetting *pSetting = FishCallback::GetFishSetting();
