@@ -292,25 +292,25 @@ void GameRobotManager::UpdateWriteList()
 			GameTable* pTable = g_FishServer.GetTableManager()->GetTable(Iter->TableID);
 			if (!pTable)
 			{
-				//已经没有这个桌子了
+				Log("已经没有这个桌子了 id = %d", Iter->TableID);
 				Iter = m_WriteList.erase(Iter);
 				continue;
 			}
 			if ( pTable->GetTablePlayerSum() == 4)
 			{
-				//桌子满了
+				Log("桌子满了 id = %d", Iter->TableID);
 				Iter = m_WriteList.erase(Iter);
 				continue;
 			}
 			if (!pTable->IsTableRunning() && pTable->GetTableMonthID() == 0)
 			{
-				//普通桌子空的
+				Log("普通桌子空的 id = %d", Iter->TableID);
 				Iter = m_WriteList.erase(Iter);
 				continue;
 			}
 			if (pTable->GetTableMonthID() != 0 && pTable->IsTableRunning())
 			{
-				//竞技场的桌子已经开始游戏了
+				Log("竞技场的桌子已经开始游戏了 id =%d", Iter->TableID);
 				Iter = m_WriteList.erase(Iter);
 				continue;
 			}
@@ -326,16 +326,9 @@ void GameRobotManager::UpdateWriteList()
 				//加入成功通知客户端机器人进入，不然就释放机器人
 				if (g_FishServer.GetTableManager()->OnPlayerJoinTable(Iter->TableID, pRobot->GetRoleInfo()))
 				{
-					GameTable* pTable = g_FishServer.GetTableManager()->GetTable(Iter->TableID);
-					if (!pTable)
-					{
-						//已经没有这个桌子了
-						Iter = m_WriteList.erase(Iter);
-						continue;
-					}
 					pTable->SendRoleJoinInfo(pRobot->GetRobotUserID());
 					//加入成功有50%概率可以继续加入机器人
-					if (RandFloat() > 0.5f)
+					if (RandFloat() > 0.5f && pTable->GetTableMonthID() == 0 )
 					{
 						Iter->TimeLog = Time + ((RandUInt() % 99999) % 60) * 1000;
 					}

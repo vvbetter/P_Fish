@@ -160,9 +160,9 @@ void TableManager::UpdateJJC(DWORD dwTimeStep)
 		for (auto tableIt = jjc_tables.begin(); tableIt != jjc_tables.end(); ++tableIt)
 		{
 			//运行时间大于了最大竞技场持续时间 或者 大家都没有子弹了 关闭游戏
-			if ( (tableIt->table1->IsTableRunning() 
+			if ((tableIt->table1->IsTableRunning()
 				&& dwTimeStep - tableIt->table1->GetTableStartTime() > static_cast<DWORD>(jjc_time_cfg.maxTime * 60 * 1000))
-				||( tableIt->table1->IsCanEndMonthGame() && tableIt->table2->IsCanEndMonthGame()) )
+				|| (tableIt->table1->IsCanEndMonthGame() && tableIt->table2->IsCanEndMonthGame()))
 			{
 				JJCRewardRank(tableIt->table1, tableIt->table2, true);
 				tableIt->table1->OnGameStop();
@@ -909,28 +909,28 @@ bool TableManager::IsJJCOpen()
 void TableManager::AddJJCGameTable(BYTE tableTypeID, BYTE monthTypeID, GameTable * pTable)
 {
 	//竞技场需要2个桌子
-GameTable* pNewTable = new GameTable();
-if (!pNewTable)
-{
-	return;
-}
-pNewTable->OnInit(m_MaxTableID, tableTypeID, monthTypeID);//将桌子初始化
-m_MaxTableID++;
-auto jjTablesIt = m_JJCGameTables.find(monthTypeID);
-if (jjTablesIt == m_JJCGameTables.end())
-{
+	GameTable* pNewTable = new GameTable();
+	if (!pNewTable)
+	{
+		return;
+	}
+	pNewTable->OnInit(m_MaxTableID, tableTypeID, monthTypeID);//将桌子初始化
+	m_MaxTableID++;
 	m_TableVec.push_back(pNewTable);
-	JJCGameTables tables(pTable, pNewTable);
-	vector<JJCGameTables> temp;
-	temp.push_back(tables);
-	m_JJCGameTables.insert(make_pair(monthTypeID, temp));
-}
-else
-{
-	vector<JJCGameTables>& jjcTables = jjTablesIt->second;
-	JJCGameTables newtables(pTable, pNewTable);
-	jjcTables.push_back(newtables);
-}
+	auto jjTablesIt = m_JJCGameTables.find(monthTypeID);
+	if (jjTablesIt == m_JJCGameTables.end())
+	{
+		JJCGameTables tables(pTable, pNewTable);
+		vector<JJCGameTables> temp;
+		temp.push_back(tables);
+		m_JJCGameTables.insert(make_pair(monthTypeID, temp));
+	}
+	else
+	{
+		vector<JJCGameTables>& jjcTables = jjTablesIt->second;
+		JJCGameTables newtables(pTable, pNewTable);
+		jjcTables.push_back(newtables);
+	}
 }
 
 void TableManager::AddJJCGameRobot(GameTable * p1)

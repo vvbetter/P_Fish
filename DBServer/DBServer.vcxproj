@@ -102,6 +102,7 @@
       <WarningLevel>Level3</WarningLevel>
       <TreatWarningAsError>true</TreatWarningAsError>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/Zm110 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>lib_json.lib;libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;Common.lib;%(AdditionalDependencies)</AdditionalDependencies>
