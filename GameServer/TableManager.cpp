@@ -318,7 +318,7 @@ bool TableManager::OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE Mo
 		memset(msg.PlayerData.playerName, 0, MAX_NICKNAME + 1);
 		memcpy_s(msg.PlayerData.playerName, MAX_NICKNAME, pRoleEx->GetRoleInfo().NickName, MAX_NICKNAME);
 		memcpy_s(msg.PlayerData.icon, ICON_LENGTH, pRoleEx->GetRoleInfo().icon, ICON_LENGTH);
-		ASSERT(false);
+		pRoleEx->SendDataToClient(&msg);
 		return false;
 	}
 	HashMap<BYTE, TableInfo>::iterator IterConfig = g_FishServer.GetFishConfig().GetTableConfig().m_TableConfig.find(TableTypeID);
@@ -328,8 +328,10 @@ bool TableManager::OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE Mo
 		SetMsgInfo(msg, GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
 		msg.RoomID = TableTypeID;
 		msg.Result = false;
+		memset(msg.PlayerData.playerName, 0, MAX_NICKNAME + 1);
+		memcpy_s(msg.PlayerData.playerName, MAX_NICKNAME, pRoleEx->GetRoleInfo().NickName, MAX_NICKNAME);
+		memcpy_s(msg.PlayerData.icon, ICON_LENGTH, pRoleEx->GetRoleInfo().icon, ICON_LENGTH);
 		pRoleEx->SendDataToClient(&msg);
-		ASSERT(false);
 		return false;
 	}
 	if (MonthID != 0 && CanPlayerJoinJJC(pRoleEx, MonthID) == false)
@@ -338,6 +340,9 @@ bool TableManager::OnPlayerJoinTable(BYTE TableTypeID, CRoleEx* pRoleEx, BYTE Mo
 		SetMsgInfo(msg, GetMsgType(Main_Table, LC_Sub_JoinTable), sizeof(LC_JoinTableResult));
 		msg.RoomID = TableTypeID;
 		msg.Result = false;
+		memset(msg.PlayerData.playerName, 0, MAX_NICKNAME + 1);
+		memcpy_s(msg.PlayerData.playerName, MAX_NICKNAME, pRoleEx->GetRoleInfo().NickName, MAX_NICKNAME);
+		memcpy_s(msg.PlayerData.icon, ICON_LENGTH, pRoleEx->GetRoleInfo().icon, ICON_LENGTH);
 		pRoleEx->SendDataToClient(&msg);
 		return false;
 	}
