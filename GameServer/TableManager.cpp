@@ -961,7 +961,7 @@ void TableManager::AddJJCGameRobot(GameTable * p1)
 		DWORD tick = timeGetTime();
 		DWORD lastAddTime1 = 0;
 		DWORD lastAddTime2 = 0;
-		for (int i = 0; i < 6; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			DWORD time1 = RandInt() % 5000 + 6000 + lastAddTime1;
 			lastAddTime1 = time1;

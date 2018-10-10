@@ -18,11 +18,14 @@ public:
 	}
 	void ClearAllBullet()
 	{
+		m_BulletVecList.clear();
 		for (int i = 0; i < MAX_SEAT_NUM; ++i)
-		for (BulletMapIt it = m_BulletList[i].begin(); it != m_BulletList[i].end();)
 		{
-			delete it->second;
-			it = m_BulletList[i].erase(it);
+			for (BulletMapIt it = m_BulletList[i].begin(); it != m_BulletList[i].end();)
+			{
+				delete it->second;
+				it = m_BulletList[i].erase(it);
+			}
 		}
 	}
 
