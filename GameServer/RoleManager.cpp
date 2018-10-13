@@ -167,15 +167,11 @@ void RoleManager::OnKickOneUser(CRoleEx* pRole)
 		SetMsgInfo(tickMsg, 6032, sizeof(GL_TickOut));
 		pRole->SendDataToClient(&tickMsg);
 		//保存玩家游戏记录
-		DBR_Cmd_SaveRecord recordMsg;
-		SetMsgInfo(recordMsg, DBR_Save_battle_Record, sizeof(DBR_Cmd_SaveRecord));
-		recordMsg.model = 2;
-		recordMsg.uid = pRole->GetRoleInfo().Uid;
-		recordMsg.table_id = 0;
-		recordMsg.enter_money = (pRole->GetRoleInfo().money1 + pRole->GetRoleInfo().money2) / MONEY_RATIO;
-		recordMsg.leave_money = (pRole->GetRoleInfo().money1 + pRole->GetRoleInfo().money2) / MONEY_RATIO;
-		recordMsg.leave_code = 2;
-		g_FishServer.SendNetCmdToDB(&recordMsg);
+		CRole* pTableRole = g_FishServer.GetTableManager()->SearchUser(pRole->GetUserID());
+		if (pTableRole)
+		{
+			pTableRole->SaveBattleRecord(2, 1);
+		}
 		//删除游戏数据
 		OnDelUser(pRole->GetUserID(), true, true);
 	}

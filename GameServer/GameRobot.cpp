@@ -190,16 +190,7 @@ void GameRobotManager::OnRoleLeaveNormalRoom(GameTable* pTable)
 			if (pRole->GetRoleExInfo()->IsRobot())
 			{
 				//保存玩家游戏记录
-				CRoleEx* pRoleEx = pRole->GetRoleExInfo();
-				DBR_Cmd_SaveRecord recordMsg;
-				SetMsgInfo(recordMsg, DBR_Save_battle_Record, sizeof(DBR_Cmd_SaveRecord));
-				recordMsg.model = 2;
-				recordMsg.uid = pRoleEx->GetRoleInfo().Uid;
-				recordMsg.table_id = 0;
-				recordMsg.enter_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
-				recordMsg.leave_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
-				recordMsg.leave_code = 2;
-				g_FishServer.SendNetCmdToDB(&recordMsg);
+				pRole->SaveBattleRecord(2, 2);
 				//归还机器人
 				DWORD dwUserID = pRole->GetID();
 				g_FishServer.GetTableManager()->OnPlayerLeaveTable(dwUserID);
@@ -240,16 +231,7 @@ void GameRobotManager::OnAllRobotLeaveTable(GameTable * pTable)
 		if (pRole->GetRoleExInfo()->IsRobot())
 		{
 			//保存玩家游戏记录
-			CRoleEx* pRoleEx = pRole->GetRoleExInfo();
-			DBR_Cmd_SaveRecord recordMsg;
-			SetMsgInfo(recordMsg, DBR_Save_battle_Record, sizeof(DBR_Cmd_SaveRecord));
-			recordMsg.model = 2;
-			recordMsg.uid = pRoleEx->GetRoleInfo().Uid;
-			recordMsg.table_id = 0;
-			recordMsg.enter_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
-			recordMsg.leave_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
-			recordMsg.leave_code = 2;
-			g_FishServer.SendNetCmdToDB(&recordMsg);
+			pRole->SaveBattleRecord(2, 2);
 			//归还机器人
 			DWORD dwUserID = pRole->GetID();
 			g_FishServer.GetTableManager()->OnPlayerLeaveTable(dwUserID);
@@ -525,16 +507,7 @@ void GameRobot::UpdateRobotRoom(DWORD tickNow)
 	if (tickNow > m_LeaveTableTimeLog)
 	{
 		//保存玩家游戏记录
-		CRoleEx* pRoleEx = pRole->GetRoleExInfo();
-		DBR_Cmd_SaveRecord recordMsg;
-		SetMsgInfo(recordMsg, DBR_Save_battle_Record, sizeof(DBR_Cmd_SaveRecord));
-		recordMsg.model = 2;
-		recordMsg.uid = pRoleEx->GetRoleInfo().Uid;
-		recordMsg.table_id = 0;
-		recordMsg.enter_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
-		recordMsg.leave_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
-		recordMsg.leave_code = 2;
-		g_FishServer.SendNetCmdToDB(&recordMsg);
+		pRole->SaveBattleRecord(2, 2);
 		//机器人需要离开桌子了
 		g_FishServer.GetTableManager()->OnPlayerLeaveTable(GetRobotUserID());//让机器人离开桌子
 		//设置缓存

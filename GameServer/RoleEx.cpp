@@ -261,15 +261,11 @@ void CRoleEx::UpdateByMin(DWORD dwMin)
 	msg.uid = m_RoleInfo.Uid;
 	SendDataToCenter(&msg);
 	//保存玩家游戏记录
-	DBR_Cmd_SaveRecord recordMsg;
-	SetMsgInfo(recordMsg, DBR_Save_battle_Record, sizeof(DBR_Cmd_SaveRecord));
-	recordMsg.model = 1;
-	recordMsg.uid = m_RoleInfo.Uid;
-	recordMsg.table_id = 0;
-	recordMsg.enter_money = (m_RoleInfo.money1 + m_RoleInfo.money2) / MONEY_RATIO;
-	recordMsg.leave_money = (m_RoleInfo.money1 + m_RoleInfo.money2) / MONEY_RATIO;
-	recordMsg.leave_code = 0;
-	g_FishServer.SendNetCmdToDB(&recordMsg);
+	CRole* pRole = g_FishServer.GetTableManager()->SearchUser(m_RoleInfo.dwUserID);
+	if (pRole)
+	{
+		pRole->SaveBattleRecord(1, 0);
+	}
 }
 void CRoleEx::SetRoleExLeaveServer()
 {

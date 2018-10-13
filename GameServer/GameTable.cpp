@@ -149,15 +149,7 @@ bool GameTable::OnRoleJoinTable(CRoleEx* pRoleEx, BYTE MonthID, bool IsSendToCli
 	msgJoin.PlayerData.score = pRole->GetJJCScore();
 	pRoleEx->SendDataToClient(&msgJoin);
 	//保存玩家游戏开始记录
-	DBR_Cmd_SaveRecord msg;
-	SetMsgInfo(msg, DBR_Save_battle_Record, sizeof(DBR_Cmd_SaveRecord));
-	msg.model = 0;
-	msg.uid = pRoleEx->GetRoleInfo().Uid;
-	msg.table_id = pRole->GetTableType();
-	msg.enter_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
-	msg.leave_money = (pRoleEx->GetRoleInfo().money1 + pRoleEx->GetRoleInfo().money2) / MONEY_RATIO;
-	msg.leave_code = 0;
-	g_FishServer.SendNetCmdToDB(&msg);
+	pRole->SaveBattleRecord(0, 0);
 	return true;
 }
 bool GameTable::IsCanEndMonthGame()

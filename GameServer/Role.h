@@ -101,6 +101,8 @@ public:
 	void SetTableType(const BYTE table_type){ m_TableType = table_type; }
 	const BYTE GetTableType(){ return m_TableType; }
 	int GetTableRateRank();
+	//保存战斗记录
+	void SaveBattleRecord(BYTE model, BYTE leaveCode);
 private:
 	WORD		m_TableID;//桌子号
 	BYTE		m_SeatID;//位置号

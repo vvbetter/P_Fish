@@ -986,8 +986,8 @@ bool FishServer::OnSaveFishBattleRecord(BYTE Index, BYTE ClientID, NetCmd* pCmd)
 	tm pNowTime;
 	errno_t Error = localtime_s(&pNowTime, &NowTime);
 	char SqlStr[MAXSQL_LENGTH] = { 0 };
-	sprintf_s(SqlStr, sizeof(SqlStr), "call FishSaveBattleRecord('%d','%lld','%d','%lld','%lld','%d');",
-		pMsg->model, pMsg->uid, pMsg->table_id, pMsg->enter_money, pMsg->leave_money, pMsg->leave_code);
+	sprintf_s(SqlStr, sizeof(SqlStr), "call FishSaveBattleRecord('%d','%lld','%d','%lf','%lf','%d');",
+		pMsg->model, pMsg->uid, pMsg->table_id, pMsg->enter_money*1.0f / MONEY_RATIO, pMsg->leave_money*1.0f / MONEY_RATIO, pMsg->leave_code);
 	SqlResultProxy pTable1;
 	//Log("%d:%d:%d %s", pNowTime.tm_hour, pNowTime.tm_min, pNowTime.tm_sec, SqlStr);
 	bool Result = (m_Sql[Index].Select(SqlStr, 0, pTable1, true) && pTable1.Rows() == 1);

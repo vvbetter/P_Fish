@@ -598,6 +598,26 @@ int CRole::GetTableRateRank()
 	return m_pTableRolemanager->GetRoleRateRank(GetID());
 }
 
+void CRole::SaveBattleRecord(BYTE model, BYTE leaveCode)
+{
+	//modle 0, 进入游戏，1，同步数据，2退出游戏
+	//leaveCode 0:游戏中、1：超时提出 2：正常退出
+	if (m_pRoleEx == null)
+	{
+		return;
+	}
+	//保存玩家游戏记录
+	DBR_Cmd_SaveRecord recordMsg;
+	SetMsgInfo(recordMsg, DBR_Save_battle_Record, sizeof(DBR_Cmd_SaveRecord));
+	recordMsg.model = model;
+	recordMsg.uid = m_pRoleEx->GetRoleInfo().Uid;
+	recordMsg.table_id = m_TableType;
+	recordMsg.enter_money = (m_pRoleEx->GetRoleInfo().money1 + m_pRoleEx->GetRoleInfo().money2);
+	recordMsg.leave_money = (m_pRoleEx->GetRoleInfo().money1 + m_pRoleEx->GetRoleInfo().money2);
+	recordMsg.leave_code = leaveCode;
+	g_FishServer.SendNetCmdToDB(&recordMsg);
+}
+
 CTableRoleManager::CTableRoleManager()
 {
 
