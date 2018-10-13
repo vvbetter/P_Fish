@@ -307,6 +307,6 @@ void UDPClient::ReleaseData()
 		free(m_RecvList->GetItem());
 	while (m_SendList->HasItem())
 		free(m_SendList->GetItem());
-	delete (m_RecvList);
-	delete(m_SendList);
+	SAFE_DELETE(m_RecvList);
+	SAFE_DELETE(m_SendList);
 }

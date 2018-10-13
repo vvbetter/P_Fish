@@ -353,7 +353,7 @@ void FishMap::ReleaseAllMap()
 {
 	for (FISHMAP::iterator it = ms_AllMapList.begin(); it != ms_AllMapList.end(); ++it)
 	{
-		delete(it->second);
+		SAFE_DELETE(it->second);
 	}
 	ms_AllMapList.clear();
 }
@@ -431,7 +431,7 @@ void FishMap::ReleaseMap()
 {
 	for (UINT i = 0; i < m_FlowData.size(); ++i)
 	{
-		delete(m_FlowData[i]);
+		SAFE_DELETE(m_FlowData[i]);
 	}
 	m_FlowData.clear();
 	m_FlowList.clear();

@@ -1192,7 +1192,7 @@ void FTPServer::RemoveClient(FTPClientData *pclient, FTPRemoveType remove)
 			::InterlockedDecrement(&pclient->pFileHandler[i]->UseCount);
 	}
 	if (pclient->pResendList)
-		delete pclient->pResendList;
+		SAFE_DELETE(pclient->pResendList);
 	closesocket(pclient->Socket);
 	pclient->~FTPClientData();
 	free(pclient);

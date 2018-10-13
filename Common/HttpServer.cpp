@@ -385,7 +385,7 @@ void HttpServer::_RecvThread()
 			{
 				//Log("¶Ï¿ªÁ¬½Ó.");
 				closesocket(pc->Socket);
-				delete (pc);
+				SAFE_DELETE(pc);
 				ListRemoveAt(clientList, i);
 			}
 			else

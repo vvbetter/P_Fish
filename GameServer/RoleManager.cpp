@@ -24,7 +24,7 @@ void RoleManager::Destroy()
 			continue;
 		Iter->second->SaveAllRoleInfo(false);
 		Iter->second->SetIsExit(true);//设置玩家下线
-		delete Iter->second;
+		SAFE_DELETE(Iter->second);
 	}
 	m_RoleMap.clear();
 	m_RoleSocketMap.clear();
@@ -111,7 +111,7 @@ void RoleManager::OnDelUserResult(DBO_Cmd_SaveRoleAllInfo* pResult)
 			g_FishServer.GetTableManager()->OnPlayerLeaveTable(Iter->second->GetUserID());
 
 			m_RoleSocketMap.erase(Iter->second->GetGameSocketID());
-			delete Iter->second;
+			SAFE_DELETE(Iter->second);
 			m_RoleMap.erase(Iter);
 		}
 		else

@@ -220,7 +220,7 @@ bool FishServer::OnDestroy()
 	while (m_AfxAddClient.HasItem())
 	{
 		AfxNetworkClientOnce* pOnce = m_AfxAddClient.GetItem();
-		delete pOnce;
+		SAFE_DELETE(pOnce);
 	}
 
 	return true;
@@ -302,7 +302,7 @@ bool FishServer::NewClient(BYTE SeverID, ServerClientData *pClient, void *pData,
 		if (!pOnce->pPoint)
 		{
 			m_ClientTcp.Kick(pClient);
-			delete pOnce;
+			SAFE_DELETE(pOnce);
 			ASSERT(false);
 			return false;
 		}
@@ -381,7 +381,7 @@ void FishServer::OnAddClient()
 				//ASSERT(false);
 				if (pOnce->pPoint)
 					free(pOnce->pPoint);
-				delete pOnce;
+				SAFE_DELETE(pOnce);
 				continue;
 			}
 			BYTE ClientID = (((Reg_Server*)(pOnce->pPoint))->NetWorkID);
@@ -391,7 +391,7 @@ void FishServer::OnAddClient()
 				//ASSERT(false);
 				if (pOnce->pPoint)
 					free(pOnce->pPoint);
-				delete pOnce;
+				SAFE_DELETE(pOnce);
 				continue;
 			}
 			pOnce->pClient->OutsideExtraData = ClientID;
@@ -410,7 +410,7 @@ void FishServer::OnAddClient()
 			OnTcpServerJoin(pOnce->SeverID, pOnce->pClient);
 			if (pOnce->pPoint)
 				free(pOnce->pPoint);
-			delete pOnce;
+			SAFE_DELETE(pOnce);
 
 			//当客户端加入的时候 我们触发事件 
 			if (g_FishServerConfig.IsLogonServerConfigID(ClientID))
@@ -456,7 +456,7 @@ void FishServer::OnAddClient()
 		//}
 		else
 		{
-			delete pOnce;
+			SAFE_DELETE(pOnce);
 			//ASSERT(false);
 			continue;
 		}

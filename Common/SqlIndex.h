@@ -36,7 +36,7 @@ public:
 	{
 		for (UINT i = 0; i < m_IndexCount; ++i)
 		{
-			delete m_IndexMap[i];
+			SAFE_DELETE(m_IndexMap[i]);
 			m_IndexMap[i] = NULL;
 		}
 		m_IndexCount = 0;

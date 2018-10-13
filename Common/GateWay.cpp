@@ -1199,7 +1199,7 @@ void NewGateServer::_ThreadLogonRecv()
 			{
 				Log("Logon 创建TCPSocket 失败");
 				closesocket(gc->ClientSocket);
-				delete(gc);
+				SAFE_DELETE(gc);
 			}
 			else
 			{
@@ -1209,7 +1209,7 @@ void NewGateServer::_ThreadLogonRecv()
 				{
 					Log("LogonClient连接到登录服务器失败, IP:%s, port:%d, err:%u", m_InitData.LogonServerIP, m_InitData.LogonServerPort, WSAGetLastError());
 					closesocket(gc->ClientSocket);
-					delete(gc);
+					SAFE_DELETE(gc);
 				}
 				else
 				{
@@ -1236,7 +1236,7 @@ void NewGateServer::_ThreadLogonRecv()
 				Log("Logon 移除客户端.");
 				closesocket(pc->ClientSocket);
 				closesocket(pc->ServerSocket);
-				delete(pc);
+				SAFE_DELETE(pc);
 				ListRemoveAt(client, i);
 				continue;
 			}
@@ -1381,7 +1381,7 @@ void NewGateServer::_ThreadOperationRecv()
 			{
 				Log("创建TCPSocket 失败");
 				closesocket(gc->ClientSocket);
-				delete(gc);
+				SAFE_DELETE(gc);
 			}
 			else
 			{
@@ -1391,7 +1391,7 @@ void NewGateServer::_ThreadOperationRecv()
 				{
 					Log("LogonClient连接到运营服务器失败, IP:%s, port:%d, err:%u", m_InitData.OperationServerIP, m_InitData.OperationServerPort, WSAGetLastError());
 					closesocket(gc->ClientSocket);
-					delete(gc);
+					SAFE_DELETE(gc);
 				}
 				else
 				{
@@ -1418,7 +1418,7 @@ void NewGateServer::_ThreadOperationRecv()
 				Log("移除客户端.");
 				closesocket(pc->ClientSocket);
 				closesocket(pc->ServerSocket);
-				delete(pc);
+				SAFE_DELETE(pc);
 				ListRemoveAt(client, i);
 				continue;
 			}

@@ -33,7 +33,7 @@ public:
 	}
 	~SafeArrayMT()
 	{
-		delete[](m_pItems);
+		SAFE_DELETE_ARR(m_pItems);
 		m_pItems = NULL;
 	}
 	bool Push(const T & t)

@@ -23,7 +23,7 @@ public:
 		{
 			for (BulletMapIt it = m_BulletList[i].begin(); it != m_BulletList[i].end();)
 			{
-				delete it->second;
+				SAFE_DELETE(it->second);
 				it = m_BulletList[i].erase(it);
 			}
 		}
@@ -66,7 +66,7 @@ public:
 			{
 				USHORT id = pBullet->BulletID;
 				//Log("update É¾³ý×Óµ¯%d, lockfish=%d,ReboundCount=%d,runtime=%f", id, pBullet->LockFishID, pBullet->ReboundCount,pBullet->Time);
-				delete pBullet;
+				SAFE_DELETE(pBullet);
 				it = m_BulletList[i].erase(it);
 			}
 			else
@@ -82,8 +82,6 @@ public:
 		{
 			it->second->CanBeUsed = false;
 			it->second->LockFishID = 0;
-			//delete it->second;
-			//it = m_BulletList[seat].erase(it);
 		}
 	}
 	bool AddBullet(Bullet *pBullet)
@@ -127,7 +125,7 @@ public:
 		else
 		{
 			//Log(L"ÒÆ³ý×Óµ¯, Seat:%d, Idx:%d", GetSeat(bullet), GetIdx(bullet));
-			delete it->second;
+			SAFE_DELETE(it->second);
 			bml.erase(it);
 		}
 	}
@@ -154,7 +152,7 @@ public:
 		pBullet->ExtraPower = e_pwer;
 		bool bRet = AddBullet(pBullet);
 		if (!bRet)
-			delete pBullet;
+			SAFE_DELETE(pBullet);
 		return bRet;
 	}
 	BulletVecList* GetBulletMapList()

@@ -11,7 +11,7 @@ UserLogonManager::~UserLogonManager()
 		HashMap<DWORD, UserLogonInfo*>::iterator Iter = m_UserLogonMap.begin();
 		for (; Iter != m_UserLogonMap.end();)
 		{
-			delete Iter->second;
+			SAFE_DELETE(Iter->second);
 		}
 		m_UserLogonMap.clear();
 	}
@@ -25,7 +25,7 @@ void UserLogonManager::OnUpdate(DWORD dwTimer)
 	{
 		if (dwTimer >= Iter->second->LogonTimeLog && dwTimer - Iter->second->LogonTimeLog >= 60000)
 		{
-			delete Iter->second;
+			SAFE_DELETE(Iter->second);
 			Iter = m_UserLogonMap.erase(Iter);
 		}
 		else
@@ -62,7 +62,7 @@ bool UserLogonManager::CheckUserLogonInfo(DWORD dwUserID, DWORD OnlyID)
 		ASSERT(false);
 		return false;
 	}
-	delete Iter->second;
+	SAFE_DELETE(Iter->second);
 	m_UserLogonMap.erase(Iter);
 	return true;
 }

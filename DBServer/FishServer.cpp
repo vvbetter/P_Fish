@@ -23,7 +23,7 @@ inline UINT WINAPI ThreadFunc3(void *p)
 	//线程3 用于处理队列里面的
 	Thread3Info* pInfo = (Thread3Info*)p;
 	((FishServer*)pInfo->pPoint)->HandleThreadMsg(pInfo->Index);
-	delete pInfo;
+	SAFE_DELETE(pInfo);
 	return 0;
 }
 
@@ -207,7 +207,7 @@ bool FishServer::MainUpdate() //主循环
 				if (!pClient)
 				{
 					free(pRecvInfo->pCmd);
-					delete pRecvInfo;
+					SAFE_DELETE(pRecvInfo);
 					continue;
 				}
 				if (!m_Server.Send(pClient, pRecvInfo->pCmd))
@@ -215,7 +215,7 @@ bool FishServer::MainUpdate() //主循环
 					ASSERT(false);
 				}
 				free(pRecvInfo->pCmd);//New出来的命令 需要free掉
-				delete pRecvInfo;
+				SAFE_DELETE(pRecvInfo);
 			}
 		}
 		//处理控制服务器的命令
@@ -270,7 +270,7 @@ void FishServer::HandleThreadMsg(BYTE ThreadIndex)//多个线程进程处理
 				LogInfoToFile(DBWaringSqlFileName, "SQL性能警告:命令ID为:%u 执行时间:%u ms", pRecvInfo->pCmd->GetSubType(), UseTime);
 			}
 			free(pRecvInfo->pCmd);
-			delete pRecvInfo;
+			SAFE_DELETE(pRecvInfo);
 			pRecvInfo = m_RecvMsgList[ThreadIndex].GetItem();
 		}
 		Sleep(1);
@@ -287,7 +287,7 @@ bool FishServer::OnDestroy()
 	while (m_AfxAddClient.HasItem())
 	{
 		AfxNetworkClientOnce* pOnce = m_AfxAddClient.GetItem();
-		delete pOnce;
+		SAFE_DELETE(pOnce);
 	}
 	return true;
 }
@@ -374,7 +374,7 @@ void FishServer::OnAddClient()
 			//ASSERT(false);
 			if (pOnce->pPoint)
 				free(pOnce->pPoint);
-			delete pOnce;
+			SAFE_DELETE(pOnce);
 			continue;
 		}
 		BYTE ClientID = (((Reg_Server*)(pOnce->pPoint))->NetWorkID);
@@ -384,7 +384,7 @@ void FishServer::OnAddClient()
 			//ASSERT(false);
 			if (pOnce->pPoint)
 				free(pOnce->pPoint);
-			delete pOnce;
+			SAFE_DELETE(pOnce);
 			continue;
 		}
 		pOnce->pClient->OutsideExtraData = ClientID;
@@ -396,7 +396,7 @@ void FishServer::OnAddClient()
 			m_Server.Kick(pOnce->pClient);
 			if (pOnce->pPoint)
 				free(pOnce->pPoint);
-			delete pOnce;
+			SAFE_DELETE(pOnce);
 			continue;
 		}
 		m_ClintList.insert(HashMap<BYTE, ServerClientData*>::value_type(ClientID, pOnce->pClient));
@@ -404,7 +404,7 @@ void FishServer::OnAddClient()
 
 		if (pOnce->pPoint)
 			free(pOnce->pPoint);
-		delete pOnce;
+		SAFE_DELETE(pOnce);
 	}
 }
 void FishServer::OnAddDBResult(BYTE Index, BYTE ClientID, NetCmd*pCmd)
@@ -430,7 +430,7 @@ void FishServer::OnHandleAllMsg()
 		{
 			HandleDataBaseMsg(i, pRecvInfo->ClientID, pRecvInfo->pCmd);
 			free(pRecvInfo->pCmd);
-			delete pRecvInfo;
+			SAFE_DELETE(pRecvInfo);
 			pRecvInfo = m_RecvMsgList[i].GetItem();
 		}
 	}
@@ -556,7 +556,7 @@ bool FishServer::NewClient(BYTE SeverID, ServerClientData *pClient, void *pData,
 	{
 		m_Server.Kick(pClient);
 		ASSERT(false);
-		delete pOnce;
+		SAFE_DELETE(pOnce);
 		return false;
 	}
 	memcpy_s(pOnce->pPoint, recvSize, pData, recvSize);//复制进来

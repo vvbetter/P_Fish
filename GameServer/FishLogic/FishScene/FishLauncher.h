@@ -183,7 +183,7 @@ public:
 
 			if (!m_pFishMgr->AddFish(pFish))
 			{
-				delete pFish;
+				SAFE_DELETE(pFish);
 				return 0xffffffff;
 			}
 		}
@@ -224,7 +224,7 @@ public:
 					m_FishID = START_FISH_ID;
 				if (!m_pFishMgr->AddFish(pFish))
 				{
-					delete pFish;
+					SAFE_DELETE(pFish);
 					bOK = false;
 					break;
 				}
@@ -299,7 +299,7 @@ public:
 					m_FishID = START_FISH_ID;
 				if (!m_pFishMgr->AddFish(pFish))
 				{
-					delete pFish;
+					SAFE_DELETE(pFish);
 					bOK = false;
 					Log(L"鱼加入失败，客户端可能不存在此鱼!");
 				}

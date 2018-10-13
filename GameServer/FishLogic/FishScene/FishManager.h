@@ -23,7 +23,7 @@ public:
 			Fish *pFish = it->second;
 			if (!pFish->UpdateFish(delta))
 			{
-				delete pFish;
+				SAFE_DELETE(pFish);
 				it = m_FishMapList.erase(it);
 			}
 			else
@@ -40,7 +40,7 @@ public:
 			if (pFish->UpdateDeadTime(delta))
 			{
 				ListRemoveAt(m_DeadFishList, i);
-				delete(pFish);
+				SAFE_DELETE(pFish);
 			}
 			else
 			{
@@ -79,18 +79,18 @@ public:
 		FishMapIt it = m_FishMapList.find(FishID);
 		if (it != m_FishMapList.end())
 		{
-			delete it->second;
+			SAFE_DELETE(it->second);
 			m_FishMapList.erase(it);
 		}
 	}
 	void ClearAllFish(bool bReset)
 	{
 		for (UINT i = 0; i < m_DeadFishList.size(); ++i)
-			delete(m_DeadFishList[i]);
+			SAFE_DELETE(m_DeadFishList[i]);
 
 		for (FishMapIt it = m_FishMapList.begin(); it != m_FishMapList.end(); )
 		{
-			delete(it->second);
+			SAFE_DELETE(it->second);
 			it = m_FishMapList.erase(it);
 		}
 		m_DeadFishList.clear();

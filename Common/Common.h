@@ -1003,7 +1003,7 @@ inline fd_set* CreateFDSet()
 }
 inline void DeleteFDSet(fd_set *pset)
 {
-	delete pset;
+	SAFE_DELETE(pset);
 }
 //IPV4整形转换为字符串
 inline void IPToString(UINT ip, WCHAR str[20])
@@ -1275,9 +1275,9 @@ inline string GBKToUTF8(const std::string& strGBK)
 	char * str2 = new char[static_cast<unsigned int>(n)];
 	WideCharToMultiByte(CP_UTF8, 0, str1, -1, str2, n, NULL, NULL);
 	strOutUTF8 = str2;
-	delete[]str1;
+	SAFE_DELETE_ARR(str1);
 	str1 = NULL;
-	delete[]str2;
+	SAFE_DELETE_ARR(str2);
 	str2 = NULL;
 	return strOutUTF8;
 }

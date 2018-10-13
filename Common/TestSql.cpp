@@ -126,7 +126,7 @@ void RandFieldData(SqlTable &t, UINT row, BYTE col)
 			pc[i] = g_TestStr[RandRange(0, g_TestStrSize)];
 		pc[len] = 0;
 		t.Update(pc, len, row, col);
-		delete[](pc);
+		SAFE_DELETE_ARR(pc);
 		break;
 	}
 	case SQL_DATETIME:

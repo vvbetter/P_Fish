@@ -17,7 +17,7 @@ bool SqlManager::Init(std::vector<SQLInitData>& data)
 		ISqlAdapter* SqlAdapter = new MySqlAdapter();
 		if (SqlAdapter == nullptr || !SqlAdapter->Connected(*Iter))
 		{
-			delete SqlAdapter;
+			SAFE_DELETE(SqlAdapter);
 			SqlAdapter = nullptr;
 			return false;
 		}
@@ -32,7 +32,7 @@ void SqlManager::Shutdown()
 	std::vector<ISqlAdapter*>::iterator Iter = m_SqlAdapterVec.begin();
 	for (; Iter != m_SqlAdapterVec.end(); ++Iter)
 	{
-		delete (*Iter);
+		SAFE_DELETE((*Iter));
 	}
 	m_SqlAdapterVec.clear();
 }

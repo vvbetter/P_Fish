@@ -68,7 +68,7 @@ public:
 	}
 	void FreeResult(HttpClientResult* pResult)
 	{
-		delete(pResult);
+		SAFE_DELETE(pResult);
 	}
 protected:
 	//获取域名的IP地址

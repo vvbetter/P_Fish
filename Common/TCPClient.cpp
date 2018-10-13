@@ -67,8 +67,8 @@ bool TCPClient::Init(const char *ip, const ClientInitData &data, void *pData, in
 				closesocket(m_Socket);
 
 				SAFE_FREE(m_Buff);
-				delete m_RecvList;
-				delete m_SendList;
+				SAFE_DELETE(m_RecvList);
+				SAFE_DELETE(m_SendList);
 				return false;
 			}
 			//等待结果
@@ -82,8 +82,8 @@ bool TCPClient::Init(const char *ip, const ClientInitData &data, void *pData, in
 					closesocket(m_Socket);
 
 					SAFE_FREE(m_Buff);
-					delete m_RecvList;
-					delete m_SendList;
+					SAFE_DELETE(m_RecvList);
+					SAFE_DELETE(m_SendList);
 					return false;
 				}
 			}
@@ -93,8 +93,8 @@ bool TCPClient::Init(const char *ip, const ClientInitData &data, void *pData, in
 				closesocket(m_Socket);
 
 				SAFE_FREE(m_Buff);
-				delete m_RecvList;
-				delete m_SendList;
+				SAFE_DELETE(m_RecvList);
+				SAFE_DELETE(m_SendList);
 				return false;
 			}
 		}
@@ -117,8 +117,8 @@ bool TCPClient::Init(const char *ip, const ClientInitData &data, void *pData, in
 	{
 		Log("连接 %s:%d 失败:%d", ip, m_InitData.Port, WSAGetLastError());
 		SAFE_FREE(m_Buff);
-		delete m_RecvList;
-		delete m_SendList;
+		SAFE_DELETE(m_RecvList);
+		SAFE_DELETE(m_SendList);
 
 		return false;
 	}
@@ -293,6 +293,6 @@ void TCPClient::ReleaseData()
 		free(m_RecvList->GetItem());
 	while (m_SendList->HasItem())
 		free(m_SendList->GetItem());
-	delete m_RecvList;
-	delete m_SendList;
+	SAFE_DELETE(m_RecvList);
+	SAFE_DELETE(m_SendList);
 }

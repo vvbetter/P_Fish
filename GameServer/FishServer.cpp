@@ -423,7 +423,7 @@ bool FishServer::NewClient(BYTE SeverID, ServerClientData *pClient, void *pData,
 	{
 		m_ClientTcp.Kick(pClient);
 		ASSERT(false);
-		delete pOnce;
+		SAFE_DELETE(pOnce);
 		return false;
 	}
 	memcpy_s(pOnce->pPoint, recvSize, pData, recvSize);
@@ -477,11 +477,11 @@ void FishServer::OnAddClient()
 
 			if (pOnce->pPoint)
 				free(pOnce->pPoint);
-			delete pOnce;
+			SAFE_DELETE(pOnce);
 		}
 		else
 		{
-			delete pOnce;
+			SAFE_DELETE(pOnce);
 			//ASSERT(false);
 		}
 	}
@@ -859,7 +859,7 @@ bool FishServer::OnDestroy()
 	while (m_AfxAddClient.HasItem())
 	{
 		AfxNetworkClientOnce* pOnce = m_AfxAddClient.GetItem();
-		delete pOnce;
+		SAFE_DELETE(pOnce);
 	}
 	return true;
 }

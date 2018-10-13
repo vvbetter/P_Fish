@@ -630,7 +630,7 @@ void CTableRoleManager::OnInit(WORD TableID, BYTE TableMaxPlayerSum)
 void CTableRoleManager::Destroy()
 {
 	//CTraceService::TraceString(TEXT("一个桌子玩家数组 已经销毁"), TraceLevel_Normal);
-	delete[] m_TableRoleArray;
+	SAFE_DELETE_ARR(m_TableRoleArray);
 	m_TableRoleArray = NULL;
 }
 bool CTableRoleManager::IsAllUserHaveBullets()

@@ -25,7 +25,7 @@ public:
 	}
 	~MyArray()
 	{
-		delete[](m_pData);
+		SAFE_DELETE_ARR(m_pData);
 		m_pData = NULL;
 	}
 	bool HasItem()const

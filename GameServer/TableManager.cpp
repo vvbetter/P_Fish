@@ -97,7 +97,7 @@ void TableManager::Destroy()
 			if (!(*Iter))
 				continue;
 			//CTraceService::TraceString(TEXT("一个桌子对象 已经被销毁"), TraceLevel_Normal);
-			delete *Iter;
+			SAFE_DELETE((*Iter));
 		}
 		m_TableVec.clear();
 	}

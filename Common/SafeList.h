@@ -31,9 +31,9 @@ public:
 		{
 			volatile Node *pItem = m_Current;
 			m_Current = m_Current->Next;
-			delete(pItem);
+			SAFE_DELETE(pItem);
 		}
-		delete m_Last;
+		SAFE_DELETE(m_Last);
 
 	}
 	bool HasItem()
@@ -54,7 +54,7 @@ public:
 		volatile Node *pItem = m_Current;
 		m_Current = pItem->Next;
 		T item = ((Node*)m_Current)->Item;
-		delete(pItem);
+		SAFE_DELETE(pItem);
 		::InterlockedDecrement(&m_Count);
 		return item;
 	}

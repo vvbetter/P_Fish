@@ -22,7 +22,7 @@ void CenterRoleManager::Destroy()
 	{
 		if (!Iter->second)
 			continue;
-		delete Iter->second;
+		SAFE_DELETE(Iter->second);
 	}
 	m_RoleMap.clear();
 }
@@ -58,7 +58,7 @@ bool CenterRoleManager::OnDelCenterRole(DWORD dwUserID)
 	if (Iter != m_RoleMap.end() && Iter->second)
 	{
 		Iter->second->OnRoleLeave();
-		delete Iter->second;
+		SAFE_DELETE(Iter->second);
 		m_RoleMap.erase(Iter);
 		return true;
 	}
@@ -78,7 +78,7 @@ bool CenterRoleManager::OnPlazaLeave(BYTE dwSocketID)
 			Iter->second->OnRoleLeave();
 			g_FishServer.GetCenterManager().UnRsgUser(Iter->first);//让指定玩家离线 当GameServer断开连接的时候 进行处理
 
-			delete Iter->second;
+			SAFE_DELETE(Iter->second);
 			Iter = m_RoleMap.erase(Iter);
 		}
 		else

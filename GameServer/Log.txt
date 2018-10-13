@@ -2,3 +2,5 @@
 ╤оят[2018 9 1 15:49:16]: GameServer.cpp wmain 50
 ╤оят[2018 9 19 9:13:46]: ..\CommonFile\FishServerConfig.cpp FishServerConfig::LoadServerConfigFile 19
 ╤оят[2018 9 19 9:13:47]: GameServer.cpp wmain 50
+╤оят[2018 10 12 9:27:56]: ..\CommonFile\FishServerConfig.cpp FishServerConfig::LoadServerConfigFile 19
+╤оят[2018 10 12 9:27:56]: GameServer.cpp wmain 50
