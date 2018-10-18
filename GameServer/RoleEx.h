@@ -21,6 +21,7 @@ public:
 	void ChangeRoleSocketID(DWORD SocketID);
 	DWORD GetFaceID() { return m_RoleInfo.dwFaceID; }
 	tagRoleInfo& GetRoleInfo() { return m_RoleInfo; }
+	const FishKillDataType& GetRoleKillFishData() { return m_RoleGameData.GetFishKillData(); }
 	tagRoleServerInfo& GetRoleServerInfo() { return m_RoleServerInfo; }
 	time_t GetLastOnLineTime() { return m_LastOnLineTime; }//获取玩家最后上线的时间 有可能为0 表示玩家第一次上线
 	bool IsOnceDayOnline();//是否在同一天内重新登陆
@@ -33,7 +34,8 @@ public:
 	void SendDataToCenter(NetCmd* pCmd);
 	void SendDataToTable(NetCmd* pCmd);
 	void SendUserLeaveToCenter();
-	bool ChangeRoleGlobe(int64 AddGlobe, const BYTE TableTypeID, const USHORT FishType = -1);
+	bool ChangeRoleGlobe(int64 AddGlobe, const BYTE TableTypeID, const USHORT FishType = -1, const BYTE bulletType = -1);
+	bool OnHitFish(const USHORT fishType,const BYTE bulletType);
 	bool ChangeRoleIsOnline(bool States);
 	//RoleServerInfo
 	bool ChangeRoleTotalFishGlobelSum(int64 AddSum);

@@ -170,7 +170,7 @@ void RoleManager::OnKickOneUser(CRoleEx* pRole)
 		CRole* pTableRole = g_FishServer.GetTableManager()->SearchUser(pRole->GetUserID());
 		if (pTableRole)
 		{
-			pTableRole->SaveBattleRecord(2, 1);
+			pTableRole->SaveBattleRecord(2, 2);
 		}
 		//É¾³ýÓÎÏ·Êý¾Ý
 		OnDelUser(pRole->GetUserID(), true, true);

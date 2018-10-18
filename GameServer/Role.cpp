@@ -33,6 +33,7 @@ void CRole::ResetData()
 	//Log("CRole ResetData");
 	m_pRoleEx = NULL;
 	m_JJCscore = 0;
+	m_fireCount = 0;
 	m_BulletIdx = 0;
 	m_LauncherType = 0;
 	m_nMultipleIndex = 0;
@@ -220,7 +221,7 @@ LaunchFailedType CRole::UseLaser(byte launcherType)
 	return LFT_OK;
 }
 
-void CRole::OnCatchFish(CatchType catchType, byte subType,WORD FishType, int nScore)
+void CRole::OnCatchFish(CatchType catchType, byte BulletType,WORD FishType, int nScore, bool result)
 {
 	if (!m_pRoleEx)
 	{
@@ -240,19 +241,27 @@ void CRole::OnCatchFish(CatchType catchType, byte subType,WORD FishType, int nSc
 	{
 		return;
 	}
+	//只是击中鱼，没有击杀
+	if (result == false)
+	{
+		m_pRoleEx->OnHitFish(FishType, BulletType);
+		return;
+	}
+	//击杀鱼处理
 	if (pTable->GetTableMonthID() != 0)
 	{
 		m_JJCscore += catchScore;
 	}
 	else
 	{
-		m_pRoleEx->ChangeRoleGlobe(catchScore, m_TableType, FishType);
+		m_pRoleEx->ChangeRoleGlobe(catchScore, m_TableType, FishType, BulletType);
 		if (!m_pRoleEx->IsRobot())
 		{
 			g_FishServer.GetTableManager()->OnChangeTableGlobel(GetTableID(), -catchScore, TableRate());
 		}
 		m_pRoleEx->ChangeRoleTotalFishGlobelSum(catchScore);
 	}
+	return;
 }
 bool CRole::IsFullEnergy()
 {
@@ -336,6 +345,7 @@ bool CRole::CheckFire(BYTE byLauncher)
 		}
 		//end
 	}
+	++m_fireCount;
 	m_dwLastFireTime = timeGetTime();
 	return true;
 }
@@ -606,16 +616,33 @@ void CRole::SaveBattleRecord(BYTE model, BYTE leaveCode)
 	{
 		return;
 	}
+	if (m_pRoleEx->IsRobot()) return;
 	//保存玩家游戏记录
-	DBR_Cmd_SaveRecord recordMsg;
-	SetMsgInfo(recordMsg, DBR_Save_battle_Record, sizeof(DBR_Cmd_SaveRecord));
-	recordMsg.model = model;
-	recordMsg.uid = m_pRoleEx->GetRoleInfo().Uid;
-	recordMsg.table_id = m_TableType;
-	recordMsg.enter_money = (m_pRoleEx->GetRoleInfo().money1 + m_pRoleEx->GetRoleInfo().money2);
-	recordMsg.leave_money = (m_pRoleEx->GetRoleInfo().money1 + m_pRoleEx->GetRoleInfo().money2);
-	recordMsg.leave_code = leaveCode;
-	g_FishServer.SendNetCmdToDB(&recordMsg);
+	UINT dataSize = sizeof(DBR_Cmd_SaveRecord);
+	dataSize += sizeof(tagFishKillData)* m_pRoleEx->GetRoleKillFishData().size();
+	DBR_Cmd_SaveRecord* recordMsg = (DBR_Cmd_SaveRecord*) new char[dataSize];
+	memset(recordMsg, 0, dataSize);
+	SetMsgInfo((*recordMsg), DBR_Save_battle_Record, dataSize);
+	recordMsg->model = model;
+	recordMsg->uid = m_pRoleEx->GetRoleInfo().Uid;
+	recordMsg->table_id = m_TableType;
+	recordMsg->enter_money = (m_pRoleEx->GetRoleInfo().money1 + m_pRoleEx->GetRoleInfo().money2);
+	recordMsg->leave_money = (m_pRoleEx->GetRoleInfo().money1 + m_pRoleEx->GetRoleInfo().money2);
+	recordMsg->leave_code = leaveCode;
+	recordMsg->fireCount = m_fireCount;
+	const FishKillDataType& fishkilldata = m_pRoleEx->GetRoleKillFishData();
+	for (auto it = fishkilldata.begin(); it != fishkilldata.end(); ++it)
+	{
+		if (it->first > 0 && it->first < fishkilldata.size())
+		{
+			recordMsg->killdata[it->first].fishType = it->first;
+			recordMsg->killdata[it->first].hit_num = it->second.hit_num;
+			recordMsg->killdata[it->first].kill_num = it->second.kill_num;
+			recordMsg->killdata[it->first].retMoney = it->second.ret_money;
+		}
+	}
+	g_FishServer.SendNetCmdToDB(recordMsg);
+	SAFE_DELETE_ARR(recordMsg);
 }
 
 CTableRoleManager::CTableRoleManager()

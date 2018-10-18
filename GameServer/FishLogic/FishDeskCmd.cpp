@@ -427,7 +427,7 @@ void FishDesk::ProcessSkillTornado(CRole *player)
 			continue;
 		}
 		pFish->Controller.StopLaugh();
-		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_SKILL, SKILL_TORNADO, pFish->GetPackage(), player->GetRateIndex());
+		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_SKILL, SKILL_TORNADO, player->GetRateIndex(), true);
 		pSkill->FishID[validCount].fishID = pFish->FishID;
 		pSkill->FishID[validCount].nReward = FishCallback::GetFishSetting()->FishRewardDrop(player->GetID(), pFish->GetPackage(), pFish->FishType);
 		m_pScene->GetFishMgr()->RemoveFishImmediate(pFish->FishID);
@@ -459,7 +459,7 @@ int CatchLightingFish(FishManager * pMgr, CatchFishMap &fm, Fish *pCatchFish, Fi
 			continue;
 		}
 		
-		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, (CatchType)catchType, skillType, pFish->GetPackage(), player->GetRateIndex());
+		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, (CatchType)catchType, skillType, player->GetRateIndex(), true);
 		FishDeadTime fc;
 		fc.deadTime = 2;
 		fc.nReward = FishCallback::GetFishSetting()->FishRewardDrop(player->GetID(), pFish->GetPackage(), pFish->FishType);
@@ -511,7 +511,7 @@ void FishDesk::ProcessSkillFreeze(CRole *player)
 		float change = FishCallback::GetFishSetting()->GetSkillChance(SKILL_FREEZE, pFish->FishType, pFish->PackageType);
 		if (pFish->IsInFrustum && RandFloat() < change)	//»÷ÖÐËÀÍö
 		{
-			goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_SKILL, SKILL_FREEZE, pFish->GetPackage(), player->GetRateIndex());
+			goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_SKILL, SKILL_FREEZE, player->GetRateIndex(), true);
 			byte bt = DeadStayTimer::GetSkillDeadTime(SKILL_FREEZE, speed, deadTime);			
 			int lightNum = FishCallback::GetFishSetting()->IsLightingFish(pFish->FishType, player->GetID());
 			if (lightNum > 0)
@@ -591,7 +591,7 @@ void FishDesk::ProcessSkillLighting(CRole *player)
 		}
 		pFish->Controller.StopLaugh();
 		byte bt = DeadStayTimer::GetSkillDeadTime(SKILL_LIGHTING, speedScl, deadTime);
-		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_SKILL, SKILL_LIGHTING, pFish->GetPackage(), player->GetRateIndex());
+		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_SKILL, SKILL_LIGHTING, player->GetRateIndex(), true);
 		fdt.fishID = pFish->FishID;
 		fdt.deadTime = bt;
 		fdt.lightingFishID = 0;
@@ -652,7 +652,7 @@ void FishDesk::ProcessSkillLaser(NetCmdSkillLaser* pCmd, CRole *player)
 	{
 		Fish *pFish = fishList[i].pFish;
 		pFish->Controller.StopLaugh();
-		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_LASER, player->GetLauncherType(), pFish->GetPackage(), player->GetRateIndex());
+		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_LASER, player->GetLauncherType(), player->GetRateIndex(), true);
 		byte bt = DeadStayTimer::GetLaserDeadTime(player->GetLauncherType(), speedScl, deadTime);
 		FishDeadTime fdt;
 		fdt.fishID = pFish->FishID;
@@ -762,7 +762,7 @@ void FishDesk::ProcessSkillDisaster(CRole *player)
 			continue;
 		}
 		pFish->Controller.StopLaugh();
-		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_SKILL, SKILL_DISASTER, pFish->GetPackage(), player->GetRateIndex());
+		goldNum += FishCallback::GetFishSetting()->CatchFish(player->GetID(), pFish->FishType, CATCH_SKILL, SKILL_DISASTER, player->GetRateIndex(), true);
 		byte bt = DeadStayTimer::GetSkillDeadTime(SKILL_DISASTER, speedScl, deadTime);
 		FishDeadTime fdt;
 		fdt.fishID = pFish->FishID;

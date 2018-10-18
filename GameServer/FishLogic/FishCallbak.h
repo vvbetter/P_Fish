@@ -45,7 +45,7 @@ public:
 	virtual BulletType GetBulletType(USHORT bulletID) = 0;
 	virtual void  GetBulletFreezeReduction(byte &speedScaling, byte &duration1, byte& duration2, byte &duration3) = 0;
 	//捕获鱼，返回金币数量
-	virtual UINT  CatchFish(PlayerID playerID, USHORT fishIndx, CatchType catchType, byte subType, byte packge, byte rate) = 0;
+	virtual UINT  CatchFish(PlayerID playerID, USHORT fishIndx, CatchType catchType, byte subType, byte rate, bool result) = 0;
 	virtual USHORT    GetCombo(PlayerID playerID, USHORT bulletID) = 0;
 	//是否允许上传头像
 	virtual bool CanUploadImg(PlayerID playerID, USHORT imgSize) = 0;

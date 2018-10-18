@@ -25,6 +25,14 @@ bool RoleGameData::OnInit(CRoleEx* pRole, const tagRoleGameData& gameData)
 	}
 	m_pRole = pRole;
 	m_RoleGameData = gameData;
+	//初始化鱼击杀数据
+	int fishCount = g_FishServer.GetTableManager()->GetGameConfig()->FishCount();
+	FishKillInfo temp;
+	for (int i = 0; i < fishCount; ++i)
+	{
+		m_FishKillData.insert(make_pair(i, temp));
+	}
+
 	return true;
 }
 
@@ -58,12 +66,19 @@ void RoleGameData::UpdateMinWinLose()
 	m_lastMinWinGold = 0;
 }
 
-void RoleGameData::OnPlayerCatchFish(const USHORT FishType)
+void RoleGameData::OnPlayerCatchFish(const USHORT FishType, const BYTE bulletType, const INT64 retMoney)
 {
-	if (FishType == -1)
+	if (FishType == (USHORT)-1)
 	{
 		return;
 	}
+	if (FishType >= m_FishKillData.size())
+	{
+		return;
+	}
+	m_FishKillData[FishType].kill_num++;
+	m_FishKillData[FishType].hit_num++;
+	m_FishKillData[FishType].ret_money += retMoney;
 	tagClientUserData* pUdata = g_FishServer.GetHallDataCache(m_pRole->GetRoleInfo().Uid);
 	if (pUdata != NULL)
 	{
@@ -133,4 +148,17 @@ void RoleGameData::OnPlayerBulletNoCatch()
 		return;
 	}
 	OnFishEvent(udata, 64); // 64空炮专家成就
+}
+
+void RoleGameData::OnHitFishEvent(const USHORT fishType, const BYTE bulletType)
+{
+	if (fishType == (USHORT)-1)
+	{
+		return;
+	}
+	if (fishType >= m_FishKillData.size())
+	{
+		return;
+	}
+	m_FishKillData[fishType].hit_num++;
 }

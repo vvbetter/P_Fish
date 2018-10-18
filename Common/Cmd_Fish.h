@@ -4473,7 +4473,13 @@ enum LogonCmd
 	LC_RsgNewAccount		= 88,
 
 };
-
+struct tagFishKillData
+{
+	USHORT fishType;
+	UINT kill_num;
+	UINT hit_num;
+	INT64 retMoney;
+};
 struct DBR_Cmd_SaveRecord :public NetCmd
 {
 	int model; //0,进入游戏，1，同步数据，2退出游戏
@@ -4482,6 +4488,8 @@ struct DBR_Cmd_SaveRecord :public NetCmd
 	int64 enter_money; //进入是金币
 	int64 leave_money; //离开时金币
 	int leave_code; //0：正常退出，1：强制退出，2：系统超时踢出
+	DWORD fireCount;
+	tagFishKillData killdata[0];
 };
 struct DBR_Cmd_SaveTotalGold :public NetCmd
 {

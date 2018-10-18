@@ -8,6 +8,17 @@
 #include "Stdafx.h"
 class CRoleEx;
 struct tagRoleGameData;
+
+struct FishKillInfo
+{
+	UINT hit_num;
+	UINT kill_num;
+	INT64 ret_money;
+	FishKillInfo(UINT initHit = 0, UINT initKill = 0, INT64 r = 0) :hit_num(initHit), kill_num(initKill), ret_money(r) {}
+};
+
+typedef map<USHORT, FishKillInfo> FishKillDataType;
+
 class RoleGameData
 {
 public:
@@ -19,18 +30,18 @@ public:
 	const int64 GetTurnLoseWinGoldByTable(const BYTE TableTypeID);
 	void UpdateMinWinLose();					//统计一分钟内的输赢
 	void ChangeGameGold(const INT64 gold);	//每次输赢统计金币
-	void OnPlayerCatchFish(const USHORT FishType); //处理击杀鱼事件
+	void OnPlayerCatchFish(const USHORT FishType, const BYTE bulletType, const INT64 retMoney = 0);//处理击杀鱼事件
 	void OnPlayerUseMaxRate(); //处理终极炮台成就
 	void OnPlayerBulletNoCatch(); //处理成就空炮专家
-
+	void OnHitFishEvent(const USHORT fishType, const BYTE bulletType); //处理子弹击中鱼的事件
 	const INT32 GetWinNum(){ return m_winNum; }
 	const INT32 GetLoseNum(){ return m_loseNum; }
 	const INT64 GetTotalWinGold(){ return m_TotalWinGold; }
 	const int64 GetTotalLoseGold(){ return m_TotalLoseGold; }
 	const INT32 GetBossFishCount(){ return m_BossFishCount; }
+	const FishKillDataType& GetFishKillData() { return m_FishKillData; }
 private:
 	void OnFishEvent(tagClientUserData* udata, INT eventType);
-
 	void OnCatchFihs_25(tagClientUserData* udata); //击杀电鳗
 	void OnCatchFish_1_3_19(tagClientUserData* udata);//击杀BOSS鱼
 	void OnCatchFish_valueLE_10(tagClientUserData* udata); //鱼价值小于等于10
@@ -43,6 +54,6 @@ private:
 	INT32					m_loseNum; //统计每分钟的输赢，退出时返回输赢次数 
 	INT64					m_TotalWinGold;	//玩家一局游戏中总获得金币
 	INT64					m_TotalLoseGold; //玩家一局游戏中总输掉金币
-
 	INT32					m_BossFishCount; //击杀的BOSS鱼数量
+	FishKillDataType m_FishKillData;
 };

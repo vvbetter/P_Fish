@@ -57,7 +57,7 @@ public:
 	void SetLauncher(BYTE LauncherType);
 	void ResetData();
 
-	void OnCatchFish(CatchType catchType, byte subType,WORD FishType, int nScore);
+	void OnCatchFish(CatchType catchType, byte subType,WORD FishType, int nScore, bool result);
 	bool CheckFire(BYTE byLauncher);
 	bool IsFullEnergy();
 	SkillFailedType UseSkill(SkillType skill);
@@ -104,6 +104,7 @@ public:
 	//保存战斗记录
 	void SaveBattleRecord(BYTE model, BYTE leaveCode);
 private:
+	DWORD		m_fireCount; //开炮数量
 	WORD		m_TableID;//桌子号
 	BYTE		m_SeatID;//位置号
 	BYTE		m_TableType; //桌子的类型ID。初级、中级。。。

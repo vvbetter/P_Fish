@@ -149,7 +149,7 @@ bool CConfig::LoadConfig(char szDir[])
 		{
 			Attribute(xml_child, "sustain_time", Con_Combo::s_sustaintime);
 			Attribute(xml_child, "buff_cycle", Con_Combo::s_buff_cycle);
-			Attribute(xml_child, "bufferchance", Con_Combo::s_bufferchance);						
+			Attribute(xml_child, "bufferchance", Con_Combo::s_bufferchance);
 		}
 		else if (!strcmp(xml_child->Value(), "Energy"))
 		{
@@ -233,13 +233,13 @@ bool CConfig::LoadConfig(char szDir[])
 			Attribute(xml_child, "maxratio", Con_Cannon::s_maxratio);
 			Attribute(xml_child, "finalration", Con_Cannon::s_finalratio);
 			Attribute(xml_child, "unlockratio", Con_Cannon::s_unlockratio);
-			
+
 			for (const XMLElement* xml_data = xml_child->FirstChildElement(); xml_data; xml_data = xml_data->NextSiblingElement())
 			{
 				Con_Cannon cannon_item = { 0 };
 				Attribute(xml_data, "id", cannon_item.nid);
 
-				Attribute(xml_data, "bulletspeed", cannon_item.bulletspeed);		
+				Attribute(xml_data, "bulletspeed", cannon_item.bulletspeed);
 
 				Attribute(xml_data, "launcherinterval", cannon_item.dlauncherinterval);
 
@@ -250,7 +250,7 @@ bool CConfig::LoadConfig(char szDir[])
 
 				Attribute(xml_data, "itemid", cannon_item.nItemId);
 				Attribute(xml_data, "itemcount", cannon_item.nItemCount);
-				Attribute(xml_data, "skill", cannon_item.nskill);			
+				Attribute(xml_data, "skill", cannon_item.nskill);
 				//
 				Attribute(xml_data, "speed", cannon_item.npseed);
 				Attribute(xml_data, "time1", cannon_item.ntime1);
@@ -271,9 +271,9 @@ bool CConfig::LoadConfig(char szDir[])
 		else if (!strcmp(xml_child->Value(), "Fish"))
 		{
 			Attribute(xml_child, "revies_Activity", Con_Fish::s_revies_Activity);
-			Attribute(xml_child,"flashfishid", Con_Fish::s_flashfishid);
-			Attribute(xml_child,"flashfishCatch", Con_Fish::s_flashfishCatch);
-			Attribute(xml_child,"flashfishradius", Con_Fish::s_flashfishradius);
+			Attribute(xml_child, "flashfishid", Con_Fish::s_flashfishid);
+			Attribute(xml_child, "flashfishCatch", Con_Fish::s_flashfishCatch);
+			Attribute(xml_child, "flashfishradius", Con_Fish::s_flashfishradius);
 
 			for (const XMLElement* xml_data = xml_child->FirstChildElement(); xml_data; xml_data = xml_data->NextSiblingElement())
 			{
@@ -284,7 +284,7 @@ bool CConfig::LoadConfig(char szDir[])
 				//Attribute(xml_data, "reviseratio", fish_item.reviseratio);
 				Attribute(xml_data, "chance", fish_item.chance);
 				Attribute(xml_data, "type", fish_item.type);
-				Attribute(xml_data, "flashchance", fish_item.flashchance);			
+				Attribute(xml_data, "flashchance", fish_item.flashchance);
 				Attribute(xml_data, "SpecialRatio", fish_item.specialRate);
 				char* pfishrate = const_cast<char*>(xml_data->Attribute("fishrate"));
 				while (pfishrate&&*pfishrate)
@@ -361,7 +361,7 @@ bool CConfig::LoadConfig(char szDir[])
 	{
 		cout << "FISH_TYPES" << endl;
 		return false;
-	}*/	
+	}*/
 
 	sort(m_Energy.begin(), m_Energy.end(), SortByid<Con_Energy>);
 	sort(m_Skill.begin(), m_Skill.end(), SortByid<Con_Skill>);
@@ -380,14 +380,14 @@ bool CConfig::LoadConfig(char szDir[])
 	for (Energy_Vec::iterator it = m_Energy.begin(); it != m_Energy.end(); it++)
 	{
 		Con_Energy &item = *it;
-		item.nincome = ConvertFloatToInt((item.nmincatch + item.nmaxcatch) / 2.0f / nFishs*nFishValues + item.nrevise);
+		item.nincome = ConvertFloatToInt((item.nmincatch + item.nmaxcatch) / 2.0f / nFishs * nFishValues + item.nrevise);
 		item.nthreshold = ConvertFloatToInt(item.nincome*item.denergyratio);//大招
 	}
 
 	for (Skill_Vec::iterator it = m_Skill.begin(); it != m_Skill.end(); it++)
 	{
 		Con_Skill &item = *it;
-		item.nincome = ConvertFloatToInt((item.nmincatch + item.nmaxcatch) / 2.0f / nFishs*nFishValues + item.nrevise);
+		item.nincome = ConvertFloatToInt((item.nmincatch + item.nmaxcatch) / 2.0f / nFishs * nFishValues + item.nrevise);
 	}
 
 	//read goods
@@ -467,7 +467,7 @@ float CConfig::CatchChance(PlayerID player, int maxCatch, Fish* pFish, Bullet* p
 		seatAttackHp += addAttack;
 		//计算该玩家其他倍率总伤害
 		float totalAttack = 0;
-		for (int i = 0; i<RateCount(); ++i)
+		for (int i = 0; i < RateCount(); ++i)
 		{
 			if (i != pBullet->RateIndex)
 			{
@@ -475,7 +475,7 @@ float CConfig::CatchChance(PlayerID player, int maxCatch, Fish* pFish, Bullet* p
 			}
 		}
 		//防止补刀，需要玩家伤害达到最小比率
-		if (SystemControl::minPerKillHp >(totalAttack + seatAttackHp) / maxHp)
+		if (SystemControl::minPerKillHp > (totalAttack + seatAttackHp) / maxHp)
 		{
 			return 0;
 		}
@@ -484,7 +484,7 @@ float CConfig::CatchChance(PlayerID player, int maxCatch, Fish* pFish, Bullet* p
 		{
 			return 0;
 		}
-		else 
+		else
 		{
 			return 1;
 		}
@@ -538,14 +538,14 @@ void  CConfig::GetSkillRange(SkillType skill, int &minNum, int &maxNum)
 
 void  CConfig::GetLaserRange(byte laser, int &minNum, int &maxNum)
 {
-	ASSERT(laser<m_Energy.size());
+	ASSERT(laser < m_Energy.size());
 	minNum = m_Energy[laser].nmincatch;
 	maxNum = m_Energy[laser].nmaxcatch;
 }
 
 void  CConfig::GetSkillFreezeReduction(byte &speedScaling, byte &duration1, byte& duration2, byte &duration3)
 {
-	ASSERT(SKILL_FREEZE<m_Skill.size());
+	ASSERT(SKILL_FREEZE < m_Skill.size());
 	speedScaling = ConvertFloatToBYTE(m_Skill[SKILL_FREEZE].npseed / SPEED_SCALE);
 	duration1 = ConvertFloatToBYTE(m_Skill[SKILL_FREEZE].ntime1 / FISH_DURATION_TIME);
 	duration2 = ConvertFloatToBYTE(m_Skill[SKILL_FREEZE].ntime2 / FISH_DURATION_TIME);
@@ -554,21 +554,21 @@ void  CConfig::GetSkillFreezeReduction(byte &speedScaling, byte &duration1, byte
 
 float CConfig::GetSkillChance(SkillType skill, USHORT fishIndex, BYTE byPackageType)
 {
-	ASSERT(ConvertIntToDWORD(skill)<m_Skill.size());
-	ASSERT(fishIndex<m_Fish.size());
+	ASSERT(ConvertIntToDWORD(skill) < m_Skill.size());
+	ASSERT(fishIndex < m_Fish.size());
 	return  1.0f*m_Skill[skill].nincome / (m_Fish[fishIndex].nvalue* m_Skill[skill].nmaxcatch)*PackageFactor(byPackageType);
 }
 
 float CConfig::GetLaserChance(byte launcherType, USHORT fishIndex, BYTE byPackageType)
 {
-	ASSERT(launcherType<m_Energy.size());
-	ASSERT(fishIndex<m_Fish.size());
+	ASSERT(launcherType < m_Energy.size());
+	ASSERT(fishIndex < m_Fish.size());
 	return  1.0f*m_Energy[launcherType].nincome / (m_Fish[fishIndex].nvalue* m_Energy[launcherType].nmaxcatch) *PackageFactor(byPackageType);
 }
 
 float CConfig::GetLaserRadius(byte launcherType)
 {
-	ASSERT(launcherType<m_Energy.size());
+	ASSERT(launcherType < m_Energy.size());
 	return m_Energy[launcherType].nradius * 1.0f;
 }
 
@@ -590,7 +590,7 @@ BulletType CConfig::GetBulletType(USHORT bulletID)
 void CConfig::GetBulletFreezeReduction(byte &speedScaling, byte &duration1, byte& duration2, byte &duration3)
 {
 	// san hao pao shi bin dong  ?????
-	ASSERT(CANNON_4<m_Cannon.size());
+	ASSERT(CANNON_4 < m_Cannon.size());
 	speedScaling = ConvertFloatToBYTE(m_Cannon[CANNON_4].npseed / SPEED_SCALE);
 	duration1 = ConvertFloatToBYTE(m_Cannon[CANNON_4].ntime1 / FISH_DURATION_TIME);
 	duration2 = ConvertFloatToBYTE(m_Cannon[CANNON_4].ntime2 / FISH_DURATION_TIME);
@@ -600,23 +600,23 @@ void CConfig::GetBulletFreezeReduction(byte &speedScaling, byte &duration1, byte
 //
 //notify 
 //
-UINT   CConfig::CatchFish(PlayerID playerID, USHORT fishIndx, CatchType catchType, byte subType, byte byPackageType, byte byRateIndex)
+UINT   CConfig::CatchFish(PlayerID playerID, USHORT fishIndx, CatchType catchType, byte BulletType, byte byRateIndex, bool result)
 {
 #if SIMPLE_SERVER_MODE
 	return fishIndx;
 #else
-	ASSERT(fishIndx<m_Fish.size());
+	ASSERT(fishIndx < m_Fish.size());
 
 	CRole *pUser = m_pTableManager->SearchUser(playerID);
-	if (pUser&&fishIndx<m_Fish.size())
+	if (pUser&&fishIndx < m_Fish.size())
 	{
 		int nIncome = (fishIndx == 25 ? 0 : m_Fish[fishIndx].nvalue);//电鳗不算钱
 		int nMultiple = BulletMultiple(byRateIndex);
 		if (catchType == CATCH_SKILL)//技能特有倍率
 		{
-			nMultiple = SkillMultiple(subType);
+			nMultiple = SkillMultiple(BulletType);
 		}
-		pUser->OnCatchFish(catchType, subType, fishIndx, nIncome*nMultiple);
+		pUser->OnCatchFish(catchType, BulletType, fishIndx, nIncome*nMultiple, result);
 		return nIncome * nMultiple;
 	}
 	return 0;
@@ -642,13 +642,13 @@ bool CConfig::CanUploadImg(PlayerID playerID, USHORT imgSize)
 }
 byte  CConfig::GetSkillCDTime(SkillType st)
 {
-	ASSERT(ConvertIntToDWORD(st)<m_Skill.size());
+	ASSERT(ConvertIntToDWORD(st) < m_Skill.size());
 	return ConvertFloatToBYTE(m_Skill[st].ncdtime);
 }
 
 void  CConfig::GetLaserReduction(byte LauncherType, byte &speedScaling, byte &duration1, byte& duration2, byte &duration3)
 {
-	ASSERT(LauncherType<m_Energy.size());
+	ASSERT(LauncherType < m_Energy.size());
 	speedScaling = ConvertFloatToBYTE(m_Energy[LauncherType].npseed / SPEED_SCALE);
 	duration1 = ConvertFloatToBYTE(m_Energy[LauncherType].ntime1 / FISH_DURATION_TIME);
 	duration2 = ConvertFloatToBYTE(m_Energy[LauncherType].ntime2 / FISH_DURATION_TIME);
@@ -657,19 +657,19 @@ void  CConfig::GetLaserReduction(byte LauncherType, byte &speedScaling, byte &du
 
 byte  CConfig::GetBulletSpeed(byte LauncherType)
 {
-	ASSERT(LauncherType<m_Cannon.size());
+	ASSERT(LauncherType < m_Cannon.size());
 	return ConvertIntToBYTE(m_Cannon[LauncherType].bulletspeed); //Con_Cannon::s_bulletspeed;
 }
 
 byte  CConfig::GetLauncherInterval(byte LauncherType)
 {
-	ASSERT(LauncherType<m_Cannon.size());
+	ASSERT(LauncherType < m_Cannon.size());
 	return ConvertFloatToBYTE(m_Cannon[LauncherType].dlauncherinterval / FISH_DURATION_TIME);
 }
 
 byte  CConfig::GetLaserCDTime(byte LauncherType)
 {
-	ASSERT(LauncherType<m_Energy.size());
+	ASSERT(LauncherType < m_Energy.size());
 	return ConvertFloatToBYTE(m_Energy[LauncherType].ncdtime / FISH_DURATION_TIME);
 }
 UINT  CConfig::LaunchPackage(UINT fishid_packageid)
@@ -690,7 +690,7 @@ byte  CConfig::GetRateIndex(byte seat, PlayerID id)
 #endif
 }
 
-USHORT CConfig::FishRewardDrop(PlayerID id, BYTE byPackageType,USHORT byType)
+USHORT CConfig::FishRewardDrop(PlayerID id, BYTE byPackageType, USHORT byType)
 {
 	return 0;
 }
@@ -698,20 +698,20 @@ USHORT CConfig::FishRewardDrop(PlayerID id, BYTE byPackageType,USHORT byType)
 
 byte  CConfig::BulletConsume(byte LauncherType)
 {
-	ASSERT(LauncherType<m_Cannon.size());
+	ASSERT(LauncherType < m_Cannon.size());
 	return ConvertIntToBYTE(m_Cannon[LauncherType].nconsume);
 }
 
 ushort  CConfig::BulletMultiple(byte byIndex)
 {
-	ASSERT(byIndex<m_Rate.size());
+	ASSERT(byIndex < m_Rate.size());
 	return ConvertIntToWORD(m_Rate[byIndex].nValue);
 }
 
 float CConfig::CalBaseRatio(BYTE cbCannoIndex, BYTE cbFishIndex)
 {
-	ASSERT(cbCannoIndex<m_Cannon.size());
-	ASSERT(cbFishIndex<m_Fish.size());
+	ASSERT(cbCannoIndex < m_Cannon.size());
+	ASSERT(cbFishIndex < m_Fish.size());
 
 	float fratio = 1.0f*m_Cannon[cbCannoIndex].nconsume / m_Fish[cbFishIndex].nvalue*Con_Cannon::s_ratiofactor;
 	if (fratio > Con_Cannon::s_maxratio)
@@ -773,23 +773,23 @@ float CConfig::WinGolbeRate(int64 nMoney)
 
 int  CConfig::LaserThreshold(byte byIndex)
 {
-	ASSERT(byIndex<m_Energy.size());
+	ASSERT(byIndex < m_Energy.size());
 	return m_Energy[byIndex].nthreshold;
 }
 
 float  CConfig::LauncherInterval(byte byIndex)
 {
-	ASSERT(byIndex<m_Cannon.size());
+	ASSERT(byIndex < m_Cannon.size());
 	return m_Cannon[byIndex].dlauncherinterval;
 }
 float  CConfig::LaserCdTime(byte byIndex)
 {
-	ASSERT(byIndex<m_Energy.size());
+	ASSERT(byIndex < m_Energy.size());
 	return m_Energy[byIndex].ncdtime;
 }
 float  CConfig::SkillCdTime(byte byIndex)
 {
-	ASSERT(byIndex<m_Skill.size());
+	ASSERT(byIndex < m_Skill.size());
 	return m_Skill[byIndex].ncdtime;
 }
 
@@ -815,7 +815,7 @@ void CConfig::GoodsInfo(int nSkill, int norder, int &nGoodsid, int &nGoodsConsum
 }
 void CConfig::GoodsInfo(int nCannon, int &nGoodsid, int &nGoodsCount)
 {
-	ASSERT(ConvertIntToDWORD(nCannon)<m_Cannon.size());
+	ASSERT(ConvertIntToDWORD(nCannon) < m_Cannon.size());
 	nGoodsid = m_Cannon[nCannon].nItemId;
 	nGoodsCount = m_Cannon[nCannon].nItemCount;
 }
@@ -843,18 +843,18 @@ int CConfig::ComboBuffCycle()
 }
 
 float CConfig::PackageFactor(BYTE cbPackage)
-{	
+{
 	return 0.0f;
 }
 USHORT CConfig::RateUnlock(BYTE byIndex)
 {
-	ASSERT(byIndex<m_Rate.size());
+	ASSERT(byIndex < m_Rate.size());
 	return m_Rate[byIndex].nUnlock;
 }
 
 ushort CConfig::SkillMultiple(byte byIndex)
 {
-	ASSERT(byIndex<m_Skill.size());
+	ASSERT(byIndex < m_Skill.size());
 	return m_Skill[byIndex].multiple;
 }
 USHORT CConfig::UnlockRateReward(BYTE byIndex)
@@ -885,9 +885,9 @@ bool CConfig::CanCatchLightingFish(USHORT fishIndex, PlayerID id, float dist)
 {
 	if (fishIndex >= m_Fish.size())
 	{
-		return false;		
+		return false;
 	}
-	return dist<Con_Fish::s_flashfishradius&&RandFloat()<m_Fish[fishIndex].flashchance;
+	return dist < Con_Fish::s_flashfishradius&&RandFloat() < m_Fish[fishIndex].flashchance;
 	//return RandRange(0, 10) > 7 && dist < 25;
 }
 BYTE CConfig::CannonOwnSkill(BYTE byIndex)

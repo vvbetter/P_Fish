@@ -989,8 +989,20 @@ bool FishServer::OnSaveFishBattleRecord(BYTE Index, BYTE ClientID, NetCmd* pCmd)
 	sprintf_s(SqlStr, sizeof(SqlStr), "call FishSaveBattleRecord('%d','%lld','%d','%lf','%lf','%d');",
 		pMsg->model, pMsg->uid, pMsg->table_id, pMsg->enter_money*1.0f / MONEY_RATIO, pMsg->leave_money*1.0f / MONEY_RATIO, pMsg->leave_code);
 	SqlResultProxy pTable1;
-	//Log("%d:%d:%d %s", pNowTime.tm_hour, pNowTime.tm_min, pNowTime.tm_sec, SqlStr);
 	bool Result = (m_Sql[Index].Select(SqlStr, 0, pTable1, true) && pTable1.Rows() == 1);
+	if (Result)
+	{
+		int lastBattleID = pTable1.GetInt(0, 0);
+		int dataNum = (pMsg->GetCmdSize() - sizeof(DBR_Cmd_SaveRecord)) / sizeof(tagFishKillData);
+		for (int i = 0; i < dataNum; ++i)
+		{
+			if (pMsg->killdata[i].hit_num == 0 && pMsg->killdata[i].kill_num == 0) continue;
+			memset(SqlStr, 0, MAXSQL_LENGTH);
+			sprintf_s(SqlStr, sizeof(SqlStr), "call FishSaveBattleKillData('%d','%d','%d','%d','%d','%lf');",
+				lastBattleID, pMsg->fireCount, pMsg->killdata[i].fishType, pMsg->killdata[i].kill_num, pMsg->killdata[i].hit_num, pMsg->killdata[i].retMoney*1.0f / MONEY_RATIO);
+			m_Sql[Index].Select(SqlStr, 0, pTable1, true);
+		}
+	}
 	return Result;
 }
 

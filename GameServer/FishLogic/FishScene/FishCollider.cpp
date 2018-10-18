@@ -372,12 +372,12 @@ bool CheckCatchFish(Fish *pFish, CatchData &catchData, FishManager *pMgr, Bullet
 			++catchData.pBullet->CollideCount;
 			//计算概率
 			float chance = RandFloat();
+			bool isKill = false;
 			if (catchData.pBullet->CanBeUsed && chance < catchChance)
 			{
 				//通知外部		
-				catchData.goldNum += catchData.pSetting->CatchFish(catchData.playerID, pFish->FishType, CATCH_BULLET, (BYTE)catchData.pBullet->BulletType, pFish->GetPackage(), catchData.pBullet->RateIndex);
+				isKill = true;
 				fc.eventType = CATCH_EVENT_CATCHED;
-				//fc.nReward = catchData.pSetting->FishRewardDrop(catchData.playerID,pFish->GetPackage(), pFish->FishType);
 				bRet = true;
 			}
 			else
@@ -387,6 +387,7 @@ bool CheckCatchFish(Fish *pFish, CatchData &catchData, FishManager *pMgr, Bullet
 				else
 					fc.eventType = CATCH_EVENT_EFFECT;
 			}
+			catchData.goldNum += catchData.pSetting->CatchFish(catchData.playerID, pFish->FishType, CATCH_BULLET, (BYTE)catchData.pBullet->BulletType, catchData.pBullet->RateIndex, isKill);
 		}
 	}
 	catchData.fishCatchedMap.insert(make_pair(pFish->FishID, fc));
@@ -431,7 +432,7 @@ int CatchFileLighting(FishManager *pMgr, FishVecList *pFishMapList, Fish *pCatch
 			continue;
 		}
 		FishCatchData fc(pFish->FishID);
-		catchData.goldNum += catchData.pSetting->CatchFish(catchData.playerID, pFish->FishType, CATCH_BULLET, (BYTE)catchData.pBullet->BulletType, pFish->GetPackage(), catchData.pBullet->RateIndex);
+		catchData.goldNum += catchData.pSetting->CatchFish(catchData.playerID, pFish->FishType, CATCH_BULLET, (BYTE)catchData.pBullet->BulletType, catchData.pBullet->RateIndex, true);
 		fc.eventType = CATCH_EVENT_CATCHED_LIGHTING;
 		//fc.nReward = catchData.pSetting->FishRewardDrop(catchData.playerID, pFish->GetPackage(), pFish->FishType);
 		fc.lithingFishID = pCatchFish->FishID;
