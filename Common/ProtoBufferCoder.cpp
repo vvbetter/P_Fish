@@ -46,7 +46,8 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 	//游戏大厅的这些请求不处理
 	if (cmdType == GetMsgType(159, 24) || cmdType == GetMsgType(65, 24) || cmdType == GetMsgType(156, 24)) //6303 同步配置表// 6209 请求退出子游戏//6300 时时彩LS请求GS下注
 	{
-		return NULL;
+		pCmd = CreateCmd(cmdType, sizeof(NetCmd));
+		//return NULL;
 		//Log("Ignore CmdType=%d", cmdType);
 	}
 	//大厅消息

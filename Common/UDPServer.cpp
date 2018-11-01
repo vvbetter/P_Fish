@@ -203,6 +203,13 @@ bool NewUDPServer::RecvDataByUDP(UDPClientData *pc, char *Buff, int nSize, UINT 
 					{
 						pc->RecvList.AddItem(pnewcmd);
 					}
+					else
+					{
+						Log("UDP解析收到数据错误！");
+						pc->RemoveCode = REMOVE_CMD_RECV_OVERFLOW;
+						pc->Removed = true;
+						return false;
+					}
 				}
 				else
 				{
@@ -383,7 +390,8 @@ void NewUDPServer::_ThreadRecv()
 				int nSize = recv(pc->Socket, pBuff, m_InitData.BuffSize, 0);
 				if (nSize > 0)
 				{
-					RecvDataByUDP(pc, pBuff, nSize, tick);
+					bool ret = RecvDataByUDP(pc, pBuff, nSize, tick);
+					if (ret == false) continue;
 					pc->RecvTick = tick;
 				}
 			}

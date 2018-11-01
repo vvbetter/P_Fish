@@ -1,0 +1,352 @@
+package com.game.proto;
+
+enum Protos_Rpc {
+    // LS 2 GS
+    LGLoginSubGame = 6207; // 请求进入子游戏
+    GLLoginSubGame = 6208; // 
+
+    LGQuitSubGame = 6209; // 请求退出子游戏
+    GLQuitSubGame = 6210; // 
+
+    LGUpdateMoney1 = 6211; // 请求金币改变，一般情况是充值原因导致的
+    GLUpdateRoundInfo = 6212; // GL同步回合数据到LS
+    GLSystemNotice = 6213; //系统公告播放
+	GLQuitSubFishGame = 6214; // 玩家退出捕鱼子游戏
+	LGStopFishServer = 6215; // 通知关捕鱼服务器
+	LGReloadFishTable = 6216; // 通知加载捕鱼配置表
+	LGStartFishServer = 6217; // 通知开捕鱼服务器
+
+    LGPlayerBetZJH = 6300; // 时时彩LS请求GS下注
+    GLPlayerBetZJH = 6301; //
+
+    GLSyncSSCZJH   = 6302; //时时彩GS同步到LS数据
+
+    LGSyncTableData = 6303; // 同步策划配置表数据
+
+    GLSendMail   = 6304; //GS 发送邮件
+
+    LGMiniGameProcess  = 6309; //LS通知GS创建小游戏操作
+    GLMiniGameProcess  = 6310; //GS通知LS创建小游戏操作结果
+
+    GLSyncPlayerMoney = 6311; //GS通知LS 邮件发送金币
+}
+
+
+message GLQuitSubFishGameMessage {
+    optional Protos_Rpc msgID = 1 [default = GLQuitSubFishGame]; 
+
+    required double money1 = 2; // 最终货币值1
+    required double money2 = 3; // 最终货币值2
+	optional bool offLine  = 4; // 是否是因为离线原因退出
+	
+	optional double winMoney1  = 6;  // 赢的金额1
+    optional double winMoney2  = 7;  // 赢的金额2
+    optional double loseMoney1  = 8;  // 输的金额1
+    optional double loseMoney2  = 9;  // 输的金额2
+    optional int32 playround  = 10;  //玩的局数(有时候有平局 保留这个字段)
+    optional int32 dayWinNum  = 11;  //赢的局数
+    optional int32 dayLoseNum = 12;  //输的局数
+    optional int32 mapModelId = 13;  // 地图
+    optional int32 continueWinNum  = 14;  //连赢的局数
+    optional double gameMaxWinMoney  = 15;  //单局最高盈利
+    optional int32  charmValue  = 16;  //魅力值
+    optional string others    = 17;  // 其他字段
+    optional string achDataMap =18; //成就
+    optional string sameTableMap = 19; //同桌记录  
+    optional double taxMoney = 20; //税收 
+
+}
+
+
+message GLSendMailMessage {
+    optional Protos_Rpc msgID      = 1 [default = GLSendMail]; 
+    optional string     sendName   = 2 ; 
+    optional int64      receiverId = 3 ;
+    optional string     name       = 4 ;
+    optional string     title      = 5 ;
+    optional string     content    = 6 ;
+    optional double     money      = 7 ;
+    optional int32      reason     = 8 ;
+
+}
+
+
+message LGLoginSubGameMessage {
+    optional Protos_Rpc msgID = 1 [default = LGLoginSubGame]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+
+    // 子游戏需要的player数据
+    required double money1 = 3;
+    required double money2 = 4;
+    required string name = 5;
+    required string address = 6;
+    required string icon = 7;
+    required int32 sex = 8;
+    required string fr = 9; //来源
+    required string platform = 10; //渠道
+    required int32 loginid = 11; //登陆服务器id
+    required string loginIp = 12; //登陆ip
+    required int32 deleteAt = 13;   //账号状态 作弊等状态要特殊控制
+    required int32 gmLevel = 14; //gm等级
+    required int32 robot = 15; //
+    optional string others = 16; //其他数据
+
+    required int32 titleIndex = 17; //成就标识
+    required double gameMaxWinMoney = 18; //最高盈利
+    required int32 charmValue = 19; //魅力值
+    required int32 vip = 20; //vip
+    required int32 barrageNum = 21; //弹幕剩余次数
+    required string userName = 22; //账号
+    required double taxRatio = 23; //税率
+    required int32  cardBg   = 24; //牌背
+    required int32  headIcon = 25; //头像框
+    required string signature    = 26; //个性签名
+    optional string achDataMap =27; //成就
+    required int64 taxFreeCardEndTime = 28; //免税卡结束时间
+    required double taxFreeCardRate = 29; //免税卡税率
+	optional double bankMoney1 = 30;  //银行金币1
+    optional double bankMoney2 = 31;  //银行金币2
+    optional double agencyRechargeMoney = 32;  //代理充值金额
+    optional double officialRechargeMoney = 33;  //正式充值金额
+    optional double withdrawMoney = 34;  //提现总金额
+    optional int64 playGameTime = 35;  //游戏时间
+    optional int64 onlineTime = 36;  //在线时间
+    optional int32 dayOnlineTime = 37;  //每日在线时间
+    optional int32 ratioValue = 38; //金币比例
+}
+
+
+
+message GLLoginSubGameMessage {
+    optional Protos_Rpc msgID = 1 [default = GLLoginSubGame]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+
+    optional int32 isReconnect = 3; // 是否是因为重连
+    optional bool loginSubGame = 4; // 是否允许进入
+    optional int32 mapModelId = 5; // 重连地图
+	
+	optional string fishIp        = 6;       //捕鱼ip
+	
+	optional int32 fishPort       = 7;      //捕鱼端口
+    
+}
+
+message LGQuitSubGameMessage {
+    optional Protos_Rpc msgID = 1 [default = LGQuitSubGame]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+
+    optional bool offLine = 3; // 是否是因为离线原因退出
+}
+
+
+message GLQuitSubGameMessage {
+    optional Protos_Rpc msgID = 1 [default = GLQuitSubGame]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+
+    optional bool quitSubGame = 3;  // 退出子游戏结果
+    optional double money1    = 4;  // 同步金额
+    optional double money2    = 5;  // 同步金额
+    optional double winMoney1  = 6;  // 赢的金额1
+    optional double winMoney2  = 7;  // 赢的金额2
+    optional double loseMoney1  = 8;  // 输的金额1
+    optional double loseMoney2  = 9;  // 输的金额2
+    optional int32 playround  = 10;  //玩的局数(有时候有平局 保留这个字段)
+    required int32 dayWinNum  = 11;  //赢的局数
+    required int32 dayLoseNum = 12;  //输的局数
+    optional int32 mapModelId = 13;  // 地图
+    required int32 continueWinNum  = 14;  //连赢的局数
+    required double gameMaxWinMoney  = 15;  //单局最高盈利
+    required int32  charmValue  = 16;  //魅力值
+    optional string others    = 17;  // 其他字段
+    optional string achDataMap =18; //成就
+    optional string sameTableMap = 19; //同桌记录  
+    optional double taxMoney = 20; //税收 
+    optional int32 subGameId = 21; //子游戏 
+}
+
+
+message LGUpdateMoney1Message {
+    optional Protos_Rpc msgID = 1 [default = LGUpdateMoney1]; 
+
+    required double money1 = 2; // 改变货币值
+    required double money2 = 3; // 改变货币值
+    required int32 reason  = 4; // 原因
+}
+
+message GLUpdateRoundInfoMessage {
+    optional Protos_Rpc msgID = 1 [default = GLUpdateRoundInfo]; 
+
+    required double money1 = 2; // 最终货币值
+    required double money2 = 3; // 最终货币值
+    optional int32  playerNum = 4; //游戏次数
+    optional string gameRecord = 5; // 游戏数据记录
+    optional int32  subGameId  = 6; //游戏ID
+}
+
+message GLSystemNoticeMessage {
+    optional Protos_Rpc msgID = 1 [default = GLSystemNotice]; 
+
+    optional double winMoney  = 2;  // 赢的金额
+    optional string name  = 3;  // 玩家名
+    optional string gameName  = 4;  // 子游戏
+    optional string mapName  = 5;  // 地图名称
+    optional string cardType  = 6;  // 牌型
+    optional int32    type      =7;  //公告类型  1 扎金花喜钱
+}
+
+
+//时时彩LS请求GS下注
+message LGPlayerBetZJHMessage {
+    optional Protos_Rpc msgID = 1 [default = LGPlayerBetZJH]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+
+    required string name = 3;
+    required string icon = 4;
+    repeated SSC_Bet bets  = 5;
+    required bool isRobot = 6;
+}
+
+
+
+message GLPlayerBetZJHMessage {
+    optional Protos_Rpc msgID = 1 [default = GLPlayerBetZJH]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+
+    repeated SSC_Bet bets  = 3;
+    optional bool isSucceed = 4;
+    
+}
+
+//时时彩数据
+message GLSyncSSCZJHMessage {
+
+    optional Protos_Rpc msgID = 1 [default = GLSyncSSCZJH]; 
+
+    // 服务器时间 0-59   < 10 结算中   >= 10 下注中
+    required int32 nextOpenTime = 2;
+    
+    // 牌数据
+    repeated int32 curResult = 3;
+    
+    // 牌型
+    optional int32 curResultType = 4;
+
+    // 上个三条最大获胜玩家
+    optional SSC_Winer preSantiaoWiner = 5;
+
+    // 上个三条距今时间（单位秒）
+    optional int32 preSantiaoTime = 6;
+
+    // 豹子、顺金大奖记录
+    repeated SSC_Winer preWiners = 7;
+
+    // 排行榜
+    repeated SSC_Winer bigWiners = 8;
+
+    // 历史开奖结果
+    repeated int32 history = 9;
+
+    // 当前合总下注信息
+    repeated SSC_Bet curBetALL = 10;
+
+    // 时时彩服务器
+    optional int32 sscServer  = 11;
+
+     // 倍率
+    optional int32 ratio  = 12;
+
+    // 上个最大获胜玩家
+    repeated SSC_Winer preBeforeBigWiner  = 13;
+}
+
+// 玩家信息
+message SSC_Winer {
+	//名字
+    required string name = 1;
+
+    //头像
+    required string icon = 2;
+    
+    // 赢了多少钱
+    required int32 winMoney = 3;
+
+    // 大奖记录，需要保存具体时间 （yyyy-MM-dd HH:mm)
+    optional string winTime = 4;
+
+    // 压中豹子或顺金牌型
+    optional string spcialType = 5;
+
+}
+
+// 下注点位与金额
+message SSC_Bet {
+    required int32 betIndex = 1;
+
+    required int32 betMoney = 2; // 当前下注
+}
+
+
+//同步策划配置表数据
+message LGSyncTableDataMessage {
+    optional Protos_Rpc msgID = 1 [default = LGSyncTableData]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+
+    required int32 loginId = 3;
+    optional string tableJson = 4;
+}
+
+
+//通知关捕鱼服务器
+message LGStopFishServerMessage {
+    optional Protos_Rpc msgID = 1 [default = LGStopFishServer]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+    required int64 closeTime = 3;
+}
+
+//通知加载捕鱼配置表
+message LGReloadFishTableMessage {
+    optional Protos_Rpc msgID = 1 [default = LGReloadFishTable]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+	optional string configString = 3; //配置信息"winMin,winMax,[id1|min1|max1|...],[fish1|deadprob1|...],[table1|initProduce1|initEarn1|initTurn1|...],[cannon1|power1|...]"
+}
+
+//通知关捕鱼服务器
+message LGStartFishServerMessage {
+    optional Protos_Rpc msgID = 1 [default = LGStartFishServer]; 
+    optional int32 rpcId = 2; // 如果该消息，涉及到回调的话，必须传递rpcId
+    required int64 startTime = 3;
+}
+
+
+// LS通知GS创建小游戏操作
+message LGMiniGameProcessMessage {
+    optional Protos_Rpc msgID = 1 [default = LGMiniGameProcess];
+    required int32   miniGameId    = 2;  // 子游戏ID
+    optional string  miniGameInfos = 3; //小游戏数据
+    optional string otherInfos  = 4; //附加数据
+}
+
+// GS通知LS创建小游戏操作结果
+message GLMiniGameProcessMessage {
+    optional Protos_Rpc msgID = 1 [default = GLMiniGameProcess];
+    required int32   miniGameId    = 2;  // 子游戏ID
+    optional string  miniGameInfos = 3; //小游戏数据
+    optional string  otherInfos  = 4; //附加数据
+}
+
+
+//GS通知LS 邮件发送金币
+message GLSyncPlayerMoneyMessage {
+    optional Protos_Rpc msgID = 1 [default = GLSyncPlayerMoney];
+    optional int32  subGameId    = 2;  // 子游戏ID
+    optional int32  subType    = 3;  // 类型  1邮件  2直接添加背包  3添加银行
+    optional string  mapName    = 4;  // 
+    optional string  mapLine    = 5;  // 
+    optional double  money1 = 6; //
+    optional double  money2 = 7; //
+    optional double  bankmoney1 = 8; //
+    optional double  bankmoney2 = 9; //
+    optional string  others = 10; //
+    
+}
+

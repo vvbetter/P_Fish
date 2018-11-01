@@ -191,6 +191,7 @@ bool NewServer::RecvDataByTCP(ClientData *pc, int nSize)
 			if (cmdSize == 0)
 			{
 				ASSERT(false);
+				return false;
 			}
 			if (cmdSize > m_InitData.BuffSize)
 			{
@@ -212,8 +213,9 @@ bool NewServer::RecvDataByTCP(ClientData *pc, int nSize)
 					}
 					else
 					{
-						pc->Offset += (isPBC == true ? cmdSize + sizeof(USHORT) : cmdSize);
-						pc->RecvSize -= (isPBC == true ? cmdSize + sizeof(USHORT) : cmdSize);
+						pc->RemoveCode = REMOVE_RECV_ERROR;
+						pc->Removed = true;
+						return false;
 					}
 				}
 				else
@@ -302,7 +304,7 @@ void NewServer::_ThreadRecvTCP()
 			}
 			else
 			{
-				RecvDataByTCP(pc, nSize);
+				bool ret = RecvDataByTCP(pc, nSize);
 				pc->RecvTick = tick;
 			}
 		}// end for
