@@ -403,6 +403,7 @@ void TableManager::OnPlayerLeaveTable(DWORD dwUserID)
 	}
 	//当玩家离开桌子的时候 将金币刷新下到客户端去
 	CRoleEx* pRole = g_FishServer.GetRoleManager()->QueryUser(dwUserID);
+	if (!pRole) return;
 	if (pRole)
 	{
 		DBR_Cmd_TableChange msgDB;//记录玩家进入

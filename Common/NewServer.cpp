@@ -154,7 +154,7 @@ void NewServer::GetRecvIndex(ushort &recvIdx)
 		}
 	}
 }
-bool NewServer::RecvDataByTCP(ClientData *pc, int nSize)
+bool NewServer::RecvDataByTCP(ClientData *pc, int nSize, UINT tick)
 {
 	pc->RecvSize += nSize;
 	int count = 0;
@@ -166,7 +166,7 @@ bool NewServer::RecvDataByTCP(ClientData *pc, int nSize)
 			Log("****RecvDataByTCP Loop Count:%d, recvSie:%d****", count, pc->RecvSize);
 			pc->RemoveCode = REMOVE_RECVBACK_NOT_SPACE;
 			pc->Removed = true;
-			break;
+			return false;
 		}
 		// 消息结构。PBC结构或者NetCmd消息
 		// 2字节	2字节	消息体
@@ -180,6 +180,7 @@ bool NewServer::RecvDataByTCP(ClientData *pc, int nSize)
 			//Log("TCPServer recv heartbeat data");
 			pc->Offset += sizeof(UINT);
 			pc->RecvSize -= sizeof(UINT);
+			pc->RecvTick = tick;
 		}
 		else if (*((UINT*)(pBuff)) == PING_ID)
 		{
@@ -203,13 +204,19 @@ bool NewServer::RecvDataByTCP(ClientData *pc, int nSize)
 			{
 				if (pc->RecvList.HasSpace())
 				{
-					bool isPBC = false;
-					NetCmd* pCmdRecv = PBC_Decode(recvID, pBuff, cmdSize, isPBC);
+					NetCmd* pCmdRecv = PBC_Decode(recvID, pBuff, cmdSize);
 					if (pCmdRecv != NULL)
 					{
-						pc->RecvList.AddItem(pCmdRecv);
-						pc->Offset += (isPBC == true ? cmdSize + sizeof(USHORT) : cmdSize);
-						pc->RecvSize -= (isPBC == true ? cmdSize + sizeof(USHORT) : cmdSize);
+						if (pCmdRecv->GetCmdType() == GetMsgType(Main_HallHeartBeat, 0))
+						{
+							pc->RecvTick = tick;
+						}
+						else
+						{
+							pc->RecvList.AddItem(pCmdRecv);
+						}
+						pc->Offset += (pc->ClientNetId == 255 ? cmdSize + sizeof(USHORT) : cmdSize);
+						pc->RecvSize -= (pc->ClientNetId == 255 ? cmdSize + sizeof(USHORT) : cmdSize);
 					}
 					else
 					{
@@ -304,8 +311,7 @@ void NewServer::_ThreadRecvTCP()
 			}
 			else
 			{
-				bool ret = RecvDataByTCP(pc, nSize);
-				pc->RecvTick = tick;
+				RecvDataByTCP(pc, nSize, tick);
 			}
 		}// end for
 SLEEP:
@@ -351,10 +357,9 @@ void NewServer::_ThreadSendTCP()
 			{
 				NetCmd *pcmd = pc->SendList.GetItemNoRemove();
 				uint datalen = 0;
-				bool isPBC = true;
-				char * buffer = PBC_Encode(pcmd, datalen, isPBC);
+				char * buffer = PBC_Encode(pcmd, datalen);
 				int ret = send(pc->Socket, buffer, datalen, 0);
-				if (isPBC)
+				if (pc->ClientNetId == 255)
 				{
 					free(buffer);
 				}
@@ -414,6 +419,7 @@ void NewServer::AddNewClient(const AcceptClientData &acd)
 	pc->Socket = acd.Socket;
 	pc->IP = acd.IP;
 	pc->Port = acd.Port;
+	pc->ClientNetId = acd.ClientNetId;
 	pc->OutsideExtraData = NULL;
 	pc->RefCount = 3;
 	pc->SendTick = 0;
@@ -477,6 +483,7 @@ bool NewServer::CheckNewClient(AcceptClientData &data)
 		int sendLen = 0;
 		if (*(UINT*)data.Buff == 8960) 
 		{
+			data.ClientNetId = 255;
 			Reg_Server rs;
 			SetMsgInfo(rs, GetMsgType(Main_Server, SR_ServerInfo), sizeof(Reg_Server));
 			rs.NetWorkID = 255;
@@ -551,6 +558,7 @@ void NewServer::_ThreadAccept()
 			acd.Socket		= socket;
 			acd.RecvSize	= 0;
 			acd.Tick		= tick;
+			acd.ClientNetId = 0;
 			InitSocket(socket, m_InitData.SocketSendSize, m_InitData.SocketRecvSize, true);
 
 			if (m_InitData.AcceptRecvData)
@@ -610,7 +618,6 @@ void NewServer::_ThreadAccept()
 			if (CheckNewClient(acd) == false)
 			{
 				Log("验证失败.");
-				closesocket(acd.Socket);
 				closesocket(acd.Socket);
 				acd.Socket = NULL;
 				continue;

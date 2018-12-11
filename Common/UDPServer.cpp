@@ -183,7 +183,6 @@ bool NewUDPServer::RecvDataByUDP(UDPClientData *pc, char *Buff, int nSize, UINT 
 			USHORT cmdType = ntohs(*(USHORT*)(pBuff));
 			USHORT cmdSize = ntohs(*(USHORT*)(pBuff + 2)); //只是PBC的数据长度
 			//Log("UDP收到命令:cmdType=%d,cmdSize=%d", cmdType, cmdSize);
-			bool isPBC = true;
 			if (cmdSize > m_InitData.BuffSize || cmdSize > pEnd - pBuff)
 			{
 				Log("UDP收到命令的长度不正确:cmdType=%d,cmdSize=%d, initSize=%d, nSize=%d,recvsize=%d", cmdType, cmdSize, m_InitData.BuffSize, pEnd - pBuff, nSize);
@@ -198,7 +197,7 @@ bool NewUDPServer::RecvDataByUDP(UDPClientData *pc, char *Buff, int nSize, UINT 
 				++pc->RecvID;
 				if (pc->RecvList.HasSpace())
 				{
-					NetCmd *pnewcmd = PBC_Decode(cmdType, pBuff, cmdSize, isPBC);
+					NetCmd *pnewcmd = PBC_Decode(cmdType, pBuff, cmdSize);
 					if (pnewcmd != NULL)
 					{
 						pc->RecvList.AddItem(pnewcmd);
@@ -224,7 +223,7 @@ bool NewUDPServer::RecvDataByUDP(UDPClientData *pc, char *Buff, int nSize, UINT 
 				//Log("Recv OldID:%d, CurID:%d", recvID, pc->RecvID);
 			}
 			pc->bSendBackID = true;
-			pBuff += (isPBC == true ? (4 + cmdSize) : cmdSize);
+			pBuff += (4 + cmdSize);
 		}
 	}//end while
 	return true;
@@ -493,15 +492,11 @@ bool NewUDPServer::Send(ServerClientData *pClient, NetCmd *pCmd)
 		return false;
 	}
 	uint dataLen = 0;
-	bool isPBC = true;
-	char* pbcBuffer = PBC_Encode(pCmd, dataLen, isPBC);
+	char* pbcBuffer = PBC_Encode(pCmd, dataLen);
 	UINT *p = (UINT*)malloc(dataLen + sizeof(UINT)* 2);
 	memcpy(p + 2, pbcBuffer, dataLen);
 	pc->SendList.AddItem((NetCmd*)p);
-	if (isPBC == true)
-	{
-		free(pbcBuffer);
-	}
+	SAFE_FREE(pbcBuffer);
 	//if (*((USHORT*)(p + 2) + 1) == 0xFDFD)
 	//{
 	//	assert(false);

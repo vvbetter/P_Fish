@@ -118,6 +118,7 @@ struct ServerClientData
 	UINT_PTR			OutsideExtraData;	//外部附加的数据
 	DWORD				dwChecked;			//验证
 	INT64				Uid;
+	BYTE				ClientNetId;
 };
 
 struct ServerInitData

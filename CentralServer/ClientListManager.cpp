@@ -397,8 +397,8 @@ DWORD ClientListManager::GetFreeGameServer()
 		ASSERT(false);
 		return -1;
 	}
-	DWORD gameID = 0xfffff;
-	DWORD sumPlayer = 0xffff;
+	DWORD gameID = 0xffffffff;
+	DWORD sumPlayer = 0xffffffff;
 	for (auto it = m_GameServerMap.begin(); it != m_GameServerMap.end(); ++it)
 	{
 		if (it->second < sumPlayer)
@@ -413,17 +413,17 @@ DWORD ClientListManager::GetFreeGameServer()
 void ClientListManager::OnGameClientLeave(BYTE gameID)
 {
 	auto it = m_GameServerMap.find(gameID);
-	if (it != m_GameServerMap.end())
+	if (it != m_GameServerMap.end() && it->second > 0)
 	{
-		++it->second;
+		--it->second;
 	}
 }
 
 void ClientListManager::OnGameClientJoin(BYTE gameID)
 {
 	auto it = m_GameServerMap.find(gameID);
-	if (it != m_GameServerMap.end() && it->second > 0)
+	if (it != m_GameServerMap.end())
 	{
-		--it->second;
+		++it->second;
 	}
 }

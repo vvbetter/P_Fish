@@ -21,6 +21,7 @@ struct AcceptClientData
 	UINT	Tick;
 	UINT	RandID;
 	WAIT_TYPE WaitType;
+	BYTE    ClientNetId;
 };
 struct ClientIO
 {
@@ -97,7 +98,7 @@ public:
 protected:
 	void		RemoveClient(ClientData *pc, RemoveType rt);
 	//客户端和服务器之间消息用PBC编码，服务器之间消息不编码
-	bool		RecvDataByTCP(ClientData *pc, int nSize);
+	bool		RecvDataByTCP(ClientData *pc, int nSize, UINT tick);
 	void		AddNewClient(const AcceptClientData &acd);
 	bool		CheckNewClient(AcceptClientData &data);
 	void		GetSendAndRecvIndex(ushort &sendIdx, ushort &recvIdx);

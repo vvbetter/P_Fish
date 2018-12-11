@@ -939,7 +939,7 @@ bool FishServer::HandleCenterMsg(NetCmd* pCmd)
 			msg.fishIp = inet_addr(g_FishServerConfig.GetGameServerConfig(m_GameNetworkID)->GameListenIP);
 			msg.rpcId = ((LG_UDPClientConnect*)pCmd)->rpcid;
 			msg.uid = ((LG_UDPClientConnect*)pCmd)->uid;
-			//Log("new client ip = %d,prot = %d", msg.Addr, msg.Port);
+			//Log("new client ip = %d,prot = %d", msg.fishIp, msg.fishPort);
 			SendNetCmdToCenter(&msg);
 			break;
 		}

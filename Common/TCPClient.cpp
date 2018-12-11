@@ -128,7 +128,7 @@ void TCPClient::SendThread()
 	UINT tick = timeGetTime();
 	bool b10035;
 	UINT hearbeat = HEARBEAT_ID;
-	int timeout = m_InitData.Timeout >> 1;
+	int timeout = m_InitData.Timeout >> 2;
 	while (m_bConnected)
 	{
 		bool bSend = false;
@@ -152,9 +152,7 @@ void TCPClient::SendThread()
 				bSend = true;
 			}
 		}
-		if (bSend)
-			tick = curTick;
-		else if (int(curTick - tick) > timeout)
+		if (int(curTick - tick) > timeout)
 		{
 			bool bret = uint(send(m_Socket, (char*)&hearbeat, sizeof(hearbeat), 0) == sizeof(hearbeat));
 			if (!bret)
@@ -207,17 +205,21 @@ void TCPClient::RecvThread()
 				}
 				if (m_RecvSize >= cmdSize)
 				{
-					bool isPBC = true;
-					NetCmd* pCmdRecv = PBC_Decode(recvID, (char*)pBuff, cmdSize, isPBC);
+					NetCmd* pCmdRecv = PBC_Decode(recvID, (char*)pBuff, cmdSize);
 					if (pCmdRecv != NULL && pCmdRecv->GetCmdType() != m_InitData.CmdHearbeat)
 					{
 						if (m_RecvList->HasSpace())
 							m_RecvList->AddItem(pCmdRecv);
 						else
 							Log("*接收队列已满:Size;%d, Count:%d, CmdSize:%d*", m_RecvList->ArraySize(), m_RecvList->Count(), cmdSize);
+
+						m_Offset += (cmdSize);
+						m_RecvSize -= (cmdSize);
 					}
-					m_Offset += (isPBC == true ? cmdSize + sizeof(NetCmd) : cmdSize);
-					m_RecvSize -= (isPBC == true ? cmdSize + sizeof(NetCmd) : cmdSize);
+					else
+					{
+
+					}
 				}
 				else
 					break;
@@ -257,13 +259,8 @@ bool TCPClient::SendImmediate(void *pData, UINT size, bool &b10035)
 	NetCmd* pCmd = (NetCmd*)pData;
 	//Log(L"Send data:size %d, type:%d", pCmd->GetCmdSize(), pCmd->GetCmdType());
 	uint datalen = 0;
-	bool isPBC = true;
-	char* sendData = PBC_Encode(pCmd, datalen, isPBC);
+	char* sendData = PBC_Encode(pCmd, datalen);
 	bool bret = uint(send(m_Socket, sendData, datalen, 0) == datalen);
-	if (isPBC == true)
-	{
-		free(sendData);
-	}
 	if (!bret)
 	{
 		UINT code = WSAGetLastError();

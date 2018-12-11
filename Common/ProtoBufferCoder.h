@@ -14,6 +14,6 @@ using namespace std;
 #endif // __NGNEX_ZHUANFA
 
 //proto buffer ½âÂë
-NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length,bool& isPBC);
+NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length);
 // proto buffer ±àÂë
-char* PBC_Encode(NetCmd* pCmd,uint& dataLenth, bool& isPBC);
+char* PBC_Encode(NetCmd* pCmd,uint& dataLenth);

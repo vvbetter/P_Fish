@@ -880,7 +880,11 @@ bool FishServer::HandleGameServerMsg(BYTE serverID, ServerClientData* pClient, N
 				ASSERT(false);
 				return true;
 			}
-			uint gameID = m_CenterServerManager.GetFreeGameServer();
+			BYTE gameID = static_cast<BYTE>(m_CenterServerManager.GetFreeGameServer());
+			if (gameID == (BYTE)-1)
+			{
+				return false;
+			}
 			m_CenterServerManager.OnGameClientJoin(gameID);
 			m_CenterServerManager.SendNetCmdToGameServer(gameID, pCmd);
 			return true;
@@ -931,7 +935,8 @@ bool FishServer::HandleGameServerMsg(BYTE serverID, ServerClientData* pClient, N
 	}
 	else if (pCmd->GetMainType() == Main_HallHeartBeat)
 	{
-		m_CenterServerManager.SendNetCmdToGameHall(255, pCmd);
+		//Log("收到大厅心跳");
+		//m_CenterServerManager.SendNetCmdToGameHall(255, pCmd);
 	}
 	else if (pCmd->GetMainType() == Main_Center)
 	{
@@ -1011,419 +1016,10 @@ bool FishServer::HandleGameServerMsg(BYTE serverID, ServerClientData* pClient, N
 			}
 		}
 	}
-	else if (pCmd->GetMainType() == Main_Char)
-	{
-		switch (pCmd->GetSubType())
-		{
-		case GC_SendCharInfo:
-			{
-				GC_Cmd_SendCharInfo* pMsg = (GC_Cmd_SendCharInfo*)pCmd;
-				CenterRole* pRole = m_RoleManager.QueryCenterUser(pMsg->MessageInfo.DestUserID);
-				if (!pRole)
-				{
-					DBR_Cmd_AddCharInfo msg;
-					SetMsgInfo(msg, DBR_AddCharInfo, sizeof(DBR_Cmd_AddCharInfo));
-					msg.MessageInfo = pMsg->MessageInfo;
-					SendNetCmdToDB(&msg);
-				}
-				else
-				{
-					CG_Cmd_SendCharInfo msg;
-					SetMsgInfo(msg, GetMsgType(Main_Char, CG_SendCharInfo), sizeof(CG_Cmd_SendCharInfo));
-					msg.MessageInfo = pMsg->MessageInfo;
-					pRole->SendDataToGameServer(&msg);
-				}
-				return true;
-			}
-			break;
-		}
-	}
-	else if (pCmd->GetMainType() == Main_Relation)
-	{
-		//关系的中央服务器
-	}
-	else if (pCmd->GetMainType() == Main_Mail)
-	{
-		return false;
-	}
 	else if (pCmd->GetMainType() == Main_Role)
 	{
 		//玩家相关的数据
 		return false;
-	}
-	else if (pCmd->GetMainType() == Main_Month)
-	{
-		return false;
-	}
-	else if (pCmd->GetMainType() == Main_RelationRequest)
-	{
-		switch (pCmd->GetSubType())
-		{
-		case GC_SendRelationRequest:
-			{
-				GC_Cmd_SendRelationRequest* pMsg = (GC_Cmd_SendRelationRequest*)pCmd;
-				if (!pMsg)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CenterRole* pRole = GetRoleManager().QueryCenterUser(pMsg->Info.DestUserID);
-				if (!pRole)
-					return false;
-				CG_Cmd_SendRelationRequest msg;
-				SetMsgInfo(msg, GetMsgType(Main_RelationRequest, CG_SendRelationRequest), sizeof(CG_Cmd_SendRelationRequest));
-				msg.Info = pMsg->Info;
-				pRole->SendDataToGameServer(&msg);
-				return true;
-			}
-			break;
-		case GC_HandleRelationRequest:
-			{
-				GC_Cmd_HandleRelationRequest* pMsg = (GC_Cmd_HandleRelationRequest*)pCmd;
-				if (!pMsg)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CenterRole* pRole = GetRoleManager().QueryCenterUser(pMsg->Info.SrcUserID);
-				if (!pRole)
-				{
-					//目标玩家不在线的时候 我们应该让玩家添加好友数据
-					DBR_Cmd_AddUserRelation msg;
-					SetMsgInfo(msg, DBR_AddUserRelation, sizeof(DBR_Cmd_AddUserRelation));
-					msg.dwSrcUserID = pMsg->Info.SrcUserID;
-					msg.dwDestUserID = pMsg->Info.DestUserID;
-					msg.bRelationType = pMsg->Info.RelationType;
-					g_FishServer.SendNetCmdToDB(&msg);
-					return true;
-				}
-				else
-				{
-					CG_Cmd_HandleRelationRequest msg;
-					SetMsgInfo(msg, GetMsgType(Main_RelationRequest, CG_HandleRelationRequest), sizeof(CG_Cmd_HandleRelationRequest));
-					msg.Info = pMsg->Info;
-					msg.Result = pMsg->Result;
-					pRole->SendDataToGameServer(&msg);
-					return true;
-				}
-			}
-			break;
-		case GC_DestDelRelation:
-			{
-				GC_Cmd_DestDelRelation* pMsg = (GC_Cmd_DestDelRelation*)pCmd;
-				if (!pMsg)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CenterRole* pRole = GetRoleManager().QueryCenterUser(pMsg->Info.DestUserID);
-				if (!pRole)
-				{
-					DBR_Cmd_DelUserRelation msg;
-					SetMsgInfo(msg, DBR_DelUserRelation, sizeof(DBR_Cmd_DelUserRelation));
-					msg.dwSrcUserID = pMsg->Info.DestUserID;
-					msg.dwDestUserID = pMsg->Info.SrcUserID;
-					g_FishServer.SendNetCmdToDB(&msg);
-				}
-				else
-				{
-					CG_Cmd_DestDelRelation msg;
-					SetMsgInfo(msg, GetMsgType(Main_RelationRequest, CG_DestDelRelation), sizeof(CG_Cmd_DestDelRelation));
-					msg.Info = pMsg->Info;
-					pRole->SendDataToGameServer(&msg);
-				}
-				return true;
-			}
-			break;
-		}
-	}
-	else if (pCmd->GetMainType() == Main_Charm)
-	{
-		switch (pCmd->GetSubType())
-		{
-		case CC_ChangeOtherUserCharm:
-		{
-			CC_Cmd_ChangeOtherUserCharm* pMsg = CHECKMSG(pCmd, pCmd->GetCmdSize(), CC_Cmd_ChangeOtherUserCharm);
-			if (!pMsg)
-			{
-				ASSERT(false);
-				return false;
-			}
-			CenterRole* pRole = m_RoleManager.QueryCenterUser(pMsg->dwUserID);
-			if (!pRole)
-			{
-				ASSERT(false);
-				return false;
-			}
-			CenterRole* pDestRole = m_RoleManager.QueryCenterUser(pMsg->dwDestUserID);
-			if (!pDestRole)
-			{
-				return true;
-			}
-			else
-			{
-				//发送命令到GameServer去
-				//1.发送命令到GameServer
-				CC_Cmd_ChangeRoleCharmResult msg;
-				SetMsgInfo(msg,GetMsgType(Main_Charm, CC_ChangeRoleCharmResult), sizeof(CC_Cmd_ChangeRoleCharmResult));
-				msg.dwUserID = pMsg->dwUserID;
-				msg.Result = true;
-				msg.CharmIndex = pMsg->CharmIndex;
-				msg.ItemSum = pMsg->ItemSum;
-				pRole->SendDataToGameServer(&msg);
-				//2.发送命令到GameServer去 修改玩家的魅力
-				CC_Cmd_ChangeUserCharm msgOther;
-				SetMsgInfo(msgOther,GetMsgType(Main_Charm, CC_ChangeUserCharm), sizeof(CC_Cmd_ChangeUserCharm));
-				msgOther.dwUserID = pMsg->dwDestUserID;
-				msgOther.CharmIndex = pMsg->CharmIndex;
-				msgOther.ItemSum = pMsg->ItemSum;
-				pDestRole->SendDataToGameServer(&msgOther);
-				return true;
-			}
-		}
-		}
-	}
-	else if (pCmd->GetMainType() == Main_Giff)
-	{
-		switch (pCmd->GetSubType())
-		{
-		case GC_AddRoleGiff:
-			{
-				GC_Cmd_AddRoleGiff* pMsg = (GC_Cmd_AddRoleGiff*)pCmd;
-				if (!pMsg)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CenterRole* pDestRole = m_RoleManager.QueryCenterUser(pMsg->dwDestUserID);
-				if (pDestRole)
-				{
-					CG_Cmd_AddRoleGiff msg;
-					SetMsgInfo(msg, GetMsgType(Main_Giff, CG_AddRoleGiff), sizeof(CG_Cmd_AddRoleGiff));
-					msg.dwSrcUserID = pMsg->dwSrcUserID;
-					msg.dwDestUserID = pMsg->dwDestUserID;
-					pDestRole->SendDataToGameServer(&msg);
-				}
-				else
-				{
-					//玩家不在线 
-					DBR_Cmd_AddRoleGiff msg;
-					SetMsgInfo(msg, DBR_AddRoleGiff, sizeof(DBR_Cmd_AddRoleGiff));
-					msg.SrcUserID = pMsg->dwSrcUserID;
-					msg.DestUserID = pMsg->dwDestUserID;
-					SendNetCmdToDB(&msg);
-				}
-				return true;
-			}
-		case GC_AddRoleGiffResult:
-			{
-				GC_Cmd_AddRoleGiffResult* pMsg = (GC_Cmd_AddRoleGiffResult*)pCmd;
-				if (!pMsg)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CenterRole* pSrcRole = m_RoleManager.QueryCenterUser(pMsg->dwSrcUserID);
-				if (!pSrcRole)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CG_Cmd_AddRoleGiffResult msg;
-				SetMsgInfo(msg, GetMsgType(Main_Giff, CG_AddRoleGiffResult), sizeof(CG_Cmd_AddRoleGiffResult));
-				msg.dwDestUserID = pMsg->dwDestUserID;
-				msg.dwSrcUserID = pMsg->dwSrcUserID;
-				msg.Result = pMsg->Result;
-				pSrcRole->SendDataToGameServer(&msg);
-				return true;
-			}
-		}
-	}
-	else if (pCmd->GetMainType() == Main_Message)
-	{
-		switch (pCmd->GetSubType())
-		{
-		case GC_SendMessage:
-			{
-				GC_Cmd_SendMessage* pMsg = (GC_Cmd_SendMessage*)pCmd;
-				//接收GameServer发送来的命令 我们进行判断下 如何处理
-				if (!pMsg)
-				{
-					ASSERT(false);
-					return false;
-				}
-				SendMessageByType(pMsg->Message,pMsg->MessageSize, pMsg->MessageType, pMsg->MessageColor, pMsg->StepNum, pMsg->StepSec, pMsg->Param);
-				return true;
-			}
-			break;
-		}
-	}
-	else if (pCmd->GetMainType() == Main_Announcement)
-	{
-		switch (pCmd->GetSubType())
-		{
-		case GC_GetAllAnnouncement:
-			{
-				m_AnnouncementManager.OnSendAllAnnouncementToGameServer(ConvertDWORDToBYTE(pClient->OutsideExtraData));
-				return true;
-			}
-		case GC_SendNewAnnouncementOnce:
-			{
-				GC_Cmd_SendNewAnnouncementOnce* pMsg = (GC_Cmd_SendNewAnnouncementOnce*)pCmd;
-				m_AnnouncementManager.OnAddNewAnnouncementOnce(pMsg->pOnce);
-				return true;
-			}
-		}
-	}
-	else if (pCmd->GetMainType() == Main_Control)
-	{
-		switch (pCmd->GetSubType())
-		{
-			case LC_KickUserResult:
-			{
-				LC_Cmd_KickUserResult* pMsg = (LC_Cmd_KickUserResult*)pCmd;
-				SendNetCmdToControl(pMsg);
-				return true;
-			}
-			break;
-		}
-	}
-	else if (pCmd->GetMainType() == Main_Operate)
-	{
-		//运营服务器发送来的
-		switch (pCmd->GetSubType())
-		{
-		case OC_BindEmail:
-			{
-				OC_Cmd_BindEmail* pMsg = (OC_Cmd_BindEmail*)pCmd;
-				CenterRole* pRole = m_RoleManager.QueryCenterUser(pMsg->dwUserID);
-				if (!pRole)
-				{
-					//发送命令到数据库去 直接保存
-					if (pMsg->Result)
-					{
-						DBR_Cmd_SaveRoleEmail msg;
-						SetMsgInfo(msg, DBR_SaveRoleEmail, sizeof(DBR_Cmd_SaveRoleEmail));
-						msg.dwUserID = pMsg->dwUserID;
-						TCHARCopy(msg.Email, CountArray(msg.Email), pMsg->EMail, _tcslen(pMsg->EMail));
-						SendNetCmdToDB(&msg);
-					}
-				}
-				else
-				{
-					CG_Cmd_BindEmail msg;
-					SetMsgInfo(msg, GetMsgType(Main_Operate, CG_BindEmail), sizeof(CG_Cmd_BindEmail));
-					msg.dwUserID = pMsg->dwUserID;
-					msg.ErrorID = pMsg->ErrorID;
-					msg.Result = pMsg->Result;
-					TCHARCopy(msg.EMail, CountArray(msg.EMail), pMsg->EMail, _tcslen(pMsg->EMail));
-					pRole->SendDataToGameServer(&msg);
-				}
-				return true;
-			}
-		case OC_UseRMB:
-			break;
-		case OC_PhonePay:
-			break;
-		case OC_AddNormalOrderID:
-			{
-				OC_Cmd_AddNormalOrderID* pMsg = (OC_Cmd_AddNormalOrderID*)pCmd;
-				if (!pMsg)
-				{
-					ASSERT(false);
-					return false;
-				}
-				if (!pMsg->Result)
-				{
-					DBR_Cmd_DelRechargeOrderInfo msg; //移除订单数据
-					SetMsgInfo(msg, DBR_DelRechargeOrderInfo, sizeof(DBR_Cmd_DelRechargeOrderInfo));
-					msg.OrderID = pMsg->OrderID;
-					g_FishServer.SendNetCmdToDB(&msg);
-				}
-				CenterRole* pRole = GetRoleManager().QueryCenterUser(pMsg->dwUserID);
-				if (!pRole)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CG_Cmd_AddNormalOrderID msg;
-				SetMsgInfo(msg, GetMsgType(Main_Operate, CG_AddNormalOrderID), sizeof(CG_Cmd_AddNormalOrderID));
-				msg.dwUserID = pMsg->dwUserID;
-				msg.ShopID = pMsg->ShopID;
-				msg.OrderID = pMsg->OrderID;
-				msg.Result = pMsg->Result;
-				strncpy_s(msg.Transid, CountArray(msg.Transid), pMsg->Transid,strlen(pMsg->Transid));
-				strncpy_s(msg.Sign, CountArray(msg.Sign), pMsg->Sign, strlen(pMsg->Sign));
-				pRole->SendDataToGameServer(&msg);
-				return true;
-			}
-			break;
-		}
-	}
-	else if (pCmd->GetMainType() == Main_NiuNiu)
-	{
-		switch (pCmd->GetSubType())
-		{
-		case GC_RequestJoinNiuNiuRoom:
-			{
-				GC_Cmd_RequestJoinNiuNiuRoom* pMsg = (GC_Cmd_RequestJoinNiuNiuRoom*)pCmd;
-				if (nullptr == pMsg)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CenterRole* pSrcRole = GetRoleManager().QueryCenterUser(pMsg->dwSrcUserID);
-				if (nullptr == pSrcRole)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CenterRole* pRole = GetRoleManager().QueryCenterUser(pMsg->dwDestUserID);
-				if (nullptr == pRole)
-				{
-					CG_Cmd_RequestJoinNiuNiuRoomResult msg;
-					SetMsgInfo(msg, GetMsgType(Main_NiuNiu, CG_RequestJoinNiuNiuRoomResult), sizeof(CG_Cmd_RequestJoinNiuNiuRoomResult));
-					msg.dwRequestUserID = pMsg->dwSrcUserID;
-					msg.dwDestUserID = pMsg->dwDestUserID;
-					msg.Result = false;
-					pSrcRole->SendDataToGameServer(&msg);
-				}
-				else
-				{
-					CG_Cmd_RequestJoinNiuNiuRoom msg;
-					SetMsgInfo(msg, GetMsgType(Main_NiuNiu, CG_RequestJoinNiuNiuRoom), sizeof(CG_Cmd_RequestJoinNiuNiuRoom));
-					msg.dwSrcUserID = pMsg->dwSrcUserID;
-					msg.dwDestUserID = pMsg->dwDestUserID;
-					TCHARCopy(msg.strSrcNickName, CountArray(msg.strSrcNickName), pSrcRole->GetRoleInfo().NickName, _tcslen(pSrcRole->GetRoleInfo().NickName));
-					pRole->SendDataToGameServer(&msg);
-				}
-				return true;
-			}
-			break;
-		case GC_RequestJoinNiuNiuRoomResult:
-			{
-				GC_Cmd_RequestJoinNiuNiuRoomResult* pMsg = (GC_Cmd_RequestJoinNiuNiuRoomResult*)pCmd;
-				if (nullptr == pMsg)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CenterRole* pSrcRole = GetRoleManager().QueryCenterUser(pMsg->dwRequestUserID);
-				if (nullptr == pSrcRole)
-				{
-					ASSERT(false);
-					return false;
-				}
-				CG_Cmd_RequestJoinNiuNiuRoomResult msg;
-				SetMsgInfo(msg, GetMsgType(Main_NiuNiu, CG_RequestJoinNiuNiuRoomResult), sizeof(CG_Cmd_RequestJoinNiuNiuRoomResult));
-				msg.dwRequestUserID = pMsg->dwRequestUserID;
-				msg.dwDestUserID = pMsg->dwDestUserID;
-				msg.Result = pMsg->Result;
-				pSrcRole->SendDataToGameServer(&msg);
-				return true;
-			}
-			break;
-		}
 	}
 	else if (pCmd->GetMainType() == Main_Server)
 	{
@@ -1495,6 +1091,14 @@ bool FishServer::HandleGameServerMsg(BYTE serverID, ServerClientData* pClient, N
 			}
 			break;
 		}
+	}
+	else if (pCmd->GetMainType() == GetMsgType(159, 24))
+	{
+		//同步配置表
+	}
+	else
+	{
+		Log("unknown commond MainType=%d,SubType=%d", pCmd->GetMainType(), pCmd->GetSubType());
 	}
 	return false;
 }

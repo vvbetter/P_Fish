@@ -617,7 +617,7 @@ UINT   CConfig::CatchFish(PlayerID playerID, USHORT fishIndx, CatchType catchTyp
 			nMultiple = SkillMultiple(BulletType);
 		}
 		pUser->OnCatchFish(catchType, BulletType, fishIndx, nIncome*nMultiple, result);
-		return nIncome * nMultiple;
+		return nIncome * nMultiple * result;
 	}
 	return 0;
 #endif

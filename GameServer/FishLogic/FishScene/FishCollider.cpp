@@ -387,10 +387,7 @@ bool CheckCatchFish(Fish *pFish, CatchData &catchData, FishManager *pMgr, Bullet
 				else
 					fc.eventType = CATCH_EVENT_EFFECT;
 			}
-			if (isKill)
-			{
-				catchData.goldNum += catchData.pSetting->CatchFish(catchData.playerID, pFish->FishType, CATCH_BULLET, (BYTE)catchData.pBullet->BulletType, catchData.pBullet->RateIndex, isKill);
-			}
+			catchData.goldNum += catchData.pSetting->CatchFish(catchData.playerID, pFish->FishType, CATCH_BULLET, (BYTE)catchData.pBullet->BulletType, catchData.pBullet->RateIndex, isKill);
 		}
 	}
 	catchData.fishCatchedMap.insert(make_pair(pFish->FishID, fc));

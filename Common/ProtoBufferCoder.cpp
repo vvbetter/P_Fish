@@ -33,7 +33,7 @@ void PrintLogInCmd( USHORT cmdType)
 #endif
 }
 
-NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, bool& isPBC)
+NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length)
 {
 	if (buffer == NULL)
 	{
@@ -42,13 +42,12 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 	}
 	PrintLogInCmd(cmdType);
 	NetCmd *pCmd = NULL;
-	isPBC = true;
 	//游戏大厅的这些请求不处理
 	if (cmdType == GetMsgType(159, 24) || cmdType == GetMsgType(65, 24) || cmdType == GetMsgType(156, 24)) //6303 同步配置表// 6209 请求退出子游戏//6300 时时彩LS请求GS下注
 	{
 		pCmd = CreateCmd(cmdType, sizeof(NetCmd));
 		//return NULL;
-		//Log("Ignore CmdType=%d", cmdType);
+		//Log("Ignore CmdType=%d", (((cmdType >> 8) & 0xff) | ((cmdType & 0xff) << 8)));
 	}
 	//大厅消息
 	else if (cmdType == GetMsgType(162, 24))//6306 使用物品
@@ -67,7 +66,7 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 	}
 	else if (cmdType == GetMsgType(Main_HallHeartBeat, 0))//游戏大厅连接消息，心跳
 	{
-		pCmd = CreateCmd(length + sizeof(USHORT), buffer);
+		pCmd = CreateCmd(cmdType, sizeof(NetCmd));
 	}
 	else if (cmdType == GetMsgType(67, 24)) //6211 请求金币改变，一般情况是充值原因导致的
 	{
@@ -259,7 +258,6 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 	}
 	else if (cmdType > 0x8000)
 	{
-		isPBC = false;
 		pCmd = CreateCmd(length, buffer);
 		//Log("PCB_Decode unkown data:cmdSize=%d,cmdType=%d,mainType=%d,subType=%d", pCmd->GetCmdSize(), pCmd->GetCmdType(), pCmd->GetCmdType() >> 8, pCmd->GetCmdType() & 0xff);
 	}
@@ -270,7 +268,7 @@ NetCmd* PBC_Decode(const USHORT cmdType, const char* buffer, const int length, b
 	}
 	return pCmd;
 }
-char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
+char* PBC_Encode(NetCmd* pCmd, uint& dataLenth)
 {
 	if (pCmd == NULL)
 	{
@@ -279,7 +277,6 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 	}
 	USHORT cmdType = pCmd->GetCmdType();
 	PrintLogInCmd(cmdType);
-	isPBC = true;
 	char* ret = NULL;
 	//Log("PBC_Encode cmdType =%d", cmdType);
 	switch (cmdType)
@@ -791,7 +788,6 @@ char* PBC_Encode(NetCmd* pCmd, uint& dataLenth, bool& isPBC)
 		break;
 	}
 	default:
-		isPBC = false;
 		ret = (char*)pCmd;
 		//Log("PCB_Eecode unkown data:cmdSize=%d,cmdType=%d,mainType=%d,subType=%d", pCmd->GetCmdSize(), pCmd->GetCmdType(), pCmd->GetCmdType() >> 8, pCmd->GetCmdType() & 0xff);
 		dataLenth = pCmd->GetCmdSize();
